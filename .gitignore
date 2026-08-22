@@ -5,3 +5,5 @@ scratch/
 .git_secret.txt
 upload.ps1
 꿀단지_업로드.bat
+*.json
+!kkuldanji_web/**/*.json

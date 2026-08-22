@@ -809,7 +809,45 @@
             alert('입력하신 신체 조건에 맞춘 실시간 분석이 완료되었습니다!');
         }
 
+                // Apply Admin Hidden Post Status in Real-Time
+        function applyAdminHiddenFilter() {
+            try {
+                const saved = localStorage.getItem('honeyjar_admin_posts');
+                if (saved) {
+                    const adminPosts = JSON.parse(saved);
+                    const hiddenSlugs = adminPosts.filter(p => p.isHidden).map(p => p.slug);
+                    
+                    if (hiddenSlugs.length > 0) {
+                        // Desktop
+                        document.querySelectorAll('#desktopCardsGrid .article-item').forEach(el => {
+                            const link = el.querySelector('a');
+                            if (link) {
+                                const href = link.getAttribute('href') || '';
+                                const isHidden = hiddenSlugs.some(slug => href.includes(slug));
+                                if (isHidden) {
+                                    el.setAttribute('data-admin-hidden', 'true');
+                                    el.style.display = 'none';
+                                }
+                            }
+                        });
+                        // Mobile
+                        document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item').forEach(el => {
+                            const link = el.querySelector('a');
+                            if (link) {
+                                const href = link.getAttribute('href') || '';
+                                const isHidden = hiddenSlugs.some(slug => href.includes(slug));
+                                if (isHidden) {
+                                    el.setAttribute('data-admin-hidden', 'true');
+                                    el.style.display = 'none';
+                                }
+                            }
+                        });
+                    }
+                }
+            } catch(e) {}
+        }
         document.addEventListener('DOMContentLoaded', function() {
+            applyAdminHiddenFilter();
             const urlParams = new URLSearchParams(window.location.search);
             const catParam = urlParams.get('cat');
             if (catParam) {
