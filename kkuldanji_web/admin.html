@@ -865,17 +865,17 @@
         <div class="admin-grid">
             <div class="stat-card">
                 <div class="stat-label">📈 총 누적 조회수 (PV)</div>
-                <div class="stat-value" id="statTotalViews" style="color: #c26908;">2,165회</div>
-                <div class="stat-sub" id="statTodayViews">✓ 오늘 방문자 약 184명</div>
+                <div class="stat-value" id="statTotalViews" style="color: #c26908;">0회</div>
+                <div class="stat-sub" id="statTodayViews">✓ 오늘 방문자 0명</div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">⏱️ 평균 독자 체류 시간</div>
-                <div class="stat-value" id="statAvgDwell" style="color: #059669;">2분 48초</div>
+                <div class="stat-value" id="statAvgDwell" style="color: #059669;">0분 0초</div>
                 <div class="stat-sub">✓ 애드센스 고수익 기준 충족 (2분+)</div>
             </div>
             <div class="stat-card">
                 <div class="stat-label">📜 평균 스크롤 완독률</div>
-                <div class="stat-value" id="statAvgScroll">82.4%</div>
+                <div class="stat-value" id="statAvgScroll">0%</div>
                 <div class="stat-sub">✓ 독자 집중도 매우 높음</div>
             </div>
             <div class="stat-card">
@@ -1135,6 +1135,15 @@
 </div>
 
 <script>
+    // Clean Reset to 0 for Real Inflow Tracking (v2.0)
+    (function checkZeroReset() {
+        const RESET_FLAG = 'honeyjar_zero_count_v2';
+        if (!localStorage.getItem(RESET_FLAG)) {
+            localStorage.removeItem('honeyjar_admin_posts');
+            localStorage.removeItem('honeyjar_analytics_data');
+            localStorage.setItem(RESET_FLAG, 'true');
+        }
+    })();
     // 1. Security Password set by Owner
     const ADMIN_PASS = "8809";
 
@@ -1147,7 +1156,7 @@
             category: "식단 & 영양",
             author: "에디터 혀니",
             date: "2026.08.19",
-            views: "3,420",
+            views: "0",
             thumb: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=900&auto=format&fit=crop&q=80",
             link: "posts/ohnara-diet.html",
             desc: "배우 오나라의 샐러드 식단 팩트 분석부터 중년 여성의 기초대사량을 지키는 3대 복합 다관절 운동 루틴까지 실생활에 적용하는 지속 가능한 웰니스 가이드.",
@@ -1161,7 +1170,7 @@
             category: "제철 음식",
             author: "에디터 혀니",
             date: "2026.08.19",
-            views: "2,890",
+            views: "0",
             thumb: "https://images.unsplash.com/photo-1547592180-85f173990554?w=900&auto=format&fit=crop&q=80",
             link: "posts/august-seasonal-foods.html",
             desc: "늦여름 더위에 지친 몸을 깨우는 8월 대표 제철 보약 식재료 5가지의 핵심 영양 성분과 기력 회복 레시피.",
@@ -1175,7 +1184,7 @@
             category: "식단 & 영양",
             author: "에디터 혀니",
             date: "2026.08.19",
-            views: "2,150",
+            views: "0",
             thumb: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=900&auto=format&fit=crop&q=80",
             link: "posts/mediterranean-diet.html",
             desc: "유네스코 인류무형문화유산 지중해 식단의 항염증 원리와 한국 마트에서 손쉽게 대체 식재료로 실천하는 가이드.",
@@ -1189,7 +1198,7 @@
             category: "식단 & 영양",
             author: "에디터 혀니",
             date: "2026.08.19",
-            views: "4,120",
+            views: "0",
             thumb: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=900&auto=format&fit=crop&q=80",
             link: "posts/intermittent-fasting-guide.html",
             desc: "지방 연소와 자가포식을 유도하는 16:8 간헐적 단식의 과학적 원리와 직장인을 위한 최적 시간표.",
@@ -1203,7 +1212,7 @@
             category: "라이프 웰니스",
             author: "에디터 혀니",
             date: "2026.08.19",
-            views: "1,980",
+            views: "0",
             thumb: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=900&auto=format&fit=crop&q=80",
             link: "posts/morning-routine.html",
             desc: "기상 직후 미온수 한 잔부터 림프 순환 스트레칭까지, 하루 에너지와 집중력을 2배로 올려주는 아침 루틴.",
@@ -1217,7 +1226,7 @@
             category: "라이프 웰니스",
             author: "에디터 혀니",
             date: "2026.08.19",
-            views: "2,430",
+            views: "0",
             thumb: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=900&auto=format&fit=crop&q=80",
             link: "posts/sleep-hygiene-guide.html",
             desc: "멜라토닌 분비를 극대화하는 침실 온도, 조도 조절법과 수면 장애를 극복하는 7대 수면 위생 수칙.",
@@ -1231,7 +1240,7 @@
             category: "홈트레이닝",
             author: "에디터 혀니",
             date: "2026.08.19",
-            views: "3,670",
+            views: "0",
             thumb: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=900&auto=format&fit=crop&q=80",
             link: "posts/posture-stretching-office.html",
             desc: "장시간 모니터를 보는 직장인의 목·어깨 통증을 즉각 완화하는 흉추 가동성 및 승모근 이완 5분 루틴.",
@@ -1245,7 +1254,7 @@
             category: "홈트레이닝",
             author: "에디터 혀니",
             date: "2026.08.19",
-            views: "2,740",
+            views: "0",
             thumb: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=900&auto=format&fit=crop&q=80",
             link: "posts/core-exercise-home.html",
             desc: "점프 동작 없이 매트 한 장으로 복부와 척추 기립근을 단련하는 아파트 맞춤형 무소음 코어 운동 가이드.",
@@ -1259,7 +1268,7 @@
             category: "식단 & 영양",
             author: "에디터 혀니",
             date: "2026.08.19",
-            views: "3,110",
+            views: "0",
             thumb: "https://images.unsplash.com/photo-1559839914-17aae19cec71?w=900&auto=format&fit=crop&q=80",
             link: "posts/water-intake-guide.html",
             desc: "체중과 활동량에 따른 1일 최적 수분 섭취 권장량 계산 공식과 체내 흡수율을 높이는 물 마시는 시간대.",
@@ -1477,7 +1486,7 @@
                 category: category,
                 author: author,
                 date: "2026.08.19",
-                views: "1",
+                views: "0",
                 thumb: thumb,
                 link: "posts/" + slug,
                 desc: desc,
@@ -2190,14 +2199,14 @@ ${formattedBody}
         postsList.sort((a, b) => b.views - a.views);
 
         // Update Top Stats
-        const avgSiteDwell = totalReads > 0 ? Math.round(totalDwellSec / totalReads) : 168;
-        const avgSiteScroll = totalReads > 0 ? Math.round(totalScrollSum / totalReads) : 82;
+        const avgSiteDwell = totalReads > 0 ? Math.round(totalDwellSec / totalReads) : 0;
+        const avgSiteScroll = totalReads > 0 ? Math.round(totalScrollSum / totalReads) : 0;
 
         const dwellMin = Math.floor(avgSiteDwell / 60);
         const dwellSecRem = avgSiteDwell % 60;
 
-        document.getElementById('statTotalViews').innerText = (totalViews || 2165).toLocaleString() + "회";
-        document.getElementById('statTodayViews').innerText = `✓ 오늘 방문자 약 ${(data.todayVisits || 184)}명`;
+        document.getElementById('statTotalViews').innerText = (totalViews || 0).toLocaleString() + "회";
+        document.getElementById('statTodayViews').innerText = `✓ 오늘 방문자 ${(data.todayVisits || 0)}명`;
         document.getElementById('statAvgDwell').innerText = `${dwellMin}분 ${dwellSecRem}초`;
         document.getElementById('statAvgScroll').innerText = `${avgSiteScroll}%`;
 
