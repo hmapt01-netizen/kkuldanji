@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta name="naver-site-verification" content="777188dc9a6f7168d15fca2b95716d6c12c39aa8" />
@@ -672,13 +672,14 @@
             }, 2000);
         }
 
-        // 🔒 관리자 숨김 글 완전 적용 함수 (메인 홈 모든 영역 동기화)
+        // 🔒 관리자 숨김 글 완전 적용 함수 (메인 홈 모든 영역 동기화 & 추천 배너 스마트 자동 교체)
         function applyAdminHiddenFilter() {
             try {
                 const saved = localStorage.getItem('honeyjar_admin_posts');
                 if (saved) {
                     const adminPosts = JSON.parse(saved);
                     const hiddenSlugs = adminPosts.filter(p => p.isHidden).map(p => p.slug);
+                    const visiblePosts = adminPosts.filter(p => !p.isHidden);
                     
                     if (hiddenSlugs && hiddenSlugs.length > 0) {
                         // 1. PC 카드 그리드
@@ -717,27 +718,55 @@
                             }
                         });
 
-                        // 4. 모바일 에디터 PICK 하이라이트 배너
-                        document.querySelectorAll('.highlight-banner-card').forEach(el => {
-                            const link = el.querySelector('a');
-                            if (link) {
-                                const href = link.getAttribute('href') || '';
-                                if (hiddenSlugs.some(slug => href.includes(slug))) {
-                                    el.style.setProperty('display', 'none', 'important');
+                        // 🌟 4. 모바일 에디터 PICK 하이라이트 배너 스마트 자동 대체!
+                        const mobileHighlight = document.querySelector('.highlight-banner-card');
+                        if (mobileHighlight) {
+                            const link = mobileHighlight.querySelector('a');
+                            const href = link ? (link.getAttribute('href') || '') : '';
+                            if (hiddenSlugs.some(slug => href.includes(slug))) {
+                                if (visiblePosts.length > 0) {
+                                    const nextPick = visiblePosts[0];
+                                    link.setAttribute('href', 'posts/' + nextPick.slug);
+                                    const titleEl = mobileHighlight.querySelector('.highlight-title');
+                                    if (titleEl) titleEl.innerText = nextPick.title;
+                                    const imgEl = mobileHighlight.querySelector('.highlight-thumb');
+                                    if (imgEl) {
+                                        imgEl.setAttribute('src', nextPick.thumb);
+                                        imgEl.setAttribute('alt', nextPick.title);
+                                    }
+                                    mobileHighlight.style.removeProperty('display');
+                                } else {
+                                    mobileHighlight.style.setProperty('display', 'none', 'important');
                                 }
                             }
-                        });
+                        }
 
-                        // 5. PC 메인 Featured Post
-                        document.querySelectorAll('.featured-post').forEach(el => {
-                            const link = el.querySelector('a');
-                            if (link) {
-                                const href = link.getAttribute('href') || '';
-                                if (hiddenSlugs.some(slug => href.includes(slug))) {
-                                    el.style.setProperty('display', 'none', 'important');
+                        // 🌟 5. PC 메인 Featured Post 스마트 자동 대체!
+                        const pcFeatured = document.querySelector('.featured-post');
+                        if (pcFeatured) {
+                            const link = pcFeatured.querySelector('a');
+                            const href = link ? (link.getAttribute('href') || '') : '';
+                            if (hiddenSlugs.some(slug => href.includes(slug))) {
+                                if (visiblePosts.length > 0) {
+                                    const nextFeatured = visiblePosts[0];
+                                    pcFeatured.querySelectorAll('a').forEach(a => a.setAttribute('href', 'posts/' + nextFeatured.slug));
+                                    const titleEl = pcFeatured.querySelector('h2 a');
+                                    if (titleEl) titleEl.innerText = nextFeatured.title;
+                                    const catEl = pcFeatured.querySelector('.featured-info span');
+                                    if (catEl) catEl.innerText = nextFeatured.category;
+                                    const descEl = pcFeatured.querySelector('.featured-info p');
+                                    if (descEl && nextFeatured.desc) descEl.innerText = nextFeatured.desc;
+                                    const imgEl = pcFeatured.querySelector('.featured-img img');
+                                    if (imgEl) {
+                                        imgEl.setAttribute('src', nextFeatured.thumb);
+                                        imgEl.setAttribute('alt', nextFeatured.title);
+                                    }
+                                    pcFeatured.style.removeProperty('display');
+                                } else {
+                                    pcFeatured.style.setProperty('display', 'none', 'important');
                                 }
                             }
-                        });
+                        }
                     }
                 }
             } catch(e) {}
