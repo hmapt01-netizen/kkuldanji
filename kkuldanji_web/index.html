@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta name="naver-site-verification" content="777188dc9a6f7168d15fca2b95716d6c12c39aa8" />
@@ -672,10 +672,89 @@
             }, 2000);
         }
 
-        // 🍯 PC 초기화 및 더보기
+        // 🔒 관리자 숨김 글 완전 적용 함수 (메인 홈 모든 영역 동기화)
+        function applyAdminHiddenFilter() {
+            try {
+                const saved = localStorage.getItem('honeyjar_admin_posts');
+                if (saved) {
+                    const adminPosts = JSON.parse(saved);
+                    const hiddenSlugs = adminPosts.filter(p => p.isHidden).map(p => p.slug);
+                    
+                    if (hiddenSlugs && hiddenSlugs.length > 0) {
+                        // 1. PC 카드 그리드
+                        document.querySelectorAll('#desktopCardsGrid .article-item').forEach(el => {
+                            const link = el.querySelector('a');
+                            if (link) {
+                                const href = link.getAttribute('href') || '';
+                                if (hiddenSlugs.some(slug => href.includes(slug))) {
+                                    el.setAttribute('data-admin-hidden', 'true');
+                                    el.style.setProperty('display', 'none', 'important');
+                                } else {
+                                    el.removeAttribute('data-admin-hidden');
+                                }
+                            }
+                        });
+
+                        // 2. 모바일 피드 스트림
+                        document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item').forEach(el => {
+                            const link = el.querySelector('a');
+                            if (link) {
+                                const href = link.getAttribute('href') || '';
+                                if (hiddenSlugs.some(slug => href.includes(slug))) {
+                                    el.setAttribute('data-admin-hidden', 'true');
+                                    el.style.setProperty('display', 'none', 'important');
+                                } else {
+                                    el.removeAttribute('data-admin-hidden');
+                                }
+                            }
+                        });
+
+                        // 3. 모바일 인기글 TOP 5
+                        document.querySelectorAll('.popular-posts-card-box .popular-post-row').forEach(el => {
+                            const href = el.getAttribute('href') || '';
+                            if (hiddenSlugs.some(slug => href.includes(slug))) {
+                                el.style.setProperty('display', 'none', 'important');
+                            }
+                        });
+
+                        // 4. 모바일 에디터 PICK 하이라이트 배너
+                        document.querySelectorAll('.highlight-banner-card').forEach(el => {
+                            const link = el.querySelector('a');
+                            if (link) {
+                                const href = link.getAttribute('href') || '';
+                                if (hiddenSlugs.some(slug => href.includes(slug))) {
+                                    el.style.setProperty('display', 'none', 'important');
+                                }
+                            }
+                        });
+
+                        // 5. PC 메인 Featured Post
+                        document.querySelectorAll('.featured-post').forEach(el => {
+                            const link = el.querySelector('a');
+                            if (link) {
+                                const href = link.getAttribute('href') || '';
+                                if (hiddenSlugs.some(slug => href.includes(slug))) {
+                                    el.style.setProperty('display', 'none', 'important');
+                                }
+                            }
+                        });
+                    }
+                }
+            } catch(e) {}
+        }
+
+        // 🍯 PC 칼럼 초기화 및 더보기
         let pcShown = 6;
         function initPcArticles() {
-            const items = document.querySelectorAll('#desktopCardsGrid .article-item');
+            const items = Array.from(document.querySelectorAll('#desktopCardsGrid .article-item'))
+                .filter(item => item.getAttribute('data-admin-hidden') !== 'true');
+            
+            document.querySelectorAll('#desktopCardsGrid .article-item').forEach(item => {
+                if (item.getAttribute('data-admin-hidden') === 'true') {
+                    item.style.setProperty('display', 'none', 'important');
+                }
+            });
+
             items.forEach((item, idx) => {
                 if (idx < pcShown) {
                     item.style.display = 'flex';
@@ -690,7 +769,9 @@
         }
 
         function loadMorePcArticles() {
-            const items = document.querySelectorAll('#desktopCardsGrid .article-item');
+            const items = Array.from(document.querySelectorAll('#desktopCardsGrid .article-item'))
+                .filter(item => item.getAttribute('data-admin-hidden') !== 'true');
+            
             let nextLimit = pcShown + 3;
             for (let i = pcShown; i < items.length && i < nextLimit; i++) {
                 items[i].style.display = 'flex';
@@ -707,7 +788,15 @@
         // 🍯 모바일 초기화 및 더보기
         let mobileShown = 4;
         function initMobileArticles() {
-            const items = document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item');
+            const items = Array.from(document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item'))
+                .filter(item => item.getAttribute('data-admin-hidden') !== 'true');
+            
+            document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item').forEach(item => {
+                if (item.getAttribute('data-admin-hidden') === 'true') {
+                    item.style.setProperty('display', 'none', 'important');
+                }
+            });
+
             items.forEach((item, idx) => {
                 if (idx < mobileShown) {
                     item.style.display = 'flex';
@@ -722,7 +811,9 @@
         }
 
         function loadMoreMobileArticles() {
-            const items = document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item');
+            const items = Array.from(document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item'))
+                .filter(item => item.getAttribute('data-admin-hidden') !== 'true');
+            
             let nextLimit = mobileShown + 4;
             for (let i = mobileShown; i < items.length && i < nextLimit; i++) {
                 items[i].style.display = 'flex';
@@ -752,7 +843,6 @@
                 });
             }
 
-            // 🎯 섹션 제목을 선택한 메뉴에 맞게 실시간 변경!
             const titleEl = document.getElementById('desktopSectionTitle');
             if (titleEl) {
                 if (cat === 'all') {
@@ -768,7 +858,9 @@
                 }
             }
 
-            const items = document.querySelectorAll('#desktopCardsGrid .article-item');
+            const items = Array.from(document.querySelectorAll('#desktopCardsGrid .article-item'))
+                .filter(item => item.getAttribute('data-admin-hidden') !== 'true');
+
             let visibleCount = 0;
             items.forEach((item, idx) => {
                 const itemCat = item.getAttribute('data-category') || '';
@@ -804,7 +896,9 @@
         }
 
         function filterTistoryFeed(cat, label) {
-            const items = document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item');
+            const items = Array.from(document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item'))
+                .filter(item => item.getAttribute('data-admin-hidden') !== 'true');
+
             items.forEach(item => {
                 const itemCat = item.getAttribute('data-category') || '';
                 if (cat === 'all' || itemCat.includes(cat) || (cat.includes('식단') && itemCat.includes('식단'))) {
@@ -821,49 +915,11 @@
             }
         }
 
-        // 계산기
         function calculateWellness(e) {
             e.preventDefault();
             alert('입력하신 신체 조건에 맞춘 실시간 분석이 완료되었습니다!');
         }
 
-                // Apply Admin Hidden Post Status in Real-Time
-        function applyAdminHiddenFilter() {
-            try {
-                const saved = localStorage.getItem('honeyjar_admin_posts');
-                if (saved) {
-                    const adminPosts = JSON.parse(saved);
-                    const hiddenSlugs = adminPosts.filter(p => p.isHidden).map(p => p.slug);
-                    
-                    if (hiddenSlugs.length > 0) {
-                        // Desktop
-                        document.querySelectorAll('#desktopCardsGrid .article-item').forEach(el => {
-                            const link = el.querySelector('a');
-                            if (link) {
-                                const href = link.getAttribute('href') || '';
-                                const isHidden = hiddenSlugs.some(slug => href.includes(slug));
-                                if (isHidden) {
-                                    el.setAttribute('data-admin-hidden', 'true');
-                                    el.style.display = 'none';
-                                }
-                            }
-                        });
-                        // Mobile
-                        document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item').forEach(el => {
-                            const link = el.querySelector('a');
-                            if (link) {
-                                const href = link.getAttribute('href') || '';
-                                const isHidden = hiddenSlugs.some(slug => href.includes(slug));
-                                if (isHidden) {
-                                    el.setAttribute('data-admin-hidden', 'true');
-                                    el.style.display = 'none';
-                                }
-                            }
-                        });
-                    }
-                }
-            } catch(e) {}
-        }
         document.addEventListener('DOMContentLoaded', function() {
             applyAdminHiddenFilter();
             const urlParams = new URLSearchParams(window.location.search);
