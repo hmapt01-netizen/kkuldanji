@@ -1,0 +1,365 @@
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내 몸 맞춤 건강 계산기 | 꿀단지 - 기초대사량·TDEE·권장 수분 1초 분석</title>
+    <meta name="description" content="나의 성별, 나이, 키, 체중, 활동량을 입력하여 기초대사량(BMR), 하루 권장 유지 칼로리(TDEE), 수분 및 단백질 권장 섭취량을 1초 만에 스마트하게 분석하세요.">
+    <link rel="canonical" href="https://honeyjar.co.kr/calculator.html">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=202608211800">
+
+    <style>
+        .calc-page-hero {
+            text-align: center;
+            padding: 16px 20px 10px;
+            max-width: 720px;
+            margin: 0 auto;
+        }
+        .calc-page-badge {
+            display: inline-block;
+            background: #fef3c7;
+            color: #b45309;
+            font-size: 0.8rem;
+            font-weight: 750;
+            padding: 4px 12px;
+            border-radius: 9999px;
+            margin-bottom: 6px;
+        }
+        .calc-page-title {
+            font-size: 1.5rem;
+            font-weight: 850;
+            color: #0f172a;
+            letter-spacing: -0.5px;
+            margin: 0 0 6px;
+        }
+        .calc-page-subtitle {
+            font-size: 0.95rem;
+            color: #64748b;
+            line-height: 1.6;
+            margin: 0;
+        }
+        .calc-wrapper-box {
+            max-width: 720px;
+            margin: 0 auto 50px;
+        }
+        .calc-faq-section {
+            max-width: 720px;
+            margin: 0 auto 60px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 28px;
+        }
+        .calc-faq-title {
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0 0 18px;
+            border-bottom: 2px solid #fef3c7;
+            padding-bottom: 10px;
+        }
+        .faq-item {
+            margin-bottom: 16px;
+        }
+        .faq-q {
+            font-size: 0.95rem;
+            font-weight: 750;
+            color: #1e293b;
+            margin-bottom: 4px;
+        }
+        .faq-a {
+            font-size: 0.88rem;
+            color: #64748b;
+            line-height: 1.6;
+        }
+    </style>
+    <style id="guaranteedMobileNavStyle">
+        @import url('https://cdn.jsdelivr.net/gh/moonspam/NanumSquareRound@master/nanumsquareround.min.css');
+        
+        .brand-text-stack {
+            font-family: 'NanumSquareRound', sans-serif !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            line-height: 1.15 !important;
+        }
+        .brand-sub-title {
+            font-family: 'NanumSquareRound', sans-serif !important;
+            font-size: 0.72rem !important;
+            font-weight: 800 !important;
+            color: #c26908 !important;
+            letter-spacing: 0.5px !important;
+        }
+        .brand-main-title {
+            font-family: 'NanumSquareRound', sans-serif !important;
+            font-size: 1.35rem !important;
+            font-weight: 800 !important;
+            color: #111827 !important;
+            letter-spacing: -0.5px !important;
+        }
+
+        /* 📱 모바일 (768px 이하): PC 메뉴바 숨김 */
+        @media (max-width: 768px) {
+            .desktop-header,
+            .clean-nav {
+                display: none !important;
+            }
+            .naver-mobile-top-bar {
+                display: flex !important;
+                position: sticky !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 54px !important;
+                background: #ffffff !important;
+                border-bottom: 1px solid #f1f5f9 !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                padding: 0 16px !important;
+                z-index: 1000 !important;
+                box-sizing: border-box !important;
+            }
+        }
+
+        /* 💻 PC (769px 이상): 모바일 요소 숨김 */
+        @media (min-width: 769px) {
+            .naver-mobile-top-bar,
+            #naverMobileDrawer,
+            .drawer-overlay {
+                display: none !important;
+            }
+            .desktop-header {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- 📱 모바일 상단 바 -->
+<div class="naver-mobile-top-bar">
+    <a href="index.html" class="brand-title" style="gap: 8px;">
+        <img src="images/logo.png?v=11.0" alt="꿀단지 심볼" class="brand-logo-img" style="height: 30px;">
+        <div class="brand-text-stack">
+            <span class="brand-sub-title">혀니의</span>
+            <span class="brand-main-title" style="font-size: 1.2rem;">꿀단지</span>
+        </div>
+    </a>
+    <button type="button" class="btn-mobile-menu-open" id="btnOpenMobileDrawer" aria-label="메뉴 열기">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+    </button>
+</div>
+
+<!-- 💻 PC 전용 깔끔한 상단 헤더 -->
+<header class="clean-header desktop-header">
+    <div class="header-container">
+        <a href="index.html" class="brand-title">
+            <img src="images/logo.png?v=11.0" alt="꿀단지 심볼" class="brand-logo-img">
+            <div class="brand-text-stack">
+                <span class="brand-sub-title">혀니의</span>
+                <span class="brand-main-title">꿀단지</span>
+            </div>
+        </a>
+        <nav class="clean-nav">
+            <ul>
+                <li><a href="index.html">홈</a></li>
+                <li><a href="index.html?cat=%EC%8B%9D%EB%8B%A8%20%26%20%EC%98%81%EC%96%91">식단·영양</a></li>
+                <li><a href="index.html?cat=%ED%99%88%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%8B%9D">홈트레이닝</a></li>
+                <li><a href="index.html?cat=%EB%9D%BC%EC%9D%B4%ED%94%84%20%EC%9B%B0%EB%8B%88%EC%8A%A4">라이프 웰니스</a></li>
+                <li><a href="about.html">소개</a></li>
+                <li><a href="contact.html">문의하기</a></li>
+            </ul>
+        </nav>
+    </div>
+</header>
+
+<!-- 📱 모바일 드로어 메뉴 -->
+<div class="drawer-overlay" id="drawerOverlay"></div>
+<aside class="naver-mobile-drawer" id="naverMobileDrawer">
+    <div class="drawer-header">
+        <div class="drawer-brand">
+            <img src="images/logo.png?v=11.0" alt="꿀단지 심볼" style="height: 32px; width: auto;">
+            <div class="brand-text-stack">
+                <span class="brand-sub-title" style="font-size: 0.72rem;">혀니의</span>
+                <span class="brand-main-title" style="font-size: 1.15rem;">꿀단지</span>
+            </div>
+        </div>
+        <button type="button" class="btn-drawer-close" id="btnCloseMobileDrawer" aria-label="메뉴 닫기">&times;</button>
+    </div>
+    <div class="drawer-body">
+        <div class="drawer-section-title">카테고리</div>
+        <ul class="drawer-menu-list">
+            <li><a href="index.html" class="drawer-nav-item">🏠 홈</a></li>
+            <li><a href="index.html?cat=%EC%8B%9D%EB%8B%A8%20%26%20%EC%98%81%EC%96%91" class="drawer-nav-item">🥗 식단·영양</a></li>
+            <li><a href="index.html?cat=%ED%99%88%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%8B%9D" class="drawer-nav-item">💪 홈트레이닝</a></li>
+            <li><a href="index.html?cat=%EB%9D%BC%EC%9D%B4%ED%94%84%20%EC%9B%B0%EB%8B%88%EC%8A%A4" class="drawer-nav-item">🌿 라이프 웰니스</a></li>
+        </ul>
+        <div class="drawer-section-title" style="margin-top: 24px;">안내 및 문의</div>
+        <ul class="drawer-menu-list">
+            <li><a href="about.html" class="drawer-nav-item">📖 매거진 소개</a></li>
+            <li><a href="contact.html" class="drawer-nav-item">✉️ 문의하기</a></li>
+            <li><a href="privacy.html" class="drawer-nav-item">🔒 개인정보처리방침</a></li>
+            <li><a href="terms.html" class="drawer-nav-item">📄 이용약관</a></li>
+        </ul>
+    </div>
+</aside>
+
+<main class="container">
+    <div class="calc-page-hero">
+        <span class="calc-page-badge">⚡ 1초 실시간 맞춤 분석</span>
+        <h1 class="calc-page-title">내 몸 맞춤 건강 계산기</h1>
+        <p class="calc-page-subtitle">성별, 나이, 키, 체중, 활동량을 바탕으로 기초대사량(BMR), 유지 칼로리(TDEE), 수분 권장량을 과학적으로 분석해 드립니다.</p>
+    </div>
+
+    <div class="calc-wrapper-box">
+        <section class="calc-card-section" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; padding:28px 24px; box-shadow:0 4px 14px rgba(0,0,0,0.04);">
+            <form id="wellness-calc-form" onsubmit="calculateWellness(event)">
+                <div class="calc-form-grid" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap:12px; margin-bottom:14px;">
+                    <div class="calc-input-group">
+                        <label for="calc-gender" style="display:block; font-size:0.85rem; font-weight:750; margin-bottom:6px; color:#1e293b;">성별</label>
+                        <select id="calc-gender" class="form-control" style="width:100%; height:42px; border:1px solid #cbd5e1; border-radius:8px; padding:0 10px;">
+                            <option value="female" selected>여성</option>
+                            <option value="male">남성</option>
+                        </select>
+                    </div>
+                    <div class="calc-input-group">
+                        <label for="calc-age" style="display:block; font-size:0.85rem; font-weight:750; margin-bottom:6px; color:#1e293b;">나이 (세)</label>
+                        <input type="number" id="calc-age" class="form-control" value="35" min="10" max="100" style="width:100%; height:42px; border:1px solid #cbd5e1; border-radius:8px; padding:0 10px;">
+                    </div>
+                    <div class="calc-input-group">
+                        <label for="calc-height" style="display:block; font-size:0.85rem; font-weight:750; margin-bottom:6px; color:#1e293b;">키 (cm)</label>
+                        <input type="number" id="calc-height" class="form-control" value="165" min="100" max="230" style="width:100%; height:42px; border:1px solid #cbd5e1; border-radius:8px; padding:0 10px;">
+                    </div>
+                    <div class="calc-input-group">
+                        <label for="calc-weight" style="display:block; font-size:0.85rem; font-weight:750; margin-bottom:6px; color:#1e293b;">체중 (kg)</label>
+                        <input type="number" id="calc-weight" class="form-control" value="55" min="30" max="200" style="width:100%; height:42px; border:1px solid #cbd5e1; border-radius:8px; padding:0 10px;">
+                    </div>
+                    <div class="calc-input-group" style="grid-column: 1 / -1;">
+                        <label for="calc-activity" style="display:block; font-size:0.85rem; font-weight:750; margin-bottom:6px; color:#1e293b;">활동량</label>
+                        <select id="calc-activity" class="form-control" style="width:100%; height:42px; border:1px solid #cbd5e1; border-radius:8px; padding:0 10px;">
+                            <option value="1.2">거의 운동 안 함 (좌식 생활)</option>
+                            <option value="1.375" selected>가벼운 활동 (주 1~3회 가벼운 운동)</option>
+                            <option value="1.55">보통 활동 (주 3~5회 적당한 운동)</option>
+                            <option value="1.725">활동적 (주 6~7회 강한 운동)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="calc-btn-submit" style="width:100%; height:46px; background:linear-gradient(135deg, #f59e0b, #d97706); color:#ffffff; font-size:1rem; font-weight:800; border:none; border-radius:10px; cursor:pointer; box-shadow:0 4px 12px rgba(217, 119, 6, 0.25);">
+                    맞춤 분석 결과 확인하기
+                </button>
+            </form>
+
+            <div id="calc-result-box" style="margin-top:24px; padding-top:20px; border-top:1px dashed #e2e8f0; display:grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap:12px;">
+                <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:14px; text-align:center;">
+                    <div style="font-size:0.78rem; color:#64748b; font-weight:700; margin-bottom:4px;">기초대사량 (BMR)</div>
+                    <div id="res-bmr" style="font-size:1.15rem; font-weight:850; color:#1e293b;">1,272 kcal</div>
+                </div>
+                <div style="background:#fef3c7; border:1px solid #fde68a; border-radius:12px; padding:14px; text-align:center;">
+                    <div style="font-size:0.78rem; color:#b45309; font-weight:700; margin-bottom:4px;">유지 칼로리 (TDEE)</div>
+                    <div id="res-tdee" style="font-size:1.15rem; font-weight:850; color:#b45309;">1,749 kcal</div>
+                </div>
+                <div style="background:#f0fdf4; border:1px solid #bbf7d0; border-radius:12px; padding:14px; text-align:center;">
+                    <div style="font-size:0.78rem; color:#166534; font-weight:700; margin-bottom:4px;">하루 권장 수분량</div>
+                    <div id="res-water" style="font-size:1.15rem; font-weight:850; color:#166534;">1.8 L</div>
+                </div>
+                <div style="background:#eff6ff; border:1px solid #bfdbfe; border-radius:12px; padding:14px; text-align:center;">
+                    <div style="font-size:0.78rem; color:#1e40af; font-weight:700; margin-bottom:4px;">권장 단백질</div>
+                    <div id="res-protein" style="font-size:1.15rem; font-weight:850; color:#1e40af;">55 g</div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <section class="calc-faq-section">
+        <h2 class="calc-faq-title">💡 자주 묻는 건강 계산 Q&A</h2>
+        <div class="faq-item">
+            <div class="faq-q">Q. 기초대사량(BMR)과 TDEE(활동 대사량)는 어떻게 다른가요?</div>
+            <div class="faq-a">기초대사량(BMR)은 숨만 쉬고 누워있을 때 생명 유지에 필요한 최소한의 에너지입니다. TDEE는 일상 활동과 운동량을 반영한 실제 하루 총 소모 칼로리입니다.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Q. 다이어트를 할 때는 칼로리를 얼마나 줄여야 하나요?</div>
+            <div class="faq-a">건강한 감량을 위해서는 TDEE에서 약 300~500 kcal 정도를 줄인 식단을 유지하면서 근력 운동을 병행하는 것이 요요 현상을 방지하는 최적의 방법입니다.</div>
+        </div>
+        <div class="faq-item">
+            <div class="faq-q">Q. 물은 정말 하루에 2리터를 마셔야 하나요?</div>
+            <div class="faq-a">체중과 계절, 활동량에 따라 다릅니다. 통상 체중 1kg당 약 30~33ml가 적당하며, 위 계산 결과로 나온 권장 수분량을 참고하세요.</div>
+        </div>
+    </section>
+</main>
+
+<footer class="clean-footer">
+    <div class="footer-inner">
+        <div>
+            <p>&copy; 2026 <strong>꿀단지</strong>. All rights reserved.</p>
+            <p style="font-size: 0.8rem; margin-top: 4px; color: var(--text-subtle);">
+                운영자: 혀니 | 이메일: hmapt01@gmail.com | 주소: 대한민국 서울시 도봉구 해등로 231
+            </p>
+        </div>
+        <ul class="footer-links">
+            <li><a href="about.html">소개</a></li>
+            <li><a href="privacy.html">개인정보처리방침</a></li>
+            <li><a href="terms.html">이용약관</a></li>
+            <li><a href="contact.html">문의하기</a></li>
+            <li><a href="admin.html" style="color: #111827; font-weight: 700;">관리자</a></li>
+        </ul>
+    </div>
+</footer>
+
+<script>
+    function calculateWellness(e) {
+        if (e) e.preventDefault();
+        const gender = document.getElementById('calc-gender').value;
+        const age = parseFloat(document.getElementById('calc-age').value) || 35;
+        const height = parseFloat(document.getElementById('calc-height').value) || 165;
+        const weight = parseFloat(document.getElementById('calc-weight').value) || 55;
+        const activity = parseFloat(document.getElementById('calc-activity').value) || 1.375;
+
+        // Mifflin-St Jeor Equation
+        let bmr = (10 * weight) + (6.25 * height) - (5 * age);
+        if (gender === 'male') {
+            bmr += 5;
+        } else {
+            bmr -= 161;
+        }
+
+        const tdee = Math.round(bmr * activity);
+        const water = ((weight * 33) / 1000).toFixed(1);
+        const protein = Math.round(weight * 1.0);
+
+        document.getElementById('res-bmr').textContent = Math.round(bmr).toLocaleString() + ' kcal';
+        document.getElementById('res-tdee').textContent = tdee.toLocaleString() + ' kcal';
+        document.getElementById('res-water').textContent = water + ' L';
+        document.getElementById('res-protein').textContent = protein + ' g';
+    }
+
+    // 📱 모바일 드로어 제어
+    const btnOpen = document.getElementById('btnOpenMobileDrawer');
+    const btnClose = document.getElementById('btnCloseMobileDrawer');
+    const overlay = document.getElementById('drawerOverlay');
+    const drawer = document.getElementById('naverMobileDrawer');
+
+    if (btnOpen && drawer && overlay) {
+        btnOpen.addEventListener('click', () => {
+            drawer.classList.add('open');
+            overlay.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        });
+        const closeMenu = () => {
+            drawer.classList.remove('open');
+            overlay.classList.remove('open');
+            document.body.style.overflow = '';
+        };
+        if (btnClose) btnClose.addEventListener('click', closeMenu);
+        overlay.addEventListener('click', closeMenu);
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,4 @@
+﻿.agents/
+*.tmp
+*.log
+scratch/

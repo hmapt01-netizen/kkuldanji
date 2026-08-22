@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 구글 애드센스 AI 승인 실전 완벽 가이드</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --primary-light: #eff6ff;
+            --success: #10b981;
+            --success-light: #ecfdf5;
+            --warning: #f59e0b;
+            --warning-light: #fffbeb;
+            --danger: #ef4444;
+            --danger-light: #fef2f2;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --gray-900: #0f172a;
+            --radius: 12px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+            background-color: #f8fafc;
+            color: var(--gray-800);
+            line-height: 1.7;
+            padding: 0;
+        }
+
+        /* Header / Hero */
+        header {
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
+            color: white;
+            padding: 60px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .header-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .badge-main {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.25);
+            border: 1px solid rgba(147, 197, 253, 0.4);
+            color: #93c5fd;
+            padding: 6px 16px;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            line-height: 1.25;
+            letter-spacing: -0.5px;
+        }
+
+        header p {
+            font-size: 1.125rem;
+            color: #cbd5e1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Container Layout */
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        /* Card Component */
+        .card {
+            background: white;
+            border-radius: var(--radius);
+            border: 1px solid var(--gray-200);
+            box-shadow: var(--shadow-sm);
+            padding: 32px;
+            margin-bottom: 32px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: var(--shadow-md);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--gray-100);
+            padding-bottom: 14px;
+        }
+
+        .step-number {
+            background: var(--primary);
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gray-900);
+        }
+
+        /* Comparison Table */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 14px 18px;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        th {
+            background-color: var(--gray-50);
+            color: var(--gray-700);
+            font-weight: 600;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        /* Alerts & Boxes */
+        .alert {
+            padding: 16px 20px;
+            border-radius: 8px;
+            margin: 18px 0;
+            font-size: 0.95rem;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .alert-info {
+            background-color: var(--primary-light);
+            border-left: 4px solid var(--primary);
+            color: #1e40af;
+        }
+
+        .alert-warning {
+            background-color: var(--warning-light);
+            border-left: 4px solid var(--warning);
+            color: #92400e;
+        }
+
+        .alert-success {
+            background-color: var(--success-light);
+            border-left: 4px solid var(--success);
+            color: #065f46;
+        }
+
+        /* Flow Process Grid */
+        .flow-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 18px;
+            margin: 24px 0;
+        }
+
+        .flow-item {
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 10px;
+            padding: 20px;
+            position: relative;
+        }
+
+        .flow-item h4 {
+            color: var(--gray-900);
+            margin-bottom: 8px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .flow-item p {
+            font-size: 0.9rem;
+            color: var(--gray-600);
+        }
+
+        /* Code Block */
+        .code-container {
+            position: relative;
+            margin: 18px 0;
+        }
+
+        pre {
+            background: #0f172a;
+            color: #f8fafc;
+            padding: 20px;
+            border-radius: 8px;
+            overflow-x: auto;
+            font-family: Consolas, Monaco, 'Courier New', Courier, monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .copy-btn:hover {
+            background: var(--primary);
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            margin: 18px 0;
+        }
+
+        .checklist li {
+            padding: 12px 16px;
+            background: var(--gray-50);
+            border: 1px solid var(--gray-200);
+            border-radius: 8px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s;
+        }
+
+        .checklist li:hover {
+            background: #f1f5f9;
+        }
+
+        .checklist li.checked {
+            background: var(--success-light);
+            border-color: #a7f3d0;
+            color: #065f46;
+            text-decoration: line-through;
+        }
+
+        .checklist input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--success);
+            cursor: pointer;
+        }
+
+        /* Status Pills */
+        .status-pill {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .pill-green { background: #d1fae5; color: #065f46; }
+        .pill-red { background: #fee2e2; color: #991b1b; }
+        .pill-yellow { background: #fef3c7; color: #92400e; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--gray-600);
+            font-size: 0.9rem;
+            border-top: 1px solid var(--gray-200);
+            margin-top: 60px;
+            background: white;
+        }
+
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .card { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-content">
+        <div class="badge-main">2026 LATEST PLAYBOOK</div>
+        <h1>2026 구글 애드센스 AI 승인 실전 가이드</h1>
+        <p>유튜브 '알파남' 채널의 34분 대본 기반 실전 프로세스 완벽 정리본</p>
+    </div>
+</header>
+
+<div class="container">
+
+    <!-- 0. 패러다임 변화 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="step-number">⚡</div>
+            <div class="card-title">1. 2026 애드센스 심사 패러다임의 변화</div>
+        </div>
+        <p>AI 글 생성 도구의 범람으로 과거의 단순 글 수량 채우기 방식은 99% 거절됩니다. 구글은 이제 <strong>'사이트 자체의 완성도와 운영 신뢰성'</strong>을 먼저 봅니다.</p>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>구분</th>
+                    <th>과거 방식 (2025 이전)</th>
+                    <th>2026 최신 방식</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>심사 기준</strong></td>
+                    <td>포스팅 수량 (글 10~12편)</td>
+                    <td><strong>사이트 구조 & UX/UI 완성도</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>플랫폼</strong></td>
+                    <td>티스토리, 블로그스팟 기본형</td>
+                    <td><strong>독립 도메인 기반 반응형 웹 (Replit 등)</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>구글 봇 판정</strong></td>
+                    <td>단순 텍스트 정보성 심사</td>
+                    <td>AI 대량 생성 필터링 ('가치 없는 콘텐츠' 거절 급증)</td>
+                </tr>
+                <tr>
+                    <td><strong>승인 필수 요소</strong></td>
+                    <td>1,500자 이상 텍스트 글</td>
+                    <td><strong>4대 신뢰 페이지 + 실제 작동하는 기능 구조</strong></td>
+                </tr>
+            </tbody>
+        </table>
+
+        <div class="alert alert-info">
+            💡 <strong>핵심 요약:</strong> 단순 글 복붙이 아니라, <strong>실제 언론사/뉴스 사이트 형태의 시스템</strong>을 갖추고 메인 도메인 승인을 뚫는 것이 핵심입니다.
+        </div>
+    </div>
+
+    <!-- 1. Replit 사이트 구축 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="step-number">1</div>
+            <div class="card-title">Replit(리플릿) AI로 승인용 사이트 제작</div>
+        </div>
+        <p>가장 쉽고 빠르게 승인 전용 반응형 미디어 사이트를 생성하는 단계입니다.</p>
+
+        <div class="flow-grid">
+            <div class="flow-item">
+                <h4>1. Replit 가입 & $20 구독</h4>
+                <p>리플릿 가입 후 $20 AI 플랜을 1회 결제합니다. (결제 직후 구독 취소를 해두면 자동 연장을 막을 수 있습니다.)</p>
+            </div>
+            <div class="flow-item">
+                <h4>2. 1개 전문 주제 선정</h4>
+                <p>잡블로그가 아닌 <strong>'러닝/마라톤', '실내 식물 가꾸기', '금융 정보'</strong> 등 명확한 1개 주제를 선택합니다.</p>
+            </div>
+            <div class="flow-item">
+                <h4>3. 4대 필수 페이지 생성</h4>
+                <p>소개(About), 개인정보처리방침(Privacy), 이용약관(Terms), 문의하기(Contact)를 반드시 포함합니다.</p>
+            </div>
+        </div>
+
+        <h4 style="margin-top: 20px; margin-bottom: 8px;">📋 리플릿 승인 사이트 프롬프트 템플릿</h4>
+        <div class="code-container">
+            <button class="copy-btn" onclick="copyCode('prompt-text')">복사하기</button>
+            <pre id="prompt-text">너는 전문적인 미디어/뉴스 정보 웹사이트를 구축하는 개발자야.
+주제는 '[러닝 및 마라톤 가이드]'이며, 방문자에게 신뢰를 줄 수 있는 전문 언론사 레이아웃으로 제작해줘.
+- 사이트명: [코리아 러닝 매거진]
+- 운영자 이름: [홍길동]
+- 이메일: [contact@mydomain.com]
+- 주소: [대한민국 경기도 안산시 단원구 고잔동 ...]
+- 대표 전화번호: [010-1234-5678]
+
+[필수 요구사항]
+1. 모바일 반응형 웹 UI/UX 및 상단 헤더, 카테고리 메뉴, 푸터 레이아웃
+2. 필수 신뢰 페이지 4종 (사이트 소개, 이용약관, 개인정보처리방침, 문의하기) 생성 및 링크 연결
+3. 주제에 맞는 고품질 정보성 칼럼/글 6~10편 및 카테고리 구성
+4. 사이트맵 및 관리자(Admin) 모드 포함</pre>
+        </div>
+    </div>
+
+    <!-- 2. 도메인 구매 및 DNS 세팅 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="step-number">2</div>
+            <div class="card-title">가비아 2차 도메인 구매 & DNS 연결</div>
+        </div>
+        <p>플랫폼 무료 주소가 아닌 <strong>개인 독립 도메인(.com, .kr, .co.kr)</strong>을 연결해야 승인 후 하위 도메인 무한 확장이 가능합니다.</p>
+
+        <div class="alert alert-warning">
+            ⚠️ <strong>도메인 구매 주의사항:</strong> 나중에 갱신비가 급등하는 저가형 도메인(xyz, site 등)은 피하고, <strong>.com / .kr / .co.kr</strong>을 1년 단위로 구매하세요. 처음엔 1개만 집중합니다.
+        </div>
+
+        <h4 style="margin: 16px 0 10px;">🔧 가비아 DNS 설정 매뉴얼</h4>
+        <table>
+            <thead>
+                <tr>
+                    <th>레코드 타입</th>
+                    <th>호스트</th>
+                    <th>값 (Value)</th>
+                    <th>TTL</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>A 레코드</strong></td>
+                    <td><code>@</code></td>
+                    <td>Replit이 제공한 IP 주소</td>
+                    <td><code>600</code></td>
+                </tr>
+                <tr>
+                    <td><strong>TXT 레코드</strong></td>
+                    <td><code>@</code></td>
+                    <td>Replit이 제공한 TXT 인증값</td>
+                    <td><code>600</code></td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="font-size: 0.9rem; color: var(--gray-600);">* 가비아 DNS 설정 완료 후 Replit에서 <strong>Link</strong> 버튼을 누르면 10분~1시간 내 파란색으로 연결 완료됩니다.</p>
+    </div>
+
+    <!-- 3. 애드센스 코드 삽입 및 검토 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="step-number">3</div>
+            <div class="card-title">애드센스 코드 삽입 & 재배포(Republish)</div>
+        </div>
+        <ol style="padding-left: 20px; margin-bottom: 20px; line-height: 2;">
+            <li><a href="https://adsense.google.com" target="_blank">구글 애드센스</a> 접속 → <strong>[사이트] → [새 사이트 추가]</strong> 클릭 후 도메인 입력</li>
+            <li>제공되는 <strong>애드센스 코드 스니펫</strong> 복사</li>
+            <li>Replit AI에게 <code>"HTML의 &lt;head&gt; 태그 바로 아래에 이 애드센스 코드 넣어줘"</code> 요청</li>
+            <li><strong>⚠️ 핵심 확인:</strong> 코드 삽입 후 Replit 상단 <strong>[Republish(재배포)]</strong>를 반드시 실행!</li>
+            <li>애드센스로 돌아와 <strong>[코드를 삽입했습니다]</strong> 체크 후 <strong>[검토 요청]</strong> 클릭</li>
+        </ol>
+    </div>
+
+    <!-- 4. 심사 상태별 대응 매뉴얼 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="step-number">4</div>
+            <div class="card-title">심사 대기 및 상태별 대처법</div>
+        </div>
+        <p>애드센스 심사는 통상 <strong>1주 ~ 4주</strong> 소요됩니다.</p>
+
+        <div class="flow-grid">
+            <div class="flow-item">
+                <h4><span class="status-pill pill-green">준비됨</span> 승인 완료</h4>
+                <p>승인 즉시 자동 광고를 켜고, 하위 도메인을 만들어 워드프레스/티스토리에 무심사 광고를 확장합니다.</p>
+            </div>
+            <div class="flow-item">
+                <h4><span class="status-pill pill-red">주의 필요</span> 가치 없는 콘텐츠</h4>
+                <p>구글 AI 봇의 자동 매크로 거절입니다. 상처받지 말고 즉시 <strong>[문제 해결함] 체크 후 재신청</strong>을 반복하세요.</p>
+            </div>
+            <div class="flow-item">
+                <h4><span class="status-pill pill-yellow">검토 필요</span> 코드 인식 오류</h4>
+                <p>Replit에서 코드가 제대로 들어갔는지 확인하고 <strong>Republish(재배포)</strong>를 다시 누른 뒤 재신청합니다.</p>
+            </div>
+            <div class="flow-item">
+                <h4>⏳ 4주 이상 무응답 시</h4>
+                <p>애드센스 사이트 목록에서 해당 도메인을 <strong>[삭제]</strong>한 후, 처음부터 다시 [사이트 추가]하여 재접수합니다.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 5. 서브도메인 확장 & 투트랙 전략 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="step-number">5</div>
+            <div class="card-title">루트 도메인 승인 후 무한 확장 & 투트랙 수익화</div>
+        </div>
+
+        <h4 style="margin-bottom: 10px;">🌟 서브도메인 무한 확장 (사업자 등록 효과)</h4>
+        <p>메인 도메인(<code>mydomain.com</code>) 승인 1회 완료 시, 하위 도메인은 <strong>추가 심사 없이 즉시 광고 송출</strong>이 가능합니다.</p>
+        <ul style="padding-left: 20px; margin: 12px 0 20px; line-height: 1.8;">
+            <li><code>blog.mydomain.com</code> ➔ <strong>티스토리</strong> 연결</li>
+            <li><code>wp.mydomain.com</code> ➔ <strong>워드프레스</strong> 연결</li>
+            <li><code>info.mydomain.com</code> ➔ <strong>구글 블로거(Blogspot)</strong> 연결</li>
+        </ul>
+
+        <div class="alert alert-success">
+            💰 <strong>심사 대기 기간 투트랙(Two-Phase) 운영:</strong><br>
+            애드센스 승인을 기다리는 2~4주 동안 <strong>네이버 블로그(애드포스트) + 쿠팡파트너스/제휴마케팅</strong>을 병행하여 즉시 첫 현금 흐름을 만드세요! 1개의 콘텐츠를 스레드, 인스타, 커뮤니티로 배포하는 <strong>원소스 멀티유즈(OSMU)</strong>가 핵심입니다.
+        </div>
+    </div>
+
+    <!-- 6. 인터랙티브 체크리스트 -->
+    <div class="card">
+        <div class="card-header">
+            <div class="step-number">✔</div>
+            <div class="card-title">실전 실행 체크리스트</div>
+        </div>
+        <p>각 단계를 완료할 때마다 클릭하여 체크하세요.</p>
+
+        <ul class="checklist" id="todo-list">
+            <li onclick="toggleCheck(this)"><input type="checkbox"> Replit 가입 및 $20 플랜 결제 (즉시 구독 취소 완료)</li>
+            <li onclick="toggleCheck(this)"><input type="checkbox"> 1개 전문 주제 선정 및 4대 신뢰 페이지(소개, 약관, 개인정보, 문의) 사이트 생성</li>
+            <li onclick="toggleCheck(this)"><input type="checkbox"> 가비아에서 .com / .kr 도메인 1개 구매 (1년)</li>
+            <li onclick="toggleCheck(this)"><input type="checkbox"> 가비아 DNS 설정 (A 레코드, TXT 레코드) 및 Replit 링크 연결 완료</li>
+            <li onclick="toggleCheck(this)"><input type="checkbox"> 애드센스에 도메인 등록 및 &lt;head&gt; 아래 코드 삽입</li>
+            <li onclick="toggleCheck(this)"><input type="checkbox"> ⚠️ Replit 상단 [Republish(재배포)] 실행 확인</li>
+            <li onclick="toggleCheck(this)"><input type="checkbox"> 애드센스 [검토 요청] 제출</li>
+            <li onclick="toggleCheck(this)"><input type="checkbox"> 승인 대기 기간 동안 네이버 블로그 + 제휴마케팅 병행 가동</li>
+            <li onclick="toggleCheck(this)"><input type="checkbox"> 거절되더라도 즉시 재신청 반복 (매크로 거절 극복)</li>
+            <li onclick="toggleCheck(this)"><input type="checkbox"> 승인 후 서브도메인 개설하여 워드프레스/티스토리 무심사 광고 확장</li>
+        </ul>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 구글 애드센스 AI 승인 실전 가이드북 | 출처: 알파남 유튜브 실전 대본 분석</p>
+</footer>
+
+<script>
+    function copyCode(id) {
+        const text = document.getElementById(id).innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            const btn = event.target;
+            const orig = btn.innerText;
+            btn.innerText = '복사 완료!';
+            btn.style.background = '#10b981';
+            setTimeout(() => {
+                btn.innerText = orig;
+                btn.style.background = '';
+            }, 2000);
+        });
+    }
+
+    function toggleCheck(el) {
+        const cb = el.querySelector('input[type="checkbox"]');
+        if (event.target !== cb) {
+            cb.checked = !cb.checked;
+        }
+        if (cb.checked) {
+            el.classList.add('checked');
+        } else {
+            el.classList.remove('checked');
+        }
+    }
+</script>
+
+</body>
+</html>

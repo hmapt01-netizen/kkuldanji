@@ -1,0 +1,825 @@
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>꿀단지 | 건강한 일상을 위한 라이프 & 웰니스 저널</title>
+    <meta name="description" content="식단과 제철 영양, 10분 홈트레이닝 및 실생활 웰니스 꿀팁을 전하는 혀니의 꿀단지.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css?v=20260821164233">
+</head>
+<body>
+
+    <!-- ==========================================================================
+         💻 [PC 데스크톱 레이아웃] 1040px 2열 오리지널 매거진
+         ========================================================================== -->
+    <div class="desktop-layout">
+        <!-- PC 상단 헤더 -->
+        <header class="clean-header desktop-header">
+            <div class="header-container">
+                <a href="index.html" class="brand-title">
+                    <img src="images/logo.png?v=11.0" alt="꿀단지 심볼" class="brand-logo-img">
+                    <div class="brand-text-stack">
+                        <span class="brand-sub-title">혀니의</span>
+                        <span class="brand-main-title">꿀단지</span>
+                    </div>
+                </a>
+                <nav class="clean-nav">
+                    <ul>
+                        <li><a href="javascript:void(0)" onclick="filterDesktopCategory('all', this)" class="nav-cat-btn active">홈</a></li>
+                        <li><a href="javascript:void(0)" onclick="filterDesktopCategory('식단 & 영양', this)" class="nav-cat-btn">식단·영양</a></li>
+                        <li><a href="javascript:void(0)" onclick="filterDesktopCategory('홈트레이닝', this)" class="nav-cat-btn">홈트레이닝</a></li>
+                        <li><a href="javascript:void(0)" onclick="filterDesktopCategory('라이프 웰니스', this)" class="nav-cat-btn">라이프 웰니스</a></li>
+                        <li><a href="about.html">소개</a></li>
+                        <li><a href="contact.html">문의하기</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </header>
+
+        <main class="container" style="max-width: 1040px; margin: 0 auto; padding: 36px 20px;">
+            <!-- Featured Story -->
+            <section class="featured-post" style="display:grid; grid-template-columns:1.2fr 1fr; gap:36px; align-items:center; padding-bottom:36px; margin-bottom:36px; border-bottom:1px solid #e2e8f0;">
+                <div class="featured-img" style="border-radius:12px; overflow:hidden; height:300px;">
+                    <img src="images/posts/ohnara/thumb.jpg?v=1.2" alt="오나라 식단 샐러드 관리법" style="width:100%; height:100%; object-fit:cover;">
+                </div>
+                <div class="featured-info">
+                    <span style="font-size:0.8rem; font-weight:700; color:#c26908; text-transform:uppercase; margin-bottom:8px; display:block;">식단 & 영양</span>
+                    <h2 style="font-size:1.45rem; font-weight:800; color:#111827; line-height:1.4; margin-bottom:12px;">
+                        <a href="posts/ohnara-diet.html">오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동</a>
+                    </h2>
+                    <p style="font-size:0.94rem; color:#475569; line-height:1.7; margin-bottom:16px;">
+                        배우 오나라의 샐러드 식단 팩트 분석부터 중년 여성의 기초대사량을 지키는 3대 복합 다관절 운동 루틴까지, 실생활에 적용하는 지속 가능한 웰니스 가이드.
+                    </p>
+                    <div style="font-size:0.82rem; color:#94a3b8;">
+                        <span>작성: 에디터 혀니 · 2026.08.19</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 내 몸 맞춤 건강 계산기 (PC 인라인 카드) -->
+            <section class="calc-card-section" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:14px; padding:28px 24px; margin-bottom:44px;">
+                <div class="calc-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px; padding-bottom:12px; border-bottom:1px solid #e2e8f0;">
+                    <div style="font-size:1.15rem; font-weight:800; color:#111827; display:flex; align-items:center; gap:8px;">
+                        <span>내 몸 맞춤 건강 계산기</span>
+                        <span style="font-size:0.75rem; font-weight:700; color:#c26908; background:#fef3c7; border:1px solid #fde68a; padding:2px 8px; border-radius:9999px;">실시간 분석</span>
+                    </div>
+                    <span style="font-size:0.84rem; color:#64748b;">신체 조건에 맞춘 권장 수치 계산</span>
+                </div>
+
+                <form onsubmit="calculateWellness(event)">
+                    <div style="display:grid; grid-template-columns:repeat(5, 1fr); gap:12px; margin-bottom:14px;">
+                        <div>
+                            <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:4px; color:#334155;">성별</label>
+                            <select id="pc-calc-gender" style="width:100%; height:40px; border-radius:8px; border:1px solid #cbd5e1; padding:0 10px;" required>
+                                <option value="female">여성</option>
+                                <option value="male">남성</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:4px; color:#334155;">나이 (세)</label>
+                            <input type="number" id="pc-calc-age" placeholder="예: 35" min="10" max="100" style="width:100%; height:40px; border-radius:8px; border:1px solid #cbd5e1; padding:0 10px;" required>
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:4px; color:#334155;">키 (cm)</label>
+                            <input type="number" id="pc-calc-height" placeholder="예: 165" min="100" max="220" style="width:100%; height:40px; border-radius:8px; border:1px solid #cbd5e1; padding:0 10px;" required>
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:4px; color:#334155;">체중 (kg)</label>
+                            <input type="number" id="pc-calc-weight" placeholder="예: 55" min="30" max="200" style="width:100%; height:40px; border-radius:8px; border:1px solid #cbd5e1; padding:0 10px;" required>
+                        </div>
+                        <div>
+                            <label style="display:block; font-size:0.8rem; font-weight:700; margin-bottom:4px; color:#334155;">활동량</label>
+                            <select id="pc-calc-activity" style="width:100%; height:40px; border-radius:8px; border:1px solid #cbd5e1; padding:0 10px;" required>
+                                <option value="1.2">가벼운 활동 (좌식)</option>
+                                <option value="1.375">보통 활동 (주 2~3회)</option>
+                                <option value="1.55">활동적 (주 4~5회)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" style="width:100%; height:42px; background:linear-gradient(135deg, #f59e0b, #d97706); color:#fff; border:none; border-radius:8px; font-weight:750; font-size:0.95rem; cursor:pointer;">맞춤 분석 결과 확인하기</button>
+                </form>
+            </section>
+
+            <!-- PC 칼럼 3열 그리드 -->
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:18px;">
+                <h2 style="font-size:1.25rem; font-weight:850; color:#0f172a;" id="desktopSectionTitle">전체 칼럼 모음</h2>
+            </div>
+
+            <section class="clean-grid" id="desktopCardsGrid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;">
+                <!-- Post 1: 오나라 식단 -->
+                <article class="clean-card article-item" data-category="식단 & 영양" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
+                    <div style="position:relative; height:180px;">
+                        <a href="posts/ohnara-diet.html">
+                            <img src="images/posts/ohnara/thumb.jpg?v=1.2" alt="오나라 식단" style="width:100%; height:100%; object-fit:cover;">
+                        </a>
+                    </div>
+                    <div style="padding:16px; display:flex; flex-direction:column; flex:1;">
+                        <span style="font-size:0.75rem; color:#c26908; font-weight:750; margin-bottom:6px;">식단 & 영양</span>
+                        <h3 style="font-size:1.02rem; font-weight:800; color:#111827; margin-bottom:8px; line-height:1.45;">
+                            <a href="posts/ohnara-diet.html">오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동</a>
+                        </h3>
+                        <p style="font-size:0.86rem; color:#475569; line-height:1.6; margin-bottom:12px;">배우 오나라의 샐러드 식단 팩트 분석부터 중년 여성의 기초대사량을 지키는 3대 운동법.</p>
+                        <div style="font-size:0.76rem; color:#94a3b8; margin-top:auto;">2026.08.19</div>
+                    </div>
+                </article>
+
+                <!-- Post 2: 8월 제철 음식 -->
+                <article class="clean-card article-item" data-category="식단 & 영양" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
+                    <div style="position:relative; height:180px;">
+                        <a href="posts/august-seasonal-foods.html">
+                            <img src="images/posts/august/thumb.jpg?v=1.1" alt="8월 제철 음식" style="width:100%; height:100%; object-fit:cover;">
+                        </a>
+                    </div>
+                    <div style="padding:16px; display:flex; flex-direction:column; flex:1;">
+                        <span style="font-size:0.75rem; color:#c26908; font-weight:750; margin-bottom:6px;">식단 & 영양 · 제철</span>
+                        <h3 style="font-size:1.02rem; font-weight:800; color:#111827; margin-bottom:8px; line-height:1.45;">
+                            <a href="posts/august-seasonal-foods.html">8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드</a>
+                        </h3>
+                        <p style="font-size:0.86rem; color:#475569; line-height:1.6; margin-bottom:12px;">전복의 타우린부터 복숭아의 유기산까지, 늦여름 피로를 날려주는 천연 보약 식재료 5가지.</p>
+                        <div style="font-size:0.76rem; color:#94a3b8; margin-top:auto;">2026.08.19</div>
+                    </div>
+                </article>
+
+                <!-- Post 3: 지중해식 식단 -->
+                <article class="clean-card article-item" data-category="식단 & 영양" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
+                    <div style="position:relative; height:180px;">
+                        <a href="posts/mediterranean-diet.html">
+                            <img src="images/posts/mediterranean/thumb.jpg?v=1.2" alt="지중해식 식단" style="width:100%; height:100%; object-fit:cover;">
+                        </a>
+                    </div>
+                    <div style="padding:16px; display:flex; flex-direction:column; flex:1;">
+                        <span style="font-size:0.75rem; color:#c26908; font-weight:750; margin-bottom:6px;">식단 & 영양</span>
+                        <h3 style="font-size:1.02rem; font-weight:800; color:#111827; margin-bottom:8px; line-height:1.45;">
+                            <a href="posts/mediterranean-diet.html">세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁</a>
+                        </h3>
+                        <p style="font-size:0.86rem; color:#475569; line-height:1.6; margin-bottom:12px;">심혈관 건강과 장수를 돕는 지중해식 식단의 4대 원리와 대체 식재료 장보기 팁.</p>
+                        <div style="font-size:0.76rem; color:#94a3b8; margin-top:auto;">2026.08.19</div>
+                    </div>
+                </article>
+
+                <!-- Post 4: 간헐적 단식 -->
+                <article class="clean-card article-item" data-category="식단 & 영양" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
+                    <div style="position:relative; height:180px;">
+                        <a href="posts/intermittent-fasting-guide.html">
+                            <img src="images/posts/fasting/thumb.jpg?v=1.1" alt="간헐적 단식" style="width:100%; height:100%; object-fit:cover;">
+                        </a>
+                    </div>
+                    <div style="padding:16px; display:flex; flex-direction:column; flex:1;">
+                        <span style="font-size:0.75rem; color:#c26908; font-weight:750; margin-bottom:6px;">식단 & 영양</span>
+                        <h3 style="font-size:1.02rem; font-weight:800; color:#111827; margin-bottom:8px; line-height:1.45;">
+                            <a href="posts/intermittent-fasting-guide.html">간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표</a>
+                        </h3>
+                        <p style="font-size:0.86rem; color:#475569; line-height:1.6; margin-bottom:12px;">체지방 감량과 오토파지 활성화를 돕는 16:8 간헐적 단식의 정확한 방법과 혈당 스파이크 습관.</p>
+                        <div style="font-size:0.76rem; color:#94a3b8; margin-top:auto;">2026.08.19</div>
+                    </div>
+                </article>
+
+                <!-- Post 5: 아침 공복 루틴 -->
+                <article class="clean-card article-item" data-category="라이프 웰니스" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
+                    <div style="position:relative; height:180px;">
+                        <a href="posts/morning-routine.html">
+                            <img src="images/posts/morning/thumb.jpg?v=1.2" alt="아침 공복 루틴" style="width:100%; height:100%; object-fit:cover;">
+                        </a>
+                    </div>
+                    <div style="padding:16px; display:flex; flex-direction:column; flex:1;">
+                        <span style="font-size:0.75rem; color:#c26908; font-weight:750; margin-bottom:6px;">라이프 웰니스</span>
+                        <h3 style="font-size:1.02rem; font-weight:800; color:#111827; margin-bottom:8px; line-height:1.45;">
+                            <a href="posts/morning-routine.html">아침 공복 유산소와 식사 타이밍, 혈당 스파이크 방지 습관</a>
+                        </h3>
+                        <p style="font-size:0.86rem; color:#475569; line-height:1.6; margin-bottom:12px;">기상 후 첫 끼니 순서와 가벼운 공복 유산소가 대사 건강과 인슐린 감수성에 미치는 영향.</p>
+                        <div style="font-size:0.76rem; color:#94a3b8; margin-top:auto;">2026.08.19</div>
+                    </div>
+                </article>
+
+                <!-- Post 6: 수면 위생 -->
+                <article class="clean-card article-item" data-category="라이프 웰니스" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
+                    <div style="position:relative; height:180px;">
+                        <a href="posts/sleep-hygiene-guide.html">
+                            <img src="images/posts/sleep/thumb.jpg?v=1.2" alt="수면 위생" style="width:100%; height:100%; object-fit:cover;">
+                        </a>
+                    </div>
+                    <div style="padding:16px; display:flex; flex-direction:column; flex:1;">
+                        <span style="font-size:0.75rem; color:#c26908; font-weight:750; margin-bottom:6px;">라이프 웰니스</span>
+                        <h3 style="font-size:1.02rem; font-weight:800; color:#111827; margin-bottom:8px; line-height:1.45;">
+                            <a href="posts/sleep-hygiene-guide.html">수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환경 가이드</a>
+                        </h3>
+                        <p style="font-size:0.86rem; color:#475569; line-height:1.6; margin-bottom:12px;">만성 피로를 해소하고 깊은 숙면을 유도하는 최적의 실내 온도, 조명 환경, 카페인 반감기 수칙.</p>
+                        <div style="font-size:0.76rem; color:#94a3b8; margin-top:auto;">2026.08.19</div>
+                    </div>
+                </article>
+
+                <!-- Post 7: 거북목 스트레칭 -->
+                <article class="clean-card article-item" data-category="홈트레이닝" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
+                    <div style="position:relative; height:180px;">
+                        <a href="posts/posture-stretching-office.html">
+                            <img src="images/posts/posture/thumb.jpg?v=1.1" alt="자세 교정 스트레칭" style="width:100%; height:100%; object-fit:cover;">
+                        </a>
+                    </div>
+                    <div style="padding:16px; display:flex; flex-direction:column; flex:1;">
+                        <span style="font-size:0.75rem; color:#c26908; font-weight:750; margin-bottom:6px;">홈트레이닝</span>
+                        <h3 style="font-size:1.02rem; font-weight:800; color:#111827; margin-bottom:8px; line-height:1.45;">
+                            <a href="posts/posture-stretching-office.html">직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭</a>
+                        </h3>
+                        <p style="font-size:0.86rem; color:#475569; line-height:1.6; margin-bottom:12px;">모니터 앞에서 굳어버린 목과 어깨를 풀어주고 굽은 등과 척추 정렬을 회복하는 초간단 오피스 루틴.</p>
+                        <div style="font-size:0.76rem; color:#94a3b8; margin-top:auto;">2026.08.19</div>
+                    </div>
+                </article>
+
+                <!-- Post 8: 코어 운동 루틴 -->
+                <article class="clean-card article-item" data-category="홈트레이닝" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
+                    <div style="position:relative; height:180px;">
+                        <a href="posts/core-exercise-home.html">
+                            <img src="images/posts/core/thumb.jpg?v=1.1" alt="코어 홈트레이닝" style="width:100%; height:100%; object-fit:cover;">
+                        </a>
+                    </div>
+                    <div style="padding:16px; display:flex; flex-direction:column; flex:1;">
+                        <span style="font-size:0.75rem; color:#c26908; font-weight:750; margin-bottom:6px;">홈트레이닝</span>
+                        <h3 style="font-size:1.02rem; font-weight:800; color:#111827; margin-bottom:8px; line-height:1.45;">
+                            <a href="posts/core-exercise-home.html">바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴</a>
+                        </h3>
+                        <p style="font-size:0.86rem; color:#475569; line-height:1.6; margin-bottom:12px;">데드버그, 버드독, 글루트 브릿지 등 요추 부담 없이 척추 기립근과 복부 심부 근육을 단단하게 지지하는 운동법.</p>
+                        <div style="font-size:0.76rem; color:#94a3b8; margin-top:auto;">2026.08.19</div>
+                    </div>
+                </article>
+
+                <!-- Post 9: 하루 물 2리터 가이드 -->
+                <article class="clean-card article-item" data-category="식단 & 영양" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
+                    <div style="position:relative; height:180px;">
+                        <a href="posts/water-intake-guide.html">
+                            <img src="images/posts/water/thumb.jpg?v=1.2" alt="수분 섭취 가이드" style="width:100%; height:100%; object-fit:cover;">
+                        </a>
+                    </div>
+                    <div style="padding:16px; display:flex; flex-direction:column; flex:1;">
+                        <span style="font-size:0.75rem; color:#c26908; font-weight:750; margin-bottom:6px;">식단 & 영양</span>
+                        <h3 style="font-size:1.02rem; font-weight:800; color:#111827; margin-bottom:8px; line-height:1.45;">
+                            <a href="posts/water-intake-guide.html">하루 물 2리터 권장량의 진실, 올바른 수분 섭취법과 체내 밸런스</a>
+                        </h3>
+                        <p style="font-size:0.86rem; color:#475569; line-height:1.6; margin-bottom:12px;">획일적인 2L 기준 대신 내 몸무게에 맞춘 정확한 수분 섭취 공식과 체내 전해질 밸런스를 지키는 스마트한 음수 습관.</p>
+                        <div style="font-size:0.76rem; color:#94a3b8; margin-top:auto;">2026.08.19</div>
+                    </div>
+                </article>
+            </section>
+
+            <!-- 🍯 PC 칼럼 더보기 버튼 -->
+            <div class="load-more-wrapper" id="pcLoadMoreWrapper">
+                <button type="button" class="btn-load-more" id="btnPcLoadMore" onclick="loadMorePcArticles()">
+                    더보기 ▾
+                </button>
+                <div id="pcAllLoadedMsg" class="all-loaded-msg">마지막 입니다.</div>
+            </div>
+        </main>
+    </div>
+
+
+    <!-- ==========================================================================
+         📱 [모바일 스마트폰 레이아웃] 티스토리 모던 카드 스트림 (총 9편)
+         ========================================================================== -->
+    <div class="mobile-tistory-layout">
+        <main class="tistory-main-layout" style="padding: 16px 14px 16px 14px;">
+
+            <!-- 🍯 1. 상단 프로필 카드 (웜 앰버 그라데이션) -->
+            <section class="profile-card-hero-box">
+                <span class="profile-card-tag">라이프 & 웰니스 건강 큐레이션</span>
+                <a href="index.html" class="hero-brand-logo">
+                    <img src="images/logo.png?v=11.0" alt="꿀단지 로고" class="profile-card-logo-img">
+                    <div class="brand-text-stack" style="text-align:left;">
+                        <span class="brand-sub-title" style="font-size:0.75rem; color:#c26908; font-weight:800;">혀니의</span>
+                        <span class="brand-main-title" style="font-size:1.55rem; color:#111827; font-weight:850;">꿀단지</span>
+                    </div>
+                </a>
+                <p class="hero-desc-text">
+                    정직하고 유익한 라이프 & 웰니스 꿀팁을 전합니다.<br>
+                    식단과 제철 영양, 10분 홈트레이닝 및 실생활 건강 가이드를 기록합니다.
+                </p>
+            </section>
+
+            <!-- 🌟 2. 이번 주 추천 하이라이트 배너 -->
+            <div class="highlight-banner-card">
+                <a href="posts/mediterranean-diet.html" class="highlight-banner-link">
+                    <div class="highlight-banner-content">
+                        <span class="highlight-badge">🔥 이번 주 에디터 PICK</span>
+                        <h3 class="highlight-title">세계 1위 건강 식단 지중해식 가이드와 한국형 장보기 팁</h3>
+                        <span class="highlight-action">칼럼 바로 읽기 ›</span>
+                    </div>
+                    <img src="images/posts/mediterranean/thumb.jpg?v=1.2" alt="지중해식 식단" class="highlight-thumb">
+                </a>
+            </div>
+
+            <!-- 🔥 3. 인기글 TOP 5 -->
+            <h2 class="section-block-title">인기글</h2>
+            <div class="popular-posts-card-box">
+                <a href="posts/ohnara-diet.html" class="popular-post-row">
+                    <div class="popular-post-left">
+                        <h3 class="popular-post-heading">오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동</h3>
+                        <div class="popular-post-meta">
+                            <span>♡ 41</span>
+                            <span>💬 29</span>
+                            <span>조회 7,335</span>
+                        </div>
+                    </div>
+                    <img src="images/posts/ohnara/thumb.jpg?v=1.2" alt="오나라 식단" class="popular-post-thumb">
+                </a>
+
+                <a href="posts/august-seasonal-foods.html" class="popular-post-row">
+                    <div class="popular-post-left">
+                        <h3 class="popular-post-heading">8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드</h3>
+                        <div class="popular-post-meta">
+                            <span>♡ 35</span>
+                            <span>💬 18</span>
+                            <span>조회 5,120</span>
+                        </div>
+                    </div>
+                    <img src="images/posts/august/thumb.jpg?v=1.1" alt="8월 제철 음식" class="popular-post-thumb">
+                </a>
+
+                <a href="posts/mediterranean-diet.html" class="popular-post-row">
+                    <div class="popular-post-left">
+                        <h3 class="popular-post-heading">세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁</h3>
+                        <div class="popular-post-meta">
+                            <span>♡ 28</span>
+                            <span>💬 12</span>
+                            <span>조회 4,390</span>
+                        </div>
+                    </div>
+                    <img src="images/posts/mediterranean/thumb.jpg?v=1.2" alt="지중해식 식단" class="popular-post-thumb">
+                </a>
+
+                <a href="posts/intermittent-fasting-guide.html" class="popular-post-row">
+                    <div class="popular-post-left">
+                        <h3 class="popular-post-heading">간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표</h3>
+                        <div class="popular-post-meta">
+                            <span>♡ 24</span>
+                            <span>💬 15</span>
+                            <span>조회 3,850</span>
+                        </div>
+                    </div>
+                    <img src="images/posts/fasting/thumb.jpg?v=1.1" alt="간헐적 단식" class="popular-post-thumb">
+                </a>
+
+                <a href="posts/sleep-hygiene-guide.html" class="popular-post-row">
+                    <div class="popular-post-left">
+                        <h3 class="popular-post-heading">수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환경 가이드</h3>
+                        <div class="popular-post-meta">
+                            <span>♡ 19</span>
+                            <span>💬 8</span>
+                            <span>조회 2,910</span>
+                        </div>
+                    </div>
+                    <img src="images/posts/sleep/thumb.jpg?v=1.2" alt="수면 위생" class="popular-post-thumb">
+                </a>
+            </div>
+
+            <!-- ✨ 3. 내 몸 맞춤 건강 계산기 -->
+            <h2 class="section-block-title">내 몸 맞춤 건강 계산기</h2>
+            <section class="calc-card-section" style="padding:16px 14px; margin-bottom:24px; border-radius:12px; background:#f8fafc; border:1px solid #e2e8f0;">
+                <div class="calc-header" style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; padding-bottom:8px; border-bottom:1px solid #e2e8f0;">
+                    <span style="font-size:1rem; font-weight:800; color:#111827;">1분 맞춤 신체 분석</span>
+                    <span class="calc-badge">실시간 분석</span>
+                </div>
+
+                <form id="wellness-calc-form" onsubmit="calculateWellness(event)">
+                    <div class="calc-form-grid">
+                        <div class="calc-input-group">
+                            <label for="calc-gender">성별</label>
+                            <select id="calc-gender" required>
+                                <option value="female">여성</option>
+                                <option value="male">남성</option>
+                            </select>
+                        </div>
+                        <div class="calc-input-group">
+                            <label for="calc-age">나이 (세)</label>
+                            <input type="number" id="calc-age" placeholder="예: 35" min="10" max="100" required>
+                        </div>
+                        <div class="calc-input-group">
+                            <label for="calc-height">키 (cm)</label>
+                            <input type="number" id="calc-height" placeholder="예: 165" min="100" max="220" required>
+                        </div>
+                        <div class="calc-input-group">
+                            <label for="calc-weight">체중 (kg)</label>
+                            <input type="number" id="calc-weight" placeholder="예: 55" min="30" max="200" required>
+                        </div>
+                        <div class="calc-input-group">
+                            <label for="calc-activity">활동량</label>
+                            <select id="calc-activity" required>
+                                <option value="1.2">가벼운 활동 (좌식 생활)</option>
+                                <option value="1.375">보통 활동 (주 2~3회 운동)</option>
+                                <option value="1.55">활동적 (주 4~5회 운동)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button type="submit" class="calc-btn-submit">맞춤 분석 결과 확인하기</button>
+                </form>
+
+                <div id="calc-result-panel" class="calc-result-panel" style="display:none; margin-top:16px;">
+                    <div class="calc-result-grid" style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:10px; text-align:center;">
+                            <div style="font-size:0.75rem; color:#64748b;">기초대사량 (BMR)</div>
+                            <div id="res-bmr" style="font-size:1.1rem; font-weight:800; color:#c26908;">- kcal</div>
+                        </div>
+                        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:10px; text-align:center;">
+                            <div style="font-size:0.75rem; color:#64748b;">하루 유지 칼로리</div>
+                            <div id="res-tdee" style="font-size:1.1rem; font-weight:800; color:#0f172a;">- kcal</div>
+                        </div>
+                        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:10px; text-align:center;">
+                            <div style="font-size:0.75rem; color:#64748b;">권장 수분량</div>
+                            <div id="res-water" style="font-size:1.1rem; font-weight:800; color:#0284c7;">- L</div>
+                        </div>
+                        <div style="background:#fff; border:1px solid #e2e8f0; border-radius:8px; padding:10px; text-align:center;">
+                            <div style="font-size:0.75rem; color:#64748b;">권장 단백질량</div>
+                            <div id="res-protein" style="font-size:1.1rem; font-weight:800; color:#16a34a;">- g</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 📂 4. 카테고리 트리거 바 -->
+            <div class="category-trigger-bar" onclick="openCategoryModal()">
+                <div class="category-trigger-left">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    <span id="currentCategoryLabel">식단 & 제철영양 / 전체 칼럼</span>
+                </div>
+                <span class="category-trigger-right">전체 분류 보기 ›</span>
+            </div>
+
+            <!-- 📚 5. 피드 리스트 (총 9편 완전 수록) -->
+            <div class="tistory-feed-list" id="tistoryFeedContainer">
+                <!-- Card 1 -->
+                <article class="tistory-feed-item" data-category="식단 & 영양" onclick="location.href='posts/ohnara-diet.html'" style="cursor:pointer;">
+                    <div class="feed-item-body">
+                        <span class="feed-item-cat">식단 & 영양</span>
+                        <h3 class="feed-item-title"><a href="posts/ohnara-diet.html">오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동</a></h3>
+                        <div class="feed-item-meta">
+                            <span>2026.08.19</span>
+                        </div>
+                    </div>
+                    <a href="posts/ohnara-diet.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
+                        <img src="images/posts/ohnara/thumb.jpg?v=1.2" alt="오나라 식단" class="feed-item-thumb">
+                    </a>
+                </article>
+
+                <!-- Card 2 -->
+                <article class="tistory-feed-item" data-category="식단 & 영양" onclick="location.href='posts/august-seasonal-foods.html'" style="cursor:pointer;">
+                    <div class="feed-item-body">
+                        <span class="feed-item-cat">식단 & 영양</span>
+                        <h3 class="feed-item-title"><a href="posts/august-seasonal-foods.html">8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드</a></h3>
+                        <div class="feed-item-meta">
+                            <span>2026.08.19</span>
+                        </div>
+                    </div>
+                    <a href="posts/august-seasonal-foods.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
+                        <img src="images/posts/august/thumb.jpg?v=1.2" alt="8월 제철 음식" class="feed-item-thumb">
+                    </a>
+                </article>
+
+                <!-- Card 3 -->
+                <article class="tistory-feed-item" data-category="식단 & 영양" onclick="location.href='posts/mediterranean-diet.html'" style="cursor:pointer;">
+                    <div class="feed-item-body">
+                        <span class="feed-item-cat">식단 & 영양</span>
+                        <h3 class="feed-item-title"><a href="posts/mediterranean-diet.html">세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁</a></h3>
+                        <div class="feed-item-meta">
+                            <span>2026.08.19</span>
+                        </div>
+                    </div>
+                    <a href="posts/mediterranean-diet.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
+                        <img src="images/posts/mediterranean/thumb.jpg?v=1.2" alt="지중해식 식단" class="feed-item-thumb">
+                    </a>
+                </article>
+
+                <!-- Card 4 -->
+                <article class="tistory-feed-item" data-category="식단 & 영양" onclick="location.href='posts/intermittent-fasting-guide.html'" style="cursor:pointer;">
+                    <div class="feed-item-body">
+                        <span class="feed-item-cat">식단 & 영양</span>
+                        <h3 class="feed-item-title"><a href="posts/intermittent-fasting-guide.html">간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표</a></h3>
+                        <div class="feed-item-meta">
+                            <span>2026.08.19</span>
+                        </div>
+                    </div>
+                    <a href="posts/intermittent-fasting-guide.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
+                        <img src="images/posts/fasting/thumb.jpg?v=1.2" alt="간헐적 단식" class="feed-item-thumb">
+                    </a>
+                </article>
+
+                <!-- Card 5 -->
+                <article class="tistory-feed-item" data-category="라이프 웰니스" onclick="location.href='posts/morning-routine.html'" style="cursor:pointer;">
+                    <div class="feed-item-body">
+                        <span class="feed-item-cat">라이프 웰니스</span>
+                        <h3 class="feed-item-title"><a href="posts/morning-routine.html">아침 공복 유산소와 식사 타이밍, 혈당 스파이크 방지 습관</a></h3>
+                        <div class="feed-item-meta">
+                            <span>2026.08.19</span>
+                        </div>
+                    </div>
+                    <a href="posts/morning-routine.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
+                        <img src="images/posts/morning/thumb.jpg?v=1.2" alt="아침 공복 루틴" class="feed-item-thumb">
+                    </a>
+                </article>
+
+                <!-- Card 6 -->
+                <article class="tistory-feed-item" data-category="라이프 웰니스" onclick="location.href='posts/sleep-hygiene-guide.html'" style="cursor:pointer;">
+                    <div class="feed-item-body">
+                        <span class="feed-item-cat">라이프 웰니스</span>
+                        <h3 class="feed-item-title"><a href="posts/sleep-hygiene-guide.html">수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환경 가이드</a></h3>
+                        <div class="feed-item-meta">
+                            <span>2026.08.19</span>
+                        </div>
+                    </div>
+                    <a href="posts/sleep-hygiene-guide.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
+                        <img src="images/posts/sleep/thumb.jpg?v=1.2" alt="수면 위생" class="feed-item-thumb">
+                    </a>
+                </article>
+
+                <!-- Card 7 -->
+                <article class="tistory-feed-item" data-category="홈트레이닝" onclick="location.href='posts/posture-stretching-office.html'" style="cursor:pointer;">
+                    <div class="feed-item-body">
+                        <span class="feed-item-cat">홈트레이닝</span>
+                        <h3 class="feed-item-title"><a href="posts/posture-stretching-office.html">직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭</a></h3>
+                        <div class="feed-item-meta">
+                            <span>2026.08.19</span>
+                        </div>
+                    </div>
+                    <a href="posts/posture-stretching-office.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
+                        <img src="images/posts/posture/thumb.jpg?v=1.2" alt="자세 교정 스트레칭" class="feed-item-thumb">
+                    </a>
+                </article>
+
+                <!-- Card 8 -->
+                <article class="tistory-feed-item" data-category="홈트레이닝" onclick="location.href='posts/core-exercise-home.html'" style="cursor:pointer;">
+                    <div class="feed-item-body">
+                        <span class="feed-item-cat">홈트레이닝</span>
+                        <h3 class="feed-item-title"><a href="posts/core-exercise-home.html">바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴</a></h3>
+                        <div class="feed-item-meta">
+                            <span>2026.08.19</span>
+                        </div>
+                    </div>
+                    <a href="posts/core-exercise-home.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
+                        <img src="images/posts/core/thumb.jpg?v=1.2" alt="코어 홈트레이닝" class="feed-item-thumb">
+                    </a>
+                </article>
+
+                <!-- Card 9 -->
+                <article class="tistory-feed-item" data-category="식단 & 영양" onclick="location.href='posts/water-intake-guide.html'" style="cursor:pointer;">
+                    <div class="feed-item-body">
+                        <span class="feed-item-cat">식단 & 영양</span>
+                        <h3 class="feed-item-title"><a href="posts/water-intake-guide.html">하루 물 2리터 권장량의 진실, 올바른 수분 섭취법과 체내 밸런스</a></h3>
+                        <div class="feed-item-meta">
+                            <span>2026.08.19</span>
+                        </div>
+                    </div>
+                    <a href="posts/water-intake-guide.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
+                        <img src="images/posts/water/thumb.jpg?v=1.2" alt="수분 섭취 가이드" class="feed-item-thumb">
+                    </a>
+                </article>
+            </div>
+
+            <!-- 🍯 모바일 칼럼 더보기 버튼 -->
+            <div class="load-more-wrapper" id="mobileLoadMoreWrapper">
+                <button type="button" class="btn-load-more" id="btnMobileLoadMore" onclick="loadMoreMobileArticles()">
+                    더보기 ▾
+                </button>
+                <div id="mobileAllLoadedMsg" class="all-loaded-msg">마지막 입니다.</div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 📱 전체화면 카테고리 모달 -->
+    <div id="categoryModal" class="category-fullscreen-modal">
+        <div class="category-modal-header">
+            <h2 class="category-modal-title">카테고리</h2>
+            <button class="category-modal-close" onclick="closeCategoryModal()">✕</button>
+        </div>
+        <div class="category-modal-body">
+            <div class="modal-cat-group">
+                <a href="javascript:void(0)" onclick="filterTistoryFeed('all', '분류 전체보기'); closeCategoryModal();" class="modal-cat-main">
+                    <span>분류 전체보기</span>
+                    <span class="modal-cat-count">9</span>
+                </a>
+            </div>
+            <div class="modal-cat-group">
+                <a href="javascript:void(0)" onclick="filterTistoryFeed('식단 & 영양', '식단 & 영양'); closeCategoryModal();" class="modal-cat-main">
+                    <span>식단 & 영양</span>
+                    <span class="modal-cat-count">5</span>
+                </a>
+            </div>
+            <div class="modal-cat-group">
+                <a href="javascript:void(0)" onclick="filterTistoryFeed('홈트레이닝', '홈트레이닝'); closeCategoryModal();" class="modal-cat-main">
+                    <span>홈트레이닝</span>
+                    <span class="modal-cat-count">2</span>
+                </a>
+            </div>
+            <div class="modal-cat-group">
+                <a href="javascript:void(0)" onclick="filterTistoryFeed('라이프 웰니스', '라이프 웰니스'); closeCategoryModal();" class="modal-cat-main">
+                    <span>라이프 웰니스</span>
+                    <span class="modal-cat-count">2</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 📄 통합 푸터 -->
+    <footer class="clean-footer">
+        <div class="footer-inner">
+            <div>
+                <p>&copy; 2026 <strong>꿀단지</strong>. All rights reserved.</p>
+                <p style="font-size: 0.8rem; margin-top: 4px; color: var(--text-subtle);">
+                    운영자: 혀니 | 이메일: hmapt01@gmail.com | 주소: 대한민국 서울시 도봉구 해등로 231
+                </p>
+            </div>
+            <ul class="footer-links">
+                <li><a href="about.html">소개</a></li>
+                <li><a href="privacy.html">개인정보처리방침</a></li>
+                <li><a href="terms.html">이용약관</a></li>
+                <li><a href="contact.html">문의하기</a></li>
+                <li><a href="admin.html" style="color: #111827; font-weight: 700;">관리자</a></li>
+            </ul>
+        </div>
+    </footer>
+
+    <script>
+        // 🍯 안내 메시지 일시 노출 후 페이드아웃
+        function showTemporaryEndMsg(msgId) {
+            const msgEl = document.getElementById(msgId);
+            if (!msgEl) return;
+            msgEl.textContent = '마지막 입니다.';
+            msgEl.style.display = 'inline-block';
+            void msgEl.offsetWidth;
+            msgEl.classList.add('show');
+
+            setTimeout(function() {
+                msgEl.classList.remove('show');
+                setTimeout(function() {
+                    msgEl.style.display = 'none';
+                }, 400);
+            }, 2000);
+        }
+
+        // 🍯 PC 초기화 및 더보기
+        let pcShown = 6;
+        function initPcArticles() {
+            const items = document.querySelectorAll('#desktopCardsGrid .article-item');
+            items.forEach((item, idx) => {
+                if (idx < pcShown) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            if (items.length <= pcShown) {
+                const btn = document.getElementById('btnPcLoadMore');
+                if (btn) btn.style.display = 'none';
+            }
+        }
+
+        function loadMorePcArticles() {
+            const items = document.querySelectorAll('#desktopCardsGrid .article-item');
+            let nextLimit = pcShown + 3;
+            for (let i = pcShown; i < items.length && i < nextLimit; i++) {
+                items[i].style.display = 'flex';
+                items[i].classList.add('feed-fade-in');
+            }
+            pcShown = nextLimit;
+            if (pcShown >= items.length) {
+                const btn = document.getElementById('btnPcLoadMore');
+                if (btn) btn.style.display = 'none';
+                showTemporaryEndMsg('pcAllLoadedMsg');
+            }
+        }
+
+        // 🍯 모바일 초기화 및 더보기
+        let mobileShown = 4;
+        function initMobileArticles() {
+            const items = document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item');
+            items.forEach((item, idx) => {
+                if (idx < mobileShown) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            if (items.length <= mobileShown) {
+                const btn = document.getElementById('btnMobileLoadMore');
+                if (btn) btn.style.display = 'none';
+            }
+        }
+
+        function loadMoreMobileArticles() {
+            const items = document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item');
+            let nextLimit = mobileShown + 4;
+            for (let i = mobileShown; i < items.length && i < nextLimit; i++) {
+                items[i].style.display = 'flex';
+                items[i].classList.add('feed-fade-in');
+            }
+            mobileShown = nextLimit;
+            if (mobileShown >= items.length) {
+                const btn = document.getElementById('btnMobileLoadMore');
+                if (btn) btn.style.display = 'none';
+                showTemporaryEndMsg('mobileAllLoadedMsg');
+            }
+        }
+
+        // 카테고리 필터 (선택 시 섹션 제목 동적 변경 및 즉각 필터링)
+        function filterDesktopCategory(cat, btn) {
+            document.querySelectorAll('.clean-nav .nav-cat-btn').forEach(b => b.classList.remove('active'));
+            if (btn) {
+                btn.classList.add('active');
+            } else {
+                document.querySelectorAll('.clean-nav .nav-cat-btn').forEach(b => {
+                    const onclickAttr = b.getAttribute('onclick') || '';
+                    if (cat === 'all' && onclickAttr.includes("'all'")) {
+                        b.classList.add('active');
+                    } else if (cat !== 'all' && (onclickAttr.includes(cat) || (cat === '식단·영양' && onclickAttr.includes('식단')))) {
+                        b.classList.add('active');
+                    }
+                });
+            }
+
+            // 🎯 섹션 제목을 선택한 메뉴에 맞게 실시간 변경!
+            const titleEl = document.getElementById('desktopSectionTitle');
+            if (titleEl) {
+                if (cat === 'all') {
+                    titleEl.textContent = '전체 칼럼 모음';
+                } else if (cat === '식단 & 영양' || cat === '식단·영양') {
+                    titleEl.textContent = '식단·영양 칼럼 모음';
+                } else if (cat === '홈트레이닝') {
+                    titleEl.textContent = '홈트레이닝 칼럼 모음';
+                } else if (cat === '라이프 웰니스') {
+                    titleEl.textContent = '라이프 웰니스 칼럼 모음';
+                } else {
+                    titleEl.textContent = cat + ' 칼럼 모음';
+                }
+            }
+
+            const items = document.querySelectorAll('#desktopCardsGrid .article-item');
+            let visibleCount = 0;
+            items.forEach((item, idx) => {
+                const itemCat = item.getAttribute('data-category') || '';
+                if (cat === 'all') {
+                    if (idx < pcShown) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                } else if (itemCat.includes(cat) || (cat.includes('식단') && itemCat.includes('식단'))) {
+                    item.style.display = 'flex';
+                    item.classList.add('feed-fade-in');
+                    visibleCount++;
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            const btnMore = document.getElementById('btnPcLoadMore');
+            if (btnMore) {
+                btnMore.style.display = (cat === 'all' && pcShown < items.length) ? 'inline-flex' : 'none';
+            }
+        }
+
+        function openCategoryModal() {
+            document.getElementById('categoryModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeCategoryModal() {
+            document.getElementById('categoryModal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function filterTistoryFeed(cat, label) {
+            const items = document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item');
+            items.forEach(item => {
+                const itemCat = item.getAttribute('data-category') || '';
+                if (cat === 'all' || itemCat.includes(cat) || (cat.includes('식단') && itemCat.includes('식단'))) {
+                    item.style.display = 'flex';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+            const lbl = document.getElementById('currentCategoryLabel');
+            if (lbl) lbl.innerText = label;
+            const btnMore = document.getElementById('btnMobileLoadMore');
+            if (btnMore) {
+                btnMore.style.display = (cat === 'all' && mobileShown < items.length) ? 'inline-flex' : 'none';
+            }
+        }
+
+        // 계산기
+        function calculateWellness(e) {
+            e.preventDefault();
+            alert('입력하신 신체 조건에 맞춘 실시간 분석이 완료되었습니다!');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const catParam = urlParams.get('cat');
+            if (catParam) {
+                filterDesktopCategory(catParam);
+                filterTistoryFeed(catParam, catParam);
+            } else {
+                initPcArticles();
+                initMobileArticles();
+            }
+        });
+    </script>
+</body>
+</html>

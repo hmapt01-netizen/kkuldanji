@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동</title>
+  
+  <!-- 웹 폰트 (Pretendard) -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+
+  <style>
+    :root {
+      --naver-green: #03c75a;
+      --naver-dark-green: #029f48;
+      --naver-light-green: #e8f8ee;
+      --text-main: #222222;
+      --text-body: #333333;
+      --text-sub: #666666;
+      --text-muted: #888888;
+      --border-color: #e5e8eb;
+      --bg-page: #f5f6f8;
+      --bg-card: #ffffff;
+      --radius: 10px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Pretendard", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-body);
+      line-height: 1.9;
+      font-size: 16.5px;
+      word-break: keep-all;
+    }
+
+    .naver-container {
+      max-width: 740px;
+      margin: 30px auto;
+      padding: 0 16px;
+    }
+
+    .naver-card {
+      background: var(--bg-card);
+      border-radius: var(--radius);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+      border: 1px solid var(--border-color);
+      padding: 44px 32px;
+    }
+
+    /* 포스트 헤더 */
+    .post-header {
+      border-bottom: 2px solid #f1f3f5;
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    .category-badge {
+      display: inline-block;
+      color: var(--naver-dark-green);
+      background-color: var(--naver-light-green);
+      font-size: 13.5px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 4px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 25px;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.45;
+    }
+
+    /* 본문 문단 */
+    p {
+      margin-bottom: 22px;
+      color: var(--text-body);
+      font-size: 16.5px;
+      line-height: 1.9;
+    }
+
+    /* 스마트에디터 인용구 (버티컬 라인) */
+    .naver-quote-vertical {
+      border-left: 5px solid var(--naver-green);
+      padding-left: 14px;
+      margin: 40px 0 18px 0;
+    }
+
+    .naver-quote-vertical h2 {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.4;
+      margin: 0;
+    }
+
+    /* 스마트에디터 안내/콜아웃 박스 */
+    .naver-box {
+      background-color: #f8fafc;
+      border: 1px solid #dbe1e8;
+      border-radius: 8px;
+      padding: 16px 20px;
+      font-size: 15px;
+      color: #475569;
+      margin: 24px 0;
+      line-height: 1.75;
+    }
+
+    /* 이미지 영역 */
+    .post-image-wrap {
+      margin: 28px 0;
+      text-align: center;
+    }
+
+    .post-image-wrap img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      display: block;
+      margin: 0 auto;
+    }
+
+    .post-image-wrap figcaption {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      line-height: 1.5;
+    }
+
+    /* 샐러드 리스트 */
+    .salad-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 20px 0;
+    }
+
+    .salad-item {
+      background: #fafbfc;
+      border: 1px solid var(--border-color);
+      padding: 16px 18px;
+      border-radius: 8px;
+    }
+
+    .salad-title {
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 16px;
+      margin-bottom: 6px;
+    }
+
+    /* 네이버 표 */
+    .table-container {
+      overflow-x: auto;
+      margin: 24px 0;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    table {
+      width: 100%;
+      min-width: 500px;
+      border-collapse: collapse;
+      font-size: 15px;
+      text-align: left;
+      border: 1px solid var(--border-color);
+      background-color: #ffffff;
+    }
+
+    th, td {
+      padding: 13px 15px;
+      border: 1px solid var(--border-color);
+    }
+
+    th {
+      background-color: #f8fafc;
+      color: #1e293b;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    tr:nth-child(even) td {
+      background-color: #fdfdfd;
+    }
+
+    /* 6대 원칙 그리드 */
+    .principles-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    .principle-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      padding: 16px;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .principle-num {
+      display: inline-block;
+      width: 24px;
+      height: 24px;
+      line-height: 24px;
+      text-align: center;
+      background-color: var(--naver-light-green);
+      color: var(--naver-dark-green);
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 50%;
+      margin-bottom: 4px;
+    }
+
+    /* FAQ 섹션 */
+    .faq-wrap {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .faq-card {
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      overflow: hidden;
+      background-color: #ffffff;
+    }
+
+    .faq-q {
+      background-color: #f8fafc;
+      padding: 14px 18px;
+      font-weight: 700;
+      color: #1e293b;
+      font-size: 15.5px;
+    }
+
+    .faq-q span {
+      color: var(--naver-green);
+      font-weight: 800;
+      margin-right: 6px;
+    }
+
+    .faq-a {
+      padding: 14px 18px;
+      color: #4a5568;
+      border-top: 1px solid var(--border-color);
+      font-size: 15px;
+      line-height: 1.75;
+    }
+
+    /* 마무리 박스 */
+    .closing-box {
+      background-color: #f8f9fa;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 32px 0;
+      text-align: center;
+      color: var(--text-body);
+      font-size: 16px;
+    }
+
+    /* 네이버 해시태그 */
+    .tag-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border-color);
+    }
+
+    .tag-pill {
+      background-color: #f1f3f5;
+      color: #495057;
+      font-size: 13.5px;
+      padding: 6px 12px;
+      border-radius: 20px;
+      text-decoration: none;
+    }
+
+    @media (max-width: 600px) {
+      .naver-card {
+        padding: 24px 18px;
+      }
+      h1 {
+        font-size: 21px;
+      }
+      .naver-quote-vertical h2 {
+        font-size: 18px;
+      }
+      .principles-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="naver-container">
+    <div class="naver-card">
+
+      <!-- 포스트 헤더 -->
+      <header class="post-header">
+        <span class="category-badge">건강 &middot; 다이어트</span>
+        <h1>오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동</h1>
+      </header>
+
+      <!-- 인트로 / 리드문 (제목과 직결되는 첫 문장) -->
+      <p>
+        배우 오나라가 SNS를 통해 다양한 샐러드 식단을 공개하면서 50대 식단 관리에 대한 관심도 높아지고 있습니다.
+      </p>
+      <p>
+        교수 남자친구와 25년째 오랜 연애를 이어오며 많은 사랑을 받고 있는 오나라(1974년생)는 만 51세의 나이에도 프로필상 <strong>164cm에 체중 47kg</strong>을 유지하며 늘 생기 넘치고 균형 잡힌 모습을 보여주고 있는데요.
+      </p>
+      <p>
+        최근 오나라가 직접 공개한 식단을 보면 무조건 식사량을 줄이는 극단적인 방식보다는 <strong>채소와 단백질, 탄수화물을 골고루 구성한 식사</strong>를 선택한 모습이 눈에 띕니다.
+      </p>
+      <p>
+        오나라가 실제로 공개한 식단 사례를 살펴보고, 이를 계기로 50대 몸매 관리에 참고할 만한 식습관과 운동 방법도 함께 정리해 보았습니다.
+      </p>
+
+      <!-- 사진 01 -->
+      <figure class="post-image-wrap">
+        <img src="./이미지/오나라.jpg" alt="배우 오나라 일상 모습">
+        <figcaption>배우 오나라의 일상 모습 (출처: 오나라 인스타그램)</figcaption>
+      </figure>
+
+      <!-- 1번 섹션 -->
+      <div class="naver-quote-vertical">
+        <h2>1. 오나라가 실제로 공개한 47kg 식단의 핵심</h2>
+      </div>
+      <p>
+        오나라의 식단에서 가장 눈여겨볼 부분은 적게 먹는 것보다 <strong>'영양 밀도가 높은 식사'</strong>를 선택한다는 점입니다.
+      </p>
+      <p>
+        단순히 칼로리만 제한하는 다이어트가 아니라 탄수화물, 단백질, 식이섬유가 균형을 이루는 식재료를 식사에 활용하는 모습입니다.
+      </p>
+
+      <!-- 사진 02 -->
+      <figure class="post-image-wrap">
+        <img src="./이미지/오나라02.jpg" alt="일상 속 배우 오나라">
+        <figcaption>일상 속 배우 오나라 (출처: 오나라 인스타그램)</figcaption>
+      </figure>
+
+      <!-- 2번 섹션 -->
+      <div class="naver-quote-vertical">
+        <h2>2. SNS를 통해 공개한 샐러드 3가지</h2>
+      </div>
+      <p>
+        오나라는 샐러드를 단순한 감량용 식단이 아니라 맛있게 즐기는 한 끼 식사로 활용하고 있습니다. SNS를 통해 직접 만들어 공개한 샐러드 구성입니다.
+      </p>
+
+      <div class="salad-list">
+        <div class="salad-item">
+          <div class="salad-title">1) 버섯 &amp; 당근 메밀면 샐러드</div>
+          <p style="margin-bottom:0; font-size:15px; color:#555;">포만감을 주는 메밀면에 버섯과 당근 등 채소를 곁들여 식이섬유와 적절한 복합 탄수화물을 함께 챙기는 구성입니다.</p>
+        </div>
+        <div class="salad-item">
+          <div class="salad-title">2) 토마토 &amp; 단호박 &amp; 닭고기 샐러드</div>
+          <p style="margin-bottom:0; font-size:15px; color:#555;">단호박과 토마토에 닭고기를 넣어 단백질을 보충하면서 채소를 풍성하게 섭취할 수 있도록 구성했습니다.</p>
+        </div>
+        <div class="salad-item">
+          <div class="salad-title">3) 참외 &amp; 루꼴라 샐러드</div>
+          <p style="margin-bottom:0; font-size:15px; color:#555;">제철 과일인 참외에 루꼴라와 핑크 페퍼를 더하고, 올리브유와 식초를 활용한 드레싱을 곁들여 상큼하고 가볍게 즐기는 방식입니다.</p>
+        </div>
+      </div>
+      <p style="font-size:14.5px; color:var(--text-sub); margin-top:8px;">
+        ※ 과일 샐러드를 섭취할 때도 달걀, 닭고기, 두부, 생선 등 단백질 식품을 함께 곁들이는 것이 근육 유지에 도움이 됩니다.
+      </p>
+
+      <!-- 사진 03 -->
+      <figure class="post-image-wrap">
+        <img src="./이미지/오나라01.jpg" alt="배우 오나라">
+        <figcaption>배우 오나라 (출처: 오나라 인스타그램)</figcaption>
+      </figure>
+
+      <!-- 3번 섹션 -->
+      <div class="naver-quote-vertical">
+        <h2>3. 50대 몸매 관리에서 중요한 근력 운동</h2>
+      </div>
+      <p>
+        나이가 들수록 근육량과 근력이 감소하기 쉬워지기 때문에 40~50대 이후에는 <strong>근력 운동을 꾸준히 해주는 것</strong>이 중요합니다.
+      </p>
+      <p>
+        오나라 역시 무용을 전공하고 오랫동안 뮤지컬 무대에서 활동해 온 만큼 기본적인 신체활동량과 몸을 바르게 사용하는 습관이 잡혀 있습니다. 이러한 무용 기반의 신체 활동 경험은 유연성과 균형감각, 바른 자세를 유지하는 데 큰 역할을 합니다.
+      </p>
+
+      <!-- 4번 섹션 -->
+      <div class="naver-quote-vertical">
+        <h2>4. 50대라면 참고할 만한 근력 운동 4가지</h2>
+      </div>
+
+      <div class="naver-box">
+        <strong>[안내]</strong> 아래 운동은 오나라가 직접 공개한 운동 루틴을 그대로 옮긴 것이 아니라, 50대 체형 관리에 일반적으로 활용할 수 있는 대표적인 운동을 정리한 것입니다.
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th style="width:28%;">운동 종류</th>
+              <th style="width:32%;">주요 자극 부위</th>
+              <th style="width:40%;">50대 추천 효과</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="font-weight:700; text-align:center;">스쿼트 (Squat)</td>
+              <td>허벅지(대퇴사두근), 엉덩이</td>
+              <td>하체 근육 유지, 일상 체력 및 관절 지지력 강화</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700; text-align:center;">런지 (Lunge)</td>
+              <td>허벅지, 둔근, 고관절</td>
+              <td>한쪽 다리 체중 지지, 좌우 균형감각 향상</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700; text-align:center;">플랭크 (Plank)</td>
+              <td>코어 전체 (복부, 등, 척추)</td>
+              <td>코어 근육 강화 및 몸통 안정성 향상</td>
+            </tr>
+            <tr>
+              <td style="font-weight:700; text-align:center;">빠르게 걷기 및 유산소</td>
+              <td>전신 유산소</td>
+              <td>근력운동과 병행 시 심혈관 건강 및 체지방 관리</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 사진 04 -->
+      <figure class="post-image-wrap">
+        <img src="./이미지/오나라03.jpg" alt="배우 오나라">
+        <figcaption>배우 오나라 (출처: 오나라 인스타그램)</figcaption>
+      </figure>
+
+      <!-- 5번 섹션 -->
+      <div class="naver-quote-vertical">
+        <h2>5. 오나라 식단에서 참고할 수 있는 6가지 포인트</h2>
+      </div>
+
+      <div class="principles-grid">
+        <div class="principle-card">
+          <span class="principle-num">01</span>
+          <strong style="color:#111; font-size:15.5px;">균형 잡힌 식사 선택</strong>
+          <span style="font-size:14px; color:#666;">굶는 방식보다 영양 균형 챙기기</span>
+        </div>
+        <div class="principle-card">
+          <span class="principle-num">02</span>
+          <strong style="color:#111; font-size:15.5px;">다양한 채소 활용</strong>
+          <span style="font-size:14px; color:#666;">샐러드 재료를 다채롭게 구성</span>
+        </div>
+        <div class="principle-card">
+          <span class="principle-num">03</span>
+          <strong style="color:#111; font-size:15.5px;">단백질 식품 챙기기</strong>
+          <span style="font-size:14px; color:#666;">닭고기, 달걀, 두부 등 식사에 적절히 활용</span>
+        </div>
+        <div class="principle-card">
+          <span class="principle-num">04</span>
+          <strong style="color:#111; font-size:15.5px;">탄수화물 적절 섭취</strong>
+          <span style="font-size:14px; color:#666;">메밀면, 단호박 등 복합 탄수화물 활용</span>
+        </div>
+        <div class="principle-card">
+          <span class="principle-num">05</span>
+          <strong style="color:#111; font-size:15.5px;">제철 식재료 활용</strong>
+          <span style="font-size:14px; color:#666;">참외, 토마토 등 신선한 식재료 구성</span>
+        </div>
+        <div class="principle-card">
+          <span class="principle-num">06</span>
+          <strong style="color:#111; font-size:15.5px;">가벼운 드레싱 사용</strong>
+          <span style="font-size:14px; color:#666;">올리브유와 식초 등으로 과하지 않게 곁들이기</span>
+        </div>
+      </div>
+
+      <!-- 사진 05 -->
+      <figure class="post-image-wrap">
+        <img src="./이미지/오나라04.jpg" alt="SNS를 통해 근황을 전한 배우 오나라">
+        <figcaption>SNS를 통해 근황을 전한 배우 오나라 (출처: 오나라 인스타그램)</figcaption>
+      </figure>
+
+      <!-- 6번 섹션 (FAQ) -->
+      <div class="naver-quote-vertical">
+        <h2>6. 자주 묻는 질문 (FAQ)</h2>
+      </div>
+
+      <div class="faq-wrap">
+        <div class="faq-card">
+          <div class="faq-q"><span>Q.</span> 50대에도 탄수화물을 꼭 먹어야 하나요?</div>
+          <div class="faq-a">탄수화물은 우리 몸의 중요한 에너지원이기 때문에 무조건 제한하기보다는 개인의 활동량과 식사 구성에 맞춰 적절하게 섭취하는 것이 좋습니다.</div>
+        </div>
+        <div class="faq-card">
+          <div class="faq-q"><span>Q.</span> 샐러드 드레싱은 어떤 것을 쓰는 것이 좋을까요?</div>
+          <div class="faq-a">제품별 당류와 나트륨 함량을 확인하고, 올리브유나 식초처럼 재료가 단순한 드레싱을 적당량 활용하는 방법도 있습니다.</div>
+        </div>
+        <div class="faq-card">
+          <div class="faq-q"><span>Q.</span> 관절이 약한 중년도 스쿼트나 런지를 해도 될까요?</div>
+          <div class="faq-a">무릎 통증이 있다면 가동 범위를 줄인 하프 스쿼트나 의자를 잡고 하는 동작부터 시작하여 점진적으로 하체 지지력을 키워가는 것이 안전합니다.</div>
+        </div>
+      </div>
+
+      <!-- 마무리 문단 -->
+      <div class="closing-box">
+        오늘은 배우 오나라의 실제 공개 식단과 함께 50대 건강 관리에 도움을 주는 운동법을 살펴보았습니다.<br><br>
+        무작정 굶기보다는 나에게 맞는 영양소를 채우고 매일 가벼운 근력 운동을 습관화해 보는 것은 어떨까요?
+      </div>
+
+      <!-- 네이버 태그 -->
+      <div class="tag-container">
+        <span class="tag-pill">#오나라식단</span>
+        <span class="tag-pill">#오나라다이어트</span>
+        <span class="tag-pill">#50대몸매관리</span>
+        <span class="tag-pill">#50대식단</span>
+        <span class="tag-pill">#중년다이어트</span>
+        <span class="tag-pill">#중년근력운동</span>
+        <span class="tag-pill">#오나라샐러드</span>
+        <span class="tag-pill">#50대건강관리</span>
+        <span class="tag-pill">#홈트레이닝</span>
+        <span class="tag-pill">#샐러드식단</span>
+      </div>
+
+    </div>
+  </div>
+
+</body>
+</html>
