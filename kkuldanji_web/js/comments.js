@@ -28,107 +28,22 @@ function checkProfanity(text) {
     return null;
 }
 
-// Post default initial comments dataset
-const defaultPostComments = {
-    "ohnara-diet.html": [
-        {
-            id: 101,
-            author: "건강지킴이",
-            date: "2026.08.19 14:20",
-            text: "오나라 님 진짜 50대라는 게 안 믿겨요! 샐러드 단백질 비율 설명이 아주 명쾌해서 오늘 저녁부터 바로 실천해보려고 합니다. 좋은 정보 감사합니다 🍯",
-            likes: 12,
-            pass: "1234"
-        },
-        {
-            id: 102,
-            author: "웰니스러버",
-            date: "2026.08.19 16:45",
-            text: "기초대사량 높이는 다관절 복합 운동 루틴 진짜 유익하네요. 스쿼트랑 런지 매일 10분씩 챙겨야겠어요!",
-            likes: 8,
-            pass: "1234"
+// Post default initial comments dataset (0으로 완전 초기화)
+const defaultPostComments = {};
+
+// Clean Reset to 0 for Comments
+(function checkCommentsReset() {
+    const RESET_FLAG = 'honeyjar_comment_reset_v3';
+    if (!localStorage.getItem(RESET_FLAG)) {
+        for (let i = localStorage.length - 1; i >= 0; i--) {
+            const k = localStorage.key(i);
+            if (k && k.startsWith('honeyjar_comments_')) {
+                localStorage.removeItem(k);
+            }
         }
-    ],
-    "august-seasonal-foods.html": [
-        {
-            id: 201,
-            author: "여름맛탐험가",
-            date: "2026.08.19 11:30",
-            text: "늦여름에 기운 없었는데 8월 제철 보약 식재료 5가지 정리 최고입니다. 오늘 장볼 때 애호박이랑 복숭아 담아왔어요!",
-            likes: 15,
-            pass: "1234"
-        }
-    ],
-    "mediterranean-diet.html": [
-        {
-            id: 301,
-            author: "올리브매니아",
-            date: "2026.08.19 13:10",
-            text: "한국 마트에서 쉽게 구할 수 있는 대체 식재료 장보기 팁이 정말 실용적이네요! 북마크 해두고 자주 보겠습니다.",
-            likes: 9,
-            pass: "1234"
-        }
-    ],
-    "intermittent-fasting-guide.html": [
-        {
-            id: 401,
-            author: "다이어터민지",
-            date: "2026.08.19 15:50",
-            text: "16:8 간헐적 단식할 때 첫 끼니 혈당 스파이크 막는 법이 제일 궁금했는데 딱 필요한 내용이었어요!",
-            likes: 14,
-            pass: "1234"
-        }
-    ],
-    "morning-routine.html": [
-        {
-            id: 501,
-            author: "모닝러너",
-            date: "2026.08.19 09:20",
-            text: "기상 후 미온수 한 잔부터 림프 스트레칭까지 오늘 아침에 해봤는데 머리가 진짜 맑아지네요!",
-            likes: 11,
-            pass: "1234"
-        }
-    ],
-    "sleep-hygiene-guide.html": [
-        {
-            id: 601,
-            author: "꿀잠희망자",
-            date: "2026.08.19 17:05",
-            text: "멜라토닌 분비 온도랑 카페인 반감기 표 보고 커피 마시는 시간대 바꿨습니다. 오늘 밤 숙면 기대돼요!",
-            likes: 18,
-            pass: "1234"
-        }
-    ],
-    "posture-stretching-office.html": [
-        {
-            id: 701,
-            author: "김대리",
-            date: "2026.08.19 14:15",
-            text: "사무실 의자에서 5분 따라 했는데 뻐근하던 승모근이랑 굽은 등이 바로 시원해지네요. 팀원들한테도 공유했습니다 ㅎㅎ",
-            likes: 21,
-            pass: "1234"
-        }
-    ],
-    "core-exercise-home.html": [
-        {
-            id: 801,
-            author: "홈트초보",
-            date: "2026.08.19 18:00",
-            text: "아파트 층간소음 때문에 홈트 고민이었는데 무소음 코어 동작들이라 밤에도 안심하고 할 수 있어서 너무 좋아요!",
-            likes: 16,
-            pass: "1234"
-        }
-    ],
-    "water-intake-guide.html": [
-        {
-            id: 901,
-            author: "물마시기습관",
-            date: "2026.08.19 16:30",
-            text: "무조건 2L가 아니라 제 몸무게 맞춤 계산 공식으로 계산해보니 딱 좋네요. 꿀팁 감사합니다!",
-            likes: 13,
-            pass: "1234"
-        }
-    ]
-};
+        localStorage.setItem(RESET_FLAG, 'true');
+    }
+})();
 
 // Current Post Slug Detector
 function getPostSlug() {
@@ -153,20 +68,10 @@ function loadComments() {
         try {
             comments = JSON.parse(saved);
         } catch(e) {
-            comments = defaultPostComments[slug] || [];
+            comments = [];
         }
     } else {
-        comments = defaultPostComments[slug] || [
-            {
-                id: Date.now(),
-                author: "꿀단지독자",
-                date: "2026.08.19 12:00",
-                text: "정말 유익하고 깔끔한 칼럼이네요! 앞으로도 좋은 건강 정보 자주 올려주세요 🍯",
-                likes: 5,
-                pass: "1234"
-            }
-        ];
-        localStorage.setItem(storageKey, JSON.stringify(comments));
+        comments = [];
     }
     return comments;
 }
@@ -234,7 +139,11 @@ function renderCommentSection() {
             </div>
 
             <div class="comment-list" id="commentListContainer">
-                ${commentsHtml}
+                ${comments.length > 0 ? commentsHtml : `
+                    <div style="text-align:center; padding:36px 20px; color:#94a3b8; font-size:0.92rem; background:#f8fafc; border-radius:10px; border:1px dashed #e2e8f0; margin-top:14px;">
+                        🍯 아직 등록된 댓글이 없습니다. 첫 번째 응원 댓글을 남겨보세요!
+                    </div>
+                `}
             </div>
         </section>
     `;

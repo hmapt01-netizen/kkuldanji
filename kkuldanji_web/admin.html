@@ -1016,7 +1016,7 @@
             </div>
             <div class="stat-card">
                 <div class="stat-label">💬 총 독자 소통 댓글</div>
-                <div class="stat-value" id="statCommentCountBadge" style="color: #2563eb;">15개</div>
+                <div class="stat-value" id="statCommentCountBadge" style="color: #2563eb;">0개</div>
                 <div class="stat-sub">✓ 실시간 소통 활성화 중</div>
             </div>
         </div>
@@ -1273,7 +1273,13 @@
 <script>
     // Clean Reset to 0 for Real Inflow Tracking (v2.0)
     (function checkZeroReset() {
-        const RESET_FLAG = 'honeyjar_zero_count_v2';
+        const RESET_FLAG = 'honeyjar_zero_count_v3';
+        for (let i = localStorage.length - 1; i >= 0; i--) {
+            const k = localStorage.key(i);
+            if (k && k.startsWith('honeyjar_comments_')) {
+                localStorage.removeItem(k);
+            }
+        }
         if (!localStorage.getItem(RESET_FLAG)) {
             localStorage.removeItem('honeyjar_admin_posts');
             localStorage.removeItem('honeyjar_analytics_data');
@@ -2493,7 +2499,8 @@ ${formattedBody}
                 } catch(e) {}
             }
         }
-        if (commentCount === 0) commentCount = 15;
+        // Comment count strictly real
+        if (commentCount < 0) commentCount = 0;
         document.getElementById('statCommentCountBadge').innerText = commentCount + "개";
 
         // Render Table Rows
