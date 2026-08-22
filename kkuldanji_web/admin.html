@@ -766,6 +766,54 @@
             background: #f8fafc;
         }
     </style>
+    <style id="adminZeroShiftStyles">
+        /* Zero Layout Shift & Bulletproof Table Stability */
+        .admin-table-fixed-wrap {
+            min-height: 470px; /* 1페이지(5개)와 2페이지(4개) 이동 시 상하 덜컹거림 100% 방지 */
+            overflow-x: auto;
+        }
+        .admin-table {
+            table-layout: fixed !important;
+            width: 100% !important;
+        }
+        .admin-table th, .admin-table td {
+            vertical-align: middle !important;
+        }
+        .badge-status-live {
+            background: #ecfdf5 !important;
+            color: #065f46 !important;
+            border: 1px solid #a7f3d0 !important;
+            font-size: 0.8rem !important;
+            padding: 4px 10px !important;
+            border-radius: 6px !important;
+            font-weight: 700 !important;
+            white-space: nowrap !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 4px !important;
+            line-height: 1.2 !important;
+        }
+        .badge-status-hidden {
+            background: #f3f4f6 !important;
+            color: #4b5563 !important;
+            border: 1px solid #d1d5db !important;
+            font-size: 0.8rem !important;
+            padding: 4px 10px !important;
+            border-radius: 6px !important;
+            font-weight: 700 !important;
+            white-space: nowrap !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 4px !important;
+            line-height: 1.2 !important;
+        }
+        .badge-cat {
+            white-space: nowrap !important;
+            display: inline-block !important;
+        }
+    </style>
 </head>
 <body style="background: #f9fafb;">
 
@@ -958,18 +1006,18 @@
                 <input type="text" id="postSearchInput" class="table-search-input" placeholder="🔍 칼럼 제목 또는 카테고리 검색..." oninput="filterPostsTable()">
             </div>
 
-            <div style="overflow-x: auto;">
+            <div class="admin-table-fixed-wrap">
                 <table class="admin-table">
                     <thead>
                         <tr>
                             <th style="width: 45px;">No</th>
-                            <th style="width: 70px;">썸네일</th>
-                            <th style="width: 100px;">카테고리</th>
+                            <th style="width: 75px;">썸네일</th>
+                            <th style="width: 105px;">카테고리</th>
                             <th>칼럼 제목</th>
-                            <th style="width: 80px;">상태</th>
-                            <th style="width: 90px;">발행일</th>
-                            <th style="width: 70px;">조회수</th>
-                            <th style="width: 155px; text-align: center;">관리</th>
+                            <th style="width: 105px; text-align: center;">상태</th>
+                            <th style="width: 95px; text-align: center;">발행일</th>
+                            <th style="width: 75px; text-align: center;">조회수</th>
+                            <th style="width: 160px; text-align: center;">관리</th>
                         </tr>
                     </thead>
                     <tbody id="postsTableBody">
@@ -1271,11 +1319,11 @@
                     <strong>${post.title}</strong>
                     <div style="font-size: 0.78rem; color: #6b7280; margin-top: 2px;">${post.desc ? post.desc.substring(0, 45) + '...' : ''}</div>
                 </td>
-                <td>
+                <td style="text-align: center;">
                     ${post.isHidden ? '<span class="badge-status-hidden">비공개(숨김)</span>' : '<span class="badge-status-live">● 공개 중</span>'}
                 </td>
-                <td>${post.date}</td>
-                <td>${post.views}</td>
+                <td style="text-align: center; color: #64748b; font-size: 0.84rem;">${post.date}</td>
+                <td style="text-align: center; font-weight: 700; color: #c26908;">${post.views}</td>
                 <td>
                     <div class="action-btns">
                         <a href="${post.link || 'posts/' + (post.slug || 'index.html')}" target="_blank" class="btn-sm-view">보기 ↗</a>
@@ -1804,6 +1852,54 @@
             opacity: 0.4;
             cursor: not-allowed;
             background: #f8fafc;
+        }
+    </style>
+    <style id="adminZeroShiftStyles">
+        /* Zero Layout Shift & Bulletproof Table Stability */
+        .admin-table-fixed-wrap {
+            min-height: 470px; /* 1페이지(5개)와 2페이지(4개) 이동 시 상하 덜컹거림 100% 방지 */
+            overflow-x: auto;
+        }
+        .admin-table {
+            table-layout: fixed !important;
+            width: 100% !important;
+        }
+        .admin-table th, .admin-table td {
+            vertical-align: middle !important;
+        }
+        .badge-status-live {
+            background: #ecfdf5 !important;
+            color: #065f46 !important;
+            border: 1px solid #a7f3d0 !important;
+            font-size: 0.8rem !important;
+            padding: 4px 10px !important;
+            border-radius: 6px !important;
+            font-weight: 700 !important;
+            white-space: nowrap !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 4px !important;
+            line-height: 1.2 !important;
+        }
+        .badge-status-hidden {
+            background: #f3f4f6 !important;
+            color: #4b5563 !important;
+            border: 1px solid #d1d5db !important;
+            font-size: 0.8rem !important;
+            padding: 4px 10px !important;
+            border-radius: 6px !important;
+            font-weight: 700 !important;
+            white-space: nowrap !important;
+            display: inline-flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            gap: 4px !important;
+            line-height: 1.2 !important;
+        }
+        .badge-cat {
+            white-space: nowrap !important;
+            display: inline-block !important;
         }
     </style>
 </head>
