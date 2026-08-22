@@ -1,4 +1,17 @@
-﻿// ==========================================================================
+﻿// Clean Reset to 0 for Hearts
+(function checkHeartsReset() {
+    var RESET_FLAG = 'honeyjar_hearts_reset_v3';
+    if (!localStorage.getItem(RESET_FLAG)) {
+        for (var i = localStorage.length - 1; i >= 0; i--) {
+            var k = localStorage.key(i);
+            if (k && (k.indexOf('honeyjar_hearts_') === 0 || k.indexOf('honeyjar_user_liked_') === 0)) {
+                localStorage.removeItem(k);
+            }
+        }
+        localStorage.setItem(RESET_FLAG, 'true');
+    }
+})();
+// ==========================================================================
 // 🍯 [꿀단지 모바일 액션 엔진] 하트 공감 저장, 댓글 수 실시간 동기화, 공유 토스트
 // ==========================================================================
 
@@ -20,7 +33,7 @@ function toggleBottomHeart(btn) {
 
     let currentHearts = parseInt(localStorage.getItem(storageHeartKey), 10);
     if (isNaN(currentHearts)) {
-        currentHearts = parseInt(countEl.innerText, 10) || 28;
+        currentHearts = parseInt(countEl.innerText, 10) || 0;
     }
 
     const isAlreadyLiked = localStorage.getItem(storageUserLikeKey) === "true";
@@ -62,7 +75,7 @@ function initBottomHeart() {
         countEl.innerText = savedHearts;
     } else {
         // 초기 기본값 저장
-        const defaultNum = parseInt(countEl.innerText, 10) || 28;
+        const defaultNum = parseInt(countEl.innerText, 10) || 0;
         localStorage.setItem(storageHeartKey, defaultNum.toString());
     }
 
