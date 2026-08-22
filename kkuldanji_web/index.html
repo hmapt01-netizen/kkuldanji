@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta name="naver-site-verification" content="777188dc9a6f7168d15fca2b95716d6c12c39aa8" />
@@ -949,7 +949,7 @@
             alert('입력하신 신체 조건에 맞춘 실시간 분석이 완료되었습니다!');
         }
 
-        document.addEventListener('DOMContentLoaded', function() {
+        function refreshAllViewFilters() {
             applyAdminHiddenFilter();
             const urlParams = new URLSearchParams(window.location.search);
             const catParam = urlParams.get('cat');
@@ -960,6 +960,20 @@
                 initPcArticles();
                 initMobileArticles();
             }
+        }
+
+        document.addEventListener('DOMContentLoaded', refreshAllViewFilters);
+
+        // ⚡ [실시간 크로스 탭 동기화] 관리자 콘솔에서 [숨김/공개] 누르는 즉시 메인 홈 실시간 자동 반영!
+        window.addEventListener('storage', function(e) {
+            if (e.key === 'honeyjar_admin_posts') {
+                refreshAllViewFilters();
+            }
+        });
+
+        // 📱 [모바일 뒤로가기/페이지 이동 bfcache 즉시 갱신]
+        window.addEventListener('pageshow', function() {
+            refreshAllViewFilters();
         });
     </script>
 </body>
