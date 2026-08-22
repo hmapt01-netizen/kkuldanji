@@ -1060,40 +1060,40 @@
                     </div>
                     <span style="font-size: 0.8rem; font-weight: 700; color: #c26908;" id="weeklyTotalPvBadge">주간 총 0 PV</span>
                 </div>
-                <div class="chart-bar-container">
-                    <div class="chart-col">
-                        <span class="chart-bar-val">0</span>
-                        <div class="chart-bar-fill" style="height: 6px; min-height: 6px;"></div>
+                <div class="chart-bar-container" id="adminWeeklyChartBars">
+                    <div class="chart-col" data-day="mon">
+                        <span class="chart-bar-val" id="barValMon">0</span>
+                        <div class="chart-bar-fill" id="barFillMon" style="height: 6px; min-height: 6px;"></div>
                         <span class="chart-day-label">월</span>
                     </div>
-                    <div class="chart-col">
-                        <span class="chart-bar-val">0</span>
-                        <div class="chart-bar-fill" style="height: 6px; min-height: 6px;"></div>
+                    <div class="chart-col" data-day="tue">
+                        <span class="chart-bar-val" id="barValTue">0</span>
+                        <div class="chart-bar-fill" id="barFillTue" style="height: 6px; min-height: 6px;"></div>
                         <span class="chart-day-label">화</span>
                     </div>
-                    <div class="chart-col">
-                        <span class="chart-bar-val">0</span>
-                        <div class="chart-bar-fill" style="height: 6px; min-height: 6px;"></div>
+                    <div class="chart-col" data-day="wed">
+                        <span class="chart-bar-val" id="barValWed">0</span>
+                        <div class="chart-bar-fill" id="barFillWed" style="height: 6px; min-height: 6px;"></div>
                         <span class="chart-day-label">수</span>
                     </div>
-                    <div class="chart-col">
-                        <span class="chart-bar-val">0</span>
-                        <div class="chart-bar-fill" style="height: 6px; min-height: 6px;"></div>
+                    <div class="chart-col" data-day="thu">
+                        <span class="chart-bar-val" id="barValThu">0</span>
+                        <div class="chart-bar-fill" id="barFillThu" style="height: 6px; min-height: 6px;"></div>
                         <span class="chart-day-label">목</span>
                     </div>
-                    <div class="chart-col">
-                        <span class="chart-bar-val">0</span>
-                        <div class="chart-bar-fill" style="height: 6px; min-height: 6px;"></div>
+                    <div class="chart-col" data-day="fri">
+                        <span class="chart-bar-val" id="barValFri">0</span>
+                        <div class="chart-bar-fill" id="barFillFri" style="height: 6px; min-height: 6px;"></div>
                         <span class="chart-day-label">금</span>
                     </div>
-                    <div class="chart-col">
-                        <span class="chart-bar-val">0</span>
-                        <div class="chart-bar-fill" style="height: 6px; min-height: 6px;"></div>
+                    <div class="chart-col" data-day="sat">
+                        <span class="chart-bar-val" id="barValSat">0</span>
+                        <div class="chart-bar-fill" id="barFillSat" style="height: 6px; min-height: 6px;"></div>
                         <span class="chart-day-label">토</span>
                     </div>
-                    <div class="chart-col">
-                        <span class="chart-bar-val" style="color: #ea580c; font-weight: 800;">0</span>
-                        <div class="chart-bar-fill today" style="height: 6px; min-height: 6px;"></div>
+                    <div class="chart-col" data-day="sun">
+                        <span class="chart-bar-val" id="barValSun" style="color: #ea580c; font-weight: 800;">0</span>
+                        <div class="chart-bar-fill today" id="barFillSun" style="height: 6px; min-height: 6px;"></div>
                         <span class="chart-day-label" style="color: #ea580c; font-weight: 800;">오늘</span>
                     </div>
                 </div>
@@ -1108,24 +1108,24 @@
                 </div>
                 <div style="margin-bottom: 20px;">
                     <div class="progress-group">
-                        <div class="progress-label-row"><span>📱 모바일 (스마트폰)</span><span>0%</span></div>
-                        <div class="progress-track"><div class="progress-bar-fill" style="width: 0%; background: #c26908;"></div></div>
+                        <div class="progress-label-row"><span>📱 모바일 (스마트폰)</span><span id="devicePctMobile">0%</span></div>
+                        <div class="progress-track"><div class="progress-bar-fill" id="deviceBarMobile" style="width: 0%; background: #c26908;"></div></div>
                     </div>
                     <div class="progress-group">
-                        <div class="progress-label-row"><span>💻 PC 데스크톱</span><span>0%</span></div>
-                        <div class="progress-track"><div class="progress-bar-fill" style="width: 0%; background: #059669;"></div></div>
+                        <div class="progress-label-row"><span>💻 PC 데스크톱</span><span id="devicePctPc">0%</span></div>
+                        <div class="progress-track"><div class="progress-bar-fill" id="deviceBarPc" style="width: 0%; background: #059669;"></div></div>
                     </div>
                     <div class="progress-group">
-                        <div class="progress-label-row"><span>📟 태블릿</span><span>0%</span></div>
-                        <div class="progress-track"><div class="progress-bar-fill" style="width: 0%; background: #3b82f6;"></div></div>
+                        <div class="progress-label-row"><span>📟 태블릿</span><span id="devicePctTablet">0%</span></div>
+                        <div class="progress-track"><div class="progress-bar-fill" id="deviceBarTablet" style="width: 0%; background: #3b82f6;"></div></div>
                     </div>
                 </div>
                 <div style="border-top: 1px solid #f1f5f9; padding-top: 12px;">
-                    <span style="font-size: 0.78rem; font-weight: 700; color: #475569; display: block; margin-bottom: 8px;">🔍 주요 유입 검색어 TOP 3</span>
-                    <div style="display: flex; flex-direction: column; gap: 4px; font-size: 0.8rem; color: #64748b;">
-                        <div>1. <strong>실시간 유입 키워드 집계 대기 중...</strong></div>
-                        <div>2. <strong>검색 포털(구글·네이버) 노출 대기 중...</strong></div>
-                        <div>3. <strong>방문자 유입 시 자동 랭킹 집계</strong></div>
+                    <span style="font-size: 0.78rem; font-weight: 700; color: #475569; display: block; margin-bottom: 8px;">🔍 주요 유입 채널 실시간 순위 TOP 3</span>
+                    <div id="referrerRankingContainer" style="display: flex; flex-direction: column; gap: 4px; font-size: 0.8rem; color: #374151;">
+                        <div>1. <strong>실시간 유입 집계 대기 중...</strong></div>
+                        <div>2. <strong>검색 포털(구글·네이버·다음) 노출 대기 중...</strong></div>
+                        <div>3. <strong>방문자 접속 시 자동 랭킹 계산</strong></div>
                     </div>
                 </div>
             </div>
