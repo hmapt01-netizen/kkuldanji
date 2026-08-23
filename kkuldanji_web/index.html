@@ -949,7 +949,7 @@
             alert('입력하신 신체 조건에 맞춘 실시간 분석이 완료되었습니다!');
         }
 
-        // 💖 메인 홈 인기글 하트 수 Abacus 클라우드 실시간 동기화
+        // 💖 메인 홈 인기글 하트/댓글/조회수 100% 실시간 동기화
         async function syncCloudHeartsToIndex() {
             const rows = document.querySelectorAll('.popular-posts-card-box .popular-post-row');
             rows.forEach(async (row) => {
@@ -957,13 +957,43 @@
                 const parts = href.split('/');
                 const slug = parts[parts.length - 1];
                 const slugKey = slug.replace('.html', '').replace(/[\.\#\$\[\]\/\-]/g, '_');
+                
+                const metaSpans = row.querySelectorAll('.popular-post-meta span');
+                const heartSpan = metaSpans[0];
+                const commentSpan = metaSpans[1];
+                const pvSpan = metaSpans[2];
+
+                // 1. 하트 수 동기화
                 try {
                     const res = await fetch(`https://abacus.jasoncameron.dev/get/honeyjar_wellness/hearts_${slugKey}`);
                     if (res.ok) {
                         const data = await res.json();
-                        if (data && typeof data.value === 'number') {
-                            const metaSpan = row.querySelector('.popular-post-meta span:first-child');
-                            if (metaSpan) metaSpan.innerText = `♡ ${data.value}`;
+                        if (data && typeof data.value === 'number' && heartSpan) {
+                            heartSpan.innerText = `♡ ${data.value}`;
+                        }
+                    }
+                } catch(e) {}
+
+                // 2. 댓글 수 동기화
+                try {
+                    let cCount = 0;
+                    const savedComments = localStorage.getItem("honeyjar_comments_" + slug);
+                    if (savedComments) {
+                        const parsed = JSON.parse(savedComments);
+                        if (Array.isArray(parsed)) cCount = parsed.length;
+                    }
+                    if (commentSpan) {
+                        commentSpan.innerText = `💬 ${cCount}`;
+                    }
+                } catch(e) {}
+
+                // 3. 조회수 동기화
+                try {
+                    const res = await fetch(`https://abacus.jasoncameron.dev/get/honeyjar_wellness/post_pv_${slugKey}`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data && typeof data.value === 'number' && pvSpan) {
+                            pvSpan.innerText = `조회 ${data.value.toLocaleString()}`;
                         }
                     }
                 } catch(e) {}
