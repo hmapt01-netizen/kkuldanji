@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -664,18 +664,20 @@
         .admin-table th {
             background: #f8fafc !important;
             color: #334155 !important;
-            font-size: 0.85rem !important;
-            font-weight: 700 !important;
-            padding: 13px 16px !important;
+            font-size: 0.82rem !important;
+            font-weight: 750 !important;
+            padding: 8px 10px !important;
             border-bottom: 1px solid #e2e8f0 !important;
             text-align: left !important;
+            white-space: nowrap !important;
         }
         .admin-table td {
-            padding: 14px 16px !important;
+            padding: 8px 10px !important;
             border-bottom: 1px solid #f1f5f9 !important;
-            font-size: 0.88rem !important;
+            font-size: 0.84rem !important;
             color: #334155 !important;
             background: #ffffff !important;
+            vertical-align: middle !important;
         }
         .admin-table tr:last-child td {
             border-bottom: none !important;
@@ -1492,7 +1494,7 @@
         updateStats();
     }
 
-    const itemsPerPage = 5; // 5편씩 깔끔하게 페이징 분할 (1, 2, 3, 4...)
+    const itemsPerPage = 10; // 10편씩 한눈에 쏙 들어오게 페이징 (1, 2, 3, 4...)
 
     function renderAdminPagination(totalPages) {
         const pagContainer = document.getElementById('adminPostsPagination');
