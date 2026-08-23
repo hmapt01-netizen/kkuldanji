@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -2736,12 +2736,31 @@ ${formattedBody}
         }
     }
 
+    let autoRefreshTimer = null;
+
     function unlockAdmin() {
         document.getElementById('authLockScreen').style.display = "none";
         document.getElementById('adminContent').style.display = "block";
         loadPostsData();
         loadAllAdminComments();
         loadAnalyticsDashboard();
+
+        // 🟢 10초마다 백그라운드 자동 실시간 동기화 (버튼 안 눌러도 자동으로 갱신!)
+        if (!autoRefreshTimer) {
+            autoRefreshTimer = setInterval(() => {
+                if (sessionStorage.getItem('honeyjar_admin_session') === 'authorized') {
+                    loadAnalyticsDashboard();
+                }
+            }, 10000);
+        }
+
+        // 다른 탭 갔다가 돌아왔을 때도 즉시 자동 갱신!
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible' && sessionStorage.getItem('honeyjar_admin_session') === 'authorized') {
+                loadAnalyticsDashboard();
+                loadAllAdminComments();
+            }
+        });
     }
 
     function handleAdminLogout() {
