@@ -949,7 +949,19 @@
             alert('입력하신 신체 조건에 맞춘 실시간 분석이 완료되었습니다!');
         }
 
-        // 💖 메인 홈 인기글 하트/댓글/조회수 100% 실시간 동기화
+        const CLOUD_COMMENT_MAP_INDEX = {
+            "ohnara-diet.html": "ff8081819ff5b11001a02d13c8537dd3",
+            "august-seasonal-foods.html": "ff8081819ff5b11001a02d13ca517dd4",
+            "mediterranean-diet.html": "ff8081819ff5b11001a02d13cc3c7dd5",
+            "intermittent-fasting-guide.html": "ff8081819ff5b11001a02d13ce3a7dd6",
+            "morning-routine.html": "ff8081819ff5b11001a02d13d02e7dd7",
+            "sleep-hygiene-guide.html": "ff8081819ff5b11001a02d13d2377dd8",
+            "posture-stretching-office.html": "ff8081819ff5b11001a02d13d42b7dd9",
+            "core-exercise-home.html": "ff8081819ff5b11001a02d13d61e7dda",
+            "water-intake-guide.html": "ff8081819ff5b11001a02d13d81c7ddb"
+        };
+
+        // 💖 메인 홈 인기글 하트/댓글/조회수 100% 실시간 글로벌 동기화
         async function syncCloudHeartsToIndex() {
             const rows = document.querySelectorAll('.popular-posts-card-box .popular-post-row');
             rows.forEach(async (row) => {
@@ -974,16 +986,17 @@
                     }
                 } catch(e) {}
 
-                // 2. 댓글 수 동기화
+                // 2. 댓글 수 실시간 글로벌 동기화
                 try {
-                    let cCount = 0;
-                    const savedComments = localStorage.getItem("honeyjar_comments_" + slug);
-                    if (savedComments) {
-                        const parsed = JSON.parse(savedComments);
-                        if (Array.isArray(parsed)) cCount = parsed.length;
-                    }
-                    if (commentSpan) {
-                        commentSpan.innerText = `💬 ${cCount}`;
+                    const objId = CLOUD_COMMENT_MAP_INDEX[slug];
+                    if (objId) {
+                        const res = await fetch(`https://api.restful-api.dev/objects/${objId}`);
+                        if (res.ok) {
+                            const data = await res.json();
+                            if (data && data.data && Array.isArray(data.data.comments) && commentSpan) {
+                                commentSpan.innerText = `💬 ${data.data.comments.length}`;
+                            }
+                        }
                     }
                 } catch(e) {}
 

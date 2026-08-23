@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -2317,67 +2317,48 @@ ${formattedBody}
         "water-intake-guide.html": "내 몸 맞춤 하루 물 섭취량 계산법"
     };
 
-    function loadAllAdminComments() {
+    const ADMIN_CLOUD_OBJECT_MAP = {
+        "ohnara-diet.html": "ff8081819ff5b11001a02d13c8537dd3",
+        "august-seasonal-foods.html": "ff8081819ff5b11001a02d13ca517dd4",
+        "mediterranean-diet.html": "ff8081819ff5b11001a02d13cc3c7dd5",
+        "intermittent-fasting-guide.html": "ff8081819ff5b11001a02d13ce3a7dd6",
+        "morning-routine.html": "ff8081819ff5b11001a02d13d02e7dd7",
+        "sleep-hygiene-guide.html": "ff8081819ff5b11001a02d13d2377dd8",
+        "posture-stretching-office.html": "ff8081819ff5b11001a02d13d42b7dd9",
+        "core-exercise-home.html": "ff8081819ff5b11001a02d13d61e7dda",
+        "water-intake-guide.html": "ff8081819ff5b11001a02d13d81c7ddb"
+    };
+
+    async function loadAllAdminComments() {
         const tbody = document.getElementById('adminCommentsTableBody');
         if (!tbody) return;
         tbody.innerHTML = '';
 
         let allComments = [];
 
-        // Scan localStorage for all comment keys
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key && key.startsWith('honeyjar_comments_')) {
-                const slug = key.replace('honeyjar_comments_', '');
-                try {
-                    const comments = JSON.parse(localStorage.getItem(key)) || [];
-                    comments.forEach(c => {
-                        allComments.push({
-                            ...c,
-                            storageKey: key,
-                            postSlug: slug,
-                            postTitle: postTitlesMap[slug] || slug
-                        });
-                    });
-                } catch(e) {}
-            }
-        }
-
-        // Load default comments for demonstration in admin
-        if (typeof defaultPostComments !== 'undefined') {
-            for (const [slug, list] of Object.entries(defaultPostComments)) {
-                list.forEach(c => {
-                    // Check if already in localStorage
-                    const existing = allComments.find(item => item.id === c.id);
-                    if (!existing) {
-                        allComments.push({
-                            ...c,
-                            storageKey: 'honeyjar_comments_' + slug,
-                            postSlug: slug,
-                            postTitle: postTitlesMap[slug] || slug
+        for (const [slug, objId] of Object.entries(ADMIN_CLOUD_OBJECT_MAP)) {
+            try {
+                const res = await fetch(`https://api.restful-api.dev/objects/${objId}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data && data.data && Array.isArray(data.data.comments)) {
+                        data.data.comments.forEach(c => {
+                            allComments.push({
+                                ...c,
+                                objId: objId,
+                                postSlug: slug,
+                                postTitle: postTitlesMap[slug] || slug
+                            });
                         });
                     }
-                });
-            }
-        }
-        if (false) {
-            for (const [slug, list] of Object.entries(defaultPostComments)) {
-                list.forEach(c => {
-                    allComments.push({
-                        ...c,
-                        storageKey: 'honeyjar_comments_' + slug,
-                        postSlug: slug,
-                        postTitle: postTitlesMap[slug] || slug
-                    });
-                });
-            }
+                }
+            } catch(e) {}
         }
 
-        // Update count badge
         document.getElementById('totalCommentCount').innerText = allComments.length;
 
         if (allComments.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color:#9ca3af;">등록된 댓글이 없습니다.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color:#9ca3af;">등록된 실시간 댓글이 없습니다.</td></tr>`;
             return;
         }
 
@@ -2385,33 +2366,45 @@ ${formattedBody}
             const tr = document.createElement('tr');
             tr.id = `admin-comment-row-${c.id}`;
             tr.innerHTML = `
-                <td>${idx + 1}</td>
+                <td style="text-align:center;">${idx + 1}</td>
                 <td>
                     <a href="posts/${c.postSlug}" target="_blank" style="color:#c26908; font-weight:600; text-decoration:none;">
                         ${escapeHtml(c.postTitle)} ↗
                     </a>
                 </td>
                 <td><strong>${escapeHtml(c.author)}</strong></td>
-                <td style="line-height:1.4;">${escapeHtml(c.text)}</td>
-                <td style="font-size:0.8rem; color:#6b7280;">${c.date}</td>
-                <td>❤️ ${c.likes || 0}</td>
+                <td style="line-height:1.4;">${escapeHtml(c.content || c.text || '')}</td>
+                <td style="font-size:0.8rem; color:#6b7280; text-align:center;">${c.date}</td>
+                <td style="text-align:center;">💬 참여</td>
                 <td style="text-align:center;">
-                    <button type="button" class="btn-sm-del" onclick="deleteAdminComment('${c.storageKey}', ${c.id})">원클릭 삭제</button>
+                    <button type="button" class="btn-sm-del" onclick="deleteAdminComment('${c.objId}', '${c.postSlug}', ${c.id})">원클릭 삭제</button>
                 </td>
             `;
             tbody.appendChild(tr);
         });
     }
 
-    function deleteAdminComment(storageKey, commentId) {
+    async function deleteAdminComment(objId, postSlug, commentId) {
         if (!confirm("정말로 이 댓글을 관리자 권한으로 삭제하시겠습니까?")) return;
 
         try {
-            let list = JSON.parse(localStorage.getItem(storageKey)) || [];
-            list = list.filter(item => item.id !== commentId);
-            localStorage.setItem(storageKey, JSON.stringify(list));
+            const res = await fetch(`https://api.restful-api.dev/objects/${objId}`);
+            if (res.ok) {
+                const data = await res.json();
+                if (data && data.data && Array.isArray(data.data.comments)) {
+                    const filtered = data.data.comments.filter(c => c.id !== commentId);
+                    await fetch(`https://api.restful-api.dev/objects/${objId}`, {
+                        method: "PUT",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            name: "honeyjar_post_" + postSlug.replace('.html','').replace(/[\.\#\$\[\]\/\-]/g, '_'),
+                            data: { comments: filtered }
+                        })
+                    });
+                }
+            }
             alert("🗑️ 댓글이 성공적으로 삭제되었습니다.");
-            loadAllAdminComments();
+            await loadAllAdminComments();
         } catch(e) {
             alert("삭제 처리 중 오류가 발생했습니다.");
         }

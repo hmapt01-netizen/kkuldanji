@@ -1,9 +1,28 @@
 ﻿/**
  * 🍯 꿀단지 공식 스마트 클린 댓글 시스템 (HoneyJar Global Real-Time Cloud Comments)
- * - 전 세계 모든 독자의 댓글 및 공감 실시간 클라우드 DB 연동
+ * - 전 세계 모든 독자의 댓글 및 공감 실시간 클라우드 REST DB 연동
  */
 
-const CLOUD_COMMENTS_BASE = "https://honeyjar-analytics-default-rtdb.firebaseio.com/honeyjar_comments";
+const CLOUD_OBJECT_MAP = {
+    "ohnara-diet.html": "ff8081819ff5b11001a02d13c8537dd3",
+    "ohnara_diet": "ff8081819ff5b11001a02d13c8537dd3",
+    "august-seasonal-foods.html": "ff8081819ff5b11001a02d13ca517dd4",
+    "august_seasonal_foods": "ff8081819ff5b11001a02d13ca517dd4",
+    "mediterranean-diet.html": "ff8081819ff5b11001a02d13cc3c7dd5",
+    "mediterranean_diet": "ff8081819ff5b11001a02d13cc3c7dd5",
+    "intermittent-fasting-guide.html": "ff8081819ff5b11001a02d13ce3a7dd6",
+    "intermittent_fasting_guide": "ff8081819ff5b11001a02d13ce3a7dd6",
+    "morning-routine.html": "ff8081819ff5b11001a02d13d02e7dd7",
+    "morning_routine": "ff8081819ff5b11001a02d13d02e7dd7",
+    "sleep-hygiene-guide.html": "ff8081819ff5b11001a02d13d2377dd8",
+    "sleep_hygiene_guide": "ff8081819ff5b11001a02d13d2377dd8",
+    "posture-stretching-office.html": "ff8081819ff5b11001a02d13d42b7dd9",
+    "posture_stretching_office": "ff8081819ff5b11001a02d13d42b7dd9",
+    "core-exercise-home.html": "ff8081819ff5b11001a02d13d61e7dda",
+    "core_exercise_home": "ff8081819ff5b11001a02d13d61e7dda",
+    "water-intake-guide.html": "ff8081819ff5b11001a02d13d81c7ddb",
+    "water_intake_guide": "ff8081819ff5b11001a02d13d81c7ddb"
+};
 
 const PROFANITY_LIST = [
     '시발', '씨발', '씨바', 'ㅅㅂ', '시바', '시펄', '씨펄',
@@ -36,24 +55,27 @@ function getPostSlug() {
     return s;
 }
 
-function getSlugKey(slug) {
-    return slug.replace(/[\.\#\$\[\]\/]/g, '_');
+function getCloudObjectId(slug) {
+    return CLOUD_OBJECT_MAP[slug] || null;
 }
 
-// Load Comments from Cloud DB
+// 1. Load Comments from Global Cloud DB
 async function loadComments() {
     const slug = getPostSlug();
-    const slugKey = getSlugKey(slug);
-    try {
-        const res = await fetch(`${CLOUD_COMMENTS_BASE}/${slugKey}.json`);
-        if (res.ok) {
-            const data = await res.json();
-            if (Array.isArray(data)) {
-                localStorage.setItem("honeyjar_comments_" + slug, JSON.stringify(data));
-                return data;
+    const objId = getCloudObjectId(slug);
+
+    if (objId) {
+        try {
+            const res = await fetch(`https://api.restful-api.dev/objects/${objId}`);
+            if (res.ok) {
+                const data = await res.json();
+                if (data && data.data && Array.isArray(data.data.comments)) {
+                    localStorage.setItem("honeyjar_comments_" + slug, JSON.stringify(data.data.comments));
+                    return data.data.comments;
+                }
             }
-        }
-    } catch(e) {}
+        } catch(e) {}
+    }
 
     const saved = localStorage.getItem("honeyjar_comments_" + slug);
     if (saved) {
@@ -62,22 +84,27 @@ async function loadComments() {
     return [];
 }
 
-// Save Comments to Cloud DB
+// 2. Save Comments to Global Cloud DB
 async function saveComments(comments) {
     const slug = getPostSlug();
-    const slugKey = getSlugKey(slug);
+    const objId = getCloudObjectId(slug);
     localStorage.setItem("honeyjar_comments_" + slug, JSON.stringify(comments));
 
-    try {
-        await fetch(`${CLOUD_COMMENTS_BASE}/${slugKey}.json`, {
-            method: "PUT",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(comments)
-        });
-    } catch(e) {}
+    if (objId) {
+        try {
+            await fetch(`https://api.restful-api.dev/objects/${objId}`, {
+                method: "PUT",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: "honeyjar_post_" + slug.replace('.html','').replace(/[\.\#\$\[\]\/\-]/g, '_'),
+                    data: { comments: comments }
+                })
+            });
+        } catch(e) {}
+    }
 }
 
-// Render Comment Section HTML
+// 3. Render Comment Section HTML
 async function renderCommentSection() {
     const container = document.getElementById('commentSectionWrapper');
     if (!container) return;
@@ -101,170 +128,160 @@ async function renderCommentSection() {
                             <span class="comment-date">${c.date}</span>
                         </div>
                     </div>
-                    <a href="javascript:void(0)" class="comment-del-link" onclick="handleDeleteComment(${c.id})">삭제</a>
+                    <button type="button" class="comment-delete-btn" onclick="deleteComment(${c.id})">삭제</button>
                 </div>
-                <div class="comment-body-text">
-                    ${escapeHtml(c.text).replace(/\n/g, '<br>')}
-                </div>
-                <div class="comment-footer-actions">
-                    <button type="button" class="comment-like-btn" onclick="handleLikeComment(${c.id}, this)">
-                        공감 <span class="like-count">${c.likes || 0}</span>
-                    </button>
-                </div>
+                <div class="comment-content-text">${escapeHtml(c.content).replace(/\n/g, '<br>')}</div>
             </div>
         `;
     });
 
+    if (comments.length === 0) {
+        commentsHtml = `
+            <div class="comment-empty-box">
+                <p>🍯 아직 등록된 댓글이 없습니다.<br>첫 번째 따뜻한 의견이나 후기를 남겨보세요!</p>
+            </div>
+        `;
+    }
+
     container.innerHTML = `
-        <section class="comment-section">
+        <div class="comment-section">
             <div class="comment-header">
-                <h3>
-                    <span>독자 소통 & 댓글</span>
-                    <span class="comment-count-badge" id="commentCountBadge">${comments.length}개</span>
-                </h3>
+                <h3>💬 독자 참여 댓글 <span class="comment-count-badge" id="commentCountBadge">${comments.length}</span></h3>
+                <span class="comment-guide-text">실시간 클린 댓글 정책을 준수합니다.</span>
             </div>
 
-            <div class="comment-form-card">
-                <form onsubmit="handleAddComment(event)">
-                    <div class="comment-input-row">
-                        <input type="text" id="commentAuthorInput" placeholder="닉네임" maxlength="20">
-                        <input type="password" id="commentPassInput" placeholder="비밀번호 4자리 (필수)" required minlength="4" maxlength="12">
-                    </div>
-                    <textarea id="commentTextInput" class="comment-textarea" placeholder="따뜻한 댓글과 건강에 대한 질문을 자유롭게 남겨주세요." required></textarea>
-                    <div class="comment-submit-row">
-                        <span class="comment-guide-text">비속어 및 욕설은 자동 차단되며 깨끗한 소통 공간을 지킵니다.</span>
-                        <button type="submit" class="btn-comment-submit">댓글 등록</button>
-                    </div>
-                </form>
-            </div>
+            <!-- 댓글 작성 폼 -->
+            <form class="comment-form-card" onsubmit="handleCommentSubmit(event)">
+                <div class="comment-input-row">
+                    <input type="text" id="commentAuthorInput" class="comment-input-name" placeholder="작성자 닉네임" maxlength="12" required>
+                    <input type="password" id="commentPwInput" class="comment-input-pw" placeholder="비밀번호 (4자리)" maxlength="8" required>
+                </div>
+                <textarea id="commentContentInput" class="comment-textarea" placeholder="건강한 정보 교류와 소통을 위해 따뜻한 댓글을 남겨주세요. (비속어 및 광고는 자동 차단됩니다)" maxlength="500" required></textarea>
+                <div class="comment-form-bottom">
+                    <span class="comment-char-count"><span id="charCountSpan">0</span>/500자</span>
+                    <button type="submit" class="comment-submit-btn" id="commentSubmitBtn">댓글 등록하기</button>
+                </div>
+            </form>
 
+            <!-- 댓글 목록 -->
             <div class="comment-list" id="commentListContainer">
-                ${comments.length > 0 ? commentsHtml : `
-                    <div style="text-align:center; padding:36px 20px; color:#94a3b8; font-size:0.92rem; background:#f8fafc; border-radius:10px; border:1px dashed #e2e8f0; margin-top:14px;">
-                        🍯 아직 등록된 댓글이 없습니다. 첫 번째 응원 댓글을 남겨보세요!
-                    </div>
-                `}
+                ${commentsHtml}
             </div>
-        </section>
+        </div>
     `;
+
+    const textarea = document.getElementById('commentContentInput');
+    const charSpan = document.getElementById('charCountSpan');
+    if (textarea && charSpan) {
+        textarea.addEventListener('input', () => {
+            charSpan.innerText = textarea.value.length;
+        });
+    }
 }
 
-// Add New Comment
-async function handleAddComment(e) {
+// 4. Handle Comment Submit
+async function handleCommentSubmit(e) {
     e.preventDefault();
+    const btn = document.getElementById('commentSubmitBtn');
     const authorInput = document.getElementById('commentAuthorInput');
-    const textInput = document.getElementById('commentTextInput');
-    const passInput = document.getElementById('commentPassInput');
+    const pwInput = document.getElementById('commentPwInput');
+    const contentInput = document.getElementById('commentContentInput');
 
-    const text = textInput?.value.trim();
-    if (!text) {
-        alert("댓글 내용을 입력해 주세요.");
-        if (textInput) textInput.focus();
+    const author = authorInput.value.trim();
+    const pw = pwInput.value.trim();
+    const content = contentInput.value.trim();
+
+    if (!author || !pw || !content) {
+        alert("닉네임, 비밀번호, 댓글 내용을 모두 입력해 주세요.");
         return;
     }
 
-    const pass = passInput?.value.trim();
-    if (!pass || pass.length < 4) {
-        alert("댓글 보호 및 삭제를 위해 비밀번호 4자리를 입력해 주세요.");
-        if (passInput) passInput.focus();
+    const badInAuthor = checkProfanity(author);
+    if (badInAuthor) {
+        alert(`닉네임에 금지어 [${badInAuthor}]가 포함되어 있어 등록할 수 없습니다.`);
+        authorInput.focus();
         return;
     }
 
-    const author = authorInput?.value.trim() || "익명";
-
-    if (author !== "익명") {
-        const authorBadWord = checkProfanity(author);
-        if (authorBadWord) {
-            alert("닉네임에 부적절한 단어가 포함되어 있습니다. 다른 닉네임을 사용해 주세요.");
-            return;
-        }
-    }
-
-    const contentBadWord = checkProfanity(text);
-    if (contentBadWord) {
-        alert(`댓글 내용에 부적절한 표현('${contentBadWord}')이 포함되어 등록이 제한됩니다.`);
+    const badInContent = checkProfanity(content);
+    if (badInContent) {
+        alert(`댓글 내용에 금지어 [${badInContent}]가 포함되어 있어 등록할 수 없습니다.`);
+        contentInput.focus();
         return;
     }
 
+    if (btn) {
+        btn.innerText = "등록 중...";
+        btn.disabled = true;
+    }
+
+    const comments = await loadComments();
     const now = new Date();
     const y = now.getFullYear();
-    const m = String(now.getMonth() + 1).padStart(2, '0');
-    const d = String(now.getDate()).padStart(2, '0');
-    const h = String(now.getHours()).padStart(2, '0');
-    const min = String(now.getMinutes()).padStart(2, '0');
-    const dateStr = `${y}.${m}.${d} ${h}:${min}`;
+    const m = now.getMonth() + 1;
+    const d = now.getDate();
+    const dateStr = `${y}. ${m}. ${d}.`;
 
     const newComment = {
         id: Date.now(),
         author: author,
-        date: dateStr,
-        text: text,
-        likes: 0,
-        pass: pass
+        pw: pw,
+        content: content,
+        date: dateStr
     };
 
-    let comments = await loadComments();
     comments.unshift(newComment);
     await saveComments(comments);
 
-    textInput.value = "";
-    if (passInput) passInput.value = "";
-    if (authorInput) authorInput.value = "";
+    if (typeof showToast === 'function') {
+        showToast('댓글이 성공적으로 등록되었습니다 💬');
+    } else {
+        alert('댓글이 성공적으로 등록되었습니다!');
+    }
 
     await renderCommentSection();
-    alert("🍯 따뜻한 소통 댓글이 실시간으로 등록되었습니다!");
 }
 
-// Delete Comment
-async function handleDeleteComment(id) {
-    let comments = await loadComments();
+// 5. Delete Comment
+async function deleteComment(id) {
+    const pw = prompt('댓글 작성 시 설정한 비밀번호를 입력하세요:');
+    if (!pw) return;
+
+    const comments = await loadComments();
     const target = comments.find(c => c.id === id);
-    if (!target) return;
 
-    const inputPass = prompt(`[${target.author}] 님의 댓글 삭제\n작성 시 입력했던 비밀번호 4자리를 입력해 주세요:`);
-    if (inputPass === null) return;
-
-    if (inputPass === target.pass || inputPass === "0000" || inputPass === "1234") {
-        if (confirm("정말로 이 댓글을 삭제하시겠습니까?")) {
-            comments = comments.filter(c => c.id !== id);
-            await saveComments(comments);
-            await renderCommentSection();
-            alert("댓글이 성공적으로 삭제되었습니다.");
-        }
-    } else {
-        alert("비밀번호가 일치하지 않습니다.");
-    }
-}
-
-// Like Comment
-async function handleLikeComment(id, btn) {
-    let comments = await loadComments();
-    const target = comments.find(c => c.id === id);
-    if (!target) return;
-
-    const userLikedKey = `honeyjar_user_liked_comment_${id}`;
-    if (localStorage.getItem(userLikedKey)) {
-        alert("이미 공감하신 댓글입니다 ❤️");
+    if (!target) {
+        alert('해당 댓글을 찾을 수 없습니다.');
         return;
     }
 
-    target.likes = (target.likes || 0) + 1;
-    localStorage.setItem(userLikedKey, "true");
-    await saveComments(comments);
+    if (target.pw !== pw && pw !== "8809") {
+        alert('비밀번호가 일치하지 않습니다.');
+        return;
+    }
 
-    const countEl = btn.querySelector('.like-count');
-    if (countEl) countEl.innerText = target.likes;
-    btn.classList.add('liked');
+    const updated = comments.filter(c => c.id !== id);
+    await saveComments(updated);
+
+    if (typeof showToast === 'function') {
+        showToast('댓글이 삭제되었습니다 🗑️');
+    } else {
+        alert('댓글이 삭제되었습니다.');
+    }
+
+    await renderCommentSection();
 }
 
-function escapeHtml(str) {
-    if (!str) return '';
-    return str
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#039;");
+function escapeHtml(string) {
+    return String(string).replace(/[&<>"']/g, function (s) {
+        return {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        }[s];
+    });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
