@@ -1,49 +1,39 @@
-﻿// Clean Reset to 0 for Hearts
-(function checkHeartsReset() {
-    var RESET_FLAG = 'honeyjar_hearts_reset_v3';
-    if (!localStorage.getItem(RESET_FLAG)) {
-        for (var i = localStorage.length - 1; i >= 0; i--) {
-            var k = localStorage.key(i);
-            if (k && (k.indexOf('honeyjar_hearts_') === 0 || k.indexOf('honeyjar_user_liked_') === 0)) {
-                localStorage.removeItem(k);
-            }
-        }
-        localStorage.setItem(RESET_FLAG, 'true');
-    }
-})();
-// ==========================================================================
-// 🍯 [꿀단지 모바일 액션 엔진] 하트 공감 저장, 댓글 수 실시간 동기화, 공유 토스트
-// ==========================================================================
+﻿/**
+ * 🍯 꿀단지 공식 모바일 액션 엔진 (HoneyJar Real-Time Global Heart & Action Engine)
+ * - 전 세계 모든 독자의 하트 공감 실시간 클라우드 DB 동기화
+ */
 
-// 현재 글 식별자 슬러그
+const CLOUD_HEARTS_BASE = "https://honeyjar-analytics-default-rtdb.firebaseio.com/honeyjar_hearts";
+
 function getArticleSlug() {
     const path = window.location.pathname;
     const parts = path.split('/');
-    return parts[parts.length - 1] || "default.html";
+    let s = parts[parts.length - 1] || "default.html";
+    if (s === "") s = "index.html";
+    return s;
 }
 
-// 1. 하트 공감 토글 및 로컬 스토리지 영구 저장
-function toggleBottomHeart(btn) {
+function getSlugKey(slug) {
+    return slug.replace(/[\.\#\$\[\]\/]/g, '_');
+}
+
+// 1. 하트 공감 토글 및 글로벌 클라우드 DB 실시간 전송
+async function toggleBottomHeart(btn) {
     const slug = getArticleSlug();
+    const slugKey = getSlugKey(slug);
     const countEl = btn.querySelector('.heart-count');
     if (!countEl) return;
 
-    const storageHeartKey = "honeyjar_hearts_" + slug;
     const storageUserLikeKey = "honeyjar_user_liked_" + slug;
-
-    let currentHearts = parseInt(localStorage.getItem(storageHeartKey), 10);
-    if (isNaN(currentHearts)) {
-        currentHearts = parseInt(countEl.innerText, 10) || 0;
-    }
-
     const isAlreadyLiked = localStorage.getItem(storageUserLikeKey) === "true";
+
+    let currentHearts = parseInt(countEl.innerText, 10) || 0;
 
     if (isAlreadyLiked) {
         // 좋아요 취소
         currentHearts = Math.max(0, currentHearts - 1);
         btn.classList.remove('liked');
         localStorage.setItem(storageUserLikeKey, "false");
-        localStorage.setItem(storageHeartKey, currentHearts.toString());
         countEl.innerText = currentHearts;
         showToast('공감을 취소했습니다.');
     } else {
@@ -51,40 +41,52 @@ function toggleBottomHeart(btn) {
         currentHearts += 1;
         btn.classList.add('liked');
         localStorage.setItem(storageUserLikeKey, "true");
-        localStorage.setItem(storageHeartKey, currentHearts.toString());
         countEl.innerText = currentHearts;
         showToast('글에 공감하셨습니다 ❤️');
     }
+
+    // 클라우드 DB에 실시간 반영
+    try {
+        const url = `${CLOUD_HEARTS_BASE}/${slugKey}.json`;
+        fetch(url, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(currentHearts)
+        }).catch(() => {});
+    } catch(e) {}
 }
 
-// 2. 페이지 로드 시 하트 상태 및 숫자 복원
-function initBottomHeart() {
+// 2. 페이지 로드 시 전 세계 실제 하트 수 클라우드 실시간 복원
+async function initBottomHeart() {
     const slug = getArticleSlug();
+    const slugKey = getSlugKey(slug);
     const btn = document.querySelector('.naver-bottom-btn[onclick*="toggleBottomHeart"]');
     if (!btn) return;
 
     const countEl = btn.querySelector('.heart-count');
     if (!countEl) return;
 
-    const storageHeartKey = "honeyjar_hearts_" + slug;
     const storageUserLikeKey = "honeyjar_user_liked_" + slug;
 
-    // 저장된 하트 수 복원
-    let savedHearts = localStorage.getItem(storageHeartKey);
-    if (savedHearts !== null) {
-        countEl.innerText = savedHearts;
-    } else {
-        // 초기 기본값 저장
-        const defaultNum = parseInt(countEl.innerText, 10) || 0;
-        localStorage.setItem(storageHeartKey, defaultNum.toString());
-    }
-
-    // 유저 좋아요 여부 복원
+    // 1) 내 폰의 좋아요 상태 복원
     if (localStorage.getItem(storageUserLikeKey) === "true") {
         btn.classList.add('liked');
     } else {
         btn.classList.remove('liked');
     }
+
+    // 2) 클라우드 DB에서 전 세계 실제 누적 하트 수 실시간 가져오기
+    try {
+        const url = `${CLOUD_HEARTS_BASE}/${slugKey}.json`;
+        const res = await fetch(url, { method: "GET" });
+        if (res.ok) {
+            const count = await res.json();
+            if (typeof count === 'number') {
+                countEl.innerText = count.toString();
+                return;
+            }
+        }
+    } catch(e) {}
 }
 
 // 3. 댓글 작성창으로 부드러운 스크롤 이동
@@ -93,7 +95,7 @@ function scrollToComments() {
     if (target) {
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
         setTimeout(() => {
-            const authorInput = document.getElementById('commentAuthor') || document.querySelector('.comment-input');
+            const authorInput = document.getElementById('commentAuthorInput') || document.querySelector('.comment-textarea');
             if (authorInput) authorInput.focus();
         }, 500);
     }
