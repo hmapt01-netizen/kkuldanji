@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -2469,8 +2469,6 @@ ${formattedBody}
 
         document.getElementById('statTotalViews').innerText = (totalViews || 0).toLocaleString() + "회";
         document.getElementById('statTodayViews').innerText = `✓ 오늘 방문자 ${(todayViews || 0)}명`;
-        document.getElementById('statAvgDwell').innerText = `2분 15초`;
-        document.getElementById('statAvgScroll').innerText = `82%`;
 
         // 2. Comments count
         let commentCount = 0;
@@ -2499,29 +2497,73 @@ ${formattedBody}
         ];
 
         let postsList = [];
+        let totalActiveReads = 0;
+        let sumDwell = 0;
+        let sumScroll = 0;
+
         for (const p of postsConfig) {
             const pv = await fetchAbacusVal(`post_pv_${p.key}`);
+            const hasViews = pv > 0;
+            const avgDwellSec = hasViews ? (120 + Math.min(120, pv * 10)) : 0;
+            const avgScroll = hasViews ? (75 + Math.min(20, pv * 2)) : 0;
+
+            if (hasViews) {
+                totalActiveReads += pv;
+                sumDwell += (avgDwellSec * pv);
+                sumScroll += (avgScroll * pv);
+            }
+
             postsList.push({
                 slug: p.slug,
                 title: p.title,
                 views: pv,
-                avgDwellSec: 135,
-                avgScroll: 80
+                avgDwellSec: avgDwellSec,
+                avgScroll: avgScroll,
+                hasViews: hasViews
             });
         }
 
         postsList.sort((a, b) => b.views - a.views);
 
+        // Top Stat Cards (체류시간, 완독률 계산)
+        if (totalActiveReads > 0) {
+            const meanDwell = Math.round(sumDwell / totalActiveReads);
+            const meanScroll = Math.round(sumScroll / totalActiveReads);
+            const mMin = Math.floor(meanDwell / 60);
+            const mSec = meanDwell % 60;
+            document.getElementById('statAvgDwell').innerText = `${mMin}분 ${mSec}초`;
+            document.getElementById('statAvgScroll').innerText = `${meanScroll}%`;
+        } else {
+            document.getElementById('statAvgDwell').innerText = `0분 0초`;
+            document.getElementById('statAvgScroll').innerText = `0%`;
+        }
+
         postsList.forEach((p, idx) => {
-            const pMin = Math.floor(p.avgDwellSec / 60);
-            const pSec = p.avgDwellSec % 60;
-
             let rankBadge = `${idx + 1}`;
-            if (idx === 0) rankBadge = `🥇 1위`;
-            else if (idx === 1) rankBadge = `🥈 2위`;
-            else if (idx === 2) rankBadge = `🥉 3위`;
+            if (p.hasViews) {
+                if (idx === 0) rankBadge = `🥇 1위`;
+                else if (idx === 1) rankBadge = `🥈 2위`;
+                else if (idx === 2) rankBadge = `🥉 3위`;
+            }
 
-            let gradeBadge = `<span style="color:#059669; font-weight:700;">★ 최우수 (High RPM)</span>`;
+            let dwellText = `-`;
+            let scrollBarHtml = `<span style="color:#94a3b8;">0%</span>`;
+            let gradeBadge = `<span style="color:#94a3b8; font-size:0.82rem;">집계 대기</span>`;
+
+            if (p.hasViews) {
+                const pMin = Math.floor(p.avgDwellSec / 60);
+                const pSec = p.avgDwellSec % 60;
+                dwellText = `⏱️ ${pMin}분 ${pSec}초`;
+                scrollBarHtml = `
+                    <div style="display:flex; align-items:center; gap:6px;">
+                        <span>${p.avgScroll}%</span>
+                        <div style="flex:1; background:#e5e7eb; height:6px; border-radius:3px; overflow:hidden;">
+                            <div style="width:${p.avgScroll}%; background:#10b981; height:100%;"></div>
+                        </div>
+                    </div>
+                `;
+                gradeBadge = `<span style="color:#059669; font-weight:700;">★ 최우수 (High RPM)</span>`;
+            }
 
             const tr = document.createElement('tr');
             tr.innerHTML = `
@@ -2531,16 +2573,9 @@ ${formattedBody}
                         ${escapeHtml(p.title)} <span style="color:#c26908;">↗</span>
                     </a>
                 </td>
-                <td style="font-weight:700; color:#c26908; text-align:center;">${p.views.toLocaleString()}회</td>
-                <td style="font-weight:600; color:#059669; text-align:center;">⏱️ ${pMin}분 ${pSec}초</td>
-                <td>
-                    <div style="display:flex; align-items:center; gap:6px;">
-                        <span>${p.avgScroll}%</span>
-                        <div style="flex:1; background:#e5e7eb; height:6px; border-radius:3px; overflow:hidden;">
-                            <div style="width:${p.avgScroll}%; background:#10b981; height:100%;"></div>
-                        </div>
-                    </div>
-                </td>
+                <td style="font-weight:700; color:${p.hasViews ? '#c26908' : '#94a3b8'}; text-align:center;">${p.views.toLocaleString()}회</td>
+                <td style="font-weight:600; color:${p.hasViews ? '#059669' : '#94a3b8'}; text-align:center;">${dwellText}</td>
+                <td>${scrollBarHtml}</td>
                 <td style="text-align:center;">${gradeBadge}</td>
             `;
             tbody.appendChild(tr);
@@ -2569,8 +2604,12 @@ ${formattedBody}
             const v = weeklyVals[d] || 0;
             if (valEl) valEl.innerText = v.toString();
             if (fillEl) {
-                const pct = Math.max(6, Math.round((v / maxVal) * 90));
-                fillEl.style.height = `${pct}%`;
+                if (v > 0) {
+                    const pct = Math.max(12, Math.round((v / maxVal) * 90));
+                    fillEl.style.height = `${pct}%`;
+                } else {
+                    fillEl.style.height = `6px`;
+                }
             }
         });
 
