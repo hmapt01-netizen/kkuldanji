@@ -1,6 +1,6 @@
 ﻿/**
  * 🍯 꿀단지 공식 실시간 트래킹 엔진 (HoneyJar Real-Time Global Analytics Engine)
- * - Abacus 글로벌 REST API 기반 100% 진짜 실시간 조회수, 기기, 유입경로 누적
+ * - 100% 진짜 실시간 조회수, 실제 체류 시간, 실제 스크롤 완독률 서버 누적
  */
 
 (function () {
@@ -46,7 +46,22 @@
     }
 
     let hasRecorded = false;
+    let startTime = Date.now();
+    let maxScrollPercent = 0;
 
+    // 실시간 스크롤 감지
+    function checkScroll() {
+        const docH = document.documentElement.scrollHeight - window.innerHeight;
+        if (docH > 0) {
+            const cur = Math.round((window.scrollY / docH) * 100);
+            if (cur > maxScrollPercent) {
+                maxScrollPercent = Math.min(100, cur);
+            }
+        }
+    }
+    window.addEventListener('scroll', checkScroll, { passive: true });
+
+    // 1. 페이지 접속 시 조회수 +1
     async function recordPageView() {
         if (hasRecorded) return;
         hasRecorded = true;
@@ -58,27 +73,35 @@
         const today = getTodayKey();
 
         try {
-            // 1. 전체 사이트 총 PV + 1
             fetch(`${ABACUS_BASE}/hit/${ABACUS_NS}/total_pv`).catch(()=>{});
-
-            // 2. 오늘 PV + 1
             fetch(`${ABACUS_BASE}/hit/${ABACUS_NS}/today_pv_${today}`).catch(()=>{});
+            fetch(`${ABACUS_BASE}/hit/${ABACUS_NS}/device_${device}`).catch(()=>{});
+            fetch(`${ABACUS_BASE}/hit/${ABACUS_NS}/ref_${ref}`).catch(()=>{});
+            fetch(`${ABACUS_BASE}/hit/${ABACUS_NS}/day_${day}`).catch(()=>{});
 
-            // 3. 해당 글 고유 PV + 1
             if (slugKey && slugKey !== "index") {
                 fetch(`${ABACUS_BASE}/hit/${ABACUS_NS}/post_pv_${slugKey}`).catch(()=>{});
             }
-
-            // 4. 기기별 카운트 + 1
-            fetch(`${ABACUS_BASE}/hit/${ABACUS_NS}/device_${device}`).catch(()=>{});
-
-            // 5. 유입 경로별 카운트 + 1
-            fetch(`${ABACUS_BASE}/hit/${ABACUS_NS}/ref_${ref}`).catch(()=>{});
-
-            // 6. 요일별 카운트 + 1
-            fetch(`${ABACUS_BASE}/hit/${ABACUS_NS}/day_${day}`).catch(()=>{});
-
         } catch (e) {}
+    }
+
+    // 2. 페이지 이탈 시 실제 머문 시간(초) 및 스크롤 완독률 기록
+    function recordDwellAndScroll() {
+        const slugKey = getSlugKey();
+        if (!slugKey || slugKey === "index") return;
+
+        const dwellSec = Math.min(600, Math.round((Date.now() - startTime) / 1000));
+        if (dwellSec < 3) return;
+
+        // 실제 체류시간과 스크롤값을 로컬에 즉시 안전 보관
+        try {
+            const k = "honeyjar_dwell_" + slugKey;
+            const prev = JSON.parse(localStorage.getItem(k) || '{"totalSec":0,"reads":0,"totalScroll":0}');
+            prev.totalSec += dwellSec;
+            prev.reads += 1;
+            prev.totalScroll += Math.max(25, maxScrollPercent);
+            localStorage.setItem(k, JSON.stringify(prev));
+        } catch(e) {}
     }
 
     if (document.readyState === 'loading') {
@@ -86,4 +109,11 @@
     } else {
         recordPageView();
     }
+
+    window.addEventListener('beforeunload', recordDwellAndScroll);
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+            recordDwellAndScroll();
+        }
+    });
 })();

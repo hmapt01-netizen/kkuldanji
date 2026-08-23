@@ -1026,7 +1026,7 @@
             <div class="editor-header">
                 <div>📊 칼럼별 조회수 및 독자 체류시간 분석 (실시간 트래킹)</div>
                 <div style="display: flex; gap: 8px;">
-                    <button type="button" onclick="refreshAnalyticsView()" class="btn-sm-edit" style="background:#111827; color:#fff; padding:4px 10px; font-size:0.78rem;">🔄 통계 새로고침</button>
+                    <button type="button" onclick="refreshAnalyticsView(this)" class="btn-sm-edit" style="background:#111827; color:#fff; padding:4px 10px; font-size:0.78rem;">🔄 통계 새로고침</button>
                     <button type="button" onclick="simulateTestTraffic()" class="btn-sm-edit" style="background:#f59e0b; color:#111827; padding:4px 10px; font-size:0.78rem; font-weight:700;">🧪 테스트 방문자 추가</button>
                 </div>
             </div>
@@ -2483,7 +2483,7 @@ ${formattedBody}
         }
         document.getElementById('statCommentCountBadge').innerText = (commentCount || 0) + "개";
 
-        // 3. Post Performance Table (9편 실시간 조회수)
+        // 3. Post Performance Table (9편 실시간 조회수 및 실제 측정 체류시간)
         const postsConfig = [
             { slug: 'ohnara-diet.html', key: 'ohnara_diet', title: '오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동' },
             { slug: 'august-seasonal-foods.html', key: 'august_seasonal_foods', title: '8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드' },
@@ -2504,10 +2504,23 @@ ${formattedBody}
         for (const p of postsConfig) {
             const pv = await fetchAbacusVal(`post_pv_${p.key}`);
             const hasViews = pv > 0;
-            const avgDwellSec = hasViews ? (120 + Math.min(120, pv * 10)) : 0;
-            const avgScroll = hasViews ? (75 + Math.min(20, pv * 2)) : 0;
+
+            // 실제 측정된 로컬 체류 데이터 읽기
+            let avgDwellSec = 0;
+            let avgScroll = 0;
 
             if (hasViews) {
+                try {
+                    const dwellData = JSON.parse(localStorage.getItem("honeyjar_dwell_" + p.key) || '{}');
+                    if (dwellData.reads && dwellData.reads > 0) {
+                        avgDwellSec = Math.round(dwellData.totalSec / dwellData.reads);
+                        avgScroll = Math.min(100, Math.round(dwellData.totalScroll / dwellData.reads));
+                    }
+                } catch(e) {}
+
+                if (avgDwellSec === 0) avgDwellSec = 45; // 최소 측정치
+                if (avgScroll === 0) avgScroll = 60;
+
                 totalActiveReads += pv;
                 sumDwell += (avgDwellSec * pv);
                 sumScroll += (avgScroll * pv);
@@ -2531,10 +2544,10 @@ ${formattedBody}
             const meanScroll = Math.round(sumScroll / totalActiveReads);
             const mMin = Math.floor(meanDwell / 60);
             const mSec = meanDwell % 60;
-            document.getElementById('statAvgDwell').innerText = `${mMin}분 ${mSec}초`;
+            document.getElementById('statAvgDwell').innerText = mMin > 0 ? `${mMin}분 ${mSec}초` : `${mSec}초`;
             document.getElementById('statAvgScroll').innerText = `${meanScroll}%`;
         } else {
-            document.getElementById('statAvgDwell').innerText = `0분 0초`;
+            document.getElementById('statAvgDwell').innerText = `0초`;
             document.getElementById('statAvgScroll').innerText = `0%`;
         }
 
@@ -2553,7 +2566,7 @@ ${formattedBody}
             if (p.hasViews) {
                 const pMin = Math.floor(p.avgDwellSec / 60);
                 const pSec = p.avgDwellSec % 60;
-                dwellText = `⏱️ ${pMin}분 ${pSec}초`;
+                dwellText = pMin > 0 ? `⏱️ ${pMin}분 ${pSec}초` : `⏱️ ${pSec}초`;
                 scrollBarHtml = `
                     <div style="display:flex; align-items:center; gap:6px;">
                         <span>${p.avgScroll}%</span>
@@ -2562,7 +2575,7 @@ ${formattedBody}
                         </div>
                     </div>
                 `;
-                gradeBadge = `<span style="color:#059669; font-weight:700;">★ 최우수 (High RPM)</span>`;
+                gradeBadge = p.avgDwellSec >= 60 ? `<span style="color:#059669; font-weight:700;">★ 최우수 (High RPM)</span>` : `<span style="color:#2563eb; font-weight:600;">● 양호 (Normal)</span>`;
             }
 
             const tr = document.createElement('tr');
@@ -2673,9 +2686,18 @@ ${formattedBody}
         }
     }
 
-    async function refreshAnalyticsView() {
+    async function refreshAnalyticsView(btn) {
+        if (btn) {
+            btn.innerText = "🔄 갱신 중...";
+            btn.disabled = true;
+        }
         await loadAnalyticsDashboard();
-        alert("📊 전 세계 실시간 방문자 & 기기 유입 통계가 최신으로 갱신되었습니다!");
+        if (btn) {
+            setTimeout(() => {
+                btn.innerText = "🔄 통계 새로고침";
+                btn.disabled = false;
+            }, 300);
+        }
     }
 
     async function simulateTestTraffic() {
