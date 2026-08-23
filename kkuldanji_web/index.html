@@ -949,26 +949,25 @@
             alert('입력하신 신체 조건에 맞춘 실시간 분석이 완료되었습니다!');
         }
 
-        // 💖 메인 홈 인기글 하트 수 클라우드 실시간 동기화
+        // 💖 메인 홈 인기글 하트 수 Abacus 클라우드 실시간 동기화
         async function syncCloudHeartsToIndex() {
-            try {
-                const res = await fetch("https://honeyjar-analytics-default-rtdb.firebaseio.com/honeyjar_hearts.json");
-                if (res.ok) {
-                    const heartsData = await res.json();
-                    if (heartsData && typeof heartsData === 'object') {
-                        document.querySelectorAll('.popular-posts-card-box .popular-post-row').forEach(row => {
-                            const href = row.getAttribute('href') || '';
-                            const parts = href.split('/');
-                            const slug = parts[parts.length - 1];
-                            const slugKey = slug.replace(/[\.\#\$\[\]\/]/g, '_');
-                            if (heartsData[slugKey] !== undefined) {
-                                const metaSpan = row.querySelector('.popular-post-meta span:first-child');
-                                if (metaSpan) metaSpan.innerText = `♡ ${heartsData[slugKey]}`;
-                            }
-                        });
+            const rows = document.querySelectorAll('.popular-posts-card-box .popular-post-row');
+            rows.forEach(async (row) => {
+                const href = row.getAttribute('href') || '';
+                const parts = href.split('/');
+                const slug = parts[parts.length - 1];
+                const slugKey = slug.replace('.html', '').replace(/[\.\#\$\[\]\/\-]/g, '_');
+                try {
+                    const res = await fetch(`https://abacus.jasoncameron.dev/get/honeyjar_wellness/hearts_${slugKey}`);
+                    if (res.ok) {
+                        const data = await res.json();
+                        if (data && typeof data.value === 'number') {
+                            const metaSpan = row.querySelector('.popular-post-meta span:first-child');
+                            if (metaSpan) metaSpan.innerText = `♡ ${data.value}`;
+                        }
                     }
-                }
-            } catch(e) {}
+                } catch(e) {}
+            });
         }
 
         function refreshAllViewFilters() {
