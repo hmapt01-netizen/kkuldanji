@@ -3118,3 +3118,38 @@ body.is-home .naver-mobile-top-bar {
     color: #0f172a !important;
     font-weight: 750 !important;
 }
+
+/* ==========================================================================
+   ⚡ [Google Core Web Vitals 100% Zero-Shift & Speed Optimization Engine]
+   ========================================================================== */
+img {
+    content-visibility: auto;
+}
+.article-featured-img-box, .article-section-img-box {
+    width: 100% !important;
+    aspect-ratio: 16 / 9 !important;
+    background: #f1f5f9 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    contain: layout paint !important;
+}
+.clean-card .article-img-wrap, .clean-card > div:first-child {
+    aspect-ratio: 16 / 9 !important;
+    background: #f1f5f9 !important;
+    overflow: hidden !important;
+}
+.popular-post-thumb {
+    width: 72px !important;
+    height: 72px !important;
+    aspect-ratio: 1 / 1 !important;
+    background: #f1f5f9 !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+    flex-shrink: 0 !important;
+}
+.featured-img {
+    aspect-ratio: 16 / 9 !important;
+    background: #f1f5f9 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+}

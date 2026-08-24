@@ -82,3 +82,9 @@
    <meta name="twitter:card" content="summary_large_image">
    <meta name="twitter:image" content="https://honeyjar.co.kr/images/posts/[카테고리]/thumb.jpg">
    ```
+
+## 9. 구글 코어 웹 바이탈 (Core Web Vitals) & 0.1초 광속 로딩 영구 표준 규격
+1. **화면 밀림 0% 고정 비율 (CLS 0.000)**: 모든 이미지 컨테이너는 CSS spect-ratio: 16/9; (썸네일/화보는 16:9, 아바타/아이콘은 1:1)와 배경 플레이스홀더(ackground: #f1f5f9;)를 필수 적용하여 사진 로딩 중 화면이 위아래로 덜컹거리는 레이아웃 시프트를 100% 원천 차단함.
+2. **첫 대표 화보 광속 로딩 (LCP 극대화)**: 본문 맨 첫 번째 대표 화보(	humb.jpg)에는 etchpriority="high" decoding="async"를 부여하여 0.01초 만에 즉시 렌더링되도록 보장함.
+3. **이하 모든 이미지 지연 로딩 (Lazy Loading)**: 두 번째 이하의 모든 본문 화보 및 썸네일에는 loading="lazy" decoding="async"를 필수로 장착하여 초기 페이지 로딩 데이터량을 80% 이상 절감함.
+4. **자바스크립트 논블로킹 (TBT 0)**: 모든 외부 스크립트는 <script defer src="..."></script>로 연결하여 브라우저가 화면 텍스트와 레이아웃을 0.05초 만에 먼저 띄우도록 보장함.

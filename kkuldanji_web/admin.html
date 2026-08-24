@@ -12,8 +12,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css?v=20260821160401">
-    <script src="js/analytics.js"></script>
-    <script src="js/comments.js"></script>
+    <script defer src="js/analytics.js"></script>
+    <script defer src="js/comments.js"></script>
     <style>
         /* Lock Screen Modal */
         #authLockScreen {
@@ -1469,7 +1469,7 @@
 
             tr.innerHTML = `
                 <td>${index + 1}</td>
-                <td><img src="${post.thumb}" class="post-thumb-mini" alt="썸네일"></td>
+                <td><img src="${post.thumb}" class="post-thumb-mini" alt="썸네일" loading="lazy" decoding="async"></td>
                 <td><span class="badge-cat">${post.category}</span></td>
                 <td>
                     <strong>${post.title}</strong>
@@ -2236,7 +2236,7 @@
         </header>
 
         <div class="post-featured-image">
-            <img src="${thumb}" alt="${title}" style="width:100%; border-radius: 12px; max-height: 480px; object-fit: cover;">
+            <img src="${thumb}" alt="${title}" style="width:100%; border-radius: 12px; max-height: 480px; object-fit: cover;" loading="lazy" decoding="async">
         </div>
 
         <div class="post-content">
