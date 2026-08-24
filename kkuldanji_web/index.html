@@ -1027,56 +1027,9 @@
             "water-intake-guide.html": "ff8081819ff5b11001a02d13d81c7ddb"
         };
 
-        // 💖 메인 홈 인기글 하트/댓글/조회수 100% 실시간 글로벌 동기화
-        async function syncCloudHeartsToIndex() {
-            const rows = document.querySelectorAll('.popular-posts-card-box .popular-post-row');
-            rows.forEach(async (row) => {
-                const href = row.getAttribute('href') || '';
-                const parts = href.split('/');
-                const slug = parts[parts.length - 1];
-                const slugKey = slug.replace('.html', '').replace(/[\.\#\$\[\]\/\-]/g, '_');
-                
-                const metaSpans = row.querySelectorAll('.popular-post-meta span');
-                const heartSpan = metaSpans[0];
-                const commentSpan = metaSpans[1];
-                const pvSpan = metaSpans[2];
-
-                // 1. 하트 수 동기화
-                try {
-                    const res = await fetch(`https://abacus.jasoncameron.dev/get/honeyjar_wellness/hearts_${slugKey}`);
-                    if (res.ok) {
-                        const data = await res.json();
-                        if (data && typeof data.value === 'number' && heartSpan) {
-                            heartSpan.innerText = `♡ ${data.value}`;
-                        }
-                    }
-                } catch(e) {}
-
-                // 2. 댓글 수 실시간 글로벌 동기화
-                try {
-                    const objId = CLOUD_COMMENT_MAP_INDEX[slug];
-                    if (objId) {
-                        const res = await fetch(`https://api.restful-api.dev/objects/${objId}`);
-                        if (res.ok) {
-                            const data = await res.json();
-                            if (data && data.data && Array.isArray(data.data.comments) && commentSpan) {
-                                commentSpan.innerText = `💬 ${data.data.comments.length}`;
-                            }
-                        }
-                    }
-                } catch(e) {}
-
-                // 3. 조회수 동기화
-                try {
-                    const res = await fetch(`https://abacus.jasoncameron.dev/get/honeyjar_wellness/post_pv_${slugKey}`);
-                    if (res.ok) {
-                        const data = await res.json();
-                        if (data && typeof data.value === 'number' && pvSpan) {
-                            pvSpan.innerText = `조회 ${data.value.toLocaleString()}`;
-                        }
-                    }
-                } catch(e) {}
-            });
+                // 💖 메인 홈 뷰 필터 및 상태 갱신
+        function syncCloudHeartsToIndex() {
+            // 인기글 순위 뱃지(TOP 1~5) 영구 보존 & 보호
         }
 
         function refreshAllViewFilters() {
@@ -1107,7 +1060,7 @@
             refreshAllViewFilters();
         });
     </script>
-    <script src="js/features.js?v=20260825084500"></script>
+    <script src="js/features.js?v=20260825085000"></script>
     <script src="js/tracker.js?v=20260823080844"></script>
 </body>
 </html>
