@@ -1,8 +1,12 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 🍯 꿀단지 공식 파비콘 -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <title>관리자 대시보드 & 글 발행기 | 혀니의 꿀단지</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1029,7 +1033,6 @@
                 <div>📊 칼럼별 조회수 및 독자 체류시간 분석 (실시간 트래킹)</div>
                 <div style="display: flex; gap: 8px;">
                     <button type="button" onclick="refreshAnalyticsView(this)" class="btn-sm-edit" style="background:#111827; color:#fff; padding:4px 10px; font-size:0.78rem;">🔄 통계 새로고침</button>
-                    <button type="button" onclick="simulateTestTraffic()" class="btn-sm-edit" style="background:#f59e0b; color:#111827; padding:4px 10px; font-size:0.78rem; font-weight:700;">🧪 테스트 방문자 추가</button>
                 </div>
             </div>
 
@@ -1683,6 +1686,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 🍯 꿀단지 공식 파비콘 -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <title>${title} | 혀니의 꿀단지</title>
     <meta name="description" content="${desc}">
     <meta property="og:title" content="${title} | 혀니의 꿀단지">
@@ -2695,24 +2702,7 @@ ${formattedBody}
         }
     }
 
-    async function simulateTestTraffic() {
-        const now = new Date();
-        const y = now.getFullYear();
-        const m = String(now.getMonth() + 1).padStart(2, '0');
-        const d = String(now.getDate()).padStart(2, '0');
-        const todayKey = `${y}_${m}_${d}`;
-        const day = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'][now.getDay()];
 
-        await fetch(`${ABACUS_BASE}/hit/${ABACUS_NS}/total_pv`);
-        await fetch(`${ABACUS_BASE}/hit/${ABACUS_NS}/today_pv_${todayKey}`);
-        await fetch(`${ABACUS_BASE}/hit/${ABACUS_NS}/device_mobile`);
-        await fetch(`${ABACUS_BASE}/hit/${ABACUS_NS}/ref_google`);
-        await fetch(`${ABACUS_BASE}/hit/${ABACUS_NS}/day_${day}`);
-        await fetch(`${ABACUS_BASE}/hit/${ABACUS_NS}/post_pv_ohnara_diet`);
-
-        await loadAnalyticsDashboard();
-        alert("🧪 테스트 방문자 트래픽(모바일/구글)이 클라우드 DB에 즉시 반영되었습니다!");
-    }
 
     // 12. Auth Session Control
     window.addEventListener('DOMContentLoaded', () => {

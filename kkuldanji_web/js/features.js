@@ -1,6 +1,7 @@
 ﻿/**
- * 🍯 꿀단지 공식 모바일 액션 엔진 (HoneyJar Real-Time Global Heart & Action Engine)
+ * 🍯 꿀단지 공식 모바일 액션 & 스마트 뱃지 엔진 (HoneyJar Real-Time Global Heart & Smart Badge Engine)
  * - 1인 1하트 중복 방지 + 글로벌 실시간 하트 동기화 + 하단바 댓글수 즉시 연동
+ * - 🕒 3일 후 자동 소멸 스마트 최신 뱃지 시스템 (Auto-Expiring New Badge System)
  */
 
 const ABACUS_BASE = "https://abacus.jasoncameron.dev";
@@ -157,6 +158,62 @@ function syncBottomCommentCount(count) {
     });
 }
 
+// 6. 🕒 스마트 자동 3일 시한부 최신 뱃지 시스템 (Auto-Expiring New Badge Engine)
+function initAutoExpiringBadges() {
+    const now = new Date();
+    const DAYS_LIMIT = 3; // 정확히 3일(72시간) 기준
+
+    // PC 및 모바일의 모든 날짜 엘리먼트 자동 탐색
+    const dateEls = document.querySelectorAll('[data-post-date], .clean-card div[style*="font-size:0.76rem"], .feed-item-meta span');
+    
+    dateEls.forEach(el => {
+        let rawDate = el.getAttribute('data-post-date');
+        if (!rawDate) {
+            const match = el.textContent.match(/(\d{4})[.\-](\d{1,2})[.\-](\d{1,2})/);
+            if (match) {
+                rawDate = `${match[1]}-${match[2].padStart(2, '0')}-${match[3].padStart(2, '0')}`;
+            }
+        }
+        
+        if (!rawDate) return;
+        
+        const postDate = new Date(rawDate);
+        const diffTime = now.getTime() - postDate.getTime();
+        const diffDays = diffTime / (1000 * 60 * 60 * 24);
+        
+        const baseDateStr = `${postDate.getFullYear()}.${String(postDate.getMonth()+1).padStart(2, '0')}.${String(postDate.getDate()).padStart(2, '0')}`;
+        
+        const article = el.closest('article');
+        const catBadge = article ? article.querySelector('.feed-item-cat, .clean-card span[style*="font-size:0.75rem"]') : null;
+
+        if (diffDays >= 0 && diffDays <= DAYS_LIMIT) {
+            // ✅ 3일 이내: 최신 뱃지 자동 표시
+            el.innerHTML = `${baseDateStr} <span class="badge-auto-new" style="display:inline-block; background:#fee2e2; color:#ef4444; font-size:0.72rem; font-weight:800; padding:1px 5px; border-radius:4px; margin-left:4px; vertical-align:middle; border:1px solid #fca5a5;">(최신)</span>`;
+            
+            if (catBadge && !catBadge.querySelector('.badge-cat-new') && !catBadge.textContent.includes('NEW')) {
+                const newTag = document.createElement('span');
+                newTag.className = 'badge-cat-new';
+                newTag.textContent = ' · NEW';
+                newTag.style.color = '#e11d48';
+                newTag.style.fontWeight = '800';
+                catBadge.appendChild(newTag);
+            }
+        } else {
+            // ❌ 3일 경과: 뱃지 100% 자동 소멸 (날짜만 정돈)
+            el.textContent = baseDateStr;
+            if (catBadge) {
+                const catNew = catBadge.querySelector('.badge-cat-new');
+                if (catNew) catNew.remove();
+                catBadge.textContent = catBadge.textContent.replace(' · NEW', '').replace('(최신)', '').replace('· NEW', '').replace('· 관절 보호', '').trim();
+                // 카테고리 본연의 텍스트 복원
+                const originCat = article.getAttribute('data-category');
+                if (originCat) catBadge.textContent = originCat;
+            }
+        }
+    });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
     initBottomHeart();
+    initAutoExpiringBadges();
 });
