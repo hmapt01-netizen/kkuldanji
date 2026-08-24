@@ -8,7 +8,7 @@
 const ABACUS_BASE = "https://abacus.jasoncameron.dev";
 const ABACUS_NS = "honeyjar_wellness";
 
-// 📚 꿀단지 공식 10대 칼럼 마스터 레지스트리
+// 📚 꿀단지 공식 10대 칼럼 마스터 레지스트리 (실제 이미지 폴더 경로 100% 일치)
 const HONEYJAR_POSTS_REGISTRY = [
     {
         slug: "ohnara-diet.html",
@@ -33,7 +33,7 @@ const HONEYJAR_POSTS_REGISTRY = [
         slugKey: "august_seasonal_foods",
         title: "8월 제철 음식 5가지 영양 가이드",
         fullTitle: "8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드",
-        thumb: "images/posts/seasonal/thumb.jpg?v=1.1",
+        thumb: "images/posts/august/thumb.jpg?v=1.1",
         cat: "식단 & 영양",
         baseWeight: 118
     },
@@ -309,7 +309,7 @@ async function initDynamicPopularRanking() {
         let liveHits = 0;
         try {
             const localHits = parseInt(localStorage.getItem("honeyjar_views_" + post.slugKey), 10);
-            if (!isNaN(liveHits)) liveHits = localHits;
+            if (!isNaN(localHits)) liveHits = localHits;
         } catch(e) {}
         
         const totalScore = post.baseWeight + (liveHits * 3);
@@ -352,13 +352,14 @@ async function initDynamicPopularRanking() {
     const mobilePopularBox = document.querySelector('.popular-posts-card-box');
     if (mobilePopularBox) {
         let mobileHtml = '';
-        top5.forEach(item => {
+        top5.forEach((item, idx) => {
             mobileHtml += `
                 <a href="${item.linkUrl}" class="popular-post-row">
                     <div class="popular-post-left">
                         <h3 class="popular-post-heading">${item.fullTitle}</h3>
                         <div class="popular-post-meta">
-                            <span>♡ 실시간 추천</span> <span>인기글</span>
+                            <span style="color:#c26908; font-weight:750;">TOP ${idx + 1}</span>
+                            <span>${item.cat}</span>
                         </div>
                     </div>
                     <img src="${item.thumbUrl}" alt="${item.title}" class="popular-post-thumb">
