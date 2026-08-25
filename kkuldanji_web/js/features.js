@@ -5,8 +5,8 @@
  * - 📈 100% 실시간 조회수 기반 인기글 TOP 5 자동 랭킹 시스템 (Dynamic Real-Time Popular Ranking)
  */
 
-const ABACUS_BASE = "https://abacus.jasoncameron.dev";
-const ABACUS_NS = "honeyjar_wellness";
+var ABACUS_BASE = window.ABACUS_BASE || "https://abacus.jasoncameron.dev";
+var ABACUS_NS = window.ABACUS_NS || "honeyjar_wellness";
 
 // 📚 꿀단지 공식 10대 칼럼 마스터 레지스트리 (실제 이미지 폴더 경로 100% 일치)
 const HONEYJAR_POSTS_REGISTRY = [

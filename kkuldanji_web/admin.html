@@ -3,7 +3,6 @@
 <head>
 <script>
 window.onerror = function(msg, url, line, col, error) {
-    document.body.innerHTML += '<div style="color:red; background:white; padding:20px; font-size:18px; z-index:999999; position:relative;">JS ERROR: ' + msg + ' at line ' + line + ':' + col + '</div>';
     console.error('CRITICAL JS ERROR:', msg, url, line, col, error);
 };
 </script>
@@ -1639,7 +1638,6 @@ window.onerror = function(msg, url, line, col, error) {
 <head>
 <script>
 window.onerror = function(msg, url, line, col, error) {
-    document.body.innerHTML += '<div style="color:red; background:white; padding:20px; font-size:18px; z-index:999999; position:relative;">JS ERROR: ' + msg + ' at line ' + line + ':' + col + '</div>';
     console.error('CRITICAL JS ERROR:', msg, url, line, col, error);
 };
 <\/script>
