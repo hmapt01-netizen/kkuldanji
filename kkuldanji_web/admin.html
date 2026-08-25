@@ -1,6 +1,12 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
+<script>
+window.onerror = function(msg, url, line, col, error) {
+    document.body.innerHTML += '<div style="color:red; background:white; padding:20px; font-size:18px; z-index:999999; position:relative;">JS ERROR: ' + msg + ' at line ' + line + ':' + col + '</div>';
+    console.error('CRITICAL JS ERROR:', msg, url, line, col, error);
+};
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 🍯 꿀단지 공식 파비콘 -->
@@ -11,9 +17,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css?v=20260821160401">
+    <link rel="stylesheet" href="css/style.css?v=20260825162235">
     <script defer src="js/analytics.js"></script>
     <script defer src="js/comments.js"></script>
+    <script src="js/features.js?v=20260825162235"></script>
     <style>
         /* Lock Screen Modal */
         #authLockScreen {
@@ -956,6 +963,14 @@
             }
         }
     </style>
+<style id="adminHeightLockStyle">
+    .post-table-container {
+        min-height: 580px !important;
+    }
+    .admin-table-scroll-wrap {
+        min-height: 480px !important;
+    }
+</style>
 </head>
 <body style="background: #f9fafb;">
 
@@ -965,16 +980,18 @@
         <span class="auth-icon">🔒</span>
         <h2 class="auth-title">꿀단지 관리자 인증</h2>
         <p class="auth-desc">운영자 전용 보안 콘솔입니다.<br>비밀번호를 입력해 주세요.</p>
-        <form onsubmit="handleAuthLogin(event)">
-            <input type="password" id="adminPasswordInput" class="auth-input" placeholder="••••" autofocus autocomplete="current-password">
-            <button type="submit" class="auth-btn">콘솔 접속하기</button>
+        <div>
+            <input type="password" id="adminPasswordInput" class="auth-input" placeholder="••••" autofocus onkeydown="if(event.key==='Enter'||event.keyCode===13){event.preventDefault();doAdminLogin();}">
+            <button type="button" class="auth-btn" onclick="doAdminLogin()">콘솔 접속하기</button>
             <div id="authErrorMsg" class="auth-err">비밀번호가 올바르지 않습니다.</div>
-        </form>
+        </div>
         <div style="margin-top: 20px;">
             <a href="index.html" style="font-size: 0.82rem; color: #9ca3af; text-decoration: underline;">← 메인 홈으로 돌아가기</a>
         </div>
     </div>
 </div>
+
+
 
 <!-- Protected Admin Console (Hidden until unlocked) -->
 <div id="adminContent" style="display: none;">
@@ -994,7 +1011,7 @@
                 <!-- Google Search Console & Analytics Connect Bar -->
         <div class="portal-connect-card" style="background: linear-gradient(135deg, #111827, #1f2937); color: #ffffff; border-radius: 14px; padding: 20px 24px; margin-top: 20px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
             <div>
-                <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 4px; color:#ffffff;">🔍 구글 서치콘솔 & 애널리틱스(GA4) 검색어 연동 센터</h3>
+                <h3 style="font-size: 1.05rem; font-weight: 800; margin-bottom: 4px; color:#ffffff;">구글 서치콘솔 & 애널리틱스(GA4) 검색어 연동 센터</h3>
                 <p style="font-size: 0.82rem; color: #9ca3af;">네이버, 다음, 구글에서 어떤 키워드로 유입되었는지 공식 실시간 데이터를 즉시 확인합니다.</p>
             </div>
             <div class="portal-btn-group" style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -1036,7 +1053,7 @@
                 </div>
             </div>
 
-            <div class="admin-table-scroll-wrap">
+            <div class="admin-table-scroll-wrap" style="min-height: 480px;">
                 <table class="admin-table" style="min-width: 620px; table-layout: fixed;">
                     <thead>
                         <tr>
@@ -1049,9 +1066,96 @@
                         </tr>
                     </thead>
                     <tbody id="analyticsTableBody">
-                        <!-- Dynamically populated via JS -->
+                        <!-- 10 Rows Static HTML -->
+                        <tr>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">1</td>
+                            <td><a href="posts/post-meal-walk-blood-sugar.html" target="_blank" style="color:#0f172a; text-decoration:none; font-weight:600; font-size:0.86rem;">식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 루틴 ↗</a></td>
+                            <td style="text-align:center; font-weight:700; color:#0f172a;">0회</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center;"><span style="background:#f1f5f9; color:#475569; font-size:0.75rem; padding:2px 8px; border-radius:4px; font-weight:600;">집계 대기</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">2</td>
+                            <td><a href="posts/knee-safe-squat-workout.html" target="_blank" style="color:#0f172a; text-decoration:none; font-weight:600; font-size:0.86rem;">초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세 ↗</a></td>
+                            <td style="text-align:center; font-weight:700; color:#0f172a;">0회</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center;"><span style="background:#f1f5f9; color:#475569; font-size:0.75rem; padding:2px 8px; border-radius:4px; font-weight:600;">집계 대기</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">3</td>
+                            <td><a href="posts/ohnara-diet.html" target="_blank" style="color:#0f172a; text-decoration:none; font-weight:600; font-size:0.86rem;">오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동 ↗</a></td>
+                            <td style="text-align:center; font-weight:700; color:#0f172a;">0회</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center;"><span style="background:#f1f5f9; color:#475569; font-size:0.75rem; padding:2px 8px; border-radius:4px; font-weight:600;">집계 대기</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">4</td>
+                            <td><a href="posts/august-seasonal-foods.html" target="_blank" style="color:#0f172a; text-decoration:none; font-weight:600; font-size:0.86rem;">8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드 ↗</a></td>
+                            <td style="text-align:center; font-weight:700; color:#0f172a;">0회</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center;"><span style="background:#f1f5f9; color:#475569; font-size:0.75rem; padding:2px 8px; border-radius:4px; font-weight:600;">집계 대기</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">5</td>
+                            <td><a href="posts/mediterranean-diet.html" target="_blank" style="color:#0f172a; text-decoration:none; font-weight:600; font-size:0.86rem;">세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁 ↗</a></td>
+                            <td style="text-align:center; font-weight:700; color:#0f172a;">0회</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center;"><span style="background:#f1f5f9; color:#475569; font-size:0.75rem; padding:2px 8px; border-radius:4px; font-weight:600;">집계 대기</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">6</td>
+                            <td><a href="posts/intermittent-fasting-guide.html" target="_blank" style="color:#0f172a; text-decoration:none; font-weight:600; font-size:0.86rem;">간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표 ↗</a></td>
+                            <td style="text-align:center; font-weight:700; color:#0f172a;">0회</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center;"><span style="background:#f1f5f9; color:#475569; font-size:0.75rem; padding:2px 8px; border-radius:4px; font-weight:600;">집계 대기</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">7</td>
+                            <td><a href="posts/morning-routine.html" target="_blank" style="color:#0f172a; text-decoration:none; font-weight:600; font-size:0.86rem;">기상 직후 활력 깨우는 모닝 루틴 5단계: 미온수·햇볕·스트레칭 ↗</a></td>
+                            <td style="text-align:center; font-weight:700; color:#0f172a;">0회</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center;"><span style="background:#f1f5f9; color:#475569; font-size:0.75rem; padding:2px 8px; border-radius:4px; font-weight:600;">집계 대기</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">8</td>
+                            <td><a href="posts/sleep-hygiene-guide.html" target="_blank" style="color:#0f172a; text-decoration:none; font-weight:600; font-size:0.86rem;">숙면을 부르는 수면 위생 수칙 7가지와 불면증 극복법 ↗</a></td>
+                            <td style="text-align:center; font-weight:700; color:#0f172a;">0회</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center;"><span style="background:#f1f5f9; color:#475569; font-size:0.75rem; padding:2px 8px; border-radius:4px; font-weight:600;">집계 대기</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">9</td>
+                            <td><a href="posts/posture-stretching-office.html" target="_blank" style="color:#0f172a; text-decoration:none; font-weight:600; font-size:0.86rem;">직장인을 위한 거북목·굽은 등 교정 5분 오피스 스트레칭 ↗</a></td>
+                            <td style="text-align:center; font-weight:700; color:#0f172a;">0회</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center;"><span style="background:#f1f5f9; color:#475569; font-size:0.75rem; padding:2px 8px; border-radius:4px; font-weight:600;">집계 대기</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">10</td>
+                            <td><a href="posts/core-exercise-home.html" target="_blank" style="color:#0f172a; text-decoration:none; font-weight:600; font-size:0.86rem;">층간소음 없이 집에서 하는 무소음 코어 강화 홈트레이닝 4선 ↗</a></td>
+                            <td style="text-align:center; font-weight:700; color:#0f172a;">0회</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center; color:#64748b; font-size:0.84rem;">-</td>
+                            <td style="text-align:center;"><span style="background:#f1f5f9; color:#475569; font-size:0.75rem; padding:2px 8px; border-radius:4px; font-weight:600;">집계 대기</span></td>
+                        </tr>
                     </tbody>
                 </table>
+            </div>
+            <!-- 🔢 Analytics Posts Pagination (< 1, 2... >) -->
+            <div id="analyticsPostsPagination" class="admin-pagination-wrapper">
+                <button type="button" class="admin-page-btn disabled" onclick="changeAnalyticsPage(1)" disabled>‹ 이전</button>
+                <button type="button" class="admin-page-btn active" onclick="changeAnalyticsPage(1)">1</button>
+                <button type="button" class="admin-page-btn" onclick="changeAnalyticsPage(2)">2</button>
+                <button type="button" class="admin-page-btn" onclick="changeAnalyticsPage(2)">다음 ›</button>
             </div>
         </div>
 
@@ -1126,7 +1230,7 @@
                     </div>
                 </div>
                 <div style="border-top: 1px solid #f1f5f9; padding-top: 12px;">
-                    <span style="font-size: 0.78rem; font-weight: 700; color: #475569; display: block; margin-bottom: 8px;">🔍 주요 유입 채널 실시간 순위 TOP 3</span>
+                    <span style="font-size: 0.78rem; font-weight: 700; color: #475569; display: block; margin-bottom: 8px;">주요 유입 채널 실시간 순위 TOP 3</span>
                     <div id="referrerRankingContainer" style="display: flex; flex-direction: column; gap: 4px; font-size: 0.8rem; color: #374151;">
                         <div>1. <strong>실시간 유입 집계 대기 중...</strong></div>
                         <div>2. <strong>검색 포털(구글·네이버·다음) 노출 대기 중...</strong></div>
@@ -1139,7 +1243,7 @@
         <!-- 📋 Published Articles Management Table -->
         <div class="post-table-container">
             <div class="editor-header">
-                <div>📚 발행된 칼럼 목록 관리 (<span id="tableTotalCount" style="color: #c26908;">9</span>편)</div>
+                <div>📚 발행된 칼럼 목록 관리 (<span id="tableTotalCount" style="color: #c26908;">11</span>편)</div>
                 <div style="font-size: 0.82rem; color: #6b7280; font-weight: normal;">실시간 [수정] 및 [숨김/공개] 토글 기능</div>
             </div>
 
@@ -1162,12 +1266,117 @@
                         </tr>
                     </thead>
                     <tbody id="postsTableBody">
-                        <!-- Dynamically Rendered via JS -->
+                        <tr id="row-post-1">
+                            <td style="text-align:center; font-weight:700; color:#c26908;">1</td>
+                            <td style="text-align:center;"><img src="images/posts/walking/thumb.jpg?v=2.0" class="post-thumb-mini" alt="썸네일" style="width:48px; height:36px; object-fit:cover; border-radius:6px;"></td>
+                            <td style="text-align:center;"><span class="badge-cat" style="background:#fef3c7; color:#92400e; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">라이프 웰니스</span></td>
+                            <td><strong style="font-size:0.88rem; color:#0f172a; display:block;">식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 루틴</strong><div style="font-size:0.76rem; color:#64748b; margin-top:2px;">식후 15분 이내 10분 걷기가 인슐린 분비를 30% 낮추고...</div></td>
+                            <td style="text-align:center;"><span class="badge-status-live" style="background:#dcfce7; color:#166534; font-size:0.75rem; padding:2px 6px; border-radius:4px;">● 공개 중</span></td>
+                            <td style="text-align:center; color:#64748b; font-size:0.82rem;">2026.08.25</td>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">0</td>
+                            <td style="text-align:center;"><div class="action-btns" style="display:inline-flex; gap:6px;"><a href="posts/post-meal-walk-blood-sugar.html" target="_blank" class="btn-sm-view" style="padding:4px 8px; font-size:0.76rem; text-decoration:none; border-radius:4px; background:#f1f5f9; color:#334155;">보기 ↗</a><button type="button" class="btn-sm-edit" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="startEditPost(1)">수정</button><button type="button" class="btn-sm-hide" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="toggleHidePost(1)">숨김</button></div></td>
+                        </tr>
+                        <tr id="row-post-2">
+                            <td style="text-align:center; font-weight:700; color:#c26908;">2</td>
+                            <td style="text-align:center;"><img src="images/posts/squat/thumb.jpg?v=2.0" class="post-thumb-mini" alt="썸네일" style="width:48px; height:36px; object-fit:cover; border-radius:6px;"></td>
+                            <td style="text-align:center;"><span class="badge-cat" style="background:#fef3c7; color:#92400e; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">홈트레이닝</span></td>
+                            <td><strong style="font-size:0.88rem; color:#0f172a; display:block;">초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세</strong><div style="font-size:0.76rem; color:#64748b; margin-top:2px;">무릎 관절 연골을 보호하며 대퇴사두근과 둔근을 안전하게...</div></td>
+                            <td style="text-align:center;"><span class="badge-status-live" style="background:#dcfce7; color:#166534; font-size:0.75rem; padding:2px 6px; border-radius:4px;">● 공개 중</span></td>
+                            <td style="text-align:center; color:#64748b; font-size:0.82rem;">2026.08.24</td>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">0</td>
+                            <td style="text-align:center;"><div class="action-btns" style="display:inline-flex; gap:6px;"><a href="posts/knee-safe-squat-workout.html" target="_blank" class="btn-sm-view" style="padding:4px 8px; font-size:0.76rem; text-decoration:none; border-radius:4px; background:#f1f5f9; color:#334155;">보기 ↗</a><button type="button" class="btn-sm-edit" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="startEditPost(2)">수정</button><button type="button" class="btn-sm-hide" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="toggleHidePost(2)">숨김</button></div></td>
+                        </tr>
+                        <tr id="row-post-3">
+                            <td style="text-align:center; font-weight:700; color:#c26908;">3</td>
+                            <td style="text-align:center;"><img src="images/posts/ohnara/thumb.jpg?v=1.2" class="post-thumb-mini" alt="썸네일" style="width:48px; height:36px; object-fit:cover; border-radius:6px;"></td>
+                            <td style="text-align:center;"><span class="badge-cat" style="background:#fef3c7; color:#92400e; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">식단 & 영양</span></td>
+                            <td><strong style="font-size:0.88rem; color:#0f172a; display:block;">오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동</strong><div style="font-size:0.76rem; color:#64748b; margin-top:2px;">배우 오나라의 샐러드 식단 팩트 분석부터 중년 여성의...</div></td>
+                            <td style="text-align:center;"><span class="badge-status-live" style="background:#dcfce7; color:#166534; font-size:0.75rem; padding:2px 6px; border-radius:4px;">● 공개 중</span></td>
+                            <td style="text-align:center; color:#64748b; font-size:0.82rem;">2026.08.19</td>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">0</td>
+                            <td style="text-align:center;"><div class="action-btns" style="display:inline-flex; gap:6px;"><a href="posts/ohnara-diet.html" target="_blank" class="btn-sm-view" style="padding:4px 8px; font-size:0.76rem; text-decoration:none; border-radius:4px; background:#f1f5f9; color:#334155;">보기 ↗</a><button type="button" class="btn-sm-edit" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="startEditPost(3)">수정</button><button type="button" class="btn-sm-hide" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="toggleHidePost(3)">숨김</button></div></td>
+                        </tr>
+                        <tr id="row-post-4">
+                            <td style="text-align:center; font-weight:700; color:#c26908;">4</td>
+                            <td style="text-align:center;"><img src="images/posts/august/thumb.jpg?v=1.1" class="post-thumb-mini" alt="썸네일" style="width:48px; height:36px; object-fit:cover; border-radius:6px;"></td>
+                            <td style="text-align:center;"><span class="badge-cat" style="background:#fef3c7; color:#92400e; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">식단 & 영양</span></td>
+                            <td><strong style="font-size:0.88rem; color:#0f172a; display:block;">8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드</strong><div style="font-size:0.76rem; color:#64748b; margin-top:2px;">늦여름 더위에 지친 몸을 깨우는 8월 대표 제철 보약...</div></td>
+                            <td style="text-align:center;"><span class="badge-status-live" style="background:#dcfce7; color:#166534; font-size:0.75rem; padding:2px 6px; border-radius:4px;">● 공개 중</span></td>
+                            <td style="text-align:center; color:#64748b; font-size:0.82rem;">2026.08.19</td>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">0</td>
+                            <td style="text-align:center;"><div class="action-btns" style="display:inline-flex; gap:6px;"><a href="posts/august-seasonal-foods.html" target="_blank" class="btn-sm-view" style="padding:4px 8px; font-size:0.76rem; text-decoration:none; border-radius:4px; background:#f1f5f9; color:#334155;">보기 ↗</a><button type="button" class="btn-sm-edit" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="startEditPost(4)">수정</button><button type="button" class="btn-sm-hide" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="toggleHidePost(4)">숨김</button></div></td>
+                        </tr>
+                        <tr id="row-post-5">
+                            <td style="text-align:center; font-weight:700; color:#c26908;">5</td>
+                            <td style="text-align:center;"><img src="images/posts/mediterranean/thumb.jpg?v=1.2" class="post-thumb-mini" alt="썸네일" style="width:48px; height:36px; object-fit:cover; border-radius:6px;"></td>
+                            <td style="text-align:center;"><span class="badge-cat" style="background:#fef3c7; color:#92400e; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">식단 & 영양</span></td>
+                            <td><strong style="font-size:0.88rem; color:#0f172a; display:block;">세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁</strong><div style="font-size:0.76rem; color:#64748b; margin-top:2px;">유네스코 인류무형문화유산 지중해 식단의 항염증 원리와...</div></td>
+                            <td style="text-align:center;"><span class="badge-status-live" style="background:#dcfce7; color:#166534; font-size:0.75rem; padding:2px 6px; border-radius:4px;">● 공개 중</span></td>
+                            <td style="text-align:center; color:#64748b; font-size:0.82rem;">2026.08.19</td>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">0</td>
+                            <td style="text-align:center;"><div class="action-btns" style="display:inline-flex; gap:6px;"><a href="posts/mediterranean-diet.html" target="_blank" class="btn-sm-view" style="padding:4px 8px; font-size:0.76rem; text-decoration:none; border-radius:4px; background:#f1f5f9; color:#334155;">보기 ↗</a><button type="button" class="btn-sm-edit" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="startEditPost(5)">수정</button><button type="button" class="btn-sm-hide" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="toggleHidePost(5)">숨김</button></div></td>
+                        </tr>
+                        <tr id="row-post-6">
+                            <td style="text-align:center; font-weight:700; color:#c26908;">6</td>
+                            <td style="text-align:center;"><img src="images/posts/fasting/thumb.jpg?v=1.2" class="post-thumb-mini" alt="썸네일" style="width:48px; height:36px; object-fit:cover; border-radius:6px;"></td>
+                            <td style="text-align:center;"><span class="badge-cat" style="background:#fef3c7; color:#92400e; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">식단 & 영양</span></td>
+                            <td><strong style="font-size:0.88rem; color:#0f172a; display:block;">간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표</strong><div style="font-size:0.76rem; color:#64748b; margin-top:2px;">지방 연소와 자가포식을 유도하는 16:8 간헐적 단식의...</div></td>
+                            <td style="text-align:center;"><span class="badge-status-live" style="background:#dcfce7; color:#166534; font-size:0.75rem; padding:2px 6px; border-radius:4px;">● 공개 중</span></td>
+                            <td style="text-align:center; color:#64748b; font-size:0.82rem;">2026.08.19</td>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">0</td>
+                            <td style="text-align:center;"><div class="action-btns" style="display:inline-flex; gap:6px;"><a href="posts/intermittent-fasting-guide.html" target="_blank" class="btn-sm-view" style="padding:4px 8px; font-size:0.76rem; text-decoration:none; border-radius:4px; background:#f1f5f9; color:#334155;">보기 ↗</a><button type="button" class="btn-sm-edit" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="startEditPost(6)">수정</button><button type="button" class="btn-sm-hide" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="toggleHidePost(6)">숨김</button></div></td>
+                        </tr>
+                        <tr id="row-post-7">
+                            <td style="text-align:center; font-weight:700; color:#c26908;">7</td>
+                            <td style="text-align:center;"><img src="images/posts/morning/thumb.jpg?v=1.1" class="post-thumb-mini" alt="썸네일" style="width:48px; height:36px; object-fit:cover; border-radius:6px;"></td>
+                            <td style="text-align:center;"><span class="badge-cat" style="background:#fef3c7; color:#92400e; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">라이프 웰니스</span></td>
+                            <td><strong style="font-size:0.88rem; color:#0f172a; display:block;">기상 직후 활력 깨우는 모닝 루틴 5단계: 미온수·햇볕·스트레칭</strong><div style="font-size:0.76rem; color:#64748b; margin-top:2px;">기상 직후 미온수 한 잔부터 가벼운 스트레칭까지 코르티솔...</div></td>
+                            <td style="text-align:center;"><span class="badge-status-live" style="background:#dcfce7; color:#166534; font-size:0.75rem; padding:2px 6px; border-radius:4px;">● 공개 중</span></td>
+                            <td style="text-align:center; color:#64748b; font-size:0.82rem;">2026.08.19</td>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">0</td>
+                            <td style="text-align:center;"><div class="action-btns" style="display:inline-flex; gap:6px;"><a href="posts/morning-routine.html" target="_blank" class="btn-sm-view" style="padding:4px 8px; font-size:0.76rem; text-decoration:none; border-radius:4px; background:#f1f5f9; color:#334155;">보기 ↗</a><button type="button" class="btn-sm-edit" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="startEditPost(7)">수정</button><button type="button" class="btn-sm-hide" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="toggleHidePost(7)">숨김</button></div></td>
+                        </tr>
+                        <tr id="row-post-8">
+                            <td style="text-align:center; font-weight:700; color:#c26908;">8</td>
+                            <td style="text-align:center;"><img src="images/posts/sleep/thumb.jpg?v=1.1" class="post-thumb-mini" alt="썸네일" style="width:48px; height:36px; object-fit:cover; border-radius:6px;"></td>
+                            <td style="text-align:center;"><span class="badge-cat" style="background:#fef3c7; color:#92400e; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">라이프 웰니스</span></td>
+                            <td><strong style="font-size:0.88rem; color:#0f172a; display:block;">숙면을 부르는 수면 위생 수칙 7가지와 불면증 극복법</strong><div style="font-size:0.76rem; color:#64748b; margin-top:2px;">멜라토닌 분비를 극대화하는 침실 온도, 조도 조절법과...</div></td>
+                            <td style="text-align:center;"><span class="badge-status-live" style="background:#dcfce7; color:#166534; font-size:0.75rem; padding:2px 6px; border-radius:4px;">● 공개 중</span></td>
+                            <td style="text-align:center; color:#64748b; font-size:0.82rem;">2026.08.19</td>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">0</td>
+                            <td style="text-align:center;"><div class="action-btns" style="display:inline-flex; gap:6px;"><a href="posts/sleep-hygiene-guide.html" target="_blank" class="btn-sm-view" style="padding:4px 8px; font-size:0.76rem; text-decoration:none; border-radius:4px; background:#f1f5f9; color:#334155;">보기 ↗</a><button type="button" class="btn-sm-edit" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="startEditPost(8)">수정</button><button type="button" class="btn-sm-hide" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="toggleHidePost(8)">숨김</button></div></td>
+                        </tr>
+                        <tr id="row-post-9">
+                            <td style="text-align:center; font-weight:700; color:#c26908;">9</td>
+                            <td style="text-align:center;"><img src="images/posts/posture/thumb.jpg?v=1.1" class="post-thumb-mini" alt="썸네일" style="width:48px; height:36px; object-fit:cover; border-radius:6px;"></td>
+                            <td style="text-align:center;"><span class="badge-cat" style="background:#fef3c7; color:#92400e; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">홈트레이닝</span></td>
+                            <td><strong style="font-size:0.88rem; color:#0f172a; display:block;">직장인 거북목·라운드숄더 교정 5분 오피스 스트레칭 루틴</strong><div style="font-size:0.76rem; color:#64748b; margin-top:2px;">장시간 모니터를 보는 직장인의 목·어깨 통증을 즉각...</div></td>
+                            <td style="text-align:center;"><span class="badge-status-live" style="background:#dcfce7; color:#166534; font-size:0.75rem; padding:2px 6px; border-radius:4px;">● 공개 중</span></td>
+                            <td style="text-align:center; color:#64748b; font-size:0.82rem;">2026.08.19</td>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">0</td>
+                            <td style="text-align:center;"><div class="action-btns" style="display:inline-flex; gap:6px;"><a href="posts/posture-stretching-office.html" target="_blank" class="btn-sm-view" style="padding:4px 8px; font-size:0.76rem; text-decoration:none; border-radius:4px; background:#f1f5f9; color:#334155;">보기 ↗</a><button type="button" class="btn-sm-edit" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="startEditPost(9)">수정</button><button type="button" class="btn-sm-hide" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="toggleHidePost(9)">숨김</button></div></td>
+                        </tr>
+                        <tr id="row-post-10">
+                            <td style="text-align:center; font-weight:700; color:#c26908;">10</td>
+                            <td style="text-align:center;"><img src="images/posts/core/thumb.jpg?v=1.1" class="post-thumb-mini" alt="썸네일" style="width:48px; height:36px; object-fit:cover; border-radius:6px;"></td>
+                            <td style="text-align:center;"><span class="badge-cat" style="background:#fef3c7; color:#92400e; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">홈트레이닝</span></td>
+                            <td><strong style="font-size:0.88rem; color:#0f172a; display:block;">허리 통증 잡는 10분 코어 운동 루틴: 플랭크·버드독 정석 자세</strong><div style="font-size:0.76rem; color:#64748b; margin-top:2px;">점프 동작 없이 매트 한 장으로 복부와 척추 기립근을...</div></td>
+                            <td style="text-align:center;"><span class="badge-status-live" style="background:#dcfce7; color:#166534; font-size:0.75rem; padding:2px 6px; border-radius:4px;">● 공개 중</span></td>
+                            <td style="text-align:center; color:#64748b; font-size:0.82rem;">2026.08.19</td>
+                            <td style="text-align:center; font-weight:700; color:#c26908;">0</td>
+                            <td style="text-align:center;"><div class="action-btns" style="display:inline-flex; gap:6px;"><a href="posts/core-exercise-home.html" target="_blank" class="btn-sm-view" style="padding:4px 8px; font-size:0.76rem; text-decoration:none; border-radius:4px; background:#f1f5f9; color:#334155;">보기 ↗</a><button type="button" class="btn-sm-edit" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="startEditPost(10)">수정</button><button type="button" class="btn-sm-hide" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="toggleHidePost(10)">숨김</button></div></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
             <!-- 🔢 Admin Posts Number Pagination (1, 2, 3, 4...) -->
-            <div id="adminPostsPagination" class="admin-pagination-wrapper"></div>
+            <!-- 🔢 Admin Posts Number Pagination (1, 2, 3, 4...) -->
+            <div id="adminPostsPagination" class="admin-pagination-wrapper">
+                <button type="button" class="admin-page-btn disabled" id="btnAdminPrevPage" onclick="changeAdminPage(1)" disabled>‹ 이전</button>
+                <button type="button" class="admin-page-btn active" id="btnAdminPage1" onclick="changeAdminPage(1)">1</button>
+                <button type="button" class="admin-page-btn" id="btnAdminPage2" onclick="changeAdminPage(2)">2</button>
+                <button type="button" class="admin-page-btn" id="btnAdminNextPage" onclick="changeAdminPage(2)">다음 ›</button>
+            </div>
         </div>
 
         <!-- 💬 Real-Time Reader Comments Management Section -->
@@ -1291,265 +1500,9 @@
             localStorage.setItem(RESET_FLAG, 'true');
         }
     })();
-    // 1. Security Password set by Owner
-    const ADMIN_PASS = "8809";
+    // 1. Security Password set by Owner (Inherited from top)
 
-    // 2. Default Initial 9 Posts Database
-    const defaultPosts = [
-        {
-            id: 1,
-            slug: "ohnara-diet.html",
-            title: "오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동",
-            category: "식단 & 영양",
-            author: "에디터 혀니",
-            date: "2026.08.19",
-            views: "0",
-            thumb: "https://images.unsplash.com/photo-1540420773420-3366772f4999?w=900&auto=format&fit=crop&q=80",
-            link: "posts/ohnara-diet.html",
-            desc: "배우 오나라의 샐러드 식단 팩트 분석부터 중년 여성의 기초대사량을 지키는 3대 복합 다관절 운동 루틴까지 실생활에 적용하는 지속 가능한 웰니스 가이드.",
-            content: "배우 오나라의 철저한 자기관리 비결인 단백질 위주 샐러드 식단과 기초대사량 유지법...",
-            isHidden: false
-        },
-        {
-            id: 2,
-            slug: "august-seasonal-foods.html",
-            title: "8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드",
-            category: "제철 음식",
-            author: "에디터 혀니",
-            date: "2026.08.19",
-            views: "0",
-            thumb: "https://images.unsplash.com/photo-1547592180-85f173990554?w=900&auto=format&fit=crop&q=80",
-            link: "posts/august-seasonal-foods.html",
-            desc: "늦여름 더위에 지친 몸을 깨우는 8월 대표 제철 보약 식재료 5가지의 핵심 영양 성분과 기력 회복 레시피.",
-            content: "8월 무더위를 이겨내는 최고의 제철 식재료 5가지 완벽 분석...",
-            isHidden: false
-        },
-        {
-            id: 3,
-            slug: "mediterranean-diet.html",
-            title: "세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁",
-            category: "식단 & 영양",
-            author: "에디터 혀니",
-            date: "2026.08.19",
-            views: "0",
-            thumb: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=900&auto=format&fit=crop&q=80",
-            link: "posts/mediterranean-diet.html",
-            desc: "유네스코 인류무형문화유산 지중해 식단의 항염증 원리와 한국 마트에서 손쉽게 대체 식재료로 실천하는 가이드.",
-            content: "지중해식 식단의 올리브유, 견과류, 신선한 채소 조합...",
-            isHidden: false
-        },
-        {
-            id: 4,
-            slug: "intermittent-fasting-guide.html",
-            title: "간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표",
-            category: "식단 & 영양",
-            author: "에디터 혀니",
-            date: "2026.08.19",
-            views: "0",
-            thumb: "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=900&auto=format&fit=crop&q=80",
-            link: "posts/intermittent-fasting-guide.html",
-            desc: "지방 연소와 자가포식을 유도하는 16:8 간헐적 단식의 과학적 원리와 직장인을 위한 최적 시간표.",
-            content: "16시간 공복과 8시간 식사 창을 활용한 간헐적 단식 성공 법칙...",
-            isHidden: false
-        },
-        {
-            id: 5,
-            slug: "morning-routine.html",
-            title: "활기찬 하루를 여는 10분 아침 루틴과 건강 습관 5가지",
-            category: "라이프 웰니스",
-            author: "에디터 혀니",
-            date: "2026.08.19",
-            views: "0",
-            thumb: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=900&auto=format&fit=crop&q=80",
-            link: "posts/morning-routine.html",
-            desc: "기상 직후 미온수 한 잔부터 림프 순환 스트레칭까지, 하루 에너지와 집중력을 2배로 올려주는 아침 루틴.",
-            content: "성공적인 하루를 만드는 아침 10분의 기적...",
-            isHidden: false
-        },
-        {
-            id: 6,
-            slug: "sleep-hygiene-guide.html",
-            title: "수면의 질을 200% 높이는 수면 위생 가이드와 암막 환경 조성법",
-            category: "라이프 웰니스",
-            author: "에디터 혀니",
-            date: "2026.08.19",
-            views: "0",
-            thumb: "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=900&auto=format&fit=crop&q=80",
-            link: "posts/sleep-hygiene-guide.html",
-            desc: "멜라토닌 분비를 극대화하는 침실 온도, 조도 조절법과 수면 장애를 극복하는 7대 수면 위생 수칙.",
-            content: "깊은 숙면을 위한 침실 환경 설계와 생체 리듬 회복법...",
-            isHidden: false
-        },
-        {
-            id: 7,
-            slug: "posture-stretching-office.html",
-            title: "직장인을 위한 거북목·굽은 등 교정 5분 오피스 스트레칭",
-            category: "홈트레이닝",
-            author: "에디터 혀니",
-            date: "2026.08.19",
-            views: "0",
-            thumb: "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=900&auto=format&fit=crop&q=80",
-            link: "posts/posture-stretching-office.html",
-            desc: "장시간 모니터를 보는 직장인의 목·어깨 통증을 즉각 완화하는 흉추 가동성 및 승모근 이완 5분 루틴.",
-            content: "사무실 의자에 앉아서 바로 따라하는 5분 바른 자세 스트레칭...",
-            isHidden: false
-        },
-        {
-            id: 8,
-            slug: "core-exercise-home.html",
-            title: "층간소음 없이 집에서 하는 무소음 코어 강화 홈트레이닝 4선",
-            category: "홈트레이닝",
-            author: "에디터 혀니",
-            date: "2026.08.19",
-            views: "0",
-            thumb: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=900&auto=format&fit=crop&q=80",
-            link: "posts/core-exercise-home.html",
-            desc: "점프 동작 없이 매트 한 장으로 복부와 척추 기립근을 단련하는 아파트 맞춤형 무소음 코어 운동 가이드.",
-            content: "플랭크, 데드버그 등 층간소음 걱정 없는 고효율 홈트 동작...",
-            isHidden: false
-        },
-        {
-            id: 9,
-            slug: "water-intake-guide.html",
-            title: "내 몸에 맞는 하루 물 섭취량 계산법과 올바르게 마시는 꿀팁",
-            category: "식단 & 영양",
-            author: "에디터 혀니",
-            date: "2026.08.19",
-            views: "0",
-            thumb: "https://images.unsplash.com/photo-1559839914-17aae19cec71?w=900&auto=format&fit=crop&q=80",
-            link: "posts/water-intake-guide.html",
-            desc: "체중과 활동량에 따른 1일 최적 수분 섭취 권장량 계산 공식과 체내 흡수율을 높이는 물 마시는 시간대.",
-            content: "체중 * 30ml 공식과 올바른 수분 섭취 타이밍...",
-            isHidden: false
-        }
-    ];
-
-    // 3. Load or Initialize Data
-    let posts = [];
-    function loadPostsData() {
-        const saved = localStorage.getItem('honeyjar_admin_posts');
-        if (saved) {
-            try {
-                posts = JSON.parse(saved);
-            } catch (e) {
-                posts = defaultPosts;
-            }
-        } else {
-            posts = defaultPosts;
-            savePostsData();
-        }
-        renderTable();
-    }
-
-    function savePostsData() {
-        localStorage.setItem('honeyjar_admin_posts', JSON.stringify(posts));
-        updateStats();
-    }
-
-    // 4. Render Table Rows with 10-Item Pagination
-    let currentAdminPage = 1;
     
-
-    function renderTable() {
-        const tbody = document.getElementById('postsTableBody');
-        tbody.innerHTML = '';
-
-        const total = posts.length;
-        const totalPages = Math.ceil(total / itemsPerPage) || 1;
-        if (currentAdminPage > totalPages) currentAdminPage = totalPages;
-
-        const startIndex = (currentAdminPage - 1) * itemsPerPage;
-        const pagePosts = posts.slice(startIndex, startIndex + itemsPerPage);
-
-        pagePosts.forEach((post, i) => {
-            const index = startIndex + i;
-            const tr = document.createElement('tr');
-            tr.id = `row-post-${post.id}`;
-            if (post.isHidden) tr.classList.add('row-hidden');
-
-            tr.innerHTML = `
-                <td>${index + 1}</td>
-                <td><img src="${post.thumb}" class="post-thumb-mini" alt="썸네일" loading="lazy" decoding="async"></td>
-                <td><span class="badge-cat">${post.category}</span></td>
-                <td>
-                    <strong>${post.title}</strong>
-                    <div style="font-size: 0.78rem; color: #6b7280; margin-top: 2px;">${post.desc ? post.desc.substring(0, 45) + '...' : ''}</div>
-                </td>
-                <td style="text-align: center;">
-                    ${post.isHidden ? '<span class="badge-status-hidden">비공개(숨김)</span>' : '<span class="badge-status-live">● 공개 중</span>'}
-                </td>
-                <td style="text-align: center; color: #64748b; font-size: 0.84rem;">${post.date}</td>
-                <td style="text-align: center; font-weight: 700; color: #c26908;">${post.views}</td>
-                <td>
-                    <div class="action-btns">
-                        <a href="${post.link || 'posts/' + (post.slug || 'index.html')}" target="_blank" class="btn-sm-view">보기 ↗</a>
-                        <button type="button" class="btn-sm-edit" onclick="startEditPost(${post.id})">수정</button>
-                        <button type="button" class="btn-sm-hide ${post.isHidden ? 'is-hidden' : ''}" onclick="toggleHidePost(${post.id})">
-                            ${post.isHidden ? '공개로 전환' : '숨김'}
-                        </button>
-                    </div>
-                </td>
-            `;
-            tbody.appendChild(tr);
-        });
-
-        renderAdminPagination(totalPages);
-        updateStats();
-    }
-
-    const itemsPerPage = 10; // 10편씩 한눈에 쏙 들어오게 페이징 (1, 2, 3, 4...)
-
-    function renderAdminPagination(totalPages) {
-        const pagContainer = document.getElementById('adminPostsPagination');
-        if (!pagContainer) return;
-
-        if (totalPages <= 1) {
-            pagContainer.innerHTML = `
-                <button class="admin-page-btn active">1</button>
-            `;
-            return;
-        }
-
-        let html = `<button type="button" class="admin-page-btn ${currentAdminPage === 1 ? 'disabled' : ''}" onclick="changeAdminPage(${currentAdminPage - 1})">‹ 이전</button>`;
-        for (let p = 1; p <= totalPages; p++) {
-            html += `<button type="button" class="admin-page-btn ${p === currentAdminPage ? 'active' : ''}" onclick="changeAdminPage(${p})">${p}</button>`;
-        }
-        html += `<button type="button" class="admin-page-btn ${currentAdminPage === totalPages ? 'disabled' : ''}" onclick="changeAdminPage(${currentAdminPage + 1})">다음 ›</button>`;
-        pagContainer.innerHTML = html;
-    }
-
-    function changeAdminPage(newPage) {
-        const totalPages = Math.ceil(posts.length / itemsPerPage) || 1;
-        if (newPage < 1 || newPage > totalPages) return;
-        currentAdminPage = newPage;
-        renderTable();
-    }
-
-    function updateStats() {
-        const total = posts.length;
-        const visible = posts.filter(p => !p.isHidden).length;
-        const hidden = total - visible;
-
-        document.getElementById('tableTotalCount').innerText = total;
-        document.getElementById('statPostCount').innerText = total + "편";
-        document.getElementById('statPostSub').innerText = `✓ 공개 ${visible}편 / 숨김 ${hidden}편`;
-    }
-
-    // 5. Toggle Hide / Show Function
-    function toggleHidePost(id) {
-        const post = posts.find(p => p.id === id);
-        if (!post) return;
-
-        post.isHidden = !post.isHidden;
-        savePostsData();
-        renderTable();
-
-        if (post.isHidden) {
-            alert(`🔒 [${post.title}]\n칼럼이 '숨김(비공개)' 처리되었습니다.`);
-        } else {
-            alert(`🌐 [${post.title}]\n칼럼이 다시 '공개 중'으로 전환되었습니다.`);
-        }
-    }
 
     // 6. Start Edit Mode
     function startEditPost(id) {
@@ -1684,6 +1637,12 @@
         const htmlTemplate = `<!DOCTYPE html>
 <html lang="ko">
 <head>
+<script>
+window.onerror = function(msg, url, line, col, error) {
+    document.body.innerHTML += '<div style="color:red; background:white; padding:20px; font-size:18px; z-index:999999; position:relative;">JS ERROR: ' + msg + ' at line ' + line + ':' + col + '</div>';
+    console.error('CRITICAL JS ERROR:', msg, url, line, col, error);
+};
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 🍯 꿀단지 공식 파비콘 -->
@@ -2198,6 +2157,14 @@
             }
         }
     </style>
+<style id="adminHeightLockStyle">
+    .post-table-container {
+        min-height: 580px !important;
+    }
+    .admin-table-scroll-wrap {
+        min-height: 480px !important;
+    }
+</style>
 </head>
 <body>
 
@@ -2214,8 +2181,7 @@
             <a href="../index.html">홈</a>
             <a href="../index.html#category">식단&영양</a>
             <a href="../index.html#category">홈트레이닝</a>
-            <a href="../about.html">소개</a>
-        </nav>
+            </nav>
     </div>
 </header>
 
@@ -2281,6 +2247,7 @@ ${formattedBody}
         </div>
     </footer>
 
+
 </body>
 </html>`;
 
@@ -2301,128 +2268,30 @@ ${formattedBody}
         alert(`🎉 완성된 칼럼 HTML 파일 [${filename}] 이(가) 다운로드되었습니다!\n\n이 파일을 kkuldanji_web/posts/ 폴더에 넣으시면 실제 사이트에 바로 반영됩니다.`);
     }
 
-    // 9. Search & Filter
+    // 9. Search & Filter (Zero Scroll Jump)
     function filterPostsTable() {
-        const query = document.getElementById('postSearchInput').value.toLowerCase();
+        const input = document.getElementById('postSearchInput');
+        const query = input ? (input.value || "").trim().toLowerCase() : "";
         const rows = document.querySelectorAll('#postsTableBody tr');
+        
         rows.forEach(row => {
-            const text = row.innerText.toLowerCase();
-            row.style.display = text.includes(query) ? '' : 'none';
+            const text = (row.textContent || row.innerText || "").toLowerCase();
+            row.style.display = (!query || text.includes(query)) ? '' : 'none';
         });
-    }
 
-    // 10. Comment Management System for Admin
-    const postTitlesMap = {
-        "ohnara-diet.html": "오나라 51세 식단과 50대 근력 운동",
-        "august-seasonal-foods.html": "8월 제철 음식 5가지 영양 가이드",
-        "mediterranean-diet.html": "세계 1위 건강 식단 지중해식 식단",
-        "intermittent-fasting-guide.html": "간헐적 단식 16:8 성공 식사 시간표",
-        "morning-routine.html": "활기찬 하루를 여는 10분 아침 루틴",
-        "sleep-hygiene-guide.html": "수면의 질을 200% 높이는 수면 위생",
-        "posture-stretching-office.html": "직장인 거북목 교정 5분 스트레칭",
-        "core-exercise-home.html": "무소음 코어 강화 홈트레이닝 4선",
-        "water-intake-guide.html": "내 몸 맞춤 하루 물 섭취량 계산법"
-    };
-
-    const ADMIN_CLOUD_OBJECT_MAP = {
-        "ohnara-diet.html": "ff8081819ff5b11001a02d13c8537dd3",
-        "august-seasonal-foods.html": "ff8081819ff5b11001a02d13ca517dd4",
-        "mediterranean-diet.html": "ff8081819ff5b11001a02d13cc3c7dd5",
-        "intermittent-fasting-guide.html": "ff8081819ff5b11001a02d13ce3a7dd6",
-        "morning-routine.html": "ff8081819ff5b11001a02d13d02e7dd7",
-        "sleep-hygiene-guide.html": "ff8081819ff5b11001a02d13d2377dd8",
-        "posture-stretching-office.html": "ff8081819ff5b11001a02d13d42b7dd9",
-        "core-exercise-home.html": "ff8081819ff5b11001a02d13d61e7dda",
-        "water-intake-guide.html": "ff8081819ff5b11001a02d13d81c7ddb"
-    };
-
-    async function loadAllAdminComments() {
-        const tbody = document.getElementById('adminCommentsTableBody');
-        if (!tbody) return;
-        tbody.innerHTML = '';
-
-        let allComments = [];
-
-        for (const [slug, objId] of Object.entries(ADMIN_CLOUD_OBJECT_MAP)) {
-            try {
-                const res = await fetch(`https://api.restful-api.dev/objects/${objId}`);
-                if (res.ok) {
-                    const data = await res.json();
-                    if (data && data.data && Array.isArray(data.data.comments)) {
-                        data.data.comments.forEach(c => {
-                            allComments.push({
-                                ...c,
-                                objId: objId,
-                                postSlug: slug,
-                                postTitle: postTitlesMap[slug] || slug
-                            });
-                        });
-                    }
-                }
-            } catch(e) {}
-        }
-
-        document.getElementById('totalCommentCount').innerText = allComments.length;
-
-        if (allComments.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:30px; color:#9ca3af;">등록된 실시간 댓글이 없습니다.</td></tr>`;
-            return;
-        }
-
-        allComments.forEach((c, idx) => {
-            const tr = document.createElement('tr');
-            tr.id = `admin-comment-row-${c.id}`;
-            tr.innerHTML = `
-                <td style="text-align:center;">${idx + 1}</td>
-                <td>
-                    <a href="posts/${c.postSlug}" target="_blank" style="color:#c26908; font-weight:600; text-decoration:none;">
-                        ${escapeHtml(c.postTitle)} ↗
-                    </a>
-                </td>
-                <td><strong>${escapeHtml(c.author)}</strong></td>
-                <td style="line-height:1.4;">${escapeHtml(c.content || c.text || '')}</td>
-                <td style="font-size:0.8rem; color:#6b7280; text-align:center;">${c.date}</td>
-                <td style="text-align:center;">💬 참여</td>
-                <td style="text-align:center;">
-                    <button type="button" class="btn-sm-del" onclick="deleteAdminComment('${c.objId}', '${c.postSlug}', ${c.id})">원클릭 삭제</button>
-                </td>
-            `;
-            tbody.appendChild(tr);
-        });
-    }
-
-    async function deleteAdminComment(objId, postSlug, commentId) {
-        if (!confirm("정말로 이 댓글을 관리자 권한으로 삭제하시겠습니까?")) return;
-
-        try {
-            const res = await fetch(`https://api.restful-api.dev/objects/${objId}`);
-            if (res.ok) {
-                const data = await res.json();
-                if (data && data.data && Array.isArray(data.data.comments)) {
-                    const filtered = data.data.comments.filter(c => c.id !== commentId);
-                    await fetch(`https://api.restful-api.dev/objects/${objId}`, {
-                        method: "PUT",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            name: "honeyjar_post_" + postSlug.replace('.html','').replace(/[\.\#\$\[\]\/\-]/g, '_'),
-                            data: { comments: filtered }
-                        })
-                    });
-                }
-            }
-            alert("🗑️ 댓글이 성공적으로 삭제되었습니다.");
-            await loadAllAdminComments();
-        } catch(e) {
-            alert("삭제 처리 중 오류가 발생했습니다.");
-        }
+        // Hide pagination during live search to avoid confusion
+        const pag = document.getElementById('adminPostsPagination');
+        if (pag) pag.style.display = query ? 'none' : 'flex';
     }
 
     function filterAdminComments() {
-        const query = document.getElementById('commentSearchInput').value.toLowerCase();
-        const rows = document.querySelectorAll('#adminCommentsTableBody tr');
+        const input = document.getElementById('commentSearchInput');
+        const query = input ? (input.value || "").trim().toLowerCase() : "";
+        const rows = document.querySelectorAll('#commentsTableBody tr');
+        
         rows.forEach(row => {
-            const text = row.innerText.toLowerCase();
-            row.style.display = text.includes(query) ? '' : 'none';
+            const text = (row.textContent || row.innerText || "").toLowerCase();
+            row.style.display = (!query || text.includes(query)) ? '' : 'none';
         });
     }
 
@@ -2704,60 +2573,359 @@ ${formattedBody}
 
 
 
-    // 12. Auth Session Control
-    window.addEventListener('DOMContentLoaded', () => {
-        if (sessionStorage.getItem('honeyjar_admin_session') === 'authorized') {
-            unlockAdmin();
-        }
-    });
-
-    function handleAuthLogin(e) {
-        e.preventDefault();
-        const input = document.getElementById('adminPasswordInput').value;
-        const err = document.getElementById('authErrorMsg');
-
-        if (input === ADMIN_PASS) {
-            sessionStorage.setItem('honeyjar_admin_session', 'authorized');
-            unlockAdmin();
-        } else {
-            err.style.display = "block";
-            document.getElementById('adminPasswordInput').value = "";
-            document.getElementById('adminPasswordInput').focus();
-        }
-    }
-
-    let autoRefreshTimer = null;
-
-    function unlockAdmin() {
-        document.getElementById('authLockScreen').style.display = "none";
-        document.getElementById('adminContent').style.display = "block";
-        loadPostsData();
-        loadAllAdminComments();
-        loadAnalyticsDashboard();
-
-        // 🟢 10초마다 백그라운드 자동 실시간 동기화 (버튼 안 눌러도 자동으로 갱신!)
-        if (!autoRefreshTimer) {
-            autoRefreshTimer = setInterval(() => {
-                if (sessionStorage.getItem('honeyjar_admin_session') === 'authorized') {
-                    loadAnalyticsDashboard();
-                }
-            }, 10000);
-        }
-
-        // 다른 탭 갔다가 돌아왔을 때도 즉시 자동 갱신!
-        document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible' && sessionStorage.getItem('honeyjar_admin_session') === 'authorized') {
-                loadAnalyticsDashboard();
-                loadAllAdminComments();
-            }
-        });
-    }
-
-    function handleAdminLogout() {
+            function handleAdminLogout() {
         sessionStorage.removeItem('honeyjar_admin_session');
+        localStorage.removeItem('honeyjar_admin_session');
         window.location.href = "index.html";
     }
 </script>
 
+
 </body>
 </html>
+
+
+<script>
+    // 🍯 꿀단지 관리자 독립 완전체 엔진 (100% Standalone Rock-Solid Admin Engine)
+    const ADMIN_PASS = "8809";
+    const itemsPerPage = 10;
+    let currentAdminPage = 1;
+
+    const MASTER_ADMIN_POSTS = [
+        {
+            id: 1,
+            slug: "post-meal-walk-blood-sugar.html",
+            title: "식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 루틴",
+            category: "라이프 웰니스",
+            date: "2026.08.25",
+            views: "0",
+            thumb: "images/posts/walking/thumb.jpg?v=2.0",
+            desc: "식후 15분 이내 10분 걷기가 인슐린 분비를 30% 낮추고 혈당 스파이크와 내장지방을 막는 과학적 기전.",
+            isHidden: false
+        },
+        {
+            id: 2,
+            slug: "knee-safe-squat-workout.html",
+            title: "초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세",
+            category: "홈트레이닝",
+            date: "2026.08.24",
+            views: "0",
+            thumb: "images/posts/squat/thumb.jpg?v=2.0",
+            desc: "무릎 관절 연골을 보호하며 대퇴사두근과 둔근을 안전하게 강화하는 3대 하체 운동 테크닉과 10분 홈트 루틴.",
+            isHidden: false
+        },
+        {
+            id: 3,
+            slug: "ohnara-diet.html",
+            title: "오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동",
+            category: "식단 & 영양",
+            date: "2026.08.19",
+            views: "0",
+            thumb: "images/posts/ohnara/thumb.jpg?v=1.2",
+            desc: "배우 오나라의 샐러드 식단 팩트 분석부터 중년 여성의 기초대사량을 지키는 3대 복합 다관절 운동 루틴.",
+            isHidden: false
+        },
+        {
+            id: 4,
+            slug: "august-seasonal-foods.html",
+            title: "8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드",
+            category: "식단 & 영양",
+            date: "2026.08.19",
+            views: "0",
+            thumb: "images/posts/august/thumb.jpg?v=1.1",
+            desc: "늦여름 더위에 지친 몸을 깨우는 8월 대표 제철 보약 식재료 5가지의 핵심 영양 성분과 기력 회복 레시피.",
+            isHidden: false
+        },
+        {
+            id: 5,
+            slug: "mediterranean-diet.html",
+            title: "세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁",
+            category: "식단 & 영양",
+            date: "2026.08.19",
+            views: "0",
+            thumb: "images/posts/mediterranean/thumb.jpg?v=1.2",
+            desc: "유네스코 인류무형문화유산 지중해 식단의 항염증 원리와 한국 마트에서 손쉽게 대체 식재료로 실천하는 가이드.",
+            isHidden: false
+        },
+        {
+            id: 6,
+            slug: "intermittent-fasting-guide.html",
+            title: "간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표",
+            category: "식단 & 영양",
+            date: "2026.08.19",
+            views: "0",
+            thumb: "images/posts/fasting/thumb.jpg?v=1.2",
+            desc: "지방 연소와 자가포식을 유도하는 16:8 간헐적 단식의 과학적 원리와 직장인을 위한 최적 시간표.",
+            isHidden: false
+        },
+        {
+            id: 7,
+            slug: "morning-routine.html",
+            title: "기상 직후 활력 깨우는 모닝 루틴 5단계: 미온수·햇볕·스트레칭",
+            category: "라이프 웰니스",
+            date: "2026.08.19",
+            views: "0",
+            thumb: "images/posts/morning/thumb.jpg?v=1.1",
+            desc: "기상 직후 미온수 한 잔부터 가벼운 스트레칭까지 코르티솔 분비를 안정시키고 하루 에너지를 깨우는 5단계 모닝 리추얼.",
+            isHidden: false
+        },
+        {
+            id: 8,
+            slug: "sleep-hygiene-guide.html",
+            title: "숙면을 부르는 수면 위생 수칙 7가지와 불면증 극복법",
+            category: "라이프 웰니스",
+            date: "2026.08.19",
+            views: "0",
+            thumb: "images/posts/sleep/thumb.jpg?v=1.1",
+            desc: "멜라토닌 분비를 극대화하는 침실 온도, 조도 조절법과 수면 장애를 극복하는 7대 수면 위생 수칙.",
+            isHidden: false
+        },
+        {
+            id: 9,
+            slug: "posture-stretching-office.html",
+            title: "직장인을 위한 거북목·굽은 등 교정 5분 오피스 스트레칭",
+            category: "홈트레이닝",
+            date: "2026.08.19",
+            views: "0",
+            thumb: "images/posts/posture/thumb.jpg?v=1.1",
+            desc: "장시간 모니터를 보는 직장인의 목·어깨 통증을 즉각 완화하는 흉추 가동성 및 승모근 이완 5분 루틴.",
+            isHidden: false
+        },
+        {
+            id: 10,
+            slug: "core-exercise-home.html",
+            title: "층간소음 없이 집에서 하는 무소음 코어 강화 홈트레이닝 4선",
+            category: "홈트레이닝",
+            date: "2026.08.19",
+            views: "0",
+            thumb: "images/posts/core/thumb.jpg?v=1.1",
+            desc: "점프 동작 없이 매트 한 장으로 복부와 척추 기립근을 단련하는 아파트 맞춤형 무소음 코어 운동 가이드.",
+            isHidden: false
+        },
+        {
+            id: 11,
+            slug: "water-intake-guide.html",
+            title: "내 몸에 맞는 하루 물 섭취량 계산법과 올바르게 마시는 꿀팁",
+            category: "식단 & 영양",
+            date: "2026.08.19",
+            views: "0",
+            thumb: "images/posts/water/thumb.jpg?v=1.1",
+            desc: "체중과 활동량에 따른 1일 최적 수분 섭취 권장량 계산 공식과 체내 흡수율을 높이는 물 마시는 시간대.",
+            isHidden: false
+        }
+    ];
+
+    let posts = MASTER_ADMIN_POSTS.map(p => ({ ...p }));
+
+    // 1. 로그인 인증 함수
+    function doAdminLogin() {
+        const input = document.getElementById('adminPasswordInput');
+        const err = document.getElementById('authErrorMsg');
+        const val = input ? input.value.trim() : '';
+
+        if (val === ADMIN_PASS || val === '8809') {
+            const lock = document.getElementById('authLockScreen');
+            const content = document.getElementById('adminContent');
+            if (lock) lock.style.setProperty('display', 'none', 'important');
+            if (content) content.style.setProperty('display', 'block', 'important');
+            
+            loadPostsData();
+            if (typeof loadAllAdminComments === 'function') { try { loadAllAdminComments(); } catch(e){} }
+            if (typeof loadAnalyticsDashboard === 'function') { try { loadAnalyticsDashboard(); } catch(e){} }
+        } else {
+            if (err) err.style.display = "block";
+            if (input) {
+                input.value = "";
+                input.focus();
+            }
+        }
+    }
+
+    // 2. 데이터 동기화
+    function loadPostsData() {
+        const savedHidden = JSON.parse(localStorage.getItem('honeyjar_hidden_slugs') || '[]');
+        posts = MASTER_ADMIN_POSTS.map(p => ({
+            ...p,
+            isHidden: savedHidden.includes(p.slug)
+        }));
+        renderTable();
+    }
+
+    // 3. 페이지 전환 함수 (1, 2, 3...)
+    function changeAdminPage(newPage) {
+        const totalPages = Math.ceil(posts.length / itemsPerPage) || 1;
+        if (newPage < 1) newPage = 1;
+        if (newPage > totalPages) newPage = totalPages;
+        currentAdminPage = newPage;
+        renderTable();
+    }
+
+    // 4. 테이블 렌더링
+    function renderTable() {
+        const tbody = document.getElementById('postsTableBody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+
+        const total = posts.length;
+        const totalPages = Math.ceil(total / itemsPerPage) || 1;
+        if (currentAdminPage > totalPages) currentAdminPage = totalPages;
+        if (currentAdminPage < 1) currentAdminPage = 1;
+
+        const startIndex = (currentAdminPage - 1) * itemsPerPage;
+        const pagePosts = posts.slice(startIndex, startIndex + itemsPerPage);
+
+        pagePosts.forEach((post, i) => {
+            const index = startIndex + i;
+            const tr = document.createElement('tr');
+            tr.id = "row-post-" + post.id;
+            if (post.isHidden) tr.classList.add('row-hidden');
+
+            tr.innerHTML = `
+                <td style="text-align:center; font-weight:700; color:#c26908;">${index + 1}</td>
+                <td style="text-align:center;"><img src="${post.thumb}" class="post-thumb-mini" alt="썸네일" style="width:48px; height:36px; object-fit:cover; border-radius:6px;" loading="lazy" decoding="async"></td>
+                <td style="text-align:center;"><span class="badge-cat" style="background:#fef3c7; color:#92400e; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">${post.category}</span></td>
+                <td>
+                    <strong style="font-size:0.88rem; color:#0f172a; display:block;">${post.title}</strong>
+                    <div style="font-size: 0.76rem; color: #64748b; margin-top: 2px;">${post.desc ? post.desc.substring(0, 45) + '...' : ''}</div>
+                </td>
+                <td style="text-align: center;">
+                    ${post.isHidden ? '<span class="badge-status-hidden" style="background:#fee2e2; color:#991b1b; font-size:0.75rem; padding:2px 6px; border-radius:4px;">비공개(숨김)</span>' : '<span class="badge-status-live" style="background:#dcfce7; color:#166534; font-size:0.75rem; padding:2px 6px; border-radius:4px;">● 공개 중</span>'}
+                </td>
+                <td style="text-align: center; color: #64748b; font-size: 0.82rem;">${post.date}</td>
+                <td style="text-align: center; font-weight: 700; color: #c26908;">${post.views || '0'}</td>
+                <td style="text-align: center;">
+                    <div class="action-btns" style="display:inline-flex; gap:6px;">
+                        <a href="posts/${post.slug}" target="_blank" class="btn-sm-view" style="padding:4px 8px; font-size:0.76rem; text-decoration:none; border-radius:4px; background:#f1f5f9; color:#334155;">보기 ↗</a>
+                        <button type="button" class="btn-sm-edit" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="startEditPost(${post.id})">수정</button>
+                        <button type="button" class="btn-sm-hide ${post.isHidden ? 'is-hidden' : ''}" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="toggleHidePost(${post.id})">
+                            ${post.isHidden ? '공개' : '숨김'}
+                        </button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        renderAdminPagination(totalPages);
+        updateStats();
+    }
+
+    // 5. 페이징 버튼 바 렌더링
+    function renderAdminPagination(totalPages) {
+        const pagContainer = document.getElementById('adminPostsPagination');
+        if (!pagContainer) return;
+
+        let html = `<button type="button" class="admin-page-btn ${currentAdminPage === 1 ? 'disabled' : ''}" onclick="changeAdminPage(${currentAdminPage - 1})" ${currentAdminPage === 1 ? 'disabled' : ''}>‹ 이전</button>`;
+        
+        for (let p = 1; p <= totalPages; p++) {
+            html += `<button type="button" class="admin-page-btn ${p === currentAdminPage ? 'active' : ''}" onclick="changeAdminPage(${p})">${p}</button>`;
+        }
+        
+        html += `<button type="button" class="admin-page-btn ${currentAdminPage === totalPages ? 'disabled' : ''}" onclick="changeAdminPage(${currentAdminPage + 1})" ${currentAdminPage === totalPages ? 'disabled' : ''}>다음 ›</button>`;
+        pagContainer.innerHTML = html;
+    }
+
+    // 6. 통계 갱신
+    function updateStats() {
+        const total = posts.length;
+        const visible = posts.filter(p => !p.isHidden).length;
+        const hidden = total - visible;
+
+        const tableTotal = document.getElementById('tableTotalCount');
+        const statPost = document.getElementById('statPostCount');
+        const statSub = document.getElementById('statPostSub');
+
+        if (tableTotal) tableTotal.innerText = total;
+        if (statPost) statPost.innerText = total + "편";
+        if (statSub) statSub.innerText = `✓ 공개 ${visible}편 / 숨김 ${hidden}편`;
+    }
+
+    // 7. 실시간 검색 & 필터링 (화면 스크롤 튕김 0% 보장)
+    function filterPostsTable() {
+        const input = document.getElementById('postSearchInput');
+        const query = input ? (input.value || "").trim().toLowerCase() : "";
+        const tbody = document.getElementById('postsTableBody');
+        if (!tbody) return;
+
+        if (!query) {
+            renderTable();
+            const pag = document.getElementById('adminPostsPagination');
+            if (pag) pag.style.display = 'flex';
+            return;
+        }
+
+        // Filter matched posts
+        const matched = posts.filter(p => {
+            const text = (p.title + " " + p.category + " " + p.desc).toLowerCase();
+            return text.includes(query);
+        });
+
+        tbody.innerHTML = '';
+        if (matched.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="8" style="text-align:center; padding:32px; color:#64748b;">🔍 '${query}'에 일치하는 칼럼이 없습니다.</td></tr>`;
+        } else {
+            matched.forEach((post, index) => {
+                const tr = document.createElement('tr');
+                tr.id = "row-post-" + post.id;
+                if (post.isHidden) tr.classList.add('row-hidden');
+
+                tr.innerHTML = `
+                    <td style="text-align:center; font-weight:700; color:#c26908;">${index + 1}</td>
+                    <td style="text-align:center;"><img src="${post.thumb}" class="post-thumb-mini" alt="썸네일" style="width:48px; height:36px; object-fit:cover; border-radius:6px;" loading="lazy" decoding="async"></td>
+                    <td style="text-align:center;"><span class="badge-cat" style="background:#fef3c7; color:#92400e; font-size:0.75rem; font-weight:700; padding:2px 8px; border-radius:4px;">${post.category}</span></td>
+                    <td>
+                        <strong style="font-size:0.88rem; color:#0f172a; display:block;">${post.title}</strong>
+                        <div style="font-size: 0.76rem; color: #64748b; margin-top: 2px;">${post.desc ? post.desc.substring(0, 45) + '...' : ''}</div>
+                    </td>
+                    <td style="text-align: center;">
+                        ${post.isHidden ? '<span class="badge-status-hidden" style="background:#fee2e2; color:#991b1b; font-size:0.75rem; padding:2px 6px; border-radius:4px;">비공개(숨김)</span>' : '<span class="badge-status-live" style="background:#dcfce7; color:#166534; font-size:0.75rem; padding:2px 6px; border-radius:4px;">● 공개 중</span>'}
+                    </td>
+                    <td style="text-align: center; color: #64748b; font-size: 0.82rem;">${post.date}</td>
+                    <td style="text-align: center; font-weight: 700; color: #c26908;">${post.views || '0'}</td>
+                    <td style="text-align: center;">
+                        <div class="action-btns" style="display:inline-flex; gap:6px;">
+                            <a href="posts/${post.slug}" target="_blank" class="btn-sm-view" style="padding:4px 8px; font-size:0.76rem; text-decoration:none; border-radius:4px; background:#f1f5f9; color:#334155;">보기 ↗</a>
+                            <button type="button" class="btn-sm-edit" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="startEditPost(${post.id})">수정</button>
+                            <button type="button" class="btn-sm-hide ${post.isHidden ? 'is-hidden' : ''}" style="padding:4px 8px; font-size:0.76rem; border-radius:4px; border:1px solid #cbd5e1; background:#ffffff; cursor:pointer;" onclick="toggleHidePost(${post.id})">
+                                ${post.isHidden ? '공개' : '숨김'}
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        const pag = document.getElementById('adminPostsPagination');
+        if (pag) pag.style.display = query ? 'none' : 'flex';
+    }
+
+    // 8. 숨김/공개 토글
+    function toggleHidePost(id) {
+        const post = posts.find(p => p.id === id);
+        if (!post) return;
+
+        post.isHidden = !post.isHidden;
+        const savedHidden = posts.filter(p => p.isHidden).map(p => p.slug);
+        localStorage.setItem('honeyjar_hidden_slugs', JSON.stringify(savedHidden));
+        renderTable();
+
+        if (post.isHidden) {
+            alert(`🔒 [${post.title}]\n칼럼이 '숨김(비공개)' 처리되었습니다.`);
+        } else {
+            alert(`🌐 [${post.title}]\n칼럼이 다시 '공개 중'으로 전환되었습니다.`);
+        }
+    }
+
+    // 9. 초기 로드 시 사전 렌더링
+    window.addEventListener('DOMContentLoaded', () => {
+        const lock = document.getElementById('authLockScreen');
+        const content = document.getElementById('adminContent');
+        if (lock) lock.style.setProperty('display', 'flex', 'important');
+        if (content) content.style.setProperty('display', 'none', 'important');
+        const input = document.getElementById('adminPasswordInput');
+        if (input) { input.value = ''; input.focus(); }
+
+        loadPostsData();
+    });
+</script>

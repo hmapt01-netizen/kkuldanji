@@ -268,7 +268,8 @@ function showToast(message) {
 function initAutoExpiringBadges() {
     const DAYS_LIMIT = 3;
     const now = new Date();
-    const metaDateElements = document.querySelectorAll('.feed-item-meta span, .clean-card .article-item div[style*="font-size:0.76rem"], .article-meta-bar span');
+    // 포스트 상세 페이지의 .article-meta-bar는 빌더 템플릿이 단일 뱃지를 정적으로 관리하므로 중복 방지를 위해 제외
+    const metaDateElements = document.querySelectorAll('.feed-item-meta span, .clean-card .article-item div[style*="font-size:0.76rem"]');
 
     metaDateElements.forEach(el => {
         const text = el.textContent || '';
@@ -286,7 +287,7 @@ function initAutoExpiringBadges() {
         const catBadge = article ? article.querySelector('.feed-item-cat, .clean-card span[style*="font-size:0.75rem"]') : null;
 
         if (diffDays >= 0 && diffDays <= DAYS_LIMIT) {
-            el.innerHTML = `${baseDateStr} <span class="badge-auto-new" style="display:inline-block; background:#fee2e2; color:#ef4444; font-size:0.72rem; font-weight:800; padding:1px 5px; border-radius:4px; margin-left:4px; vertical-align:middle; border:1px solid #fca5a5;">(최신)</span>`;
+            el.innerHTML = baseDateStr;
             
             if (catBadge && !catBadge.querySelector('.badge-cat-new') && !catBadge.textContent.includes('NEW')) {
                 const newTag = document.createElement('span');
@@ -301,7 +302,7 @@ function initAutoExpiringBadges() {
             if (catBadge) {
                 const catNew = catBadge.querySelector('.badge-cat-new');
                 if (catNew) catNew.remove();
-                catBadge.textContent = catBadge.textContent.replace(' · NEW', '').replace('(최신)', '').replace('· NEW', '').replace('· 관절 보호', '').trim();
+                catBadge.textContent = catBadge.textContent.replace(' · NEW', '').replace('', '').replace('· NEW', '').replace('· 관절 보호', '').trim();
                 const originCat = article.getAttribute('data-category');
                 if (originCat) catBadge.textContent = originCat;
             }
