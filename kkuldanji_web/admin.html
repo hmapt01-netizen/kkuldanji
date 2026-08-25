@@ -2307,8 +2307,25 @@ ${formattedBody}
     }
 
         // ==========================================
-    // 📊 [통계 대시보드 및 페이징 완전체 엔진]
+    // 📊 [Abacus 실시간 통계 & 페이징 완전체 엔진]
     // ==========================================
+    var ABACUS_BASE = "https://abacus.jasoncameron.dev";
+    var ABACUS_NS = "honeyjar_wellness";
+
+    async function fetchAbacusVal(key) {
+        try {
+            var ctrl = new AbortController();
+            var timeoutId = setTimeout(function() { ctrl.abort(); }, 4000);
+            var res = await fetch(ABACUS_BASE + "/get/" + ABACUS_NS + "/" + key, { signal: ctrl.signal });
+            clearTimeout(timeoutId);
+            if (res.ok) {
+                var data = await res.json();
+                if (data && typeof data.value === 'number') return data.value;
+            }
+        } catch(e) {}
+        return 0;
+    }
+
     var analyticsPosts = [
         { slug: 'post-meal-walk-blood-sugar.html', key: 'post_meal_walk_blood_sugar', title: '식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 루틴', views: 0, avgDwellSec: 0, avgScroll: 0, hasViews: false },
         { slug: 'knee-safe-squat-workout.html', key: 'knee_safe_squat_workout', title: '초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세', views: 0, avgDwellSec: 0, avgScroll: 0, hasViews: false },
@@ -2398,6 +2415,7 @@ ${formattedBody}
     }
 
     // Attach to window globally
+    window.fetchAbacusVal = fetchAbacusVal;
     window.changeAnalyticsPage = changeAnalyticsPage;
     window.renderAnalyticsTable = renderAnalyticsTable;
 
@@ -2434,15 +2452,17 @@ ${formattedBody}
 
         // 3. Post Performance Table (9편 실시간 조회수 및 실제 측정 체류시간)
         const postsConfig = [
+            { slug: 'post-meal-walk-blood-sugar.html', key: 'post_meal_walk_blood_sugar', title: '식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 루틴' },
+            { slug: 'knee-safe-squat-workout.html', key: 'knee_safe_squat_workout', title: '초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세' },
             { slug: 'ohnara-diet.html', key: 'ohnara_diet', title: '오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동' },
             { slug: 'august-seasonal-foods.html', key: 'august_seasonal_foods', title: '8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드' },
             { slug: 'mediterranean-diet.html', key: 'mediterranean_diet', title: '세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁' },
             { slug: 'intermittent-fasting-guide.html', key: 'intermittent_fasting_guide', title: '간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표' },
-            { slug: 'morning-routine.html', key: 'morning_routine', title: '아침 공복 유산소와 식사 타이밍, 혈당 스파이크 방지 습관' },
-            { slug: 'sleep-hygiene-guide.html', key: 'sleep_hygiene_guide', title: '수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환경 가이드' },
-            { slug: 'posture-stretching-office.html', key: 'posture_stretching_office', title: '직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭' },
-            { slug: 'core-exercise-home.html', key: 'core_exercise_home', title: '바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴' },
-            { slug: 'water-intake-guide.html', key: 'water_intake_guide', title: '하루 물 2리터 권장량의 진실, 올바른 수분 섭취법과 체내 밸런스' }
+            { slug: 'morning-routine.html', key: 'morning_routine', title: '기상 직후 활력 깨우는 모닝 루틴 5단계: 미온수·햇볕·스트레칭' },
+            { slug: 'sleep-hygiene-guide.html', key: 'sleep_hygiene_guide', title: '숙면을 부르는 수면 위생 수칙 7가지와 불면증 극복법' },
+            { slug: 'posture-stretching-office.html', key: 'posture_stretching_office', title: '직장인 거북목·라운드숄더 교정 5분 오피스 스트레칭 루틴' },
+            { slug: 'core-exercise-home.html', key: 'core_exercise_home', title: '허리 통증 잡는 10분 코어 운동 루틴: 플랭크·버드독 정석 자세' },
+            { slug: 'water-intake-guide.html', key: 'water_intake_guide', title: '하루 물 2L 섭취 공식과 체중별 수분 섭취 골든타임 가이드' }
         ];
 
         let postsList = [];
@@ -2600,6 +2620,15 @@ ${formattedBody}
             btn.innerText = "🔄 갱신 중...";
             btn.disabled = true;
         }
+        try {
+            await loadAnalyticsDashboard();
+        } finally {
+            if (btn) {
+                btn.innerText = "🔄 통계 새로고침";
+                btn.disabled = false;
+            }
+        }
+    }
         await loadAnalyticsDashboard();
         if (btn) {
             setTimeout(() => {
