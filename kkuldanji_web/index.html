@@ -677,25 +677,25 @@
             <div class="modal-cat-group">
                 <a href="javascript:void(0)" onclick="filterTistoryFeed('all', '분류 전체보기'); closeCategoryModal();" class="modal-cat-main">
                     <span>분류 전체보기</span>
-                    <span class="modal-cat-count">9</span>
+                    <span class="modal-cat-count" id="catCountAll">10</span>
                 </a>
             </div>
             <div class="modal-cat-group">
                 <a href="javascript:void(0)" onclick="filterTistoryFeed('식단 & 영양', '식단 & 영양'); closeCategoryModal();" class="modal-cat-main">
                     <span>식단 & 영양</span>
-                    <span class="modal-cat-count">5</span>
+                    <span class="modal-cat-count" id="catCountDiet">5</span>
                 </a>
             </div>
             <div class="modal-cat-group">
                 <a href="javascript:void(0)" onclick="filterTistoryFeed('홈트레이닝', '홈트레이닝'); closeCategoryModal();" class="modal-cat-main">
                     <span>홈트레이닝</span>
-                    <span class="modal-cat-count">2</span>
+                    <span class="modal-cat-count" id="catCountHomet">3</span>
                 </a>
             </div>
             <div class="modal-cat-group">
                 <a href="javascript:void(0)" onclick="filterTistoryFeed('라이프 웰니스', '라이프 웰니스'); closeCategoryModal();" class="modal-cat-main">
                     <span>라이프 웰니스</span>
-                    <span class="modal-cat-count">2</span>
+                    <span class="modal-cat-count" id="catCountWellness">2</span>
                 </a>
             </div>
         </div>
@@ -980,7 +980,40 @@
             }
         }
 
+                // 📊 카테고리별 발행 글 실시간 100% 자동 집계 엔진 (Auto-Counting)
+        function updateCategoryCounts() {
+            const feedItems = Array.from(document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item'))
+                .filter(item => item.getAttribute('data-admin-hidden') !== 'true');
+            
+            let total = feedItems.length;
+            let dietCount = 0;
+            let hometCount = 0;
+            let wellnessCount = 0;
+
+            feedItems.forEach(item => {
+                const cat = (item.getAttribute('data-category') || '').trim();
+                if (cat.includes('식단') || cat.includes('영양') || cat.includes('제철')) {
+                    dietCount++;
+                } else if (cat.includes('홈트') || cat.includes('운동') || cat.includes('스트레칭')) {
+                    hometCount++;
+                } else if (cat.includes('라이프') || cat.includes('웰니스') || cat.includes('수면') || cat.includes('루틴')) {
+                    wellnessCount++;
+                }
+            });
+
+            const elAll = document.getElementById('catCountAll');
+            const elDiet = document.getElementById('catCountDiet');
+            const elHomet = document.getElementById('catCountHomet');
+            const elWellness = document.getElementById('catCountWellness');
+
+            if (elAll) elAll.innerText = total;
+            if (elDiet) elDiet.innerText = dietCount;
+            if (elHomet) elHomet.innerText = hometCount;
+            if (elWellness) elWellness.innerText = wellnessCount;
+        }
+
         function openCategoryModal() {
+            updateCategoryCounts();
             document.getElementById('categoryModal').classList.add('active');
             document.body.style.overflow = 'hidden';
         }
@@ -1034,6 +1067,7 @@
 
         function refreshAllViewFilters() {
             applyAdminHiddenFilter();
+            updateCategoryCounts();
             syncCloudHeartsToIndex();
             const urlParams = new URLSearchParams(window.location.search);
             const catParam = urlParams.get('cat');
