@@ -1,0 +1,4091 @@
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿/* ==========================================================================
+   혀니의 꿀단지 (KKULDANJI | Life & Wellness Journal)
+   Pure Minimalist & Clean Editorial Edition (v8.0)
+   - 2열 매거진 레이아웃 (본문 720px + 우측 사이드바 300px)
+   - 메인-서브 전환 시 100% 안정적인 1040px 컨테이너
+   - 에디터 프로필, 인기글 TOP 5, 맞춤 계산기 위젯
+   ========================================================================== */
+
+:root {
+    --bg-page: #ffffff;
+    --bg-subtle: #f9fafb;
+    --bg-card: #ffffff;
+    --text-title: #111827;
+    --text-body: #374151;
+    --text-muted: #6b7280;
+    --text-subtle: #9ca3af;
+    --primary: #c26908;           /* 절제된 차분한 앰버 */
+    --primary-light: #fffbeb;
+    --primary-border: #fef3c7;
+    --border-color: #f3f4f6;
+    --border-line: #e5e7eb;
+    --radius: 8px;
+    --radius-lg: 12px;
+    --radius-pill: 9999px;
+    
+    --font-main: 'Pretendard', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--bg-page);
+    color: var(--text-body);
+    font-size: 16px;
+    line-height: 1.8;
+    word-break: keep-all;
+    -webkit-font-smoothing: antialiased;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+a:hover {
+    color: var(--primary);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+strong, b {
+    font-weight: 600;
+    color: var(--text-title);
+}
+
+/* ==========================================================================
+   Header & Clean Minimal Nav (프리미엄 2단 브랜딩: 혀니의 꿀단지)
+   ========================================================================== */
+@import url('https://cdn.jsdelivr.net/gh/moonspam/NanumSquareRound@master/nanumsquareround.min.css');
+
+header.clean-header {
+    background: #ffffff;
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header-container {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 13px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand-title {
+    display: inline-flex;
+    align-items: center;
+    gap: 11px;
+    text-decoration: none;
+}
+
+/* 꿀단지 심볼 아이콘 */
+.brand-logo-img {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    flex-shrink: 0;
+    image-rendering: -webkit-optimize-contrast;
+}
+
+/* 둥근 라운드 폰트로 꿀단지와 완벽 조화 */
+.brand-text-stack {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    line-height: 1.15;
+    font-family: 'NanumSquareRound', 'Pretendard', sans-serif;
+}
+
+.brand-sub-title {
+    font-family: 'NanumSquareRound', 'Pretendard', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: var(--primary);          /* 따뜻한 꿀 브라운 (#c26908) */
+    letter-spacing: 0.5px;
+    margin-bottom: 2px;
+}
+
+.brand-main-title {
+    font-family: 'NanumSquareRound', 'Pretendard', sans-serif;
+    font-size: 1.55rem;
+    font-weight: 800;
+    color: var(--text-title);        /* 묵직하고 선명한 다크 차콜 (#111827) */
+    letter-spacing: -0.5px;
+}
+
+.brand-title:hover .brand-main-title {
+    color: var(--primary);
+}
+
+nav.clean-nav ul {
+    display: flex;
+    list-style: none;
+    gap: 24px;
+    align-items: center;
+}
+
+nav.clean-nav a {
+    font-size: 0.96rem;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+nav.clean-nav a:hover, nav.clean-nav a.active {
+    color: var(--text-title);
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   Main Container (1040px 안정적 고정 너비)
+   ========================================================================== */
+.container {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 36px 20px;
+}
+
+/* ==========================================================================
+   Featured Story (Clean & Quiet)
+   ========================================================================== */
+.featured-post {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 36px;
+    align-items: center;
+    padding-bottom: 44px;
+    margin-bottom: 44px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.featured-img {
+    border-radius: var(--radius);
+    overflow: hidden;
+    height: 320px;
+    background: #f3f4f6;
+}
+
+.featured-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.featured-info .cat-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    display: block;
+}
+
+.featured-title {
+    font-size: 1.45rem;
+    font-weight: 700;
+    color: var(--text-title);
+    line-height: 1.42;
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+}
+
+.featured-desc {
+    font-size: 0.94rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    margin-bottom: 18px;
+}
+
+.post-meta-line {
+    font-size: 0.82rem;
+    color: var(--text-subtle);
+}
+
+/* ==========================================================================
+   내 몸 맞춤 건강 계산기 (Interactive Health Calculator)
+   ========================================================================== */
+.calc-card-section {
+    background: var(--bg-subtle);
+    border: 1px solid var(--border-line);
+    border-radius: var(--radius-lg);
+    padding: 32px 30px;
+    margin-bottom: 56px;
+}
+
+.calc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.calc-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-title);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.calc-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--primary);
+    background: var(--primary-light);
+    border: 1px solid var(--primary-border);
+    padding: 2px 10px;
+    border-radius: var(--radius-pill);
+}
+
+.calc-form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.calc-input-group label {
+    display: block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--text-title);
+    margin-bottom: 6px;
+}
+
+.calc-input-group input, .calc-input-group select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border-line);
+    background: #ffffff;
+    border-radius: var(--radius);
+    font-size: 0.92rem;
+    font-family: inherit;
+    outline: none;
+}
+
+.calc-input-group input:focus, .calc-input-group select:focus {
+    border-color: var(--text-title);
+}
+
+.calc-btn-submit {
+    background: var(--text-title);
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    border-radius: var(--radius);
+    font-size: 0.94rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+}
+
+.calc-btn-submit:hover {
+    background: var(--primary);
+}
+
+.calc-result-panel {
+    display: none;
+    margin-top: 24px;
+    padding-top: 20px;
+    border-top: 1px dashed var(--border-line);
+}
+
+.calc-result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 14px;
+    margin-bottom: 16px;
+}
+
+.result-box {
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    padding: 16px;
+    border-radius: var(--radius);
+    text-align: center;
+}
+
+.result-box .label {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 4px;
+}
+
+.result-box .val {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary);
+}
+
+.calc-tip-text {
+    font-size: 0.88rem;
+    color: var(--text-body);
+    background: #ffffff;
+    padding: 14px 18px;
+    border-radius: var(--radius);
+    border-left: 3px solid var(--primary);
+    line-height: 1.7;
+}
+
+/* ==========================================================================
+   Section Title & D-Day Badges
+   ========================================================================== */
+.section-heading {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text-title);
+    margin-bottom: 24px;
+    letter-spacing: -0.3px;
+}
+
+.dday-badge {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #9a3412;
+    background: #ffedd5;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 6px;
+}
+
+/* ==========================================================================
+   Clean Card Grid (최신 글 모음)
+   ========================================================================== */
+.clean-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px 24px;
+}
+
+/* ==========================================================================
+   Category Filter Tabs (카테고리별 글 목록 필터 탭)
+   ========================================================================== */
+.category-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    margin: 20px 0 28px;
+}
+
+.cat-filter-btn {
+    padding: 7px 16px;
+    border-radius: 9999px;
+    background: #f3f4f6;
+    color: #4b5563;
+    font-size: 0.86rem;
+    font-weight: 600;
+    border: 1px solid var(--border-line);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cat-filter-btn:hover {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+.cat-filter-btn.active {
+    background: #111827;
+    color: #ffffff;
+    border-color: #111827;
+}
+
+.cat-badge-count {
+    font-size: 0.76rem;
+    opacity: 0.8;
+}
+
+/* ==========================================================================
+   Pagination UI (10개 단위 페이지네이션: 1, 2, 3...)
+   ========================================================================== */
+.pagination-nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 48px 0 60px;
+}
+
+.page-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 38px;
+    height: 38px;
+    padding: 0 12px;
+    font-size: 0.92rem;
+    font-weight: 600;
+    color: var(--text-body);
+    background: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.page-btn:hover:not(.disabled):not(.active) {
+    background: #f9fafb;
+    border-color: #d1d5db;
+    color: var(--text-title);
+}
+
+.page-btn.active {
+    background: var(--text-title);
+    color: #ffffff;
+    border-color: var(--text-title);
+    font-weight: 700;
+    cursor: default;
+}
+
+.page-btn.page-arrow {
+    font-size: 0.85rem;
+    padding: 0 14px;
+}
+
+/* ==========================================================================
+   Clean Comment System (소통형 스마트 댓글창)
+   ========================================================================== */
+.comment-section {
+    margin-top: 36px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
+}
+
+.comment-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.comment-header h3 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    color: var(--text-title);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 0;
+}
+
+.comment-count-badge {
+    background: #fef3c7;
+    color: #92400e;
+    font-size: 0.8rem;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    font-weight: 700;
+}
+
+.comment-form-card {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+}
+
+.comment-input-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.comment-input-row input {
+    width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    padding: 8px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.84rem;
+    outline: none;
+    background: #ffffff;
+    font-family: inherit;
+    transition: border-color 0.2s;
+}
+
+.comment-input-row input:focus, .comment-textarea:focus {
+    border-color: #c26908;
+}
+
+.comment-textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    line-height: 1.5;
+    outline: none;
+    background: #ffffff;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 64px;
+    margin-bottom: 10px;
+}
+
+.comment-submit-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+}
+
+.comment-guide-text {
+    font-size: 0.76rem;
+    color: #64748b;
+}
+
+/* 🌿 차분하고 튀지 않는 슬림 콤팩트 댓글 등록 버튼 */
+.btn-comment-submit {
+    background: #f1f5f9;
+    color: #334155;
+    border: 1px solid #cbd5e1;
+    padding: 7px 16px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    border-radius: 8px;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+}
+
+.btn-comment-submit:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+    border-color: #94a3b8;
+}
+
+.comment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.comment-item {
+    background: #ffffff;
+    border: 1px solid var(--border-line);
+    border-radius: 10px;
+    padding: 14px 16px;
+    transition: border-color 0.2s;
+}
+
+.comment-item:hover {
+    border-color: #d1d5db;
+}
+
+.comment-item-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 6px;
+}
+
+.comment-author-box {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.comment-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #fef3c7;
+    color: #92400e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.82rem;
+}
+
+.comment-author-name {
+    font-weight: 700;
+    font-size: 0.88rem;
+    color: var(--text-title);
+}
+
+.comment-date {
+    font-size: 0.74rem;
+    color: #9ca3af;
+    margin-left: 4px;
+}
+
+.comment-body-text {
+    font-size: 0.9rem;
+    color: #374151;
+    line-height: 1.55;
+    margin-bottom: 8px;
+}
+
+.comment-footer-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.76rem;
+}
+
+.comment-like-btn {
+    background: #f8fafc;
+    border: 1px solid var(--border-line);
+    color: #4b5563;
+    padding: 3px 9px;
+    border-radius: 9999px;
+    cursor: pointer;
+    font-size: 0.74rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    transition: all 0.2s;
+}
+
+.comment-like-btn:hover, .comment-like-btn.liked {
+    background: #fee2e2;
+    border-color: #fecaca;
+    color: #dc2626;
+}
+
+.comment-del-link {
+    color: #9ca3af;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.74rem;
+}
+
+.comment-del-link:hover {
+    color: #ef4444;
+    text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+    .comment-section {
+        margin-top: 24px !important;
+        padding-top: 18px !important;
+    }
+    .comment-header {
+        margin-bottom: 10px !important;
+    }
+    .comment-header h3 {
+        font-size: 0.98rem !important;
+    }
+    .comment-form-card {
+        padding: 12px 12px !important;
+        margin-bottom: 12px !important;
+        border-radius: 10px !important;
+    }
+    .comment-input-row {
+        grid-template-columns: 1fr 1fr !important;
+        gap: 6px !important;
+        margin-bottom: 6px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    .comment-input-row input {
+        width: 100% !important;
+        min-width: 0 !important;
+        box-sizing: border-box !important;
+        padding: 6px 8px !important;
+        font-size: 0.78rem !important;
+        height: 32px !important;
+    }
+    .comment-textarea {
+        width: 100% !important;
+        box-sizing: border-box !important;
+        min-height: 52px !important;
+        font-size: 0.82rem !important;
+        padding: 8px !important;
+        margin-bottom: 6px !important;
+    }
+    .comment-submit-row {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        gap: 6px !important;
+    }
+    .comment-guide-text {
+        font-size: 0.7rem !important;
+        line-height: 1.25 !important;
+    }
+    .btn-comment-submit {
+        padding: 5px 12px !important;
+        font-size: 0.76rem !important;
+        border-radius: 6px !important;
+        flex-shrink: 0 !important;
+    }
+    .comment-list {
+        gap: 8px !important;
+    }
+    .comment-item {
+        padding: 10px 12px !important;
+        border-radius: 8px !important;
+    }
+    .comment-item-top {
+        margin-bottom: 4px !important;
+    }
+    .comment-avatar {
+        width: 26px !important;
+        height: 26px !important;
+        font-size: 0.75rem !important;
+    }
+    .comment-author-name {
+        font-size: 0.84rem !important;
+    }
+    .comment-date {
+        font-size: 0.7rem !important;
+    }
+    .comment-body-text {
+        font-size: 0.84rem !important;
+        line-height: 1.45 !important;
+        margin-bottom: 6px !important;
+    }
+    .comment-like-btn {
+        padding: 2px 7px !important;
+        font-size: 0.7rem !important;
+    }
+    .comment-del-link {
+        font-size: 0.7rem !important;
+    }
+}
+
+/* ==========================================================================
+   Clean Card Grid with Save Button (Main Home)
+   ========================================================================== */
+.clean-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 32px 28px;
+    margin-bottom: 60px;
+}
+
+.clean-card {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.clean-card-thumb {
+    position: relative;
+    height: 200px;
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 14px;
+    background: #f3f4f6;
+}
+
+.clean-card-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.btn-save-post {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0,0,0,0.08);
+    border-radius: var(--radius-pill);
+    padding: 4px 10px;
+    font-size: 0.74rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-save-post:hover, .btn-save-post.saved {
+    background: var(--text-title);
+    color: #ffffff;
+}
+
+.clean-card-cat {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: var(--primary);
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+}
+
+.clean-card-title {
+    font-size: 1.08rem;
+    font-weight: 600;
+    color: var(--text-title);
+    line-height: 1.45;
+    margin-bottom: 8px;
+    letter-spacing: -0.2px;
+}
+
+.clean-card-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 12px;
+    flex-grow: 1;
+}
+
+.clean-card-meta {
+    font-size: 0.8rem;
+    color: var(--text-subtle);
+}
+
+/* ==========================================================================
+   2-Column Magazine Article Layout (PC: 본문 700px + 우측 사이드바 300px = 총 1040px)
+   ========================================================================== */
+.article-layout-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px;
+    gap: 40px;
+    align-items: start;
+    max-width: 1040px;
+    margin: 0 auto;
+}
+
+.article-main-col {
+    min-width: 0;
+    width: 100%;
+}
+
+.article-header {
+    margin-bottom: 20px;
+}
+
+.article-cat-tag {
+    font-size: 0.82rem;
+    font-weight: 750;
+    color: var(--primary);
+    margin-bottom: 8px;
+    display: block;
+}
+
+.article-main-title {
+    font-size: 1.85rem;
+    font-weight: 800;
+    line-height: 1.38;
+    color: var(--text-title);
+    margin-bottom: 12px;
+    letter-spacing: -0.4px;
+}
+
+.article-meta-bar {
+    font-size: 0.86rem;
+    color: var(--text-subtle);
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.article-cover-img {
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 20px 0 28px;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: #f3f4f6;
+}
+
+.article-cover-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.post-photo-figure {
+    margin: 28px 0;
+    text-align: center;
+}
+
+.post-photo-figure img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+    display: block;
+    margin: 0 auto;
+}
+
+.post-photo-figure figcaption {
+    display: block !important;
+    font-size: 0.82rem !important;
+    font-weight: 400 !important;
+    color: #94a3b8 !important;
+    text-align: center !important;
+    margin-top: 8px !important;
+    line-height: 1.5 !important;
+    letter-spacing: -0.2px !important;
+}
+
+.article-body {
+    font-size: 1.02rem;
+    line-height: 1.85;
+    color: var(--text-body);
+}
+
+/* 📱 모바일 (768px 이하): 1열 본문 집중형 레이아웃 및 사이드바 숨김 */
+@media (max-width: 768px) {
+    .article-layout-grid {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        margin: 0 !important;
+    }
+
+    .article-main-col {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .article-cover-img {
+        width: 100% !important;
+        aspect-ratio: 16 / 9 !important;
+        height: auto !important;
+        border-radius: 10px !important;
+        margin: 16px 0 22px !important;
+    }
+
+    .article-main-title {
+        font-size: 1.35rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 10px !important;
+    }
+
+    .article-sidebar {
+        display: none !important; /* 모바일에서 겹침 방지: 본문과 댓글에 100% 집중 */
+    }
+}
+
+.article-body h2 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--text-title);
+    margin: 38px 0 16px;
+    letter-spacing: -0.3px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.article-body h3 {
+    font-size: 1.12rem;
+    font-weight: 600;
+    color: var(--text-title);
+    margin: 26px 0 12px;
+}
+
+.article-body p {
+    margin-bottom: 20px;
+}
+
+.article-body ul, .article-body ol {
+    margin: 16px 0 24px 24px;
+}
+
+.article-body li {
+    margin-bottom: 8px;
+}
+
+.clean-callout {
+    background: var(--bg-subtle);
+    border-left: 3px solid var(--primary);
+    padding: 18px 22px;
+    border-radius: 4px;
+    margin: 26px 0;
+    font-size: 0.94rem;
+    line-height: 1.75;
+}
+
+.clean-callout strong {
+    color: var(--text-title);
+}
+
+/* ==========================================================================
+   Static Pages Wrap (소개, 문의하기, 약관 전용 화이트 라운드 카드)
+   ========================================================================== */
+.article-wrap {
+    width: 100%;
+    box-sizing: border-box;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 16px;
+    padding: 36px 32px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+}
+
+@media (max-width: 768px) {
+    .article-wrap {
+        padding: 24px 18px;
+        border-radius: 12px;
+    }
+}
+
+/* ==========================================================================
+   Sidebar Widgets (우측 여백을 꽉 채우는 프리미엄 라운드 카드 위젯)
+   ========================================================================== */
+.article-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    position: sticky;
+    top: 80px;
+}
+
+.sidebar-widget {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 16px !important;
+    padding: 22px 20px !important;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04) !important;
+    box-sizing: border-box !important;
+}
+
+.widget-title {
+    font-size: 0.98rem !important;
+    font-weight: 800 !important;
+    color: #111827 !important;
+    margin-bottom: 16px !important;
+    padding-bottom: 10px !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+}
+
+/* 1. 프로필 위젯 */
+.profile-card-content {
+    text-align: center !important;
+}
+
+.profile-avatar-img {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 50% !important;
+    margin: 0 auto 12px !important;
+    object-fit: contain !important;
+    background: #fef3c7 !important;
+    border: 1.5px solid #fde68a !important;
+    padding: 8px !important;
+    display: block !important;
+}
+
+.profile-name {
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    color: #111827 !important;
+    margin-bottom: 4px !important;
+}
+
+.profile-desc {
+    font-size: 0.85rem !important;
+    color: #64748b !important;
+    line-height: 1.6 !important;
+    margin-bottom: 14px !important;
+    word-break: keep-all !important;
+}
+
+.profile-badge {
+    display: inline-block !important;
+    font-size: 0.75rem !important;
+    font-weight: 750 !important;
+    color: #c26908 !important;
+    background: #fef3c7 !important;
+    border: 1px solid #fde68a !important;
+    padding: 3px 12px !important;
+    border-radius: 20px !important;
+}
+
+/* 2. 인기글 목록 위젯 */
+.popular-list {
+    list-style: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.popular-item {
+    display: flex !important;
+    gap: 10px !important;
+    align-items: flex-start !important;
+}
+
+.popular-rank {
+    font-size: 0.92rem !important;
+    font-weight: 850 !important;
+    color: #d97706 !important;
+    line-height: 1.4 !important;
+    min-width: 16px !important;
+    flex-shrink: 0 !important;
+}
+
+.popular-link {
+    font-size: 0.88rem !important;
+    line-height: 1.45 !important;
+    color: #334155 !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    transition: color 0.15s ease !important;
+}
+
+.popular-link:hover {
+    color: #d97706 !important;
+}
+
+/* 3. 빠른 계산기 배너 위젯 (링크 카드 스타일) */
+.sidebar-calc-box {
+    background: linear-gradient(145deg, #fffbeb 0%, #fef3c7 60%, #fff7ed 100%) !important;
+    border: 1.5px solid #fde68a !important;
+    border-radius: 14px !important;
+    padding: 18px 16px !important;
+    text-align: center !important;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.08) !important;
+    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+    cursor: pointer !important;
+}
+
+.sidebar-calc-box:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 16px rgba(245, 158, 11, 0.16) !important;
+}
+
+.calc-widget-badge {
+    display: inline-block !important;
+    font-size: 0.72rem !important;
+    font-weight: 800 !important;
+    color: #b45309 !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(245, 158, 11, 0.35) !important;
+    padding: 2px 8px !important;
+    border-radius: 20px !important;
+    margin-bottom: 8px !important;
+}
+
+.sidebar-calc-box strong {
+    display: block !important;
+    font-size: 0.98rem !important;
+    font-weight: 800 !important;
+    color: #111827 !important;
+    margin-bottom: 6px !important;
+}
+
+.sidebar-calc-box p {
+    font-size: 0.82rem !important;
+    color: #64748b !important;
+    line-height: 1.5 !important;
+    margin-bottom: 12px !important;
+    word-break: keep-all !important;
+}
+
+.btn-sidebar-action {
+    display: inline-block !important;
+    background: #111827 !important;
+    color: #ffffff !important;
+    font-size: 0.82rem !important;
+    font-weight: 750 !important;
+    padding: 8px 16px !important;
+    border-radius: 8px !important;
+    transition: all 0.2s ease !important;
+    text-decoration: none !important;
+}
+
+.sidebar-calc-box:hover .btn-sidebar-action {
+    background: #d97706 !important;
+    color: #ffffff !important;
+}
+
+/* ==========================================================================
+   Footer (상단 헤더와 동일한 1040px 규격 가로 라인 푸터)
+   ========================================================================== */
+footer.clean-footer {
+    width: 100% !important;
+    border-top: none !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin-top: 50px !important;
+    box-sizing: border-box !important;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+}
+
+.footer-inner {
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 28px 20px 48px;
+    border-top: 1px solid #e2e8f0; /* 상단 헤더 컨테이너와 완벽히 일치하는 1040px 가로선 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+    box-sizing: border-box;
+}
+
+.footer-links {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.footer-links li {
+    display: inline-flex;
+    align-items: center;
+}
+
+.footer-links a {
+    color: #4b5563;
+    font-size: 0.86rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+.footer-links a:hover {
+    color: #111827;
+    font-weight: 700;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .article-layout-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+    .article-sidebar {
+        position: static;
+    }
+    .featured-post { grid-template-columns: 1fr; gap: 20px; }
+    .featured-img { height: 220px; }
+    .header-container { flex-direction: column; gap: 14px; }
+    nav.clean-nav ul { gap: 16px; flex-wrap: wrap; justify-content: center; }
+    .footer-inner { flex-direction: column; text-align: center; }
+    .calc-card-section { padding: 24px 18px; }
+    .brand-title { font-size: 1.45rem; }
+    .brand-logo-img { height: 40px; }
+}
+
+
+
+
+/* ==========================================================================
+   📱 [차를 쓰다 스타일] 모바일 전용 상단 헤더 & 1줄 가로 스와이프 탭 & 드로어
+   ========================================================================== */
+
+/* PC (769px 이상): 모바일 전용 요소 완전 숨김 */
+@media (min-width: 769px) {
+    .naver-mobile-top-bar,
+    .mobile-category-scroll-bar,
+    #naverMobileDrawer {
+        display: none !important;
+    }
+    .desktop-header {
+        display: block !important;
+    }
+}
+
+/* 모바일 (768px 이하): PC 헤더 숨기고 모바일 전용 헤더 + 1줄 가로 스크롤 탭 활성화 */
+@media (max-width: 768px) {
+    .desktop-header {
+        display: none !important;
+    }
+
+    /* 1. 모바일 상단 바 (54px) */
+    .naver-mobile-top-bar {
+        position: sticky !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 54px !important;
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border-bottom: 1px solid #f1f5f9 !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 0 16px !important;
+        z-index: 1000 !important;
+        box-sizing: border-box !important;
+    }
+
+    .naver-mobile-logo-group {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+        text-decoration: none !important;
+    }
+
+    .naver-mobile-logo-img {
+        width: 32px !important;
+        height: 32px !important;
+        object-fit: contain !important;
+    }
+
+    .naver-mobile-logo-text {
+        font-family: 'NanumSquareRound', 'Pretendard', sans-serif !important;
+        font-size: 1.2rem !important;
+        font-weight: 800 !important;
+        color: #111827 !important;
+        letter-spacing: -0.4px !important;
+    }
+
+    .naver-mobile-actions {
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+    }
+
+    .naver-vector-btn {
+        background: transparent !important;
+        border: none !important;
+        width: 38px !important;
+        height: 38px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        cursor: pointer !important;
+        color: #1e293b !important;
+        border-radius: 8px !important;
+    }
+
+    .naver-vector-btn svg {
+        width: 22px !important;
+        height: 22px !important;
+    }
+
+    
+
+    .mobile-category-scroll-bar::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    
+
+    
+
+    /* 3. 모바일 슬라이드 드로어 메뉴 */
+    #naverMobileDrawer {
+        position: fixed !important;
+        top: 0 !important;
+        right: -100% !important;
+        width: 280px !important;
+        height: 100vh !important;
+        background: #ffffff !important;
+        z-index: 99999 !important;
+        box-shadow: -4px 0 20px rgba(0,0,0,0.15) !important;
+        transition: right 0.3s ease !important;
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 20px !important;
+        box-sizing: border-box !important;
+    }
+
+    #naverMobileDrawer.active, #naverMobileDrawer.open {
+        right: 0 !important;
+    }
+
+    .drawer-overlay {
+        position: fixed !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: rgba(0,0,0,0.4) !important;
+        z-index: 99998 !important;
+        display: none !important;
+    }
+
+    .drawer-overlay.active, .drawer-overlay.open {
+        display: block !important;
+    }
+
+    .drawer-header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding-bottom: 16px !important;
+        border-bottom: 1px solid #f1f5f9 !important;
+        margin-bottom: 16px !important;
+    }
+
+    .drawer-close-btn {
+        background: none !important;
+        border: none !important;
+        font-size: 1.5rem !important;
+        cursor: pointer !important;
+        color: #64748b !important;
+    }
+
+    .drawer-menu-list {
+        list-style: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
+
+    .drawer-menu-item a {
+        display: block !important;
+        padding: 10px 14px !important;
+        font-size: 0.95rem !important;
+        font-weight: 650 !important;
+        color: #1e293b !important;
+        border-radius: 8px !important;
+        text-decoration: none !important;
+    }
+
+    .drawer-menu-item a:hover,
+    .drawer-menu-item a.active {
+        background: #fffbeb !important;
+        color: #c26908 !important;
+    }
+}
+
+/* ==========================================================================
+   📱 [티스토리 순정형 모바일 헤더] 좌측 뒤로가기(‹) + 우측 원형 아바타(홈 이동)
+   ========================================================================== */
+@media (min-width: 769px) {
+    .mobile-tistory-header {
+        display: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .desktop-header {
+        display: none !important;
+    }
+    
+    .mobile-tistory-header {
+        position: sticky !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 52px !important;
+        background: #ffffff !important;
+        border-bottom: 1px solid #f1f5f9 !important;
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 0 16px !important;
+        z-index: 9999 !important;
+        box-sizing: border-box !important;
+    }
+
+    .tistory-btn-back {
+        width: 38px !important;
+        height: 38px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        color: #1e293b !important;
+        text-decoration: none !important;
+        cursor: pointer !important;
+        border-radius: 50% !important;
+        transition: background 0.15s ease !important;
+    }
+
+    .tistory-btn-back:active {
+        background: #f1f5f9 !important;
+    }
+
+    .tistory-btn-back svg {
+        width: 24px !important;
+        height: 24px !important;
+    }
+
+    .tistory-avatar-link {
+        display: flex !important;
+        align-items: center !important;
+        text-decoration: none !important;
+    }
+
+    .tistory-circle-avatar {
+        width: 36px !important;
+        height: 36px !important;
+        border-radius: 50% !important;
+        object-fit: contain !important;
+        border: 1.5px solid #fde68a !important;
+        background: #fffbeb !important;
+        padding: 3px !important;
+        box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08) !important;
+        transition: transform 0.15s ease !important;
+        box-sizing: border-box !important;
+    }
+
+    .tistory-circle-avatar:active {
+        transform: scale(0.92) !important;
+    }
+}
+
+/* ==========================================================================
+   🍯 [나눔스퀘어라운드] 꿀단지 공식 시그니처 폰트 보장
+   ========================================================================== */
+@import url('https://cdn.jsdelivr.net/gh/moonspam/NanumSquareRound@master/nanumsquareround.min.css');
+
+.brand-text-stack {
+    font-family: 'NanumSquareRound', sans-serif !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    line-height: 1.15 !important;
+}
+
+.brand-sub-title {
+    font-family: 'NanumSquareRound', sans-serif !important;
+    font-size: 0.72rem !important;
+    font-weight: 800 !important;
+    color: #c26908 !important;
+    letter-spacing: 0.5px !important;
+}
+
+.brand-main-title {
+    font-family: 'NanumSquareRound', sans-serif !important;
+    font-size: 1.35rem !important;
+    font-weight: 800 !important;
+    color: #111827 !important;
+    letter-spacing: -0.5px !important;
+}
+
+/* ==========================================================================
+   📱 [모바일 황금비율] 세로 늘어짐 100% 압축 & 콤팩트 다이어트
+   ========================================================================== */
+@media (max-width: 768px) {
+    .container {
+        padding: 16px 14px 60px 14px !important;
+    }
+    
+    .featured-post {
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        gap: 36px;
+        align-items: center;
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        border-bottom: 1px solid #e2e8f0;
+    }
+    @media screen and (max-width: 768px) {
+        .featured-post {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 10px !important;
+        }
+    }
+    .featured-img {
+        height: 190px !important;
+        border-radius: 10px !important;
+    }
+    .featured-info .cat-label {
+        font-size: 0.74rem !important;
+        margin-bottom: 4px !important;
+    }
+    .featured-title {
+        font-size: 1.15rem !important;
+        margin-bottom: 6px !important;
+        line-height: 1.4 !important;
+        letter-spacing: -0.3px !important;
+    }
+    .featured-desc {
+        font-size: 0.85rem !important;
+        margin-bottom: 8px !important;
+        line-height: 1.55 !important;
+    }
+    .post-meta-line {
+        font-size: 0.75rem !important;
+    }
+
+    /* 2. 건강 계산기 박스 세로 압축 (높이 40% 절감) */
+    .calc-card-section {
+        padding: 16px 14px !important;
+        margin-bottom: 24px !important;
+        border-radius: 12px !important;
+        background: #f8fafc !important;
+        border: 1px solid #e2e8f0 !important;
+    }
+    .calc-header {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        margin-bottom: 12px !important;
+        padding-bottom: 8px !important;
+        border-bottom: 1px solid #e2e8f0 !important;
+    }
+    .calc-title {
+        font-size: 1rem !important;
+        white-space: nowrap !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+    }
+    .calc-badge {
+        font-size: 0.68rem !important;
+        padding: 2px 6px !important;
+        background: #fef3c7 !important;
+        color: #b45309 !important;
+        border: 1px solid #fde68a !important;
+        border-radius: 9999px !important;
+    }
+    .calc-header > span:not(.calc-badge) {
+        display: none !important; /* 모바일에서 2줄 깨짐 방지 */
+    }
+
+    .calc-form-grid {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr !important;
+        gap: 8px !important;
+        margin-bottom: 10px !important;
+    }
+    .calc-input-group {
+        margin-bottom: 0 !important;
+    }
+    .calc-input-group label {
+        font-size: 0.78rem !important;
+        margin-bottom: 3px !important;
+        font-weight: 700 !important;
+        color: #334155 !important;
+        display: block !important;
+    }
+    .calc-input-group input,
+    .calc-input-group select {
+        width: 100% !important;
+        height: 38px !important;
+        padding: 6px 10px !important;
+        font-size: 0.88rem !important;
+        border-radius: 8px !important;
+        border: 1px solid #cbd5e1 !important;
+        background: #ffffff !important;
+        box-sizing: border-box !important;
+    }
+    .calc-input-group:last-child {
+        grid-column: span 2 !important;
+    }
+
+    .calc-btn-submit {
+        width: 100% !important;
+        height: 40px !important;
+        padding: 0 16px !important;
+        font-size: 0.92rem !important;
+        font-weight: 750 !important;
+        background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+        color: #ffffff !important;
+        border-radius: 8px !important;
+        border: none !important;
+        margin-top: 4px !important;
+        box-shadow: 0 2px 6px rgba(217, 119, 6, 0.25) !important;
+        cursor: pointer !important;
+    }
+}
+
+/* ==========================================================================
+   ❤️ [하트 토글 버튼] 카드 우측 상단 감성 하트 저장 버튼
+   ========================================================================== */
+.btn-save-post {
+    position: absolute !important;
+    top: 10px !important;
+    right: 10px !important;
+    background: rgba(255, 255, 255, 0.94) !important;
+    backdrop-filter: blur(8px) !important;
+    -webkit-backdrop-filter: blur(8px) !important;
+    border: 1px solid rgba(226, 232, 240, 0.9) !important;
+    border-radius: 9999px !important;
+    padding: 4px 10px !important;
+    font-size: 0.78rem !important;
+    font-weight: 750 !important;
+    color: #475569 !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    z-index: 10 !important;
+}
+
+.btn-save-post:hover {
+    transform: scale(1.06) !important;
+    color: #ef4444 !important;
+    border-color: #fecaca !important;
+    background: #ffffff !important;
+}
+
+.btn-save-post.saved {
+    background: #fef2f2 !important;
+    border-color: #fca5a5 !important;
+    color: #ef4444 !important;
+    box-shadow: 0 2px 10px rgba(239, 68, 68, 0.22) !important;
+    transform: scale(1.02) !important;
+}
+
+/* ==========================================================================
+   🍯 [티스토리 모던 프로필 홈] 프로필 헤어로 + 인기글 TOP 5 + 계산기 + 카테고리
+   ========================================================================== */
+
+/* 1. 상단 프로필 헤어로 배너 */
+.tistory-profile-hero {
+    background: linear-gradient(160deg, #1e293b 0%, #0f172a 100%);
+    color: #ffffff;
+    padding: 32px 20px 28px 20px;
+    position: relative;
+    border-bottom: 1px solid #334155;
+}
+
+.tistory-hero-container {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.hero-creator-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: #f59e0b;
+    background: rgba(245, 158, 11, 0.15);
+    padding: 4px 10px;
+    border-radius: 9999px;
+    margin-bottom: 12px;
+    text-decoration: none;
+}
+
+.hero-creator-badge span.badge-icon {
+    background: #f59e0b;
+    color: #0f172a;
+    font-size: 0.7rem;
+    font-weight: 900;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-main-title {
+    font-family: 'NanumSquareRound', sans-serif;
+    font-size: 1.85rem;
+    font-weight: 850;
+    color: #ffffff;
+    margin-bottom: 4px;
+    letter-spacing: -0.5px;
+}
+
+.hero-sub-stats {
+    font-size: 0.84rem;
+    color: #94a3b8;
+    margin-bottom: 14px;
+}
+
+.hero-desc-text {
+    font-size: 0.92rem;
+    line-height: 1.65;
+    color: #cbd5e1;
+    margin-bottom: 20px;
+    word-break: keep-all;
+}
+
+.hero-action-buttons {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.hero-btn-subscribe {
+    background: #ffffff;
+    color: #0f172a;
+    font-size: 0.88rem;
+    font-weight: 750;
+    padding: 8px 18px;
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.15s ease;
+}
+
+.hero-btn-guestbook {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font-size: 0.88rem;
+    font-weight: 600;
+    padding: 8px 18px;
+    border-radius: 9999px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    cursor: pointer;
+    text-decoration: none;
+}
+
+/* 2. 메인 컨테이너 (단정 760px) */
+.tistory-main-layout {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 20px 16px 16px 16px;
+}
+
+/* 3. 인기글 TOP 5 섹션 */
+.section-block-title {
+    font-size: 1.18rem;
+    font-weight: 850;
+    color: #0f172a;
+    margin-bottom: 14px;
+    letter-spacing: -0.3px;
+}
+
+.popular-posts-card-box {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 28px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.popular-post-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid #f1f5f9;
+    text-decoration: none;
+    gap: 14px;
+    transition: background 0.15s ease;
+}
+
+.popular-post-row:last-child {
+    border-bottom: none;
+}
+
+.popular-post-row:hover {
+    background: #f8fafc;
+}
+
+.popular-post-left {
+    flex: 1;
+    min-width: 0;
+}
+
+.popular-post-heading {
+    font-size: 0.95rem;
+    font-weight: 750;
+    color: #1e293b;
+    line-height: 1.45;
+    margin-bottom: 6px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.popular-post-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 0.76rem;
+    color: #64748b;
+}
+
+.popular-post-thumb {
+    width: 72px;
+    height: 72px;
+    border-radius: 8px;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+/* 4. 카테고리 트리거 바 */
+.category-trigger-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 16px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.category-trigger-bar:hover {
+    border-color: #f59e0b;
+    background: #fffbeb;
+}
+
+.category-trigger-left {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.95rem;
+    font-weight: 750;
+    color: #0f172a;
+}
+
+.category-trigger-right {
+    font-size: 0.84rem;
+    color: #f59e0b;
+    font-weight: 700;
+}
+
+/* 5. 티스토리 1개씩 피드 리스트 (Feed Cards) */
+.tistory-feed-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.tistory-feed-item {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 12px 14px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    text-decoration: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02);
+    transition: transform 0.15s, box-shadow 0.15s;
+    position: relative;
+}
+
+.tistory-feed-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.feed-item-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.feed-item-cat {
+    font-size: 0.72rem;
+    font-weight: 750;
+    color: #c26908;
+    margin-bottom: 2px;
+}
+
+.feed-item-title {
+    font-size: 0.94rem;
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.38;
+    margin-bottom: 5px;
+    letter-spacing: -0.3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.feed-item-desc {
+    display: none;
+}
+
+.feed-item-meta {
+    font-size: 0.74rem;
+    color: #94a3b8;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.feed-item-thumb-link {
+    display: block;
+    flex-shrink: 0;
+    line-height: 0;
+    text-decoration: none;
+}
+
+.feed-item-thumb {
+    width: 78px;
+    height: 78px;
+    border-radius: 10px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.2s ease;
+}
+
+.tistory-feed-item:hover .feed-item-thumb {
+    transform: scale(1.04);
+}
+
+/* 6. 전체화면 카테고리 모달 (2번 첨부 이미지 스타일) */
+.category-fullscreen-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #ffffff;
+    z-index: 999999;
+    display: none;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+.category-fullscreen-modal.active {
+    display: flex !important;
+}
+
+.category-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+.category-modal-title {
+    font-size: 1.4rem;
+    font-weight: 850;
+    color: #0f172a;
+}
+
+.category-modal-close {
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: #64748b;
+    cursor: pointer;
+    padding: 4px 8px;
+}
+
+.category-modal-body {
+    max-width: 600px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.modal-cat-group {
+    border-bottom: 1px solid #f1f5f9;
+    padding: 14px 0;
+}
+
+.modal-cat-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.05rem;
+    font-weight: 750;
+    color: #0f172a;
+    text-decoration: none;
+    padding: 6px 0;
+}
+
+.modal-cat-count {
+    font-size: 0.88rem;
+    color: #94a3b8;
+    font-weight: 500;
+}
+
+.modal-cat-sub-list {
+    list-style: none;
+    padding: 6px 0 0 14px;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.modal-cat-sub-item a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.92rem;
+    color: #475569;
+    text-decoration: none;
+    padding: 4px 0;
+}
+
+.modal-cat-sub-item a:hover {
+    color: #f59e0b;
+}
+
+/* ==========================================================================
+   🍯 [순정 클린 웰니스] 화사하고 군더더기 없는 꿀단지 메인 홈
+   ========================================================================== */
+
+/* 상단 프로필 영역: 깨끗한 화이트 & 웜 허니 감성 */
+.tistory-profile-hero {
+    background: #ffffff !important;
+    color: #1e293b !important;
+    padding: 36px 20px 24px 20px !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    text-align: center !important;
+}
+
+.tistory-hero-container {
+    max-width: 680px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+.hero-brand-logo {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin-bottom: 12px !important;
+    text-decoration: none !important;
+}
+
+.hero-brand-logo img {
+    height: 42px !important;
+    width: auto !important;
+}
+
+.hero-main-title {
+    font-family: 'NanumSquareRound', sans-serif !important;
+    font-size: 1.85rem !important;
+    font-weight: 850 !important;
+    color: #111827 !important;
+    letter-spacing: -0.5px !important;
+    margin: 0 !important;
+}
+
+.hero-desc-text {
+    font-size: 0.95rem !important;
+    line-height: 1.7 !important;
+    color: #475569 !important;
+    margin: 0 !important;
+    word-break: keep-all !important;
+    max-width: 540px !important;
+}
+
+/* 홈 상단바 완전 숨김 (헤더 없이 바로 프로필로 시작) */
+body.is-home .desktop-header,
+body.is-home .naver-mobile-top-bar {
+    display: none !important;
+}
+
+/* ==========================================================================
+   🍯 [자연스러운 배경 일체형] 흰색 상단 블록 제거 ➔ 페이지 배경색 100% 노출
+   ========================================================================== */
+.tistory-profile-hero {
+    background: transparent !important;
+    border: none !important;
+    padding: 32px 20px 8px 20px !important;
+    text-align: center !important;
+}
+
+.tistory-hero-container {
+    max-width: 680px !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+}
+
+.hero-brand-logo {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin-bottom: 10px !important;
+    text-decoration: none !important;
+}
+
+.hero-brand-logo img {
+    height: 42px !important;
+    width: auto !important;
+}
+
+.hero-desc-text {
+    font-size: 0.94rem !important;
+    line-height: 1.65 !important;
+    color: #475569 !important;
+    margin: 0 !important;
+    word-break: keep-all !important;
+    max-width: 540px !important;
+}
+
+/* ==========================================================================
+   🍯 [모듈형 카드 디자인] 상단 프로필 웜 앰버 그라데이션 & 추천 하이라이트 배너
+   ========================================================================== */
+.profile-card-hero-box {
+    background: linear-gradient(145deg, #fffbeb 0%, #fef3c7 55%, #fff7ed 100%) !important;
+    border: 1px solid #fde68a !important;
+    border-radius: 18px !important;
+    padding: 20px 18px 18px 18px !important;
+    margin-bottom: 16px !important;
+    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.08) !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+    position: relative !important;
+}
+
+.profile-card-tag {
+    display: inline-block !important;
+    background: rgba(255, 255, 255, 0.85) !important;
+    border: 1px solid rgba(245, 158, 11, 0.35) !important;
+    color: #b45309 !important;
+    font-size: 0.72rem !important;
+    font-weight: 750 !important;
+    padding: 3px 12px !important;
+    border-radius: 20px !important;
+    margin-bottom: 10px !important;
+    box-shadow: 0 1px 4px rgba(245, 158, 11, 0.06) !important;
+    letter-spacing: -0.2px !important;
+}
+
+.hero-brand-logo {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 10px !important;
+    margin-bottom: 8px !important;
+    text-decoration: none !important;
+}
+
+.profile-card-logo-img {
+    height: 40px !important;
+    width: auto !important;
+}
+
+.hero-desc-text {
+    font-size: 0.86rem !important;
+    line-height: 1.55 !important;
+    color: #475569 !important;
+    margin: 0 !important;
+    word-break: keep-all !important;
+    max-width: 520px !important;
+}
+
+/* 🌟 [미니 하이라이트 배너 카드] */
+.highlight-banner-card {
+    margin-bottom: 22px !important;
+}
+
+.highlight-banner-link {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 14px !important;
+    background: #ffffff !important;
+    border: 1.5px solid #fde68a !important;
+    border-radius: 14px !important;
+    padding: 13px 16px !important;
+    text-decoration: none !important;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.07) !important;
+    transition: transform 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.highlight-banner-link:hover {
+    transform: translateY(-2px) !important;
+    box-shadow: 0 6px 18px rgba(245, 158, 11, 0.14) !important;
+}
+
+.highlight-banner-content {
+    flex: 1 !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+}
+
+.highlight-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    font-size: 0.72rem !important;
+    font-weight: 800 !important;
+    color: #ea580c !important;
+    margin-bottom: 3px !important;
+}
+
+.highlight-title {
+    font-size: 0.94rem !important;
+    font-weight: 850 !important;
+    color: #0f172a !important;
+    line-height: 1.36 !important;
+    margin: 0 0 5px 0 !important;
+    letter-spacing: -0.3px !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+}
+
+.highlight-action {
+    font-size: 0.75rem !important;
+    font-weight: 750 !important;
+    color: #d97706 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+}
+
+.highlight-thumb {
+    width: 68px !important;
+    height: 68px !important;
+    border-radius: 10px !important;
+    object-fit: cover !important;
+    flex-shrink: 0 !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08) !important;
+}
+
+/* ==========================================================================
+   💻 PC / 📱 모바일 완벽 분리 반응형 아키텍처
+   - PC (769px 이상): 1040px 2열 오리지널 매거진 레이아웃 (와이드 배너 + 사이드바 + 3열 그리드)
+   - 모바일 (768px 이하): 대표님이 만족하신 티스토리 모던 카드 스트림 (프로필 + 인기글 + 계산기 + 피드)
+   ========================================================================== */
+
+/* 💻 [PC 데스크톱] 뷰포트 규칙 */
+@media (min-width: 769px) {
+    .mobile-tistory-layout {
+        display: none !important;
+    }
+    .desktop-layout {
+        display: block !important;
+    }
+    .desktop-header {
+        display: block !important;
+    }
+    .naver-mobile-top-bar {
+        display: none !important;
+    }
+}
+
+/* 📱 [모바일 스마트폰] 뷰포트 규칙 */
+@media (max-width: 768px) {
+    .desktop-layout {
+        display: none !important;
+    }
+    .desktop-header {
+        display: none !important;
+    }
+    .mobile-tistory-layout {
+        display: block !important;
+    }
+    .tistory-main-layout {
+        padding-bottom: 8px !important;
+    }
+    footer.clean-footer {
+        margin-top: 14px !important;
+        padding: 20px 16px !important;
+    }
+    .load-more-wrapper {
+        margin: 16px auto 6px auto !important;
+        min-height: auto !important;
+    }
+}
+
+/* ==========================================================================
+   💖 [순수 라인 하트] 글자 없는 라인 하트 ➔ 선택 시 사랑스러운 핑크색 전환
+   ========================================================================== */
+.btn-heart-toggle,
+.btn-save-post {
+    background: rgba(255, 255, 255, 0.92) !important;
+    backdrop-filter: blur(6px) !important;
+    -webkit-backdrop-filter: blur(6px) !important;
+    border: 1px solid rgba(226, 232, 240, 0.85) !important;
+    width: 32px !important;
+    height: 32px !important;
+    border-radius: 50% !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    cursor: pointer !important;
+    color: #94a3b8 !important; /* 기본: 은은한 라인 색상 */
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    padding: 0 !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06) !important;
+}
+
+.btn-heart-toggle svg,
+.btn-save-post svg {
+    width: 17px !important;
+    height: 17px !important;
+    stroke: currentColor !important;
+    fill: none !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-heart-toggle:hover,
+.btn-save-post:hover {
+    color: #f43f5e !important;
+    transform: scale(1.12) !important;
+    background: #ffffff !important;
+}
+
+/* 💖 선택 시 (핑크색 채움 & 핑크 테두리) */
+.btn-heart-toggle.active,
+.btn-heart-toggle.saved,
+.btn-save-post.active,
+.btn-save-post.saved {
+    color: #f43f5e !important;
+    background: #fff1f2 !important;
+    border-color: #fecdd3 !important;
+    box-shadow: 0 2px 10px rgba(244, 63, 94, 0.28) !important;
+    transform: scale(1.06) !important;
+}
+
+.btn-heart-toggle.active svg,
+.btn-heart-toggle.saved svg,
+.btn-save-post.active svg,
+.btn-save-post.saved svg {
+    fill: #f43f5e !important;
+    stroke: #f43f5e !important;
+}
+
+/* ==========================================================================
+   🍯 [칼럼 더보기 (Load More)] 심플 미니멀 버튼 & 일시 표시 메시지
+   ========================================================================== */
+.load-more-wrapper {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 16px auto 6px auto !important;
+    width: 100% !important;
+    text-align: center !important;
+    min-height: auto !important;
+}
+
+.btn-load-more {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 4px !important;
+    background: #ffffff !important;
+    color: #94a3b8 !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 18px !important;
+    padding: 7px 16px !important;
+    font-size: 0.84rem !important;
+    font-weight: 500 !important;
+    cursor: pointer !important;
+    box-shadow: none !important;
+    transition: all 0.2s ease !important;
+}
+
+.btn-load-more:hover {
+    color: #64748b !important;
+    border-color: #cbd5e1 !important;
+    background: #f8fafc !important;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.btn-load-more:active {
+    background: #f1f5f9 !important;
+    transform: scale(0.98) !important;
+}
+
+.all-loaded-msg {
+    font-size: 0.82rem !important;
+    color: #94a3b8 !important;
+    font-weight: 500 !important;
+    padding: 6px 12px !important;
+    background: transparent !important;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+.all-loaded-msg.show {
+    opacity: 1 !important;
+}
+
+/* 추가 로드 시 부드러운 페이드인 애니메이션 */
+.feed-fade-in {
+    animation: feedFadeIn 0.35s ease-out forwards;
+}
+
+@keyframes feedFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ==========================================================================
+   📌 [본문 하단 연관 추천 칼럼 카드 (썸네일 사진 포함 프리미엄 디자인)]
+   ========================================================================== */
+.related-post-card {
+    background: #fffdf5 !important;
+    border: 1.5px solid #fde68a !important;
+    border-radius: 16px !important;
+    padding: 20px 22px !important;
+    margin: 40px 0 28px 0 !important;
+    box-shadow: 0 4px 16px rgba(245, 158, 11, 0.08) !important;
+    box-sizing: border-box !important;
+}
+
+.related-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    font-size: 0.78rem !important;
+    font-weight: 800 !important;
+    color: #b45309 !important;
+    background: #fef3c7 !important;
+    padding: 3px 10px !important;
+    border-radius: 9999px !important;
+    margin-bottom: 12px !important;
+    letter-spacing: -0.2px !important;
+}
+
+.related-link {
+    display: flex !important;
+    align-items: center !important;
+    text-decoration: none !important;
+    gap: 18px !important;
+}
+
+.related-thumb {
+    width: 120px !important;
+    height: 84px !important;
+    border-radius: 10px !important;
+    overflow: hidden !important;
+    flex-shrink: 0 !important;
+    background: #f1f5f9 !important;
+}
+
+.related-thumb img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    transition: transform 0.25s ease !important;
+}
+
+.related-link:hover .related-thumb img {
+    transform: scale(1.06) !important;
+}
+
+.related-text {
+    flex: 1 !important;
+    min-width: 0 !important;
+}
+
+.related-text h4 {
+    font-size: 1.02rem !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+    line-height: 1.4 !important;
+    margin: 0 0 5px 0 !important;
+    letter-spacing: -0.3px !important;
+    transition: color 0.15s ease !important;
+}
+
+.related-link:hover .related-text h4 {
+    color: #d97706 !important;
+}
+
+.related-text p {
+    font-size: 0.84rem !important;
+    color: #64748b !important;
+    line-height: 1.5 !important;
+    margin: 0 0 6px 0 !important;
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+}
+
+.related-arrow {
+    display: inline-flex !important;
+    align-items: center !important;
+    font-size: 0.78rem !important;
+    font-weight: 750 !important;
+    color: #d97706 !important;
+    transition: color 0.15s ease !important;
+}
+
+.related-link:hover .related-arrow {
+    color: #b45309 !important;
+    text-decoration: underline !important;
+}
+
+@media (max-width: 768px) {
+    .related-post-card {
+        padding: 16px !important;
+        margin: 28px 0 20px 0 !important;
+    }
+    .related-link {
+        gap: 12px !important;
+    }
+    .related-thumb {
+        width: 88px !important;
+        height: 70px !important;
+        border-radius: 8px !important;
+    }
+    .related-text h4 {
+        font-size: 0.92rem !important;
+        line-height: 1.35 !important;
+        margin-bottom: 3px !important;
+    }
+    .related-text p {
+        font-size: 0.78rem !important;
+        line-height: 1.4 !important;
+        -webkit-line-clamp: 1 !important;
+    }
+    .related-arrow {
+        font-size: 0.74rem !important;
+    }
+}
+
+/* ?뱤 紐⑤컮???뚯씠釉??⑥뼱 ?딄? 諛⑹?(keep-all) 諛?媛?낆꽦 洹밸???*/
+@media (max-width: 768px) {
+    .custom-data-table-wrap {
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        margin: 18px 0 !important;
+        border-radius: 10px !important;
+    }
+    .custom-data-table {
+        min-width: 460px !important;
+    }
+    .custom-data-table th,
+    .custom-data-table td {
+        padding: 10px 12px !important;
+        font-size: 0.85rem !important;
+        word-break: keep-all !important; /* ?쒓? ?⑥뼱媛 1湲?먯뵫 ?앸슍 ?딄린吏 ?딆쓬 */
+        line-height: 1.5 !important;
+    }
+}
+
+/* ============================================================ */
+/* 📊 모바일 표 터치 가로 스크롤 (Horizontal Scroll) 최적화     */
+/* ============================================================ */
+.table-scroll-hint {
+    display: none;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    font-size: 0.76rem;
+    color: #94a3b8;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+@media (max-width: 768px) {
+    .table-scroll-hint {
+        display: flex !important;
+    }
+}
+
+/* 📊 반응형 비교 분석표 (PC: 무스크롤 100% 피팅 / 모바일: 터치 가로스크롤) */
+.custom-data-table-wrap {
+    width: 100% !important;
+    margin: 20px 0 28px 0 !important;
+    border-radius: 12px !important;
+    border: 1px solid #e2e8f0 !important;
+    background: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.02) !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch !important;
+}
+
+.custom-data-table-wrap::-webkit-scrollbar {
+    height: 4px;
+}
+.custom-data-table-wrap::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+.custom-data-table-wrap::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.custom-data-table {
+    width: 100% !important;
+    border-collapse: collapse !important;
+    text-align: left !important;
+    font-size: 0.9rem !important;
+}
+
+.custom-data-table th {
+    background: #f8fafc !important;
+    color: #1e293b !important;
+    font-weight: 750 !important;
+    padding: 11px 12px !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+    font-size: 0.88rem !important;
+    letter-spacing: -0.2px !important;
+}
+
+.custom-data-table td {
+    padding: 11px 12px !important;
+    border-bottom: 1px solid #f1f5f9 !important;
+    color: #334155 !important;
+    line-height: 1.55 !important;
+    font-size: 0.88rem !important;
+    word-break: keep-all !important;
+}
+
+.custom-data-table tr:last-child td {
+    border-bottom: none !important;
+}
+
+/* 💻 PC 데스크톱 (769px 이상): 가로 스크롤 없이 4열 전체 100% 한눈에 쏙 들어옴 */
+@media (min-width: 769px) {
+    .custom-data-table {
+        min-width: 100% !important;
+        table-layout: auto !important;
+    }
+    .custom-data-table th,
+    .custom-data-table td {
+        white-space: normal !important;
+    }
+}
+
+/* 📱 모바일 스마트폰 (768px 이하): 찌그러짐 방지용 터치 가로스크롤 */
+@media (max-width: 768px) {
+    .custom-data-table {
+        min-width: 480px !important;
+    }
+    .custom-data-table th,
+    .custom-data-table td {
+        white-space: nowrap !important;
+        padding: 10px 12px !important;
+    }
+}
+
+/* ========================================================================== */
+/* 📱 [모바일 스마트폰 상단바: ‹ 뒤로가기 + 글 제목 + 원형 프로필]             */
+/* ========================================================================== */
+.mobile-tistory-header {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 52px;
+    background: #ffffff;
+    border-bottom: 1px solid #eef2f6;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.03);
+    z-index: 99999;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 14px;
+    box-sizing: border-box;
+    gap: 8px;
+}
+
+.tistory-header-back {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    color: #334155;
+    text-decoration: none;
+    flex-shrink: 0;
+}
+.tistory-header-back svg {
+    width: 22px;
+    height: 22px;
+    stroke: #334155;
+}
+
+.tistory-header-title {
+    flex: 1;
+    font-size: 0.95rem;
+    font-weight: 750;
+    color: #0f172a;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 4px;
+    line-height: 1.2;
+}
+
+.tistory-avatar-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1.5px solid #e2e8f0;
+    flex-shrink: 0;
+    text-decoration: none;
+    background: #fffbeb;
+}
+.tistory-circle-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+@media (max-width: 768px) {
+    .desktop-header {
+        display: none !important;
+    }
+    .mobile-tistory-header {
+        display: flex !important;
+    }
+    body {
+        padding-top: 52px !important;
+        padding-bottom: 64px !important;
+    }
+}
+
+/* ========================================================================== */
+/* 📱 [모바일 스마트폰 하단 액션바: 하트 공감, 댓글 바로가기, 공유하기]       */
+/* ========================================================================== */
+.naver-bottom-bar {
+    display: none !important;
+}
+
+@media (max-width: 768px) {
+    .naver-bottom-bar {
+        display: flex !important;
+        position: fixed !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 52px !important;
+        z-index: 99999 !important;
+        background: #ffffff !important;
+        border-top: 1px solid #eef2f6 !important;
+        box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.04) !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 0 20px !important;
+        box-sizing: border-box !important;
+    }
+}
+
+.naver-bottom-container {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    max-width: 500px !important;
+}
+
+.naver-bottom-actions {
+    display: flex !important;
+    align-items: center !important;
+    gap: 24px !important;
+}
+
+.naver-bottom-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    gap: 6px !important;
+    background: transparent !important;
+    border: none !important;
+    color: #475569 !important;
+    font-size: 0.92rem !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    padding: 6px 8px !important;
+    border-radius: 8px !important;
+    font-family: inherit !important;
+}
+.naver-bottom-btn:hover {
+    background: #f1f5f9 !important;
+    color: #0f172a !important;
+}
+.naver-bottom-btn svg {
+    width: 21px !important;
+    height: 21px !important;
+    stroke: #475569 !important;
+    stroke-width: 1.8 !important;
+    fill: none !important;
+    transition: all 0.15s ease !important;
+}
+.naver-bottom-btn.liked svg {
+    fill: #ef4444 !important;
+    stroke: #ef4444 !important;
+}
+.naver-bottom-btn.liked .heart-count {
+    color: #ef4444 !important;
+    font-weight: 700 !important;
+}
+
+/* 🍞 토스트 알림 */
+.toast-notice {
+    position: fixed;
+    bottom: 68px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(15, 23, 42, 0.92);
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 9px 18px;
+    border-radius: 20px;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.18);
+    z-index: 100000;
+    pointer-events: none;
+    animation: toastFade 2s forwards ease;
+}
+@keyframes toastFade {
+    0% { opacity: 0; transform: translate(-50%, 10px); }
+    15% { opacity: 1; transform: translate(-50%, 0); }
+    85% { opacity: 1; transform: translate(-50%, 0); }
+    100% { opacity: 0; transform: translate(-50%, -10px); }
+}
+
+/* ========================================================================== */
+/* 🏛️ 지중해식 피라미드 4단계 인포그래픽 박스 (이모지 제외, 정갈한 층별 뱃지)  */
+/* ========================================================================== */
+.pyramid-guide-box {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    padding: 16px 18px !important;
+    margin: 22px 0 26px 0 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03) !important;
+}
+.pyramid-guide-header {
+    font-size: 1.02rem !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 12px !important;
+    border-bottom: 1.5px solid #f1f5f9 !important;
+}
+.pyramid-step-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+}
+.pyramid-step-item {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 10px !important;
+    padding: 11px 13px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 4px !important;
+}
+.pyramid-step-badge {
+    display: inline-block !important;
+    align-self: flex-start !important;
+    font-size: 0.76rem !important;
+    font-weight: 800 !important;
+    padding: 3px 8px !important;
+    border-radius: 6px !important;
+}
+.step-main .pyramid-step-badge { background: #dcfce7 !important; color: #166534 !important; }
+.step-mid .pyramid-step-badge { background: #e0f2fe !important; color: #0369a1 !important; }
+.step-top .pyramid-step-badge { background: #fee2e2 !important; color: #991b1b !important; }
+.step-base .pyramid-step-badge { background: #fef3c7 !important; color: #92400e !important; }
+
+.pyramid-step-desc {
+    font-size: 0.88rem !important;
+    color: #334155 !important;
+    line-height: 1.5 !important;
+}
+.pyramid-step-desc strong {
+    color: #0f172a !important;
+    font-weight: 750 !important;
+}
+
+/* ========================================================================== */
+/* 🛒 한국 식재료 1:1 매핑 카드 박스 (이모지 제외, 명확한 대체 구조)           */
+/* ========================================================================== */
+.mapping-guide-box {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    padding: 16px 18px !important;
+    margin: 22px 0 26px 0 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03) !important;
+}
+.mapping-guide-header {
+    font-size: 1.02rem !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 12px !important;
+    border-bottom: 1.5px solid #f1f5f9 !important;
+}
+.mapping-card-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+}
+.mapping-card-item {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 10px !important;
+    padding: 12px 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+}
+.mapping-pair {
+    display: flex !important;
+    align-items: center !important;
+    flex-wrap: wrap !important;
+    gap: 6px !important;
+}
+.map-orig {
+    font-size: 0.82rem !important;
+    color: #64748b !important;
+    background: #e2e8f0 !important;
+    padding: 2px 7px !important;
+    border-radius: 5px !important;
+    font-weight: 600 !important;
+}
+.map-arrow {
+    font-size: 0.8rem !important;
+    color: #94a3b8 !important;
+    font-weight: 700 !important;
+}
+.map-korea {
+    font-size: 0.95rem !important;
+    color: #c26908 !important;
+    font-weight: 800 !important;
+}
+.map-desc {
+    font-size: 0.86rem !important;
+    color: #334155 !important;
+    line-height: 1.45 !important;
+    margin: 2px 0 0 0 !important;
+}
+
+/* ========================================================================== */
+/* 💎 [꿀단지 프리미엄 정보 & 인포그래픽 카드 컴포넌트]                     */
+/* ========================================================================== */
+.info-section-card {
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    padding: 16px 18px !important;
+    margin: 22px 0 26px 0 !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.03) !important;
+}
+.info-card-title {
+    font-size: 1.02rem !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+    padding-bottom: 10px !important;
+    margin-bottom: 12px !important;
+    border-bottom: 1.5px solid #f1f5f9 !important;
+}
+.info-card-grid {
+    display: grid !important;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)) !important;
+    gap: 10px !important;
+}
+.info-step-list {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+}
+.info-step-item {
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 10px !important;
+    padding: 12px 14px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 5px !important;
+}
+.info-badge {
+    display: inline-block !important;
+    align-self: flex-start !important;
+    font-size: 0.76rem !important;
+    font-weight: 800 !important;
+    padding: 3px 8px !important;
+    border-radius: 6px !important;
+    background: #fef3c7 !important;
+    color: #92400e !important;
+}
+.info-badge.green { background: #dcfce7 !important; color: #166534 !important; }
+.info-badge.blue { background: #e0f2fe !important; color: #0369a1 !important; }
+.info-badge.purple { background: #f3e8ff !important; color: #6b21a8 !important; }
+.info-badge.amber { background: #fef3c7 !important; color: #92400e !important; }
+.info-badge.red { background: #fee2e2 !important; color: #991b1b !important; }
+
+.info-step-desc {
+    font-size: 0.88rem !important;
+    color: #334155 !important;
+    line-height: 1.5 !important;
+}
+.info-step-desc strong {
+    color: #0f172a !important;
+    font-weight: 750 !important;
+}
+
+/* ==========================================================================
+   ⚡ [Google Core Web Vitals 100% Zero-Shift & Speed Optimization Engine]
+   ========================================================================== */
+img {
+    content-visibility: auto;
+}
+.article-featured-img-box, .article-section-img-box {
+    width: 100% !important;
+    aspect-ratio: unset !important;
+    background: transparent !important;
+    border-radius: 12px !important;
+    overflow: visible !important;
+    contain: none !important;
+    text-align: center !important;
+}
+.article-featured-img-box figcaption {
+    display: block !important;
+    font-size: 0.82rem !important;
+    font-weight: 400 !important;
+    color: #94a3b8 !important;
+    text-align: center !important;
+    margin-top: 8px !important;
+    line-height: 1.5 !important;
+    letter-spacing: -0.2px !important;
+}
+.sidebar-calc-card {
+    text-align: center !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.sidebar-calc-card .calc-badge {
+    margin: 0 auto 12px auto !important;
+    text-align: center !important;
+}
+.sidebar-calc-card .calc-title {
+    text-align: center !important;
+    width: 100% !important;
+    margin: 0 auto 8px auto !important;
+}
+.sidebar-calc-card .calc-desc {
+    text-align: center !important;
+    width: 100% !important;
+    margin: 0 auto 18px auto !important;
+}
+.sidebar-calc-card .btn-calc-action {
+    text-align: center !important;
+    width: 100% !important;
+    margin: 0 auto !important;
+}
+.sidebar-calc-card .calc-badge {
+    margin: 0 auto 12px auto !important;
+    text-align: center !important;
+}
+.sidebar-calc-card .calc-title {
+    text-align: center !important;
+    width: 100% !important;
+    margin: 0 0 8px 0 !important;
+}
+.sidebar-calc-card .calc-desc {
+    text-align: center !important;
+    width: 100% !important;
+    margin: 0 0 16px 0 !important;
+}
+.sidebar-calc-card .btn-calc-action {
+    text-align: center !important;
+    width: 100% !important;
+}
+.clean-card .article-img-wrap, .clean-card > div:first-child {
+    aspect-ratio: 16 / 9 !important;
+    background: #f1f5f9 !important;
+    overflow: hidden !important;
+}
+.popular-post-thumb {
+    width: 72px !important;
+    height: 72px !important;
+    aspect-ratio: 1 / 1 !important;
+    background: #f1f5f9 !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+    flex-shrink: 0 !important;
+}
+.featured-img {
+    aspect-ratio: 16 / 9 !important;
+    background: #f1f5f9 !important;
+    border-radius: 12px !important;
+    overflow: hidden !important;
+}
+
+        /* 🥗 레시피 카드 리스트 (모던 미니멀 카드 & 컴팩트 여백) */
+        .recipe-card-list {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 14px !important;
+            margin: 24px 0 28px 0 !important;
+        }
+        .recipe-card-item {
+            background: #f8fafc !important;
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 12px !important;
+            padding: 16px 18px 14px 18px !important;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02) !important;
+        }
+        .recipe-card-header {
+            font-size: 1.02rem !important;
+            font-weight: 800 !important;
+            color: #0f172a !important;
+            margin-bottom: 8px !important;
+        }
+        .recipe-card-body {
+            font-size: 0.92rem !important;
+            color: #334155 !important;
+            line-height: 1.65 !important;
+        }
+        .recipe-card-body p {
+            margin: 0 0 6px 0 !important;
+            line-height: 1.65 !important;
+        }
+        .recipe-card-body p:last-child {
+            margin-bottom: 0 !important;
+        }
+
+        /* 📱 모바일 헤더 스마트폰 최적화 (로고 거대화 100% 원천 차단) */
+        .mobile-tistory-header {
+            display: none;
+            position: sticky !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            height: 52px !important;
+            background: #ffffff !important;
+            border-bottom: 1px solid #eef2f6 !important;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.03) !important;
+            z-index: 99999 !important;
+        }
+        @media (max-width: 768px) {
+            .mobile-tistory-header {
+                display: block !important;
+            }
+            .desktop-header {
+                display: none !important;
+            }
+        }
+        .m-header-inner {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: space-between !important;
+            height: 52px !important;
+            padding: 0 14px !important;
+            max-width: 100% !important;
+            box-sizing: border-box !important;
+            gap: 8px !important;
+        }
+        .m-btn-back {
+            background: transparent !important;
+            border: none !important;
+            padding: 4px !important;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            cursor: pointer !important;
+            flex-shrink: 0 !important;
+        }
+        .m-header-title {
+            font-size: 0.94rem !important;
+            font-weight: 750 !important;
+            color: #0f172a !important;
+            text-align: center !important;
+            white-space: nowrap !important;
+            overflow: hidden !important;
+            text-overflow: ellipsis !important;
+            flex: 1 !important;
+            padding: 0 6px !important;
+            line-height: 1.2 !important;
+        }
+        .m-header-profile {
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            width: 34px !important;
+            height: 34px !important;
+            border-radius: 50% !important;
+            background: #fffbeb !important;
+            border: 1.5px solid #fde68a !important;
+            overflow: hidden !important;
+            flex-shrink: 0 !important;
+            text-decoration: none !important;
+        }
+        .m-profile-img {
+            width: 22px !important;
+            height: 22px !important;
+            object-fit: contain !important;
+            display: block !important;
+            margin: 0 auto !important;
+        }
+
+        /* 🏷️ 상단 카테고리 텍스트 (컴팩트 칼각 여백) */
+        .article-cat-title {
+            font-size: 0.84rem !important;
+            font-weight: 750 !important;
+            color: #475569 !important;
+            margin-bottom: 6px !important;
+            display: block !important;
+            line-height: 1.2 !important;
+        }
+
+        /* 📊 메타바 스타일 (줄간격 밀착 & 스마트폰 최적화) */
+        .article-meta-bar {
+            font-size: 0.82rem !important;
+            color: #64748b !important;
+            display: flex !important;
+            gap: 5px 8px !important;
+            align-items: center !important;
+            flex-wrap: wrap !important;
+            margin-bottom: 16px !important;
+            line-height: 1.35 !important;
+        }
+
+        @media (max-width: 768px) {
+            .article-header {
+                margin-bottom: 12px !important;
+            }
+            .article-title {
+                font-size: 1.38rem !important;
+                line-height: 1.34 !important;
+                margin-bottom: 8px !important;
+                letter-spacing: -0.4px !important;
+            }
+            .article-cat-title {
+                margin-bottom: 6px !important;
+            }
+            .article-meta-bar {
+                margin-bottom: 14px !important;
+                gap: 4px 6px !important;
+                font-size: 0.8rem !important;
+            }
+            figure.article-featured-img-box,
+            .article-featured-img-box {
+                margin: 0 0 20px 0 !important;
+            }
+        }
+
+        /* 🌟 대표 메인 화보 (Rule 5 표준: 풍경/음식/운동 16:9 와이드 풀와이드 / 인물 화보 contain) */
+        figure.article-featured-img-box,
+        .article-featured-img-box {
+            width: 100% !important;
+            margin: 0 0 24px 0 !important;
+            background: transparent !important;
+            text-align: center !important;
+            display: block !important;
+            padding: 0 !important;
+            border: none !important;
+        }
+        figure.article-featured-img-box img,
+        .article-featured-img-box img {
+            width: 100% !important;
+            aspect-ratio: 16 / 9 !important;
+            object-fit: cover !important;
+            display: block !important;
+            margin: 0 auto !important;
+            border-radius: 12px !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+        }
+        /* 인물 전신 화보 전용 클래스 (머리/발목 잘림 방지) */
+        figure.article-featured-img-box.portrait-fit img,
+        .article-featured-img-box.portrait-fit img {
+            width: auto !important;
+            max-width: 100% !important;
+            height: auto !important;
+            max-height: 560px !important;
+            aspect-ratio: unset !important;
+            object-fit: contain !important;
+        }
+        figure.article-featured-img-box figcaption,
+        .article-featured-img-box figcaption {
+            font-size: 0.82rem !important;
+            font-weight: 400 !important;
+            color: #94a3b8 !important;
+            text-align: center !important;
+            margin-top: 8px !important;
+            line-height: 1.5 !important;
+            letter-spacing: -0.2px !important;
+            display: block !important;
+        }
+
+        /* 🌟 대표 메인 화보 & 본문 모든 화보 16:9 풀와이드 100% 꽉 채움 표준 */
+        figure.article-featured-img-box,
+        .article-featured-img-box,
+        figure.post-photo-figure,
+        .post-photo-figure {
+            width: 100% !important;
+            margin: 28px 0 !important;
+            background: transparent !important;
+            text-align: center !important;
+            display: block !important;
+            padding: 0 !important;
+            border: none !important;
+        }
+        figure.article-featured-img-box img,
+        .article-featured-img-box img,
+        figure.post-photo-figure img,
+        .post-photo-figure img {
+            width: 100% !important;
+            height: auto !important;
+            aspect-ratio: 16 / 9 !important;
+            object-fit: cover !important;
+            display: block !important;
+            margin: 0 auto !important;
+            border-radius: 12px !important;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04) !important;
+        }
+        /* 💃 인물 전신 화보 전용 (오나라 등 머리/발목 잘림 방지) */
+        figure.article-featured-img-box.portrait-fit img,
+        .article-featured-img-box.portrait-fit img,
+        figure.post-photo-figure.portrait-fit img,
+        .post-photo-figure.portrait-fit img {
+            width: auto !important;
+            max-width: 100% !important;
+            height: auto !important;
+            max-height: 560px !important;
+            aspect-ratio: unset !important;
+            object-fit: contain !important;
+        }
+        figure.article-featured-img-box figcaption,
+        .article-featured-img-box figcaption,
+        figure.post-photo-figure figcaption,
+        .post-photo-figure figcaption {
+            font-size: 0.82rem !important;
+            font-weight: 400 !important;
+            color: #94a3b8 !important;
+            text-align: center !important;
+            margin-top: 8px !important;
+            line-height: 1.5 !important;
+            letter-spacing: -0.2px !important;
+            display: block !important;
+        }
+
+        /* ❓ FAQ 카드 영구 표준 규격 (모든 글 100% 동일한 고급스러운 테두리 박스) */
+        .faq-block-wrap {
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 14px !important;
+            margin-top: 14px !important;
+        }
+        .faq-card {
+            background: #ffffff !important;
+            border: 1px solid #e2e8f0 !important;
+            border-radius: 12px !important;
+            padding: 18px 20px !important;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.02) !important;
+            transition: border-color 0.2s, box-shadow 0.2s !important;
+            box-sizing: border-box !important;
+        }
+        .faq-card:hover {
+            border-color: #cbd5e1 !important;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.04) !important;
+        }
+        .faq-q, .faq-card .faq-q {
+            font-size: 0.98rem !important;
+            font-weight: 800 !important;
+            color: #0f172a !important;
+            margin-bottom: 8px !important;
+            display: flex !important;
+            align-items: flex-start !important;
+            line-height: 1.45 !important;
+        }
+        .q-icon, .faq-card .q-icon {
+            color: #c26908 !important;
+            font-weight: 900 !important;
+            margin-right: 6px !important;
+            flex-shrink: 0 !important;
+        }
+        .faq-a, .faq-card .faq-a {
+            font-size: 0.9rem !important;
+            color: #475569 !important;
+            line-height: 1.75 !important;
+            margin: 0 !important;
+        }
+        .faq-a strong, .faq-card .faq-a strong {
+            color: #0f172a !important;
+            font-weight: 800 !important;
+        }
+
+        /* 🏷️ 본문 소제목 (소제목 앞 색 라인 일체 제거 & 깔끔한 칼각 폰트) */
+        .article-body-content h2,
+        .article-body-text h2,
+        article h2,
+        h2 {
+            font-size: 1.35rem !important;
+            font-weight: 850 !important;
+            color: #0f172a !important;
+            margin: 36px 0 16px 0 !important;
+            border-left: none !important;
+            border: none !important;
+            padding-left: 0 !important;
+            padding: 0 !important;
+            line-height: 1.4 !important;
+            letter-spacing: -0.3px !important;
+        }
+        .article-body-content h3,
+        .article-body-text h3,
+        article h3,
+        h3 {
+            font-size: 1.15rem !important;
+            font-weight: 800 !important;
+            color: #1e293b !important;
+            margin: 28px 0 12px 0 !important;
+            border-left: none !important;
+            border: none !important;
+            padding-left: 0 !important;
+            padding: 0 !important;
+            line-height: 1.4 !important;
+        }
+
+        /* 📖 모바일 터치 최적화 목차 박스 (좌측 세련된 주황색 포인트 라인 영구 고정) */
+        .toc-box {
+            background: #f8fafc !important;
+            border: 1px solid #e2e8f0 !important;
+            border-left: 4px solid #c26908 !important;
+            border-radius: 10px !important;
+            padding: 18px 20px !important;
+            margin: 28px 0 34px 0 !important;
+            box-sizing: border-box !important;
+        }
+        .toc-title {
+            font-size: 0.96rem !important;
+            font-weight: 800 !important;
+            color: #0f172a !important;
+            margin: 0 0 12px 0 !important;
+            padding: 0 4px 8px 4px !important;
+            border-bottom: 1px dashed #e2e8f0 !important;
+            line-height: 1.2 !important;
+        }
+        .toc-box ul.toc-list {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 10px !important;
+        }
+        .toc-box ul.toc-list li a {
+            display: flex !important;
+            align-items: flex-start !important;
+            gap: 8px !important;
+            color: #334155 !important;
+            font-size: 0.93rem !important;
+            font-weight: 600 !important;
+            text-decoration: none !important;
+            line-height: 1.45 !important;
+            transition: color 0.15s !important;
+        }
+        .toc-box ul.toc-list li a:hover {
+            color: #c26908 !important;
+        }
+        .toc-box .toc-num {
+            color: #c26908 !important;
+            font-weight: 800 !important;
+            flex-shrink: 0 !important;
+        }
+
+        /* 📖 본문 문단 황금 가독성 타이포그래피 (1문단 2~3줄 쾌적 호흡 & 시원한 여백) */
+        .article-body-content p,
+        .article-body-text p,
+        article p {
+            font-size: 1.04rem !important;
+            line-height: 1.88 !important;
+            color: #334155 !important;
+            margin: 0 0 20px 0 !important;
+            word-break: keep-all !important;
+            letter-spacing: -0.2px !important;
+        }
+        @media (max-width: 768px) {
+            .article-body-content p,
+            .article-body-text p,
+            article p {
+                font-size: 0.98rem !important;
+                line-height: 1.82 !important;
+                margin: 0 0 18px 0 !important;
+            }
+        }
+
+        /* 📖 모바일 터치 최적화 목차 박스 (Rule 1-2 영구 표준: 좌측 주황색 포인트 라인 100% 통일) */
+        .toc-box {
+            background: #f8fafc !important;
+            border: 1px solid #e2e8f0 !important;
+            border-left: 4px solid #c26908 !important;
+            border-radius: 10px !important;
+            padding: 18px 20px !important;
+            margin: 28px 0 34px 0 !important;
+            box-sizing: border-box !important;
+        }
+        .toc-title {
+            font-size: 0.96rem !important;
+            font-weight: 800 !important;
+            color: #0f172a !important;
+            margin: 0 0 12px 0 !important;
+            padding: 0 4px 8px 4px !important;
+            border-bottom: 1px dashed #e2e8f0 !important;
+            line-height: 1.2 !important;
+        }
+        .toc-box ul.toc-list {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+            display: flex !important;
+            flex-direction: column !important;
+            gap: 10px !important;
+        }
+        .toc-box ul.toc-list li a {
+            display: flex !important;
+            align-items: flex-start !important;
+            gap: 8px !important;
+            color: #334155 !important;
+            font-size: 0.93rem !important;
+            font-weight: 600 !important;
+            text-decoration: none !important;
+            line-height: 1.45 !important;
+            transition: color 0.15s !important;
+        }
+        .toc-box ul.toc-list li a:hover {
+            color: #c26908 !important;
+        }
+        .toc-box .toc-num {
+            color: #c26908 !important;
+            font-weight: 800 !important;
+            flex-shrink: 0 !important;
+        }
+
+        /* 📌 추천 칼럼 카드 타이포그래피 (제목 1.02rem 진하게 vs 설명 0.84rem 아담하게) */
+        .related-articles-section h4 {
+            font-size: 1.02rem !important;
+            font-weight: 800 !important;
+            color: #0f172a !important;
+            line-height: 1.4 !important;
+            margin: 0 0 6px 0 !important;
+            word-break: keep-all !important;
+        }
+        .related-articles-section p {
+            font-size: 0.84rem !important;
+            line-height: 1.45 !important;
+            color: #64748b !important;
+            margin: 0 !important;
+            letter-spacing: -0.2px !important;
+        }
+
+/* 📱 모바일 미니멀 3선 햄버거 버튼 & 테두리 없는 X 닫기 버튼 */
+    .btn-mobile-menu-open {
+        background: transparent !important;
+        border: none !important;
+        padding: 6px !important;
+        cursor: pointer !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        outline: none !important;
+        box-shadow: none !important;
+    }
+    .btn-mobile-menu-open svg {
+        stroke: #1e293b !important;
+        stroke-width: 2 !important;
+    }
+    .btn-drawer-close, .drawer-close-btn {
+        background: transparent !important;
+        border: none !important;
+        font-size: 1.6rem !important;
+        line-height: 1 !important;
+        color: #64748b !important;
+        cursor: pointer !important;
+        padding: 4px 8px !important;
+        outline: none !important;
+        box-shadow: none !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+    .btn-drawer-close:hover, .drawer-close-btn:hover {
+        color: #0f172a !important;
+    }
+
+/* 🚀 목차(TOC) 앵커 클릭 시 상단 고정 헤더 가림 100% 원천 방지 (Scroll Margin Top Fix) */
+html {
+    scroll-behavior: smooth !important;
+}
+
+/* PC 및 모바일 공통 본문 모든 소제목/섹션 점프 오프셋 */
+.article-body-content h2,
+.article-body-content h3,
+.article-body-content section[id],
+.article-body-content div[id],
+.article-body h2,
+.article-body h3,
+#faq,
+#comments {
+    scroll-margin-top: 80px !important;
+}
+
+@media (max-width: 768px) {
+    .article-body-content h2,
+    .article-body-content h3,
+    .article-body-content section[id],
+    .article-body-content div[id],
+    .article-body h2,
+    .article-body h3,
+    #faq,
+    #comments {
+        scroll-margin-top: 68px !important;
+    }
+}
+
+/* 🔍 실시간 스마트 글 검색창 (Instant Live Search) */
+.search-box {
+    display: flex !important;
+    align-items: center !important;
+    background: #f1f5f9 !important;
+    border: 1.5px solid transparent !important;
+    border-radius: 9999px !important;
+    padding: 6px 14px !important;
+    transition: all 0.2s ease !important;
+    gap: 8px !important;
+}
+.search-box:focus-within {
+    background: #ffffff !important;
+    border-color: #c26908 !important;
+    box-shadow: 0 0 0 3px rgba(194, 105, 8, 0.12) !important;
+}
+.search-box input {
+    border: none !important;
+    background: transparent !important;
+    outline: none !important;
+    font-size: 0.88rem !important;
+    color: #1e293b !important;
+    width: 100% !important;
+    font-family: inherit !important;
+}
+.search-box input::placeholder {
+    color: #94a3b8 !important;
+    font-size: 0.84rem !important;
+}
+.search-box .btn-clear-search {
+    background: #cbd5e1 !important;
+    border: none !important;
+    color: #ffffff !important;
+    border-radius: 50% !important;
+    width: 18px !important;
+    height: 18px !important;
+    font-size: 0.7rem !important;
+    cursor: pointer !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0 !important;
+    flex-shrink: 0 !important;
+}
+.search-box .btn-clear-search:hover {
+    background: #94a3b8 !important;
+}
+
+/* PC 검색창 */
+.pc-search-box {
+    width: 220px !important;
+}
+
+/* 모바일 검색창 */
+.mobile-search-bar-wrap {
+    margin: 16px 0 20px 0 !important;
+}
+.mobile-search-box {
+    padding: 10px 16px !important;
+    background: #f8fafc !important;
+    border: 1px solid #e2e8f0 !important;
+}
+.mobile-search-box input {
+    font-size: 0.92rem !important;
+}
+
+/* 검색 결과 안내 배너 */
+.search-results-banner {
+    background: #fffbeb !important;
+    border: 1px solid #fef3c7 !important;
+    border-radius: 10px !important;
+    padding: 12px 16px !important;
+    margin-bottom: 20px !important;
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    font-size: 0.88rem !important;
+    color: #92400e !important;
+}
+.search-results-banner strong {
+    color: #b45309 !important;
+}
+.btn-reset-search-tag {
+    background: #fef3c7 !important;
+    border: 1px solid #fde68a !important;
+    color: #b45309 !important;
+    padding: 3px 8px !important;
+    border-radius: 6px !important;
+    font-size: 0.76rem !important;
+    font-weight: 700 !important;
+    cursor: pointer !important;
+}
+
+/* 검색 결과 0건 안내 카드 */
+.no-search-results-card {
+    text-align: center !important;
+    padding: 48px 20px !important;
+    background: #f8fafc !important;
+    border: 1px dashed #cbd5e1 !important;
+    border-radius: 12px !important;
+    margin: 24px 0 !important;
+    grid-column: 1 / -1 !important;
+}
+.no-search-results-card .no-res-icon {
+    font-size: 2rem !important;
+    margin-bottom: 10px !important;
+    display: inline-block !important;
+}
+.no-search-results-card h3 {
+    font-size: 1.05rem !important;
+    font-weight: 800 !important;
+    color: #334155 !important;
+    margin-bottom: 6px !important;
+}
+.no-search-results-card p {
+    font-size: 0.85rem !important;
+    color: #64748b !important;
+    margin: 0 !important;
+}
+
+/* 🌟 실시간 검색 드롭다운 플로팅 레이어 (Live Search Dropdown) */
+.search-box-container {
+    position: relative !important;
+}
+
+.search-dropdown-menu {
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    left: 0 !important;
+    width: 320px !important;
+    max-height: 420px !important;
+    background: #ffffff !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.05) !important;
+    overflow-y: auto !important;
+    z-index: 999999 !important;
+    display: none;
+    padding: 8px !important;
+}
+
+/* 모바일 전용 드롭다운 너비 100% */
+@media (max-width: 768px) {
+    .mobile-search-dropdown-menu {
+        width: 100% !important;
+        max-height: 360px !important;
+    }
+}
+
+.search-dropdown-item {
+    display: flex !important;
+    align-items: center !important;
+    gap: 12px !important;
+    padding: 8px 10px !important;
+    border-radius: 8px !important;
+    text-decoration: none !important;
+    transition: background 0.15s ease !important;
+    color: #1e293b !important;
+}
+.search-dropdown-item:hover, .search-dropdown-item:focus {
+    background: #f8fafc !important;
+}
+.search-dropdown-thumb {
+    width: 48px !important;
+    height: 36px !important;
+    border-radius: 6px !important;
+    object-fit: cover !important;
+    flex-shrink: 0 !important;
+    background: #f1f5f9 !important;
+}
+.search-dropdown-info {
+    flex: 1 !important;
+    overflow: hidden !important;
+}
+.search-dropdown-cat {
+    font-size: 0.7rem !important;
+    font-weight: 700 !important;
+    color: #c26908 !important;
+    display: block !important;
+    margin-bottom: 2px !important;
+}
+.search-dropdown-title {
+    font-size: 0.82rem !important;
+    font-weight: 650 !important;
+    color: #0f172a !important;
+    line-height: 1.35 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+}
+.search-dropdown-title mark {
+    background: #fef08a !important;
+    color: #854d0e !important;
+    font-weight: 800 !important;
+    padding: 0 2px !important;
+    border-radius: 2px !important;
+}
+.search-dropdown-empty {
+    padding: 24px 16px !important;
+    text-align: center !important;
+    color: #64748b !important;
+    font-size: 0.82rem !important;
+}
+
+/* 🔍 선명한 검색 버튼이 달린 고급 검색바 */
+.search-form-wrap {
+    display: flex !important;
+    align-items: center !important;
+    background: #ffffff !important;
+    border: 1.5px solid #cbd5e1 !important;
+    border-radius: 9999px !important;
+    padding: 3px 4px 3px 12px !important;
+    transition: all 0.2s ease !important;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
+}
+.search-form-wrap:focus-within {
+    border-color: #c26908 !important;
+    box-shadow: 0 0 0 3px rgba(194, 105, 8, 0.12) !important;
+}
+.search-form-wrap input {
+    border: none !important;
+    background: transparent !important;
+    outline: none !important;
+    font-size: 0.88rem !important;
+    color: #0f172a !important;
+    width: 100% !important;
+    font-family: inherit !important;
+}
+.search-form-wrap input::placeholder {
+    color: #94a3b8 !important;
+}
+.btn-submit-search {
+    background: linear-gradient(135deg, #f59e0b, #d97706) !important;
+    color: #ffffff !important;
+    border: none !important;
+    border-radius: 9999px !important;
+    padding: 6px 14px !important;
+    font-size: 0.82rem !important;
+    font-weight: 750 !important;
+    cursor: pointer !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 4px !important;
+    flex-shrink: 0 !important;
+    transition: background 0.2s !important;
+}
+.btn-submit-search:hover {
+    background: linear-gradient(135deg, #d97706, #b45309) !important;
+}
+
+/* PC 검색창 크기 */
+.pc-search-form {
+    width: 270px !important;
+}
+
+/* 모바일 검색창 크기 */
+.mobile-search-form {
+    width: 100% !important;
+    padding: 4px 6px 4px 14px !important;
+}
+.mobile-search-form input {
+    font-size: 0.92rem !important;
+}
+.mobile-search-form .btn-submit-search {
+    padding: 8px 16px !important;
+    font-size: 0.88rem !important;
+}
+
+/* 💻 PC 데스크톱 vs 📱 모바일 레이아웃 철통 분리 */
+@media (min-width: 769px) {
+    .mobile-tistory-layout,
+    #mobileLoadMoreWrapper,
+    #btnMobileLoadMore {
+        display: none !important;
+        height: 0 !important;
+        overflow: hidden !important;
+    }
+    .desktop-layout {
+        display: block !important;
+    }
+    #pcLoadMoreWrapper {
+        display: block !important;
+    }
+}
+@media (max-width: 768px) {
+    .desktop-layout,
+    .desktop-header,
+    #pcLoadMoreWrapper,
+    #btnPcLoadMore {
+        display: none !important;
+        height: 0 !important;
+        overflow: hidden !important;
+    }
+    .mobile-tistory-layout {
+        display: block !important;
+    }
+    #mobileLoadMoreWrapper {
+        display: block !important;
+    }
+}
+@media (max-width: 768px) {
+    .desktop-layout, .desktop-header {
+        display: none !important;
+        height: 0 !important;
+        overflow: hidden !important;
+    }
+    .mobile-tistory-layout {
+        display: block !important;
+    }
+}
+
+/* ==========================================================================
+   📱💻 PC / 모바일 레이아웃 철통 분리 격리 규칙 (누수 0% 차단)
+   ========================================================================== */
+@media screen and (min-width: 769px) {
+    .desktop-layout { display: block !important; }
+    .mobile-tistory-layout { display: none !important; }
+}
+@media screen and (max-width: 768px) {
+    .desktop-layout { display: none !important; }
+    .mobile-tistory-layout { display: block !important; }
+}
