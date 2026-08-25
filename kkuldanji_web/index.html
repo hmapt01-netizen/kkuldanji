@@ -368,6 +368,95 @@
         }
     }
 </style>
+    <!-- ==========================================================================
+         📱 [모바일 카테고리 모달 스타일]
+         - 바닥에서 부드럽게 슬라이드 업되는 팝업 모달창 스타일
+         - .active 클래스 부여 시 display: flex 로 화면에 노출됨
+         ========================================================================== -->
+    <style id="categoryModalActiveStyle">
+        .category-modal {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0, 0, 0, 0.55);
+            display: none;
+            justify-content: center;
+            align-items: flex-end;
+            z-index: 99999;
+            backdrop-filter: blur(2px);
+        }
+        .category-modal.active {
+            display: flex !important;
+        }
+        .category-modal-body {
+            background: #ffffff;
+            width: 100%;
+            max-width: 500px;
+            border-radius: 20px 20px 0 0;
+            padding: 22px 20px 30px 20px;
+            box-sizing: border-box;
+            animation: slideUpModal 0.22s ease-out;
+        }
+        @keyframes slideUpModal {
+            from { transform: translateY(100%); }
+            to { transform: translateY(0); }
+        }
+        .category-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #f1f5f9;
+        }
+        .category-modal-title {
+            font-size: 1.15rem;
+            font-weight: 850;
+            color: #0f172a;
+        }
+        .category-modal-close {
+            background: none;
+            border: none;
+            font-size: 1.3rem;
+            color: #64748b;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+        .category-modal-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .category-modal-item {
+            padding: 13px 16px;
+            border-radius: 10px;
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            font-size: 0.94rem;
+            font-weight: 750;
+            color: #1e293b;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.15s;
+        }
+        .category-modal-item.active, .category-modal-item:hover {
+            background: #fffbeb;
+            border-color: #f59e0b;
+            color: #c26908;
+        }
+        .category-modal-item .cat-count {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #94a3b8;
+        }
+        .category-modal-item.active .cat-count {
+            color: #d97706;
+        }
+    </style>
 </head>
 <body>
 
@@ -829,12 +918,9 @@
 
                         <!-- 📚 6. 모바일 풀 와이드 비주얼 카드 스트림 (캡처 디자인 100% 완벽 일치!) -->
             <div id="mobileSearchResultBanner" style="display:none;"></div>
-            <div class="tistory-feed-list" id="tistoryFeedContainer">
-                
-                <!-- Post 11: 식후 10분 걷기 (NEW 최신) -->
-                <article class="tistory-feed-item" data-category="라이프 웰니스" onclick="location.href='posts/post-meal-walk-blood-sugar.html'" style="cursor:pointer;">
+                        <div class="tistory-feed-list" id="tistoryFeedContainer">                <article class="tistory-feed-item" data-category="라이프 웰니스" onclick="location.href='posts/post-meal-walk-blood-sugar.html'" style="cursor:pointer;">
                     <a href="posts/post-meal-walk-blood-sugar.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
-                        <img src="images/posts/walking/thumb.jpg?v=2.0" alt="식후 10분 걷기" class="feed-item-thumb" loading="lazy" decoding="async">
+                        <img src="images/posts/walking/thumb.jpg?v=2.0" alt="식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 루틴" class="feed-item-thumb" loading="lazy" decoding="async">
                     </a>
                     <div class="feed-item-body">
                         <span class="feed-item-cat">라이프 웰니스</span>
@@ -845,11 +931,9 @@
                         </div>
                     </div>
                 </article>
-
-                <!-- Post 10: 무릎 안 아픈 스쿼트 -->
                 <article class="tistory-feed-item" data-category="홈트레이닝" onclick="location.href='posts/knee-safe-squat-workout.html'" style="cursor:pointer;">
                     <a href="posts/knee-safe-squat-workout.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
-                        <img src="images/posts/squat/thumb.jpg?v=2.0" alt="무릎 안아픈 스쿼트 런지" class="feed-item-thumb" loading="lazy" decoding="async">
+                        <img src="images/posts/squat/thumb.jpg?v=2.0" alt="초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세" class="feed-item-thumb" loading="lazy" decoding="async">
                     </a>
                     <div class="feed-item-body">
                         <span class="feed-item-cat">홈트레이닝</span>
@@ -860,26 +944,22 @@
                         </div>
                     </div>
                 </article>
-
-                <!-- Post 1: 오나라 식단 -->
                 <article class="tistory-feed-item" data-category="식단 & 영양" onclick="location.href='posts/ohnara-diet.html'" style="cursor:pointer;">
                     <a href="posts/ohnara-diet.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
-                        <img src="images/posts/ohnara/thumb.jpg?v=1.2" alt="오나라 식단" class="feed-item-thumb" loading="lazy" decoding="async">
+                        <img src="images/posts/ohnara/thumb.jpg?v=1.2" alt="오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동" class="feed-item-thumb" loading="lazy" decoding="async">
                     </a>
                     <div class="feed-item-body">
                         <span class="feed-item-cat">식단 & 영양</span>
                         <h3 class="feed-item-title"><a href="posts/ohnara-diet.html">오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동</a></h3>
-                        <p class="feed-item-summary">배우 오나라의 샐러드 식단 팩트 분석부터 중년 여성의 기초대사량을 지키는 3대 운동법.</p>
+                        <p class="feed-item-summary">배우 오나라의 샐러드 식단 팩트 분석부터 중년 여성의 기초대사량을 지키는 3대 복합 다관절 운동 루틴까지 실생활에 적용하는 지속 가능한 웰니스 가이드.</p>
                         <div class="feed-item-meta">
                             <span>2026.08.19</span>
                         </div>
                     </div>
                 </article>
-
-                <!-- Post 2: 8월 제철 음식 -->
                 <article class="tistory-feed-item" data-category="식단 & 영양" onclick="location.href='posts/august-seasonal-foods.html'" style="cursor:pointer;">
                     <a href="posts/august-seasonal-foods.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
-                        <img src="images/posts/august/thumb.jpg?v=1.1" alt="8월 제철 음식" class="feed-item-thumb" loading="lazy" decoding="async">
+                        <img src="images/posts/august/thumb.jpg?v=1.2" alt="8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드" class="feed-item-thumb" loading="lazy" decoding="async">
                     </a>
                     <div class="feed-item-body">
                         <span class="feed-item-cat">식단 & 영양</span>
@@ -890,11 +970,9 @@
                         </div>
                     </div>
                 </article>
-
-                <!-- Post 3: 지중해식 식단 -->
                 <article class="tistory-feed-item" data-category="식단 & 영양" onclick="location.href='posts/mediterranean-diet.html'" style="cursor:pointer;">
                     <a href="posts/mediterranean-diet.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
-                        <img src="images/posts/mediterranean/thumb.jpg?v=1.2" alt="지중해식 식단" class="feed-item-thumb" loading="lazy" decoding="async">
+                        <img src="images/posts/mediterranean/thumb.jpg?v=1.2" alt="세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁" class="feed-item-thumb" loading="lazy" decoding="async">
                     </a>
                     <div class="feed-item-body">
                         <span class="feed-item-cat">식단 & 영양</span>
@@ -905,11 +983,9 @@
                         </div>
                     </div>
                 </article>
-
-                <!-- Post 4: 간헐적 단식 -->
                 <article class="tistory-feed-item" data-category="식단 & 영양" onclick="location.href='posts/intermittent-fasting-guide.html'" style="cursor:pointer;">
                     <a href="posts/intermittent-fasting-guide.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
-                        <img src="images/posts/fasting/thumb.jpg?v=1.2" alt="간헐적 단식" class="feed-item-thumb" loading="lazy" decoding="async">
+                        <img src="images/posts/fasting/thumb.jpg?v=1.2" alt="간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표" class="feed-item-thumb" loading="lazy" decoding="async">
                     </a>
                     <div class="feed-item-body">
                         <span class="feed-item-cat">식단 & 영양</span>
@@ -920,76 +996,66 @@
                         </div>
                     </div>
                 </article>
-
-                <!-- Post 5: 모닝 루틴 -->
                 <article class="tistory-feed-item" data-category="라이프 웰니스" onclick="location.href='posts/morning-routine.html'" style="cursor:pointer;">
                     <a href="posts/morning-routine.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
-                        <img src="images/posts/morning/thumb.jpg?v=1.1" alt="모닝 루틴" class="feed-item-thumb" loading="lazy" decoding="async">
+                        <img src="images/posts/morning/thumb.jpg?v=1.2" alt="아침 공복 유산소와 식사 타이밍, 혈당 스파이크 방지 습관" class="feed-item-thumb" loading="lazy" decoding="async">
                     </a>
                     <div class="feed-item-body">
                         <span class="feed-item-cat">라이프 웰니스</span>
-                        <h3 class="feed-item-title"><a href="posts/morning-routine.html">기상 직후 활력 깨우는 모닝 루틴 5단계: 미온수·햇볕·스트레칭</a></h3>
-                        <p class="feed-item-summary">코르티솔 분비를 정상화하고 뇌를 깨우는 기상 1시간 웰니스 생활 습관 가이드.</p>
+                        <h3 class="feed-item-title"><a href="posts/morning-routine.html">아침 공복 유산소와 식사 타이밍, 혈당 스파이크 방지 습관</a></h3>
+                        <p class="feed-item-summary">기상 후 첫 끼니 순서와 가벼운 공복 유산소가 대사 건강과 인슐린 감수성에 미치는 영향.</p>
                         <div class="feed-item-meta">
                             <span>2026.08.19</span>
                         </div>
                     </div>
                 </article>
-
-                <!-- Post 6: 수면 위생 -->
                 <article class="tistory-feed-item" data-category="라이프 웰니스" onclick="location.href='posts/sleep-hygiene-guide.html'" style="cursor:pointer;">
                     <a href="posts/sleep-hygiene-guide.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
-                        <img src="images/posts/sleep/thumb.jpg?v=1.2" alt="수면 위생" class="feed-item-thumb" loading="lazy" decoding="async">
+                        <img src="images/posts/sleep/thumb.jpg?v=1.2" alt="수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환경 가이드" class="feed-item-thumb" loading="lazy" decoding="async">
                     </a>
                     <div class="feed-item-body">
                         <span class="feed-item-cat">라이프 웰니스</span>
-                        <h3 class="feed-item-title"><a href="posts/sleep-hygiene-guide.html">숙면을 부르는 수면 위생 수칙 7가지와 불면증 극복법</a></h3>
-                        <p class="feed-item-summary">멜라토닌 분비를 촉진하고 렘수면 주기를 회복하는 침실 환경 조성과 야간 루틴.</p>
+                        <h3 class="feed-item-title"><a href="posts/sleep-hygiene-guide.html">수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환경 가이드</a></h3>
+                        <p class="feed-item-summary">만성 피로를 해소하고 깊은 숙면을 유도하는 최적의 실내 온도, 조명 환경, 카페인 반감기 수칙.</p>
                         <div class="feed-item-meta">
                             <span>2026.08.19</span>
                         </div>
                     </div>
                 </article>
-
-                <!-- Post 7: 거북목 스트레칭 -->
                 <article class="tistory-feed-item" data-category="홈트레이닝" onclick="location.href='posts/posture-stretching-office.html'" style="cursor:pointer;">
                     <a href="posts/posture-stretching-office.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
-                        <img src="images/posts/posture/thumb.jpg?v=1.1" alt="자세 교정 스트레칭" class="feed-item-thumb" loading="lazy" decoding="async">
+                        <img src="images/posts/posture/thumb.jpg?v=1.2" alt="직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭" class="feed-item-thumb" loading="lazy" decoding="async">
                     </a>
                     <div class="feed-item-body">
                         <span class="feed-item-cat">홈트레이닝</span>
-                        <h3 class="feed-item-title"><a href="posts/posture-stretching-office.html">직장인 거북목·라운드숄더 교정 5분 오피스 스트레칭 루틴</a></h3>
-                        <p class="feed-item-summary">승모근 긴장을 풀고 흉추 가동성을 회복시키는 의자 스트레칭 4동작 완벽 가이드.</p>
+                        <h3 class="feed-item-title"><a href="posts/posture-stretching-office.html">직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭</a></h3>
+                        <p class="feed-item-summary">모니터 앞에서 굳어버린 목과 어깨를 풀어주고 굽은 등과 척추 정렬을 회복하는 초간단 오피스 루틴.</p>
                         <div class="feed-item-meta">
                             <span>2026.08.19</span>
                         </div>
                     </div>
                 </article>
-
-                <!-- Post 8: 코어 운동 루틴 -->
                 <article class="tistory-feed-item" data-category="홈트레이닝" onclick="location.href='posts/core-exercise-home.html'" style="cursor:pointer;">
                     <a href="posts/core-exercise-home.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
-                        <img src="images/posts/core/thumb.jpg?v=1.1" alt="코어 홈트레이닝" class="feed-item-thumb" loading="lazy" decoding="async">
+                        <img src="images/posts/core/thumb.jpg?v=1.2" alt="바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴" class="feed-item-thumb" loading="lazy" decoding="async">
                     </a>
                     <div class="feed-item-body">
                         <span class="feed-item-cat">홈트레이닝</span>
-                        <h3 class="feed-item-title"><a href="posts/core-exercise-home.html">허리 통증 잡는 10분 코어 운동 루틴: 플랭크·버드독 정석 자세</a></h3>
-                        <p class="feed-item-summary">척추 기립근과 복횡근을 탄탄하게 잡아주는 매트 코어 운동 4대 핵심 동작.</p>
+                        <h3 class="feed-item-title"><a href="posts/core-exercise-home.html">바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴</a></h3>
+                        <p class="feed-item-summary">데드버그, 버드독, 글루트 브릿지 등 요추 부담 없이 척추 기립근과 복부 심부 근육을 단단하게 지지하는 운동법.</p>
                         <div class="feed-item-meta">
                             <span>2026.08.19</span>
                         </div>
                     </div>
                 </article>
-
-                <!-- Post 9: 하루 물 2리터 가이드 -->
                 <article class="tistory-feed-item" data-category="식단 & 영양" onclick="location.href='posts/water-intake-guide.html'" style="cursor:pointer;">
                     <a href="posts/water-intake-guide.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
-                        <img src="images/posts/water/thumb.jpg?v=1.2" alt="수분 섭취 가이드" class="feed-item-thumb" loading="lazy" decoding="async">
+                        <img src="images/posts/water/thumb.jpg?v=1.2" alt="하루 물 2리터 권장량의 진실, 올바른 수분 섭취법과 체내 밸런스" class="feed-item-thumb" loading="lazy" decoding="async">
                     </a>
                     <div class="feed-item-body">
                         <span class="feed-item-cat">식단 & 영양</span>
-                        <h3 class="feed-item-title"><a href="posts/water-intake-guide.html">하루 물 2L 섭취 공식과 체중별 수분 섭취 골든타임 가이드</a></h3>
-                        <p class="feed-item-summary">신진대사를 촉진하고 피부 노화를 막는 시간대별 똑똑한 물 마시기 습관.</p>
+                        <h3 class="feed-item-title"><a href="posts/water-intake-guide.html">하루 물 2리터 권장량의 진실, 올바른 수분 섭취법과 체내 밸런스</a></h3>
+                        <p class="feed-item-summary">획일적인 2L 기준 대신 내 몸무게에 맞춘 정확한 수분 섭취 공식과 체내 전해질 밸런스를 지키는 스마트한 음수 습관.</p>
                         <div class="feed-item-meta">
                             <span>2026.08.19</span>
                         </div>
@@ -999,7 +1065,7 @@
 
             <!-- 🔄 7. 모바일 피드 더보기 버튼 (기본 6개 초과 시 작동) -->
             <div id="mobileLoadMoreWrapper" style="text-align:center; margin-top:20px; display:none;">
-                <button type="button" id="btnMobileLoadMore" class="btn-clean-load-more" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:24px; padding:10px 24px; font-size:0.86rem; font-weight:700; color:#475569; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
+                <button type="button" id="btnMobileLoadMore" class="btn-clean-load-more" onclick="loadMoreMobileArticles()" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:24px; padding:10px 24px; font-size:0.86rem; font-weight:700; color:#475569; cursor:pointer; box-shadow:0 2px 6px rgba(0,0,0,0.04);">
                     더보기 ▾
                 </button>
             </div>
@@ -1181,11 +1247,22 @@
             }
         }
 
-        // 🍯 모바일 초기화 및 더보기
+                // ==========================================================================
+        // 🍯 [모바일 전용] 더보기 및 카테고리 모달 제어 엔진
+        // ==========================================================================
+
+        /**
+         * 1. 모바일 피드 초기화
+         */
         function initMobileArticles() {
             applyAdminHiddenFilter();
         }
 
+        /**
+         * 2. 모바일 [더보기 ▾] 버튼 클릭 시 동작
+         * - mobileShown 변수를 +4 증가시켜 숨겨진 글을 추가 노출
+         * - 11편 전체가 다 노출되면 더보기 버튼을 숨기고 안내 메시지 출력
+         */
         function loadMoreMobileArticles() {
             mobileShown += 4;
             applyAdminHiddenFilter();
@@ -1197,11 +1274,137 @@
             }
         }
 
+        /**
+         * 3. 모바일 마지막 로딩 완료 안내 메시지 표시 (2.5초 후 자동 숨김)
+         */
         function showTemporaryEndMsg(id) {
             const el = document.getElementById(id);
             if (el) {
                 el.style.display = 'block';
                 setTimeout(() => { el.style.display = 'none'; }, 2500);
+            }
+        }
+
+        /**
+         * 4. 모바일 카테고리 모달 내부 글 편수 실시간 계산 (관리자 숨김 글 반영)
+         */
+        function updateCategoryCounts() {
+            const allItems = Array.from(document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item'))
+                .filter(item => item.getAttribute('data-admin-hidden') !== 'true');
+            
+            const dietCount = allItems.filter(item => {
+                const c = item.getAttribute('data-category') || '';
+                return c.includes('식단') || c.includes('영양');
+            }).length;
+
+            const hometCount = allItems.filter(item => {
+                const c = item.getAttribute('data-category') || '';
+                return c.includes('홈트레이닝');
+            }).length;
+
+            const wellnessCount = allItems.filter(item => {
+                const c = item.getAttribute('data-category') || '';
+                return c.includes('라이프') || c.includes('웰니스');
+            }).length;
+
+            const elAll = document.getElementById('modalCountAll');
+            const elDiet = document.getElementById('modalCountDiet');
+            const elHomet = document.getElementById('modalCountHomet');
+            const elWellness = document.getElementById('modalCountWellness');
+
+            if (elAll) elAll.innerText = allItems.length;
+            if (elDiet) elDiet.innerText = dietCount;
+            if (elHomet) elHomet.innerText = hometCount;
+            if (elWellness) elWellness.innerText = wellnessCount;
+        }
+
+        /**
+         * 5. 모바일 [전체 칼럼 / 전체 분류 보기 ›] 클릭 시 모달 열기
+         */
+        function openCategoryModal() {
+            updateCategoryCounts();
+            const modal = document.getElementById('categoryModal');
+            if (modal) {
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
+            }
+        }
+
+        /**
+         * 6. 모바일 카테고리 모달 닫기
+         */
+        function closeCategoryModal() {
+            const modal = document.getElementById('categoryModal');
+            if (modal) {
+                modal.classList.remove('active');
+                document.body.style.overflow = ''; // 배경 스크롤 복원
+            }
+        }
+
+        /**
+         * 7. 모바일 카테고리 선택 시 피드 실시간 필터링
+         * @param {string} cat - 선택한 카테고리 키워드 ('all', '식단 & 영양', '홈트레이닝', '라이프 웰니스')
+         * @param {string} label - 화면 바에 표시될 텍스트
+         */
+        function filterTistoryFeed(cat, label) {
+            currentSelectedCategory = cat;
+            mobileShown = 4;
+            
+            const lbl = document.getElementById('currentCategoryLabel');
+            if (lbl) lbl.innerText = label;
+
+            // 모달 아이템 선택 활성화 스타일 토글
+            document.querySelectorAll('.category-modal-item').forEach(item => {
+                item.classList.remove('active');
+                if (item.textContent.includes(label)) item.classList.add('active');
+            });
+
+            applyAdminHiddenFilter();
+            const items = Array.from(document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item'))
+                .filter(item => item.getAttribute('data-admin-hidden') !== 'true');
+
+            let visibleMatches = 0;
+            items.forEach((item, idx) => {
+                const itemCat = (item.getAttribute('data-category') || '').trim();
+                let isMatch = false;
+
+                if (cat === 'all') {
+                    isMatch = true;
+                } else if (cat.includes('식단') && (itemCat.includes('식단') || itemCat.includes('영양'))) {
+                    isMatch = true;
+                } else if (cat === '홈트레이닝' && itemCat.includes('홈트레이닝')) {
+                    isMatch = true;
+                } else if (cat === '라이프 웰니스' && (itemCat.includes('라이프') || itemCat.includes('웰니스'))) {
+                    isMatch = true;
+                }
+
+                if (isMatch) {
+                    if (cat === 'all') {
+                        if (idx < mobileShown) {
+                            item.style.setProperty('display', 'flex', 'important');
+                        } else {
+                            item.style.setProperty('display', 'none', 'important');
+                        }
+                    } else {
+                        item.style.setProperty('display', 'flex', 'important');
+                    }
+                    visibleMatches++;
+                } else {
+                    item.style.setProperty('display', 'none', 'important');
+                }
+            });
+
+            // 더보기 버튼 노출 여부 제어
+            const btnMore = document.getElementById('btnMobileLoadMore');
+            const moLoadWrap = document.getElementById('mobileLoadMoreWrapper');
+            if (btnMore && moLoadWrap) {
+                if (cat === 'all' && items.length > mobileShown) {
+                    moLoadWrap.style.display = 'block';
+                    btnMore.style.display = 'inline-block';
+                } else {
+                    moLoadWrap.style.display = 'none';
+                    btnMore.style.display = 'none';
+                }
             }
         }
 
@@ -1265,5 +1468,37 @@
             applyAdminHiddenFilter();
         });
     </script>
+    <!-- 📱 카테고리 선택 모달 -->
+    <!-- ==========================================================================
+         📱 [모바일 카테고리 팝업 모달 마크업]
+         - openCategoryModal() 호출 시 active 클래스가 붙어 화면에 표시됨
+         - 항목 클릭 시 filterTistoryFeed() 실행 후 closeCategoryModal()로 닫힘
+         ========================================================================== -->
+    <div id="categoryModal" class="category-modal" onclick="if(event.target===this)closeCategoryModal()">
+        <div class="category-modal-body">
+            <div class="category-modal-header">
+                <div class="category-modal-title">전체 분류</div>
+                <button type="button" class="category-modal-close" onclick="closeCategoryModal()" aria-label="닫기">✕</button>
+            </div>
+            <ul class="category-modal-list">
+                <li class="category-modal-item active" onclick="filterTistoryFeed('all', '전체 칼럼'); closeCategoryModal();">
+                    <span class="cat-name">전체 칼럼</span>
+                    <span class="cat-count" id="modalCountAll">11</span>
+                </li>
+                <li class="category-modal-item" onclick="filterTistoryFeed('식단 & 영양', '식단 & 영양'); closeCategoryModal();">
+                    <span class="cat-name">식단 & 영양</span>
+                    <span class="cat-count" id="modalCountDiet">5</span>
+                </li>
+                <li class="category-modal-item" onclick="filterTistoryFeed('홈트레이닝', '홈트레이닝'); closeCategoryModal();">
+                    <span class="cat-name">홈트레이닝</span>
+                    <span class="cat-count" id="modalCountHomet">3</span>
+                </li>
+                <li class="category-modal-item" onclick="filterTistoryFeed('라이프 웰니스', '라이프 웰니스'); closeCategoryModal();">
+                    <span class="cat-name">라이프 웰니스</span>
+                    <span class="cat-count" id="modalCountWellness">3</span>
+                </li>
+            </ul>
+        </div>
+    </div>
 </body>
 </html>
