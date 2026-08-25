@@ -1200,9 +1200,9 @@ window.onerror = function(msg, url, line, col, error) {
                         <span class="chart-day-label">토</span>
                     </div>
                     <div class="chart-col" data-day="sun">
-                        <span class="chart-bar-val" id="barValSun" style="color: #ea580c; font-weight: 800;">0</span>
-                        <div class="chart-bar-fill today" id="barFillSun" style="height: 6px; min-height: 6px;"></div>
-                        <span class="chart-day-label" style="color: #ea580c; font-weight: 800;">오늘</span>
+                        <span class="chart-bar-val" id="barValSun">0</span>
+                        <div class="chart-bar-fill" id="barFillSun" style="height: 6px; min-height: 6px;"></div>
+                        <span class="chart-day-label">일</span>
                     </div>
                 </div>
             </div>
@@ -2306,20 +2306,100 @@ ${formattedBody}
         });
     }
 
-    // 11. Abacus Global Real-Time Cloud Analytics Engine
-    const ABACUS_BASE = "https://abacus.jasoncameron.dev";
-    const ABACUS_NS = "honeyjar_wellness";
+        // ==========================================
+    // 📊 [통계 대시보드 및 페이징 완전체 엔진]
+    // ==========================================
+    var analyticsPosts = [
+        { slug: 'post-meal-walk-blood-sugar.html', key: 'post_meal_walk_blood_sugar', title: '식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 루틴', views: 0, avgDwellSec: 0, avgScroll: 0, hasViews: false },
+        { slug: 'knee-safe-squat-workout.html', key: 'knee_safe_squat_workout', title: '초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세', views: 0, avgDwellSec: 0, avgScroll: 0, hasViews: false },
+        { slug: 'ohnara-diet.html', key: 'ohnara_diet', title: '오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동', views: 0, avgDwellSec: 0, avgScroll: 0, hasViews: false },
+        { slug: 'august-seasonal-foods.html', key: 'august_seasonal_foods', title: '8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드', views: 0, avgDwellSec: 0, avgScroll: 0, hasViews: false },
+        { slug: 'mediterranean-diet.html', key: 'mediterranean_diet', title: '세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁', views: 0, avgDwellSec: 0, avgScroll: 0, hasViews: false },
+        { slug: 'intermittent-fasting-guide.html', key: 'intermittent_fasting_guide', title: '간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표', views: 0, avgDwellSec: 0, avgScroll: 0, hasViews: false },
+        { slug: 'morning-routine.html', key: 'morning_routine', title: '기상 직후 활력 깨우는 모닝 루틴 5단계: 미온수·햇볕·스트레칭', views: 0, avgDwellSec: 0, avgScroll: 0, hasViews: false },
+        { slug: 'sleep-hygiene-guide.html', key: 'sleep_hygiene_guide', title: '숙면을 부르는 수면 위생 수칙 7가지와 불면증 극복법', views: 0, avgDwellSec: 0, avgScroll: 0, hasViews: false },
+        { slug: 'posture-stretching-office.html', key: 'posture_stretching_office', title: '직장인 거북목·라운드숄더 교정 5분 오피스 스트레칭 루틴', views: 0, avgDwellSec: 0, avgScroll: 0, hasViews: false },
+        { slug: 'core-exercise-home.html', key: 'core_exercise_home', title: '허리 통증 잡는 10분 코어 운동 루틴: 플랭크·버드독 정석 자세', views: 0, avgDwellSec: 0, avgScroll: 0, hasViews: false },
+        { slug: 'water-intake-guide.html', key: 'water_intake_guide', title: '하루 물 2L 섭취 공식과 체중별 수분 섭취 골든타임 가이드', views: 0, avgDwellSec: 0, avgScroll: 0, hasViews: false }
+    ];
+    var currentAnalyticsPage = 1;
+    var analyticsItemsPerPage = 10;
 
-    async function fetchAbacusVal(key) {
-        try {
-            const res = await fetch(`${ABACUS_BASE}/get/${ABACUS_NS}/${key}`);
-            if (res.ok) {
-                const data = await res.json();
-                if (data && typeof data.value === 'number') return data.value;
-            }
-        } catch(e) {}
-        return 0;
+    function changeAnalyticsPage(newPage) {
+        var totalPages = Math.ceil(analyticsPosts.length / analyticsItemsPerPage) || 1;
+        if (newPage < 1) newPage = 1;
+        if (newPage > totalPages) newPage = totalPages;
+        currentAnalyticsPage = newPage;
+        renderAnalyticsTable();
     }
+
+    function renderAnalyticsTable() {
+        var tbody = document.getElementById('analyticsTableBody');
+        if (!tbody) return;
+        tbody.innerHTML = '';
+
+        var total = analyticsPosts.length;
+        var totalPages = Math.ceil(total / analyticsItemsPerPage) || 1;
+        if (currentAnalyticsPage > totalPages) currentAnalyticsPage = totalPages;
+        if (currentAnalyticsPage < 1) currentAnalyticsPage = 1;
+
+        var startIndex = (currentAnalyticsPage - 1) * analyticsItemsPerPage;
+        var pagePosts = analyticsPosts.slice(startIndex, startIndex + analyticsItemsPerPage);
+
+        pagePosts.forEach(function(p, i) {
+            var globalIdx = startIndex + i;
+            var rankBadge = (globalIdx + 1) + "";
+            if (p.hasViews) {
+                if (globalIdx === 0) rankBadge = "🥇 1위";
+                else if (globalIdx === 1) rankBadge = "🥈 2위";
+                else if (globalIdx === 2) rankBadge = "🥉 3위";
+            }
+
+            var dwellText = "-";
+            var scrollBarHtml = '<span style="color:#94a3b8;">0%</span>';
+            var gradeBadge = '<span style="color:#94a3b8; font-size:0.82rem;">집계 대기</span>';
+
+            if (p.hasViews) {
+                var pMin = Math.floor(p.avgDwellSec / 60);
+                var pSec = p.avgDwellSec % 60;
+                dwellText = pMin > 0 ? ("⏱️ " + pMin + "분 " + pSec + "초") : ("⏱️ " + pSec + "초");
+                scrollBarHtml = '<div style="display:flex; align-items:center; gap:6px;">' +
+                    '<span>' + p.avgScroll + '%</span>' +
+                    '<div style="flex:1; background:#e5e7eb; height:6px; border-radius:3px; overflow:hidden;">' +
+                        '<div style="width:' + p.avgScroll + '%; background:#10b981; height:100%;"></div>' +
+                    '</div>' +
+                '</div>';
+                gradeBadge = p.avgDwellSec >= 60 ? '<span style="color:#059669; font-weight:700;">★ 최우수 (High RPM)</span>' : '<span style="color:#2563eb; font-weight:600;">● 양호 (Normal)</span>';
+            }
+
+            var tr = document.createElement('tr');
+            tr.innerHTML = '<td style="font-weight:700; color:#111827; text-align:center;">' + rankBadge + '</td>' +
+                '<td><a href="posts/' + p.slug + '" target="_blank" style="color:#111827; font-weight:600; text-decoration:none;">' + escapeHtml(p.title) + ' <span style="color:#c26908;">↗</span></a></td>' +
+                '<td style="font-weight:700; color:' + (p.hasViews ? '#c26908' : '#94a3b8') + '; text-align:center;">' + (p.views || 0).toLocaleString() + '회</td>' +
+                '<td style="font-weight:600; color:' + (p.hasViews ? '#059669' : '#94a3b8') + '; text-align:center;">' + dwellText + '</td>' +
+                '<td>' + scrollBarHtml + '</td>' +
+                '<td style="text-align:center;">' + gradeBadge + '</td>';
+            tbody.appendChild(tr);
+        });
+
+        renderAnalyticsPagination(totalPages);
+    }
+
+    function renderAnalyticsPagination(totalPages) {
+        var pagContainer = document.getElementById('analyticsPostsPagination');
+        if (!pagContainer) return;
+
+        var html = '<button type="button" class="admin-page-btn ' + (currentAnalyticsPage === 1 ? 'disabled' : '') + '" onclick="changeAnalyticsPage(' + (currentAnalyticsPage - 1) + ')" ' + (currentAnalyticsPage === 1 ? 'disabled' : '') + '>‹ 이전</button>';
+        for (var p = 1; p <= totalPages; p++) {
+            html += '<button type="button" class="admin-page-btn ' + (p === currentAnalyticsPage ? 'active' : '') + '" onclick="changeAnalyticsPage(' + p + ')">' + p + '</button>';
+        }
+        html += '<button type="button" class="admin-page-btn ' + (currentAnalyticsPage === totalPages ? 'disabled' : '') + '" onclick="changeAnalyticsPage(' + (currentAnalyticsPage + 1) + ')" ' + (currentAnalyticsPage === totalPages ? 'disabled' : '') + '>다음 ›</button>';
+        pagContainer.innerHTML = html;
+    }
+
+    // Attach to window globally
+    window.changeAnalyticsPage = changeAnalyticsPage;
+    window.renderAnalyticsTable = renderAnalyticsTable;
 
     async function loadAnalyticsDashboard() {
         const tbody = document.getElementById('analyticsTableBody');
@@ -2420,48 +2500,8 @@ ${formattedBody}
             document.getElementById('statAvgScroll').innerText = `0%`;
         }
 
-        postsList.forEach((p, idx) => {
-            let rankBadge = `${idx + 1}`;
-            if (p.hasViews) {
-                if (idx === 0) rankBadge = `🥇 1위`;
-                else if (idx === 1) rankBadge = `🥈 2위`;
-                else if (idx === 2) rankBadge = `🥉 3위`;
-            }
-
-            let dwellText = `-`;
-            let scrollBarHtml = `<span style="color:#94a3b8;">0%</span>`;
-            let gradeBadge = `<span style="color:#94a3b8; font-size:0.82rem;">집계 대기</span>`;
-
-            if (p.hasViews) {
-                const pMin = Math.floor(p.avgDwellSec / 60);
-                const pSec = p.avgDwellSec % 60;
-                dwellText = pMin > 0 ? `⏱️ ${pMin}분 ${pSec}초` : `⏱️ ${pSec}초`;
-                scrollBarHtml = `
-                    <div style="display:flex; align-items:center; gap:6px;">
-                        <span>${p.avgScroll}%</span>
-                        <div style="flex:1; background:#e5e7eb; height:6px; border-radius:3px; overflow:hidden;">
-                            <div style="width:${p.avgScroll}%; background:#10b981; height:100%;"></div>
-                        </div>
-                    </div>
-                `;
-                gradeBadge = p.avgDwellSec >= 60 ? `<span style="color:#059669; font-weight:700;">★ 최우수 (High RPM)</span>` : `<span style="color:#2563eb; font-weight:600;">● 양호 (Normal)</span>`;
-            }
-
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td style="font-weight:700; color:#111827; text-align:center;">${rankBadge}</td>
-                <td>
-                    <a href="posts/${p.slug}" target="_blank" style="color:#111827; font-weight:600; text-decoration:none;">
-                        ${escapeHtml(p.title)} <span style="color:#c26908;">↗</span>
-                    </a>
-                </td>
-                <td style="font-weight:700; color:${p.hasViews ? '#c26908' : '#94a3b8'}; text-align:center;">${p.views.toLocaleString()}회</td>
-                <td style="font-weight:600; color:${p.hasViews ? '#059669' : '#94a3b8'}; text-align:center;">${dwellText}</td>
-                <td>${scrollBarHtml}</td>
-                <td style="text-align:center;">${gradeBadge}</td>
-            `;
-            tbody.appendChild(tr);
-        });
+        analyticsPosts = postsList;
+        renderAnalyticsTable();
 
         // 4. 7-Day Weekly Chart
         const days = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'];
