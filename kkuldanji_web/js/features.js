@@ -11,6 +11,15 @@ const ABACUS_NS = "honeyjar_wellness";
 // 📚 꿀단지 공식 10대 칼럼 마스터 레지스트리 (실제 이미지 폴더 경로 100% 일치)
 const HONEYJAR_POSTS_REGISTRY = [
     {
+        slug: "post-meal-walk-blood-sugar.html",
+        slugKey: "post_meal_walk_blood_sugar",
+        title: "식후 10분 걷기와 혈당 스파이크 차단",
+        fullTitle: "식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 루틴",
+        thumb: "images/posts/walking/thumb.jpg?v=2.0",
+        cat: "라이프 웰니스",
+        baseWeight: 140
+    },
+    {
         slug: "ohnara-diet.html",
         slugKey: "ohnara_diet",
         title: "오나라 51세 식단과 50대 근력 운동법",
