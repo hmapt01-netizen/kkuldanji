@@ -824,15 +824,15 @@ figure.post-photo-figure figcaption,
 <body class="tistory-single-post">
 
     <!-- 📱 모바일 스마트 상단 헤더 -->
-    <header class="mobile-tistory-header">
-        <div class="m-header-inner">
-            <button type="button" class="m-btn-back" onclick="if(window.history.length > 1){window.history.back();}else{location.href='../index.html';}" aria-label="이전 페이지">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-            </button>
-            <span class="m-header-title">층간소음 없이 집에서 하는 무소음 코어 강화...</span>
-            <a href="../index.html" class="m-header-profile" aria-label="홈으로 가기">
-                <img src="../images/logo.png" alt="프로필" class="m-profile-img">
-            </a>
+    <!-- 📱 모바일 스마트 상단 헤더 (뒤로가기 + 제목(홈이동) + 공유) -->
+    <!-- 📱 모바일 스마트 상단 헤더 (1줄 칼각 고정: 뒤로가기 + 제목(홈이동) + 공유) -->
+    <header class="mobile-tistory-header" style="display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: space-between !important; width: 100% !important; height: 52px !important; min-height: 52px !important; max-height: 52px !important; background: #ffffff !important; border-bottom: 1px solid #e5e7eb !important; padding: 0 12px !important; position: sticky !important; top: 0 !important; z-index: 99999 !important; box-sizing: border-box !important; margin: 0 !important;">
+        <div style="display: flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important; width: 36px !important; height: 36px !important;">
+            <a href="../index.html" style="display: flex !important; align-items: center !important; justify-content: center !important; width: 36px !important; height: 36px !important; color: #111827 !important; text-decoration: none !important;" title="뒤로가기"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></a>
+        </div>
+        <a href="../index.html" style="flex: 1 1 0% !important; min-width: 0 !important; max-width: calc(100% - 80px) !important; font-size: 0.95rem !important; font-weight: 750 !important; color: #111827 !important; text-decoration: none !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; padding: 0 8px !important; text-align: left !important; line-height: 52px !important; height: 52px !important; display: block !important;" title="메인 홈으로 가기">층간소음 없이 집에서 하는 무소음 코어 강화 홈트레이닝 4선</a>
+        <div style="display: flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important; width: 36px !important; height: 36px !important;">
+            <button type="button" onclick="copyArticleUrl()" style="display: flex !important; align-items: center !important; justify-content: center !important; width: 36px !important; height: 36px !important; background: transparent !important; border: none !important; color: #374151 !important; cursor: pointer !important; padding: 0 !important;" title="공유하기"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg></button>
         </div>
     </header>
 
@@ -1268,8 +1268,9 @@ figure.post-photo-figure figcaption,
     <script defer src="../js/tracker.js?v=20260825140000"></script>
 
 
+
 <script>
-// 🛡️ 100% Crash-Proof Share & Copy Engine
+// 🛡️ 100% Crash-Proof Share & Copy Engine (Top Toast Notification)
 function copyArticleUrl() {
     try {
         var currentUrl = window.location.href;
@@ -1305,31 +1306,6 @@ function fallbackCopyText(text) {
     }
 }
 
-function shareArticleNative() {
-    try {
-        var isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-        var currentUrl = window.location.href;
-        var postTitle = document.title || '혀니의 꿀단지';
-
-        if (isMobile && navigator.share && window.isSecureContext) {
-            navigator.share({
-                title: postTitle,
-                url: currentUrl
-            }).catch(function() {});
-        } else {
-            // PC or Local File: Safe Kakao Story / Web Share URL or Clipboard Copy
-            if (currentUrl.startsWith('http')) {
-                var kakaoUrl = 'https://sharer.kakao.com/talk/friends/picker/link?app_key=honeyjar&app_ver=1.0&link=' + encodeURIComponent(currentUrl);
-                window.open(kakaoUrl, '_blank', 'width=450,height=650');
-            } else {
-                copyArticleUrl();
-            }
-        }
-    } catch(err) {
-        copyArticleUrl();
-    }
-}
-
 function showShareToast(msg) {
     var existingToast = document.getElementById('honeyjarShareToast');
     if (existingToast) existingToast.remove();
@@ -1338,24 +1314,25 @@ function showShareToast(msg) {
     toast.id = 'honeyjarShareToast';
     toast.innerText = msg;
     toast.style.position = 'fixed';
-    toast.style.bottom = '40px';
+    toast.style.top = '64px'; // 🌟 상단바 바로 아래 자연스러운 시선 위치
     toast.style.left = '50%';
     toast.style.transform = 'translateX(-50%)';
-    toast.style.background = 'rgba(17, 24, 39, 0.9)';
+    toast.style.background = 'rgba(17, 24, 39, 0.92)';
     toast.style.color = '#ffffff';
-    toast.style.padding = '10px 20px';
-    toast.style.borderRadius = '24px';
-    toast.style.fontSize = '0.86rem';
+    toast.style.padding = '8px 18px';
+    toast.style.borderRadius = '20px';
+    toast.style.fontSize = '0.84rem';
     toast.style.fontWeight = '600';
     toast.style.zIndex = '999999';
-    toast.style.boxShadow = '0 4px 12px rgba(0,0,0,0.15)';
-    toast.style.transition = 'opacity 0.3s ease';
+    toast.style.boxShadow = '0 4px 14px rgba(0,0,0,0.18)';
+    toast.style.transition = 'all 0.25s ease';
     document.body.appendChild(toast);
 
     setTimeout(function() {
         toast.style.opacity = '0';
-        setTimeout(function() { toast.remove(); }, 300);
-    }, 2000);
+        toast.style.transform = 'translateX(-50%) translateY(-10px)';
+        setTimeout(function() { toast.remove(); }, 250);
+    }, 1800);
 }
 </script>
 </body>
