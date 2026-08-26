@@ -74,6 +74,7 @@
 
         /* 📱 모바일 (768px 이하): 1열 본문 집중형 레이아웃 */
         @media (max-width: 768px) {
+            body.tistory-single-post { padding-top: 52px !important; }
             .desktop-header,
             .clean-nav {
                 display: none !important;
@@ -116,7 +117,7 @@
             .article-sidebar {
                 display: block !important;
                 width: 300px !important;
-                position: sticky !important;
+                position: fixed !important;
                 top: 80px !important;
             }
         }
@@ -509,6 +510,7 @@ figure.post-photo-figure figcaption,
 
         /* 📱 모바일 스마트폰 (768px 이하): 글자 찌그러짐 원천 차단 + 시원한 터치 가로스크롤 유지 */
         @media (max-width: 768px) {
+            body.tistory-single-post { padding-top: 52px !important; }
             .custom-data-table {
                 min-width: 520px !important;
             }
@@ -521,7 +523,7 @@ figure.post-photo-figure figcaption,
             /* 📱 모바일 헤더 스마트폰 최적화 (로고 거대화 100% 원천 차단) */
         .mobile-tistory-header {
             display: none;
-            position: sticky !important;
+            position: fixed !important;
             top: 0 !important;
             left: 0 !important;
             width: 100% !important;
@@ -532,6 +534,7 @@ figure.post-photo-figure figcaption,
             z-index: 99999 !important;
         }
         @media (max-width: 768px) {
+            body.tistory-single-post { padding-top: 52px !important; }
             .mobile-tistory-header {
                 display: block !important;
             }
@@ -593,6 +596,7 @@ figure.post-photo-figure figcaption,
         }
             /* 📱 모바일 하단 액션바 100% 완벽 레이아웃 */
         @media (max-width: 768px) {
+            body.tistory-single-post { padding-top: 52px !important; }
             .naver-bottom-bar {
                 display: flex !important;
                 position: fixed !important;
@@ -814,6 +818,7 @@ figure.post-photo-figure figcaption,
             letter-spacing: -0.2px !important;
         }
         @media (max-width: 768px) {
+            body.tistory-single-post { padding-top: 52px !important; }
             .article-body-content p,
             .article-body-text p,
             article p {

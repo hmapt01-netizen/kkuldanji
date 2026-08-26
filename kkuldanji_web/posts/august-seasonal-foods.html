@@ -139,6 +139,7 @@
 
         /* 📱 모바일 (768px 이하): 1열 본문 집중형 레이아웃 */
         @media (max-width: 768px) {
+            body.tistory-single-post { padding-top: 52px !important; }
             .desktop-header,
             .clean-nav {
                 display: none !important;
@@ -181,7 +182,7 @@
             .article-sidebar {
                 display: block !important;
                 width: 300px !important;
-                position: sticky !important;
+                position: fixed !important;
                 top: 80px !important;
             }
         }
@@ -586,6 +587,7 @@ figure.post-photo-figure figcaption,
 
         /* 📱 모바일 스마트폰 (768px 이하): 글자 찌그러짐 원천 차단 + 시원한 터치 가로스크롤 유지 */
         @media (max-width: 768px) {
+            body.tistory-single-post { padding-top: 52px !important; }
             .custom-data-table {
                 min-width: 520px !important;
             }
@@ -598,7 +600,7 @@ figure.post-photo-figure figcaption,
             /* 📱 모바일 헤더 스마트폰 최적화 (로고 거대화 100% 원천 차단) */
         .mobile-tistory-header {
             display: none;
-            position: sticky !important;
+            position: fixed !important;
             top: 0 !important;
             left: 0 !important;
             width: 100% !important;
@@ -609,6 +611,7 @@ figure.post-photo-figure figcaption,
             z-index: 99999 !important;
         }
         @media (max-width: 768px) {
+            body.tistory-single-post { padding-top: 52px !important; }
             .mobile-tistory-header {
                 display: block !important;
             }
@@ -670,6 +673,7 @@ figure.post-photo-figure figcaption,
         }
             /* 📱 모바일 하단 액션바 100% 완벽 레이아웃 */
         @media (max-width: 768px) {
+            body.tistory-single-post { padding-top: 52px !important; }
             .naver-bottom-bar {
                 display: flex !important;
                 position: fixed !important;
@@ -824,9 +828,11 @@ figure.post-photo-figure figcaption,
         .article-body-content h2, .article-body-content h3, #faq { scroll-margin-top: 75px !important; }
         html { scroll-behavior: smooth !important; }
     @media (min-width: 769px) { .mobile-tistory-header { display: none !important; } }
-@media (max-width: 768px) { .pc-only-share, .meta-share-btn { display: none !important; } }
+@media (max-width: 768px) {
+            body.tistory-single-post { padding-top: 52px !important; } .pc-only-share, .meta-share-btn { display: none !important; } }
 .pc-only-share { display: inline-flex; align-items: center; gap: 4px; background: transparent; border: none; outline: none; box-shadow: none; padding: 0; margin: 0; font-size: 0.84rem; color: #64748b; cursor: pointer; }
-        @media (max-width: 768px) { .pc-only-share, .meta-share-btn { display: none !important; } }
+        @media (max-width: 768px) {
+            body.tistory-single-post { padding-top: 52px !important; } .pc-only-share, .meta-share-btn { display: none !important; } }
         @media (min-width: 769px) { .mobile-tistory-header { display: none !important; } }
     </style>
 </style>
@@ -840,7 +846,7 @@ figure.post-photo-figure figcaption,
     <!-- 📱 모바일 스마트 상단 헤더 (1줄 칼각 고정: 뒤로가기 + 제목(홈이동) + 공유) -->
     <!-- 📱 모바일 스마트 상단 헤더 (1줄 칼각 고정: [ ‹ 뒤로가기 ]  [ 혀니의 꿀단지 ]  [ ↑ 공유 ]) -->
     <!-- 📱 모바일 스마트 상단 헤더 (1줄 칼각 고정: [ ‹ 뒤로가기 ]  [ 혀니의 꿀단지 ]  [ ↑ 공유 ]) -->
-    <header class="mobile-tistory-header" style="display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important; justify-content: space-between !important; width: 100% !important; height: 52px !important; min-height: 52px !important; max-height: 52px !important; background-color: #ffffff !important; border-bottom: 1px solid #e5e7eb !important; padding: 0 12px !important; position: sticky !important; top: 0 !important; left: 0 !important; z-index: 99999 !important; box-sizing: border-box !important; margin: 0 !important;">
+    <header class="mobile-tistory-header" style="display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important; justify-content: space-between !important; width: 100% !important; height: 52px !important; min-height: 52px !important; max-height: 52px !important; background-color: #ffffff !important; border-bottom: 1px solid #e5e7eb !important; padding: 0 12px !important; position: fixed !important; top: 0 !important; left: 0 !important; z-index: 99999 !important; box-sizing: border-box !important; margin: 0 !important;">
         <div style="display: flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important; width: 36px !important; height: 36px !important; min-width: 36px !important;">
             <a href="../index.html" style="display: flex !important; align-items: center !important; justify-content: center !important; width: 36px !important; height: 36px !important; color: #475569 !important; text-decoration: none !important;" title="뒤로가기"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></a>
         </div>
