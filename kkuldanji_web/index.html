@@ -13,10 +13,10 @@
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4739687813221133" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 🍯 꿀단지 공식 파비콘 -->
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="alternate icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <!-- 🍯 꿀단지 공식 파비콘 (화이트 베이스 쨍한 아이콘) -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2.0">
+    <link rel="alternate icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=2.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2.0">
     <title>꿀단지 | 건강한 일상을 위한 라이프 & 웰니스 저널</title>
     <meta name="description" content="식단과 제철 영양, 10분 홈트레이닝 및 실생활 웰니스 꿀팁을 전하는 혀니의 꿀단지.">
         <!-- 🌐 OpenGraph / SNS 링크 공유 썸네일 (카카오톡, 네이버, 페이스북 최적화) -->
@@ -1121,21 +1121,45 @@
     function applyAdminHiddenFilter() {
         try {
             let hiddenSlugs = [];
-            const saved = localStorage.getItem('HONEYJAR_ADMIN_POSTS_V1');
-            if (saved) {
+            
+            // Check honeyjar_hidden_slugs
+            const directHidden = localStorage.getItem('honeyjar_hidden_slugs');
+            if (directHidden) {
                 try {
-                    const adminPosts = JSON.parse(saved);
-                    const legacyHidden = adminPosts.filter(p => p.isHidden).map(p => p.slug);
-                    hiddenSlugs = Array.from(new Set([...hiddenSlugs, ...legacyHidden]));
+                    const parsed = JSON.parse(directHidden);
+                    if (Array.isArray(parsed)) hiddenSlugs = [...hiddenSlugs, ...parsed];
                 } catch(e) {}
             }
+
+            // Check honeyjar_admin_posts
+            const saved1 = localStorage.getItem('honeyjar_admin_posts');
+            if (saved1) {
+                try {
+                    const adminPosts1 = JSON.parse(saved1);
+                    const h1 = adminPosts1.filter(p => p.isHidden).map(p => p.slug);
+                    hiddenSlugs = [...hiddenSlugs, ...h1];
+                } catch(e) {}
+            }
+
+            // Check HONEYJAR_ADMIN_POSTS_V1
+            const saved2 = localStorage.getItem('HONEYJAR_ADMIN_POSTS_V1');
+            if (saved2) {
+                try {
+                    const adminPosts2 = JSON.parse(saved2);
+                    const h2 = adminPosts2.filter(p => p.isHidden).map(p => p.slug);
+                    hiddenSlugs = [...hiddenSlugs, ...h2];
+                } catch(e) {}
+            }
+
+            hiddenSlugs = Array.from(new Set(hiddenSlugs)).filter(Boolean);
 
             // 1. PC 카드 필터링
             const allPcCards = Array.from(document.querySelectorAll('#desktopCardsGrid .article-item'));
             allPcCards.forEach(el => {
                 const link = el.querySelector('a');
                 const href = link ? (link.getAttribute('href') || '') : '';
-                if (hiddenSlugs.some(slug => href.includes(slug))) {
+                const isHidden = hiddenSlugs.some(slug => href.includes(slug));
+                if (isHidden) {
                     el.setAttribute('data-admin-hidden', 'true');
                 } else {
                     el.removeAttribute('data-admin-hidden');
@@ -1175,7 +1199,8 @@
             allMobFeeds.forEach(el => {
                 const link = el.querySelector('a');
                 const href = link ? (link.getAttribute('href') || '') : '';
-                if (hiddenSlugs.some(slug => href.includes(slug))) {
+                const isHidden = hiddenSlugs.some(slug => href.includes(slug));
+                if (isHidden) {
                     el.setAttribute('data-admin-hidden', 'true');
                 } else {
                     el.removeAttribute('data-admin-hidden');
@@ -1223,7 +1248,8 @@
             top10List.forEach(li => {
                 const a = li.querySelector('a');
                 const href = a ? (a.getAttribute('href') || '') : '';
-                if (hiddenSlugs.some(slug => href.includes(slug))) {
+                const isHidden = hiddenSlugs.some(slug => href.includes(slug));
+                if (isHidden) {
                     li.style.setProperty('display', 'none', 'important');
                 } else {
                     if (currentRank <= 10) {

@@ -12,10 +12,10 @@
     <meta charset="UTF-8">
         <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 🍯 꿀단지 공식 파비콘 -->
-    <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="alternate icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <!-- 🍯 꿀단지 공식 파비콘 (화이트 베이스 쨍한 아이콘) -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg?v=2.0">
+    <link rel="alternate icon" type="image/png" sizes="32x32" href="favicon-32x32.png?v=2.0">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png?v=2.0">
     <title>관리자 대시보드 & 글 발행기 | 혀니의 꿀단지</title>
     
     <link rel="stylesheet" href="css/style.css?v=20260826120000">
@@ -78,7 +78,49 @@
         .auth-err { display: none; color: #dc2626; font-size: 0.82rem; margin-top: 12px; font-weight: 600; }
 
         /* 🎛️ 2. 관리자 메인 콘솔 네비바 & 레이아웃 */
-        .admin-nav-bar {
+                .admin-nav-bar {
+            background: #111827;
+            color: #ffffff;
+            padding: 0;
+            width: 100%;
+            border-bottom: 1px solid #1f2937;
+        }
+        .admin-nav-inner {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        .admin-nav-inner h1 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+            color: #ffffff !important;
+        }
+        .analytics-banner-wrap h3,
+        .analytics-banner-title {
+            color: #ffffff !important;
+            font-size: 1.12rem !important;
+            font-weight: 850 !important;
+            margin: 0 0 6px 0 !important;
+            letter-spacing: -0.3px !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6) !important;
+        }
+        .analytics-banner-wrap p,
+        .analytics-banner-desc {
+            color: #e2e8f0 !important;
+            font-size: 0.86rem !important;
+            margin: 0 0 14px 0 !important;
+            line-height: 1.5 !important;
+        }
+        .admin-nav-bar-old {
             background: #111827;
             color: #ffffff;
             padding: 16px 24px;
@@ -311,6 +353,127 @@
         .btn-cancel-edit {
             background: #f3f4f6; color: #4b5563; border: 1px solid #d1d5db; padding: 10px; font-size: 0.88rem; font-weight: 600; border-radius: 6px; cursor: pointer; margin-top: 10px; width: 100%; display: none;
         }
+            /* 📱 모바일 관리자 콘솔 전용 반응형 UI (칼각 미니멀 정돈) */
+        @media (max-width: 768px) {
+                    .admin-nav-bar {
+            background: #111827;
+            color: #ffffff;
+            padding: 0;
+            width: 100%;
+            border-bottom: 1px solid #1f2937;
+        }
+        .admin-nav-inner {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 14px 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-sizing: border-box;
+            width: 100%;
+        }
+        .admin-nav-inner h1 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0;
+            color: #ffffff !important;
+        }
+        .analytics-banner-wrap h3,
+        .analytics-banner-title {
+            color: #ffffff !important;
+            font-size: 1.12rem !important;
+            font-weight: 850 !important;
+            margin: 0 0 6px 0 !important;
+            letter-spacing: -0.3px !important;
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6) !important;
+        }
+        .analytics-banner-wrap p,
+        .analytics-banner-desc {
+            color: #e2e8f0 !important;
+            font-size: 0.86rem !important;
+            margin: 0 0 14px 0 !important;
+            line-height: 1.5 !important;
+        }
+        .admin-nav-bar-old {
+                padding: 10px 14px !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+            }
+            .admin-nav-bar h1 {
+                font-size: 0.98rem !important;
+                gap: 6px !important;
+            }
+            .admin-status-badge {
+                display: none !important;
+            }
+            .admin-logout-btn {
+                padding: 4px 8px !important;
+                font-size: 0.76rem !important;
+            }
+            .clean-container {
+                padding: 0 10px !important;
+            }
+            .post-table-container, .editor-box {
+                padding: 14px 12px !important;
+                margin-top: 14px !important;
+                margin-bottom: 18px !important;
+                border-radius: 10px !important;
+            }
+            .editor-header {
+                flex-direction: column !important;
+                align-items: flex-start !important;
+                gap: 4px !important;
+                margin-bottom: 12px !important;
+                padding-bottom: 8px !important;
+            }
+            .editor-header > div:first-child {
+                font-size: 0.98rem !important;
+                font-weight: 800 !important;
+            }
+            .editor-header > div:last-child {
+                font-size: 0.74rem !important;
+            }
+            .analytics-banner-wrap {
+                padding: 14px 12px !important;
+                margin-top: 12px !important;
+                border-radius: 10px !important;
+            }
+            .analytics-banner-title {
+                font-size: 0.92rem !important;
+            }
+            .analytics-banner-desc {
+                font-size: 0.75rem !important;
+                margin-bottom: 10px !important;
+            }
+            .analytics-btn-grid {
+                display: grid !important;
+                grid-template-columns: repeat(3, 1fr) !important;
+                gap: 6px !important;
+                width: 100% !important;
+            }
+            .analytics-btn-grid a {
+                padding: 7px 4px !important;
+                font-size: 0.72rem !important;
+                text-align: center !important;
+                border-radius: 6px !important;
+                white-space: nowrap !important;
+                overflow: hidden !important;
+                text-overflow: ellipsis !important;
+                display: block !important;
+            }
+            .form-row {
+                grid-template-columns: 1fr !important;
+                gap: 0 !important;
+            }
+            .btn-action-group {
+                grid-template-columns: 1fr !important;
+                gap: 8px !important;
+            }
+        }
     </style>
 </head>
 <body style="background: #f9fafb; margin: 0; padding-bottom: 40px;">
@@ -335,27 +498,30 @@
 <!-- 🎛️ 2단계: 인증 성공 시 열리는 관리자 메인 콘솔 -->
 <div id="adminContent" style="display: none;">
     <div class="admin-nav-bar">
-        <h1>
-            <span>🍯 혀니의 꿀단지 운영 콘솔</span>
-            <span class="admin-status-badge">● 보안 세션 연결됨</span>
-        </h1>
-        <div style="display: flex; gap: 12px; align-items: center;">
-            <a href="index.html" target="_blank" style="color: #d1d5db; font-size: 0.86rem; text-decoration: none;">내 블로그 바로가기 ↗</a>
-            <button onclick="handleAdminLogout()" class="admin-logout-btn">로그아웃</button>
+        <div class="admin-nav-inner">
+            <h1>
+                <span>🍯 혀니의 꿀단지 운영 콘솔</span>
+                <span class="admin-status-badge">● 보안 세션 연결됨</span>
+            </h1>
+            <div style="display: flex; gap: 14px; align-items: center;">
+                <a href="index.html" target="_blank" style="color: #94a3b8; font-size: 0.86rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">내 블로그 바로가기 ↗</a>
+                <button onclick="handleAdminLogout()" class="admin-logout-btn">로그아웃</button>
+            </div>
         </div>
     </div>
 
     <main class="clean-container" style="max-width: 1040px; margin: 0 auto; padding: 0 16px;">
         <!-- 🔍 1. 구글 서치콘솔 & 애널리틱스(GA4) 검색어 연동 센터 -->
-        <div style="background: linear-gradient(135deg, #111827, #1f2937); color: #ffffff; border-radius: 14px; padding: 20px 24px; margin-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px;">
+        <!-- 🔍 1. 구글 서치콘솔 & 애널리틱스(GA4) 검색어 연동 센터 -->
+        <div class="analytics-banner-wrap" style="background: linear-gradient(135deg, #111827, #1f2937); color: #ffffff; border-radius: 14px; padding: 18px 22px; margin-top: 16px;">
             <div>
-                <h3 style="font-size: 1.05rem; font-weight: 800; margin: 0 0 4px 0; color:#ffffff;">🔍 구글 서치콘솔 & 애널리틱스(GA4) 검색어 연동 센터</h3>
-                <p style="font-size: 0.82rem; color: #9ca3af; margin: 0;">네이버, 다음, 구글에서 어떤 키워드로 유입되었는지 공식 실시간 데이터를 즉시 확인합니다.</p>
+                <h3 class="analytics-banner-title" style="font-size: 1.02rem; font-weight: 800; margin: 0 0 4px 0; color:#ffffff;">🔍 구글 서치콘솔 & 애널리틱스(GA4) 검색어 연동 센터</h3>
+                <p class="analytics-banner-desc" style="font-size: 0.82rem; color: #9ca3af; margin: 0 0 12px 0;">네이버, 다음, 구글에서 어떤 키워드로 유입되었는지 공식 실시간 데이터를 즉시 확인합니다.</p>
             </div>
-            <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                <a href="https://search.google.com/search-console" target="_blank" style="background:#ea4335; color:#ffffff; font-weight:700; font-size:0.82rem; padding:8px 16px; border-radius:8px; text-decoration:none;">구글 서치콘솔 검색어 분석 ↗</a>
-                <a href="https://analytics.google.com/" target="_blank" style="background:#fbbc04; color:#111827; font-weight:700; font-size:0.82rem; padding:8px 16px; border-radius:8px; text-decoration:none;">구글 GA4 실시간 접속 ↗</a>
-                <a href="https://searchadvisor.naver.com/" target="_blank" style="background:#03c75a; color:#ffffff; font-weight:700; font-size:0.82rem; padding:8px 16px; border-radius:8px; text-decoration:none;">네이버 서치어드바이저 ↗</a>
+            <div class="analytics-btn-grid" style="display: flex; gap: 8px; flex-wrap: wrap;">
+                <a href="https://search.google.com/search-console" target="_blank" style="background:#ea4335; color:#ffffff; font-weight:700; font-size:0.80rem; padding:8px 14px; border-radius:8px; text-decoration:none;">구글 서치콘솔 ↗</a>
+                <a href="https://analytics.google.com/" target="_blank" style="background:#fbbc04; color:#111827; font-weight:700; font-size:0.80rem; padding:8px 14px; border-radius:8px; text-decoration:none;">구글 GA4 실시간 ↗</a>
+                <a href="https://searchadvisor.naver.com/" target="_blank" style="background:#03c75a; color:#ffffff; font-weight:700; font-size:0.80rem; padding:8px 14px; border-radius:8px; text-decoration:none;">네이버 서치 ↗</a>
             </div>
         </div>
 
@@ -724,6 +890,9 @@
 
     function savePostsData() {
         localStorage.setItem('honeyjar_admin_posts', JSON.stringify(posts));
+        localStorage.setItem('HONEYJAR_ADMIN_POSTS_V1', JSON.stringify(posts));
+        const hiddenSlugs = posts.filter(p => p.isHidden).map(p => p.slug);
+        localStorage.setItem('honeyjar_hidden_slugs', JSON.stringify(hiddenSlugs));
         updateStats();
     }
 
