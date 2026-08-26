@@ -370,7 +370,7 @@ async function initDynamicPopularRanking() {
     const widgetTitles = document.querySelectorAll('.sidebar-widget .widget-title span');
     widgetTitles.forEach(titleEl => {
         if (titleEl.textContent.includes('인기')) {
-            titleEl.textContent = '🔥 인기글 TOP 10';
+            titleEl.textContent = '인기글 TOP 10';
         }
     });
 

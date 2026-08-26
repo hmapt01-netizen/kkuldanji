@@ -4279,3 +4279,55 @@ footer.clean-footer {
         opacity: 0.6 !important;
     }
 }
+/* 🖥️ PC 전용 메타바 공유 버튼 (모바일에서는 상단 헤더에 있으므로 자동 숨김) */
+.meta-share-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    background: transparent !important;
+    border: none !important;
+    color: #64748b !important;
+    font-size: 0.82rem !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    text-decoration: none !important;
+    font-family: inherit !important;
+}
+@media (max-width: 768px) {
+    .meta-share-btn {
+        display: none !important;
+    }
+}
+/* 📱 모바일 전용 헤더 (PC 데스크톱에서는 100% 완전 소멸) */
+.mobile-tistory-header {
+    display: none !important;
+}
+@media (max-width: 768px) {
+    .mobile-tistory-header {
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        width: 100% !important;
+        height: 52px !important;
+        min-height: 52px !important;
+        max-height: 52px !important;
+        background: #ffffff !important;
+        border-bottom: 1px solid #e5e7eb !important;
+        padding: 0 12px !important;
+        position: sticky !important;
+        top: 0 !important;
+        left: 0 !important;
+        z-index: 99999 !important;
+        box-sizing: border-box !important;
+        margin: 0 !important;
+    }
+}
+@media (min-width: 769px) {
+    .mobile-tistory-header,
+    header.mobile-tistory-header {
+        display: none !important;
+        height: 0 !important;
+        overflow: hidden !important;
+        visibility: hidden !important;
+    }
+}

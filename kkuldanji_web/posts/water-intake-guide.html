@@ -114,19 +114,22 @@
     <style id="guaranteedMasterPostStyle">
         
         
-        .brand-text-stack { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
+        .brand-text-stack {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
             display: flex !important;
             flex-direction: column !important;
             justify-content: center !important;
             line-height: 1.15 !important;
         }
-        .brand-sub-title { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
+        .brand-sub-title {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
             font-size: 0.72rem !important;
             font-weight: 800 !important;
             color: #c26908 !important;
             letter-spacing: 0.5px !important;
         }
-        .brand-main-title { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
+        .brand-main-title {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
             font-size: 1.35rem !important;
             font-weight: 800 !important;
             color: #111827 !important;
@@ -819,19 +822,20 @@ figure.post-photo-figure figcaption,
     
         .article-body-content h2, .article-body-content h3, #faq { scroll-margin-top: 75px !important; }
         html { scroll-behavior: smooth !important; }
-    </style>
+    @media (min-width: 769px) { .mobile-tistory-header { display: none !important; } }
+</style>
 </head>
 <body class="tistory-single-post">
 
     <!-- 📱 모바일 스마트 상단 헤더 -->
-    <!-- 📱 모바일 스마트 상단 헤더 (뒤로가기 + 제목(홈이동) + 공유) -->
     <!-- 📱 모바일 스마트 상단 헤더 (1줄 칼각 고정: 뒤로가기 + 제목(홈이동) + 공유) -->
-    <header class="mobile-tistory-header" style="display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: space-between !important; width: 100% !important; height: 52px !important; min-height: 52px !important; max-height: 52px !important; background: #ffffff !important; border-bottom: 1px solid #e5e7eb !important; padding: 0 12px !important; position: sticky !important; top: 0 !important; z-index: 99999 !important; box-sizing: border-box !important; margin: 0 !important;">
-        <div style="display: flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important; width: 36px !important; height: 36px !important;">
+    <!-- 📱 모바일 스마트 상단 헤더 (1줄 칼각 고정: 뒤로가기 + 제목(홈이동) + 공유) -->
+    <header class="mobile-tistory-header" style="display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important; justify-content: space-between !important; width: 100% !important; height: 52px !important; min-height: 52px !important; max-height: 52px !important; background-color: #ffffff !important; border-bottom: 1px solid #e5e7eb !important; padding: 0 12px !important; position: sticky !important; top: 0 !important; left: 0 !important; z-index: 99999 !important; box-sizing: border-box !important; margin: 0 !important;">
+        <div style="display: flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important; width: 36px !important; height: 36px !important; min-width: 36px !important;">
             <a href="../index.html" style="display: flex !important; align-items: center !important; justify-content: center !important; width: 36px !important; height: 36px !important; color: #111827 !important; text-decoration: none !important;" title="뒤로가기"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></a>
         </div>
-        <a href="../index.html" style="flex: 1 1 0% !important; min-width: 0 !important; max-width: calc(100% - 80px) !important; font-size: 0.95rem !important; font-weight: 750 !important; color: #111827 !important; text-decoration: none !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; padding: 0 8px !important; text-align: left !important; line-height: 52px !important; height: 52px !important; display: block !important;" title="메인 홈으로 가기">내 몸에 맞는 하루 물 섭취량 계산법과 올바르게 마시는 꿀팁</a>
-        <div style="display: flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important; width: 36px !important; height: 36px !important;">
+        <a href="../index.html" style="flex: 1 1 0% !important; min-width: 0 !important; max-width: calc(100% - 80px) !important; font-size: 0.95rem !important; font-weight: 750 !important; color: #111827 !important; text-decoration: none !important; white-space: nowrap !important; overflow: hidden !important; text-overflow: ellipsis !important; padding: 0 8px !important; text-align: left !important; line-height: 52px !important; height: 52px !important; display: block !important; box-sizing: border-box !important;" title="메인 홈으로 가기">내 몸에 맞는 하루 물 섭취량 계산법과 올바르게 마시는 꿀팁</a>
+        <div style="display: flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important; width: 36px !important; height: 36px !important; min-width: 36px !important;">
             <button type="button" onclick="copyArticleUrl()" style="display: flex !important; align-items: center !important; justify-content: center !important; width: 36px !important; height: 36px !important; background: transparent !important; border: none !important; color: #374151 !important; cursor: pointer !important; padding: 0 !important;" title="공유하기"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg></button>
         </div>
     </header>
@@ -874,11 +878,19 @@ figure.post-photo-figure figcaption,
                         내 몸에 맞는 하루 물 섭취량 계산법과 올바르게 마시는 꿀팁
                     </h1>
                     <!-- 메타바 (에디터 혀니 · 날짜 · (최신) · 학술 출처 태그) -->
-                    <div class="article-meta-bar" style="display:flex; align-items:center; flex-wrap:wrap; gap:8px;"><span>에디터 혀니</span>
-                        <span>·</span>
-                        <span>2026.08.19</span>
-                        <span>·</span>
-                        <span class="academic-source-tag">신장내과학·수분대사학 가이드라인 기반</span> </div>
+                    <!-- 메타바 (에디터 혀니 · 날짜 · NEW · 우측 공유) -->
+                    <div class="article-meta-bar" style="display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid #f1f5f9; padding-bottom:12px; margin-bottom:20px; font-size:0.84rem; color:#64748b;">
+                        <div style="display:flex; align-items:center; gap:6px;">
+                            <span>에디터 혀니</span>
+                            <span>·</span>
+                            <span>2026.08.11</span>
+                            
+                        </div>
+                        <button type="button" onclick="copyArticleUrl()" class="meta-share-btn" title="글 주소 복사하기">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle; margin-right:4px;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                            <span>공유</span>
+                        </button>
+                    </div>
                 </header>
 
                 <!-- 🌟 대표 메인 화보 (좌우 100% 꽉 찬 와이드 화보 + 캡션) -->
@@ -1219,7 +1231,67 @@ figure.post-photo-figure figcaption,
                     </section>
 
                 </div>
+            </article>
+        </main>
+
+        <!-- 2번째 열: 우측 사이드바 (1. 프로필 + 2. 인기글 TOP 10 + 3. 계산기) -->
+        <aside class="article-sidebar">
             
+            <!-- 1. Editor Profile Widget -->
+            <div class="sidebar-profile-card">
+                <div class="avatar-box">
+                    <img src="../images/logo.png" alt="에디터 혀니">
+                </div>
+                <div class="profile-name">에디터 혀니</div>
+                <p class="profile-desc">
+                    정직하고 유익한 라이프 &amp; 웰니스 꿀팁을 전하는 꿀단지 공식 에디터입니다.
+                </p>
+                <span class="profile-badge">웰니스 칼럼니스트</span>
+            </div>
+
+            <!-- 2. Popular Posts TOP 10 Widget -->
+            <div class="sidebar-widget" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; padding:22px 20px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.03);">
+                <h3 class="widget-title" style="font-size:1.02rem; font-weight:800; color:#111827; margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid #f1f5f9; display:flex; align-items:center; gap:6px;">
+                    <span>인기글 TOP 10</span>
+                </h3>
+                <ul class="popular-list" id="popularPostsWidgetList">
+                    <!-- JS 실시간 자동 렌더링 -->
+                </ul>
+            </div>
+
+            </aside>
+    </div>
+
+    <!-- 📱 모바일 스마트폰 하단 고정 액션바 (1번 캡처 완벽 일치: 좌측 공감/댓글 + 우측 공유 아이콘) -->
+    <nav class="naver-bottom-bar" aria-label="하단 빠른 메뉴">
+        <div class="naver-bottom-container">
+            <div class="naver-bottom-actions">
+                <button type="button" class="naver-bottom-btn" onclick="toggleBottomHeart(this)" aria-label="공감하기">
+                    <svg class="icon-heart" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#475569" stroke-width="2"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                    <span class="heart-count">4</span>
+                </button>
+                <button type="button" class="naver-bottom-btn" onclick="scrollToComments()" aria-label="댓글보기">
+                    <svg class="icon-comment" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#475569" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+                    <span class="comment-count">0</span>
+                </button>
+            </div>
+            <button type="button" class="naver-bottom-btn btn-share-icon-only" onclick="copyCurrentUrl()" aria-label="공유하기">
+                <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="#475569" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
+            </button>
+        </div>
+    </nav>
+
+    <!-- 📄 푸터 -->
+    <footer class="clean-footer">
+        <div class="footer-inner">
+            <div class="footer-info-group">
+                <p class="footer-copy">&copy; 2026 <strong>꿀단지</strong>. All rights reserved.</p>
+                <p class="footer-meta-desktop">운영자: 혀니 | 이메일: hmapt01@gmail.com | 주소: 대한민국 서울시 도봉구 해등로 231</p>
+                <div class="footer-meta-mobile">
+                    <p>운영자: 혀니 | 이메일: hmapt01@gmail.com</p>
+                    <p>주소: 대한민국 서울시 도봉구 해등로 231</p>
+                </div>
+            </div>
             <ul class="footer-links">
                 <li><a href="../about.html">소개</a></li>
                 <li><a href="../privacy.html">개인정보처리방침</a></li>
@@ -1231,12 +1303,9 @@ figure.post-photo-figure figcaption,
     </footer>
 
     
-    
-    <script defer src="../js/features.js?v=20260825133517"></script>
+    <script defer src="../js/comments.js"></script>
+    <script defer src="../js/features.js?v=202608261345"></script>
     <script defer src="../js/tracker.js?v=20260825140000"></script>
-
-
-
 <script>
 // 🛡️ 100% Crash-Proof Share & Copy Engine (Top Toast Notification)
 function copyArticleUrl() {
