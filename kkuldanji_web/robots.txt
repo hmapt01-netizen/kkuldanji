@@ -1,4 +1,5 @@
-User-agent: *
+﻿User-agent: *
+Disallow: /admin.html
 Allow: /
 
 Sitemap: https://honeyjar.co.kr/sitemap.xml
