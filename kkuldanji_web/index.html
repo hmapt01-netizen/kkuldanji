@@ -1167,6 +1167,55 @@
             });
 
             const livePcCards = allPcCards.filter(el => el.getAttribute('data-admin-hidden') !== 'true');
+
+            // 🌟 2. PC & 모바일 에디터 PICK 대형 메인 배너를 "살아있는 최신 1위 글"로 100% 자동 승계 교체
+            if (livePcCards.length > 0) {
+                const top1Card = livePcCards[0];
+                const top1Link = top1Card.querySelector('a') ? top1Card.querySelector('a').getAttribute('href') : '';
+                const top1Img = top1Card.querySelector('img') ? top1Card.querySelector('img').getAttribute('src') : '';
+                const top1Cat = top1Card.getAttribute('data-category') || '건강 칼럼';
+                const top1Title = top1Card.querySelector('h3') ? top1Card.querySelector('h3').textContent.trim() : '';
+                const top1Desc = top1Card.querySelector('p') ? top1Card.querySelector('p').textContent.trim() : '';
+                const top1Date = top1Card.querySelector('div[style*="color:#94a3b8"]') ? top1Card.querySelector('div[style*="color:#94a3b8"]').textContent.trim() : '2026.08.25';
+
+                // (1) PC 좌측 히어로 대형 화보 배너 업데이트
+                const heroLeft = document.querySelector('.hero-master-left');
+                if (heroLeft) {
+                    const heroA = heroLeft.querySelector('a');
+                    const heroImg = heroLeft.querySelector('img');
+                    const heroCat = heroLeft.querySelector('.hero-cat-tag');
+                    const heroH2A = heroLeft.querySelector('.hero-title-text a');
+                    const heroDesc = heroLeft.querySelector('.hero-desc-text');
+                    const heroMeta = heroLeft.querySelector('div[style*="border-top"] span');
+
+                    if (heroA) heroA.setAttribute('href', top1Link);
+                    if (heroImg) {
+                        heroImg.setAttribute('src', top1Img);
+                        heroImg.setAttribute('alt', top1Title);
+                    }
+                    if (heroCat) heroCat.textContent = top1Cat;
+                    if (heroH2A) {
+                        heroH2A.setAttribute('href', top1Link);
+                        heroH2A.textContent = top1Title;
+                    }
+                    if (heroDesc) heroDesc.textContent = top1Desc;
+                    if (heroMeta) heroMeta.textContent = `에디터 혀니 · ${top1Date}`;
+                }
+
+                // (2) 모바일 상단 "이번 주 에디터 PICK" 카드 업데이트
+                const mobPick = document.querySelector('.mobile-editor-pick-card');
+                if (mobPick) {
+                    mobPick.setAttribute('onclick', `location.href='${top1Link}'`);
+                    const mobH4 = mobPick.querySelector('h4');
+                    const mobImg = mobPick.querySelector('img');
+                    if (mobH4) mobH4.textContent = top1Title;
+                    if (mobImg) {
+                        mobImg.setAttribute('src', top1Img);
+                        mobImg.setAttribute('alt', top1Title);
+                    }
+                }
+            }
+
             const matchedPcCards = livePcCards.filter(el => {
                 const c = el.getAttribute('data-category') || '';
                 const title = (el.querySelector('h3') ? el.querySelector('h3').textContent : '').toLowerCase();
@@ -1194,7 +1243,7 @@
                 pcBtn.style.display = (matchedPcCards.length > pcShown) ? 'inline-block' : 'none';
             }
 
-            // 2. 모바일 피드 스트림 필터링
+            // 3. 모바일 피드 스트림 필터링
             const allMobFeeds = Array.from(document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item'));
             allMobFeeds.forEach(el => {
                 const link = el.querySelector('a');
@@ -1242,7 +1291,7 @@
                 }
             }
 
-            // 3. 인기글 TOP 10 실시간 재정렬
+            // 4. PC 인기글 TOP 10 실시간 재정렬
             const top10List = Array.from(document.querySelectorAll('.hero-master-right li'));
             let currentRank = 1;
             top10List.forEach(li => {
@@ -1266,6 +1315,27 @@
                     }
                 }
             });
+
+            // 5. 모바일 인기글 TOP 5 실시간 재정렬
+            const mobTop5Items = Array.from(document.querySelectorAll('.mobile-popular-top5-card > div'));
+            let mobRank = 1;
+            mobTop5Items.forEach(item => {
+                const clickAttr = item.getAttribute('onclick') || '';
+                const isHidden = hiddenSlugs.some(slug => clickAttr.includes(slug));
+                if (isHidden) {
+                    item.style.setProperty('display', 'none', 'important');
+                } else {
+                    if (mobRank <= 5) {
+                        item.style.setProperty('display', 'flex', 'important');
+                        const rankSpan = item.querySelector('span[style*="font-weight:800; color:#d97706;"]');
+                        if (rankSpan) rankSpan.innerText = `TOP ${mobRank}`;
+                        mobRank++;
+                    } else {
+                        item.style.setProperty('display', 'none', 'important');
+                    }
+                }
+            });
+
         } catch(e) {
             console.error('Filter error:', e);
         }
