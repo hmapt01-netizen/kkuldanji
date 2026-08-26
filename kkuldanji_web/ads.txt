@@ -1,3 +1,1 @@
-# Google AdSense ads.txt for 혀니의 꿀단지
-# 애드센스 승인 후 본인의 고유 게시자 ID(ca-pub-XXXXXXXXXXXXXXXX)로 교체하시면 됩니다.
-google.com, pub-XXXXXXXXXXXXXXXX, DIRECT, f08c47fec0942fa0
+﻿google.com, pub-4739687813221133, DIRECT, f08c47fec0942fa0
