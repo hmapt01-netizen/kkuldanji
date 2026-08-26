@@ -288,3 +288,36 @@ function escapeHtml(string) {
 document.addEventListener('DOMContentLoaded', () => {
     renderCommentSection();
 });
+
+// 🍯 Smart Lazy Load Comments (Zero Network Calls on Page Load)
+let commentsLoaded = false;
+
+function initLazyComments() {
+    if (commentsLoaded) return;
+    commentsLoaded = true;
+    if (typeof loadComments === 'function') {
+        loadComments();
+    }
+}
+
+// 1. Trigger when user scrolls to comment section
+document.addEventListener('DOMContentLoaded', () => {
+    const commentBox = document.getElementById('commentsContainer') || document.querySelector('.comments-section') || document.querySelector('.comment-section');
+    if (commentBox && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting) {
+                initLazyComments();
+                observer.disconnect();
+            }
+        }, { rootMargin: '200px' });
+        observer.observe(commentBox);
+    } else {
+        // Fallback after 3 seconds of idle time
+        setTimeout(initLazyComments, 3000);
+    }
+});
+
+// 2. Immediate trigger if user clicks comment button in bottom bar
+window.triggerCommentLoad = function() {
+    initLazyComments();
+};

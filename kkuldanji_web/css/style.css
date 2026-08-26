@@ -1,4 +1,9 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿/* ==========================================================================
+﻿
+
+.brand-text-stack, .brand-main-title, .brand-sub-title {
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
+}
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿/* ==========================================================================
    혀니의 꿀단지 (KKULDANJI | Life & Wellness Journal)
    Pure Minimalist & Clean Editorial Edition (v8.0)
    - 2열 매거진 레이아웃 (본문 720px + 우측 사이드바 300px)
@@ -4181,5 +4186,96 @@ footer.clean-footer {
     .footer-links {
         justify-content: center !important;
         gap: 12px !important;
+    }
+}
+
+/* 🔗 상단 공유 버튼 - 메타바와 100% 일체화된 순수 텍스트 스타일 */
+.btn-share-top {
+    background: transparent !important;
+    border: none !important;
+    color: #64748b !important;
+    font-size: 0.82rem !important;
+    font-weight: 400 !important;
+    cursor: pointer !important;
+    padding: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 3px !important;
+    margin-left: auto !important;
+    box-shadow: none !important;
+}
+.btn-share-top:hover {
+    color: #c26908 !important;
+    text-decoration: underline !important;
+}
+/* 📱 모바일 최상급 표준 헤더바 (뒤로가기 + 제목홈링크 + 검색 + 공유) */
+.mobile-tistory-header {
+    display: none !important;
+}
+@media (max-width: 768px) {
+    .mobile-tistory-header {
+        display: flex !important;
+        position: sticky !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 52px !important;
+        background: #ffffff !important;
+        border-bottom: 1px solid #e5e7eb !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        padding: 0 12px !important;
+        z-index: 9999 !important;
+        box-sizing: border-box !important;
+    }
+    .m-header-left {
+        display: flex !important;
+        align-items: center !important;
+        flex-shrink: 0 !important;
+    }
+    .m-back-btn {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 36px !important;
+        height: 36px !important;
+        color: #111827 !important;
+        text-decoration: none !important;
+        font-size: 1.4rem !important;
+        font-weight: 400 !important;
+    }
+    .m-header-title {
+        flex: 1 !important;
+        font-size: 0.95rem !important;
+        font-weight: 750 !important;
+        color: #111827 !important;
+        text-decoration: none !important;
+        white-space: nowrap !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+        padding: 0 8px !important;
+        text-align: left !important;
+    }
+    .m-header-right {
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        flex-shrink: 0 !important;
+    }
+    .m-action-btn {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 36px !important;
+        height: 36px !important;
+        color: #374151 !important;
+        background: transparent !important;
+        border: none !important;
+        cursor: pointer !important;
+        padding: 0 !important;
+        text-decoration: none !important;
+    }
+    .m-action-btn:active {
+        opacity: 0.6 !important;
     }
 }
