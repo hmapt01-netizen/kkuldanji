@@ -704,7 +704,7 @@
         window.location.href = "index.html";
     }
 
-    // 📚 5. 11편 전체 포스트 기본 데이터베이스 (로컬 고화질 화보 연동)
+    // 📚 5. 11편 전체 포스트 기본 데이터베이스 (실제 로컬 고화질 화보 1:1 정확한 연동)
     const defaultPosts = [
         {
             id: 11,
@@ -714,9 +714,9 @@
             author: "에디터 혀니",
             date: "2026.08.25",
             views: "0",
-            thumb: "images/posts/lifestyle/thumb.jpg?v=2.0",
+            thumb: "images/posts/walking/thumb.jpg?v=2.0",
             link: "posts/post-meal-walk-blood-sugar.html",
-            desc: "식후 10분 가벼운 산책이 식후 혈당 스파이크를 완화하고 인슐린 저항성을 개선하는 과학적 원리와 4060 세대를 위한 안전 걷기 가이드.",
+            desc: "식후 15분 이내 10분 걷기가 인슐린 분비를 30% 낮추고 혈당 스파이크와 내장지방을 막는 과학적 기전.",
             content: "식사 후 10분 걷기의 놀라운 혈당 강하 기전...",
             isHidden: false
         },
@@ -728,7 +728,7 @@
             author: "에디터 혀니",
             date: "2026.08.25",
             views: "0",
-            thumb: "images/posts/fitness/thumb.jpg?v=2.0",
+            thumb: "images/posts/squat/thumb.jpg?v=2.0",
             link: "posts/knee-safe-squat-workout.html",
             desc: "무릎 관절 손상 없이 대퇴사두근과 둔근을 강화하는 중장년 맞춤형 안전 스쿼트 변형 동작과 무릎 보호 꿀팁.",
             content: "관절 친화적 의자 스쿼트 및 벽 스쿼트 루틴...",
@@ -742,7 +742,7 @@
             author: "에디터 혀니",
             date: "2026.08.20",
             views: "0",
-            thumb: "images/posts/fitness/thumb.jpg?v=2.0",
+            thumb: "images/posts/core/thumb.jpg?v=2.0",
             link: "posts/core-exercise-home.html",
             desc: "점프 동작 없이 매트 한 장으로 복부와 척추 기립근을 단련하는 아파트 맞춤형 무소음 코어 운동 가이드.",
             content: "플랭크, 데드버그 등 층간소음 걱정 없는 고효율 홈트 동작...",
@@ -756,10 +756,10 @@
             author: "에디터 혀니",
             date: "2026.08.20",
             views: "0",
-            thumb: "images/posts/fitness/thumb.jpg?v=2.0",
+            thumb: "images/posts/posture/thumb.jpg?v=2.0",
             link: "posts/posture-stretching-office.html",
-            desc: "장시간 모니터를 보는 직장인의 목·어깨 통증을 즉각 완화하는 흉추 가동성 및 승모근 이완 5분 루틴.",
-            content: "사무실 의자에 앉아서 바로 따라하는 5분 바른 자세 스트레칭...",
+            desc: "장시간 모니터를 보는 직장인의 목·어깨 통증을 즉각 완화하는 흉추 가동성 및 승모근 릴리즈 스트레칭.",
+            content: "의자에 앉아서 하는 초간단 5분 자세 교정 루틴...",
             isHidden: false
         },
         {
@@ -770,10 +770,10 @@
             author: "에디터 혀니",
             date: "2026.08.20",
             views: "0",
-            thumb: "images/posts/lifestyle/thumb.jpg?v=2.0",
+            thumb: "images/posts/sleep/thumb.jpg?v=2.0",
             link: "posts/sleep-hygiene-guide.html",
-            desc: "멜라토닌 분비를 극대화하는 침실 온도, 조도 조절법과 수면 장애를 극복하는 7대 수면 위생 수칙.",
-            content: "깊은 숙면을 위한 침실 환경 설계와 생체 리듬 회복법...",
+            desc: "멜라토닌 분비를 극대화하는 침실 온도, 조도 설정법과 수면 전 스마트폰 블루라이트 차단 수칙.",
+            content: "깊은 숙면을 유도하는 최적의 수면 환경 셋업 가이드...",
             isHidden: false
         },
         {
@@ -784,7 +784,7 @@
             author: "에디터 혀니",
             date: "2026.08.20",
             views: "0",
-            thumb: "images/posts/lifestyle/thumb.jpg?v=2.0",
+            thumb: "images/posts/morning/thumb.jpg?v=2.0",
             link: "posts/morning-routine.html",
             desc: "기상 직후 미온수 한 잔부터 림프 순환 스트레칭까지, 하루 에너지와 집중력을 2배로 올려주는 아침 루틴.",
             content: "성공적인 하루를 만드는 아침 10분의 기적...",
@@ -798,7 +798,7 @@
             author: "에디터 혀니",
             date: "2026.08.20",
             views: "0",
-            thumb: "images/posts/nutrition/thumb.jpg?v=2.0",
+            thumb: "images/posts/water/thumb.jpg?v=2.0",
             link: "posts/water-intake-guide.html",
             desc: "체중과 활동량에 따른 1일 최적 수분 섭취 권장량 계산 공식과 체내 흡수율을 높이는 물 마시는 시간대.",
             content: "체중 * 30ml 공식과 올바른 수분 섭취 타이밍...",
@@ -812,7 +812,7 @@
             author: "에디터 혀니",
             date: "2026.08.20",
             views: "0",
-            thumb: "images/posts/nutrition/thumb.jpg?v=2.0",
+            thumb: "images/posts/fasting/thumb.jpg?v=2.0",
             link: "posts/intermittent-fasting-guide.html",
             desc: "지방 연소와 자가포식을 유도하는 16:8 간헐적 단식의 과학적 원리와 직장인을 위한 최적 시간표.",
             content: "16시간 공복과 8시간 식사 창을 활용한 간헐적 단식 성공 법칙...",
@@ -826,7 +826,7 @@
             author: "에디터 혀니",
             date: "2026.08.20",
             views: "0",
-            thumb: "images/posts/nutrition/thumb.jpg?v=2.0",
+            thumb: "images/posts/mediterranean/thumb.jpg?v=2.0",
             link: "posts/mediterranean-diet.html",
             desc: "유네스코 인류무형문화유산 지중해 식단의 항염증 원리와 한국 마트에서 손쉽게 대체 식재료로 실천하는 가이드.",
             content: "지중해식 식단의 올리브유, 견과류, 신선한 채소 조합...",
@@ -836,11 +836,11 @@
             id: 2,
             slug: "august-seasonal-foods.html",
             title: "8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드",
-            category: "제철 음식",
+            category: "식단 & 영양",
             author: "에디터 혀니",
             date: "2026.08.20",
             views: "0",
-            thumb: "images/posts/seasonal/thumb.jpg?v=2.0",
+            thumb: "images/posts/august/thumb.jpg?v=2.0",
             link: "posts/august-seasonal-foods.html",
             desc: "늦여름 더위에 지친 몸을 깨우는 8월 대표 제철 보약 식재료 5가지의 핵심 영양 성분과 기력 회복 레시피.",
             content: "8월 무더위를 이겨내는 최고의 제철 식재료 5가지 완벽 분석...",
@@ -854,7 +854,7 @@
             author: "에디터 혀니",
             date: "2026.08.20",
             views: "0",
-            thumb: "images/posts/nutrition/thumb.jpg?v=2.0",
+            thumb: "images/posts/ohnara/thumb.jpg?v=2.0",
             link: "posts/ohnara-diet.html",
             desc: "배우 오나라의 샐러드 식단 팩트 분석부터 중년 여성의 기초대사량을 지키는 3대 복합 다관절 운동 루틴까지 실생활에 적용하는 지속 가능한 웰니스 가이드.",
             content: "배우 오나라의 철저한 자기관리 비결인 단백질 위주 샐러드 식단과 기초대사량 유지법...",
@@ -923,7 +923,7 @@
 
             tr.innerHTML = `
                 <td style="text-align:center; font-weight:700; color:#64748b;">${index + 1}</td>
-                <td style="text-align:center;"><img src="${post.thumb}" class="post-thumb-mini" alt="썸네일"></td>
+                <td style="text-align:center;"><img src="${post.thumb}" class="post-thumb-mini" alt="썸네일" onerror="this.src='images/logo.png'"></td>
                 <td style="text-align:center;"><span class="badge-cat">${post.category}</span></td>
                 <td>
                     <strong style="color:#111827; font-size:0.88rem;">${post.title}</strong>
