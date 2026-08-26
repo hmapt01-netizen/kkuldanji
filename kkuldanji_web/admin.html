@@ -866,7 +866,7 @@
     let currentAdminPage = 1;
     const itemsPerPage = 10;
 
-    // 💾 6. 포스트 데이터 로드 및 초기화
+    // 💾 6. 포스트 데이터 로드 및 썸네일 자동 정밀 동기화
     function loadPostsData() {
         const saved = localStorage.getItem('honeyjar_admin_posts');
         if (saved) {
@@ -874,12 +874,21 @@
                 const parsed = JSON.parse(saved);
                 if (Array.isArray(parsed) && parsed.length >= 11) {
                     posts = parsed;
+                    // 구버전 캐시 썸네일 경로를 실제 고화질 파일 경로로 자동 동기화
+                    posts.forEach(p => {
+                        const def = defaultPosts.find(dp => dp.id === p.id || dp.slug === p.slug);
+                        if (def) {
+                            p.thumb = def.thumb;
+                        }
+                    });
+                    savePostsData();
                 } else {
                     posts = defaultPosts;
                     savePostsData();
                 }
             } catch (e) {
                 posts = defaultPosts;
+                savePostsData();
             }
         } else {
             posts = defaultPosts;
