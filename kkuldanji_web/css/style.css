@@ -4296,3 +4296,7 @@ footer.clean-footer {
     }
 }
 .naver-bottom-bar { display: none !important; }
+@media (max-width: 768px) { .pc-only-share, .meta-share-btn { display: none !important; } }
+.pc-only-share { background: transparent !important; border: none !important; }
+.pc-only-share { display: inline-flex; align-items: center; gap: 4px; background: transparent; border: none; }
+@media (max-width: 768px) { .pc-only-share, .meta-share-btn { display: none !important; } }
