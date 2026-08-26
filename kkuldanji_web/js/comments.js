@@ -1,11 +1,11 @@
 ﻿/**
- * 🍯 꿀단지 공식 실시간 글로벌 클라우드 독자 댓글 시스템 (HoneyJar Cloud-Sync Comments Engine)
- * - 전 세계 모든 방문자 실시간 공유 (Cloud Database REST API)
+ * 🍯 꿀단지 공식 실시간 글로벌 클라우드 독자 댓글 시스템 (HoneyJar Cloud Serverless Engine)
+ * - 전 세계 모든 방문자 실시간 공유 (Cloudflare Pages API /api/comments)
  * - 0.01초 광속 렌더링 (로컬 캐시 즉시 표시 + 클라우드 백그라운드 동기화)
  * - 닉네임 / 비밀번호 / 작성일시 / 자동 이니셜 아바타 / 본인 및 관리자(8809) 삭제 지원
  */
 
-const CLOUD_DB_BASE = "https://honeyjar-wellness-default-rtdb.firebaseio.com/comments";
+const API_COMMENTS = "/api/comments";
 
 function getPostSlug() {
     const path = window.location.pathname;
@@ -13,10 +13,6 @@ function getPostSlug() {
     let s = parts[parts.length - 1] || "index.html";
     if (!s.endsWith(".html")) s += ".html";
     return s;
-}
-
-function getCleanSlug(slug) {
-    return (slug || getPostSlug()).replace(/\./g, '_');
 }
 
 function getPostTitle() {
@@ -36,29 +32,16 @@ function getCachedComments(slug) {
 
 // 2. 클라우드 서버에서 전 세계 최신 댓글 실시간 동기화
 async function fetchCloudComments(slug) {
-    const cleanSlug = getCleanSlug(slug);
     try {
-        const response = await fetch(`${CLOUD_DB_BASE}/${cleanSlug}.json`, { cache: 'no-cache' });
+        const response = await fetch(`${API_COMMENTS}?slug=${encodeURIComponent(slug)}`, { cache: 'no-cache' });
         if (response.ok) {
-            const data = await response.json();
-            if (data && typeof data === 'object') {
-                const list = Object.keys(data).map(key => ({
-                    ...data[key],
-                    firebaseKey: key,
-                    id: data[key].id || key
-                }));
-                // 최신순 정렬
+            const list = await response.json();
+            if (Array.isArray(list)) {
                 list.sort((a, b) => (b.timestamp || b.id || 0) - (a.timestamp || a.id || 0));
-                
-                // 로컬 캐시 업데이트
                 try {
                     localStorage.setItem("honeyjar_comments_" + slug, JSON.stringify(list));
                 } catch(e) {}
-                
                 return list;
-            } else {
-                try { localStorage.setItem("honeyjar_comments_" + slug, JSON.stringify([])); } catch(e) {}
-                return [];
             }
         }
     } catch(e) {
@@ -69,7 +52,6 @@ async function fetchCloudComments(slug) {
 
 // 3. 댓글 화면 렌더링 함수
 function renderCommentsList(comments) {
-    // 댓글 수 뱃지 업데이트
     const countEls = document.querySelectorAll('#commentCount, #commentCountBadge, .comment-count-badge');
     countEls.forEach(el => { el.innerText = comments.length; });
 
@@ -102,7 +84,7 @@ function renderCommentsList(comments) {
                             <span style="font-size:0.75rem; color:#94a3b8; margin-left:6px;">${escapeHtml(commentDate)}</span>
                         </div>
                     </div>
-                    <button type="button" onclick="handleDeleteComment('${c.id}', '${c.firebaseKey || ''}')" style="background:transparent !important; border:none !important; outline:none !important; box-shadow:none !important; color:#94a3b8 !important; font-size:0.78rem !important; cursor:pointer !important; padding:4px 6px !important; text-decoration:underline !important; text-underline-offset:2px !important; transition:color 0.15s ease;">삭제</button>
+                    <button type="button" onclick="handleDeleteComment('${c.id}', ${c.issueNumber || 0})" style="background:transparent !important; border:none !important; outline:none !important; box-shadow:none !important; color:#94a3b8 !important; font-size:0.78rem !important; cursor:pointer !important; padding:4px 6px !important; text-decoration:underline !important; text-underline-offset:2px !important; transition:color 0.15s ease;">삭제</button>
                 </div>
                 <div style="font-size:0.90rem; color:#334155; line-height:1.65; word-break:break-word; padding-left:42px;">
                     ${commentContent}
@@ -118,13 +100,11 @@ function renderCommentsList(comments) {
 async function initCommentSection() {
     const slug = getPostSlug();
     
-    // 1단계: 캐시 데이터로 즉시 표시 (화면 깜빡임 제로)
     const cached = getCachedComments(slug);
     if (cached && cached.length > 0) {
         renderCommentsList(cached);
     }
     
-    // 2단계: 전 세계 클라우드 DB에서 실시간 최신 목록 동기화
     const cloudComments = await fetchCloudComments(slug);
     renderCommentsList(cloudComments);
 }
@@ -155,15 +135,9 @@ async function handleCommentSubmit(e) {
     }
 
     const slug = getPostSlug();
-    const cleanSlug = getCleanSlug(slug);
     const postTitle = getPostTitle();
     const now = new Date();
-    const y = now.getFullYear();
-    const m = String(now.getMonth() + 1).padStart(2, '0');
-    const d = String(now.getDate()).padStart(2, '0');
-    const h = String(now.getHours()).padStart(2, '0');
-    const min = String(now.getMinutes()).padStart(2, '0');
-    const dateStr = `${y}.${m}.${d} ${h}:${min}`;
+    const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
     const timestamp = Date.now();
 
     const newComment = {
@@ -177,19 +151,20 @@ async function handleCommentSubmit(e) {
         postTitle: postTitle
     };
 
-    // 1) 클라우드 데이터베이스에 실시간 영구 전송
+    // 1) 클라우드 API에 실시간 전송 (/api/comments)
     try {
-        const response = await fetch(`${CLOUD_DB_BASE}/${cleanSlug}.json`, {
+        const res = await fetch(API_COMMENTS, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(newComment)
         });
-        if (response.ok) {
-            const resData = await response.json();
-            newComment.firebaseKey = resData.name;
+
+        if (res.ok) {
+            const resData = await res.json();
+            newComment.issueNumber = resData.issueNumber;
         }
     } catch(err) {
-        console.warn("클라우드 전송 실패 (로컬 우선 저장):", err);
+        console.warn("클라우드 API 전송 실패 (로컬 우선 저장):", err);
     }
 
     // 2) 로컬 캐시 즉시 업데이트
@@ -209,24 +184,20 @@ async function handleCommentSubmit(e) {
 
     if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.innerText = "댓글 등록";
+        submitBtn.innerText = "등록하기";
     }
-
-    // 5) 백그라운드 클라우드 재동기화
-    fetchCloudComments(slug).then(renderCommentsList);
 
     alert("댓글이 성공적으로 등록되었습니다! 💬");
 }
 
 // 6. 댓글 삭제 핸들러 (비밀번호 확인 후 클라우드 및 캐시에서 삭제)
-async function handleDeleteComment(id, firebaseKey) {
+async function handleDeleteComment(id, issueNumber) {
     const inputPw = prompt("댓글 작성 시 입력한 비밀번호를 입력해 주세요 (관리자는 8809):");
     if (!inputPw) return;
 
     const slug = getPostSlug();
-    const cleanSlug = getCleanSlug(slug);
     const comments = await fetchCloudComments(slug);
-    const target = comments.find(c => String(c.id) === String(id) || c.firebaseKey === firebaseKey);
+    const target = comments.find(c => String(c.id) === String(id) || (issueNumber && c.issueNumber === issueNumber));
 
     if (!target) {
         alert("해당 댓글을 찾을 수 없습니다.");
@@ -238,12 +209,14 @@ async function handleDeleteComment(id, firebaseKey) {
         return;
     }
 
-    // 1) 클라우드 DB에서 영구 삭제
-    const keyToDelete = firebaseKey || target.firebaseKey;
-    if (keyToDelete) {
+    // 1) 클라우드 API에 삭제 요청
+    const issueToDelete = issueNumber || target.issueNumber;
+    if (issueToDelete) {
         try {
-            await fetch(`${CLOUD_DB_BASE}/${cleanSlug}/${keyToDelete}.json`, {
-                method: 'DELETE'
+            await fetch(API_COMMENTS, {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ issueNumber: issueToDelete, pw: inputPw })
             });
         } catch(err) {
             console.warn("클라우드 삭제 통신 실패:", err);
@@ -251,7 +224,7 @@ async function handleDeleteComment(id, firebaseKey) {
     }
 
     // 2) 로컬 캐시에서도 삭제
-    const updated = comments.filter(c => String(c.id) !== String(id) && c.firebaseKey !== keyToDelete);
+    const updated = comments.filter(c => String(c.id) !== String(id) && (!issueToDelete || c.issueNumber !== issueToDelete));
     try {
         localStorage.setItem("honeyjar_comments_" + slug, JSON.stringify(updated));
     } catch(e) {}
@@ -268,7 +241,6 @@ function escapeHtml(str) {
     });
 }
 
-// 브라우저 로딩 즉시 가동
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', initCommentSection);
 } else {
