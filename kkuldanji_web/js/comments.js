@@ -93,18 +93,18 @@ function renderCommentsList(comments) {
         const commentDate = c.date || '최근';
 
         html += `
-            <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:14px 16px; box-shadow:0 1px 4px rgba(0,0,0,0.02);">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
-                    <div style="display:flex; align-items:center; gap:8px;">
-                        <div style="width:30px; height:30px; border-radius:50%; background:#fef3c7; color:#b45309; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.82rem; flex-shrink:0;">${escapeHtml(initial)}</div>
+            <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:12px; padding:16px 18px; box-shadow:0 2px 6px rgba(0,0,0,0.02); margin-bottom:12px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <div style="width:32px; height:32px; border-radius:50%; background:#fef3c7; color:#b45309; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.85rem; flex-shrink:0;">${escapeHtml(initial)}</div>
                         <div>
-                            <span style="font-weight:750; font-size:0.88rem; color:#1e293b;">${escapeHtml(authorName)}</span>
+                            <span style="font-weight:750; font-size:0.90rem; color:#1e293b;">${escapeHtml(authorName)}</span>
                             <span style="font-size:0.75rem; color:#94a3b8; margin-left:6px;">${escapeHtml(commentDate)}</span>
                         </div>
                     </div>
-                    <button type="button" onclick="handleDeleteComment('${c.id}', '${c.firebaseKey || ''}')" style="background:transparent; border:none; color:#94a3b8; font-size:0.76rem; cursor:pointer; padding:2px 6px;">삭제</button>
+                    <button type="button" onclick="handleDeleteComment('${c.id}', '${c.firebaseKey || ''}')" style="background:transparent !important; border:none !important; outline:none !important; box-shadow:none !important; color:#94a3b8 !important; font-size:0.78rem !important; cursor:pointer !important; padding:4px 6px !important; text-decoration:underline !important; text-underline-offset:2px !important; transition:color 0.15s ease;">삭제</button>
                 </div>
-                <div style="font-size:0.88rem; color:#334155; line-height:1.6; word-break:break-word;">
+                <div style="font-size:0.90rem; color:#334155; line-height:1.65; word-break:break-word; padding-left:42px;">
                     ${commentContent}
                 </div>
             </div>
