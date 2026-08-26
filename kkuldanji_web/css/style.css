@@ -66,7 +66,7 @@ strong, b {
 /* ==========================================================================
    Header & Clean Minimal Nav (프리미엄 2단 브랜딩: 혀니의 꿀단지)
    ========================================================================== */
-@import url('https://cdn.jsdelivr.net/gh/moonspam/NanumSquareRound@master/nanumsquareround.min.css');
+
 
 header.clean-header {
     background: #ffffff;
@@ -108,11 +108,11 @@ header.clean-header {
     flex-direction: column;
     justify-content: center;
     line-height: 1.15;
-    font-family: 'NanumSquareRound', 'Pretendard', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif;
 }
 
 .brand-sub-title {
-    font-family: 'NanumSquareRound', 'Pretendard', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif;
     font-size: 0.8rem;
     font-weight: 800;
     color: var(--primary);          /* 따뜻한 꿀 브라운 (#c26908) */
@@ -121,7 +121,7 @@ header.clean-header {
 }
 
 .brand-main-title {
-    font-family: 'NanumSquareRound', 'Pretendard', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif;
     font-size: 1.55rem;
     font-weight: 800;
     color: var(--text-title);        /* 묵직하고 선명한 다크 차콜 (#111827) */
@@ -1357,7 +1357,7 @@ footer.clean-footer {
     }
 
     .naver-mobile-logo-text {
-        font-family: 'NanumSquareRound', 'Pretendard', sans-serif !important;
+        font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif;
         font-size: 1.2rem !important;
         font-weight: 800 !important;
         color: #111827 !important;
@@ -1556,10 +1556,10 @@ footer.clean-footer {
 /* ==========================================================================
    🍯 [나눔스퀘어라운드] 꿀단지 공식 시그니처 폰트 보장
    ========================================================================== */
-@import url('https://cdn.jsdelivr.net/gh/moonspam/NanumSquareRound@master/nanumsquareround.min.css');
+
 
 .brand-text-stack {
-    font-family: 'NanumSquareRound', sans-serif !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif;
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
@@ -1567,7 +1567,7 @@ footer.clean-footer {
 }
 
 .brand-sub-title {
-    font-family: 'NanumSquareRound', sans-serif !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif;
     font-size: 0.72rem !important;
     font-weight: 800 !important;
     color: #c26908 !important;
@@ -1575,7 +1575,7 @@ footer.clean-footer {
 }
 
 .brand-main-title {
-    font-family: 'NanumSquareRound', sans-serif !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif;
     font-size: 1.35rem !important;
     font-weight: 800 !important;
     color: #111827 !important;
@@ -1798,7 +1798,7 @@ footer.clean-footer {
 }
 
 .hero-main-title {
-    font-family: 'NanumSquareRound', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif;
     font-size: 1.85rem;
     font-weight: 850;
     color: #ffffff;
@@ -2179,7 +2179,7 @@ footer.clean-footer {
 }
 
 .hero-main-title {
-    font-family: 'NanumSquareRound', sans-serif !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif;
     font-size: 1.85rem !important;
     font-weight: 850 !important;
     color: #111827 !important;
