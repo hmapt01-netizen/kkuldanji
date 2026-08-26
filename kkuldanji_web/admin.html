@@ -1061,11 +1061,103 @@
         });
     }
 
-    // 💬 11. 댓글 관리 목록 불러오기
+    // 💬 11. 댓글 관리 목록 불러오기 (전체 포스트 댓글 실시간 전수 집계)
     function loadAllAdminComments() {
         const tbody = document.getElementById('adminCommentsTableBody');
+        const countEl = document.getElementById('totalCommentCount');
         if (!tbody) return;
-        tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:24px; color:#9ca3af;">등록된 실시간 댓글이 없습니다.</td></tr>`;
+
+        let allComments = [];
+
+        // 1) 통합 키 확인
+        const savedAll = localStorage.getItem('honeyjar_all_comments');
+        if (savedAll) {
+            try {
+                const parsed = JSON.parse(savedAll);
+                if (Array.isArray(parsed)) allComments = parsed;
+            } catch(e) {}
+        }
+
+        // 2) 개별 포스트 키 스캔
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key && key.startsWith('honeyjar_comments_')) {
+                const slug = key.replace('honeyjar_comments_', '');
+                try {
+                    const postComments = JSON.parse(localStorage.getItem(key)) || [];
+                    postComments.forEach(c => {
+                        if (!allComments.some(ac => String(ac.id) === String(c.id))) {
+                            allComments.push({
+                                ...c,
+                                slug: slug,
+                                postTitle: slug
+                            });
+                        }
+                    });
+                } catch(e) {}
+            }
+        }
+
+        if (countEl) countEl.innerText = allComments.length;
+
+        if (allComments.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="7" style="text-align:center; padding:24px; color:#9ca3af;">등록된 실시간 독자 댓글이 없습니다.</td></tr>`;
+            return;
+        }
+
+        // 최신순 정렬
+        allComments.sort((a, b) => (b.id || 0) - (a.id || 0));
+
+        let html = '';
+        allComments.forEach((c, idx) => {
+            html += `
+                <tr>
+                    <td style="text-align:center; font-weight:700; color:#64748b;">${idx + 1}</td>
+                    <td>
+                        <a href="posts/${c.slug}" target="_blank" style="color:#c26908; font-weight:700; font-size:0.84rem; text-decoration:none;">
+                            ${c.postTitle || c.slug} ↗
+                        </a>
+                    </td>
+                    <td style="font-weight:700; color:#1e293b; font-size:0.86rem;">${c.author || '익명'}</td>
+                    <td style="font-size:0.86rem; color:#334155;">${c.content || ''}</td>
+                    <td style="text-align:center; color:#64748b; font-size:0.80rem;">${c.date || '-'}</td>
+                    <td style="text-align:center; color:#c26908; font-weight:700;">❤️ 0</td>
+                    <td style="text-align:center;">
+                        <button type="button" class="btn-sm-del" onclick="adminDeleteComment('${c.slug}', '${c.id}')">삭제</button>
+                    </td>
+                </tr>
+            `;
+        });
+
+        tbody.innerHTML = html;
+    }
+
+    function adminDeleteComment(slug, id) {
+        if (!confirm('이 댓글을 영구 삭제하시겠습니까?')) return;
+
+        // 1) 개별 포스트 로컬 스토리지에서 삭제
+        const key = 'honeyjar_comments_' + slug;
+        const saved = localStorage.getItem(key);
+        if (saved) {
+            try {
+                let comments = JSON.parse(saved) || [];
+                comments = comments.filter(c => String(c.id) !== String(id));
+                localStorage.setItem(key, JSON.stringify(comments));
+            } catch(e) {}
+        }
+
+        // 2) 통합 레지스트리에서 삭제
+        const savedAll = localStorage.getItem('honeyjar_all_comments');
+        if (savedAll) {
+            try {
+                let allComments = JSON.parse(savedAll) || [];
+                allComments = allComments.filter(c => String(c.id) !== String(id));
+                localStorage.setItem('honeyjar_all_comments', JSON.stringify(allComments));
+            } catch(e) {}
+        }
+
+        loadAllAdminComments();
+        alert('댓글이 삭제되었습니다.');
     }
 
     function filterAdminComments() {

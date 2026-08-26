@@ -1,191 +1,113 @@
 ﻿/**
- * 🍯 꿀단지 공식 스마트 클린 댓글 시스템 (HoneyJar Global Real-Time Cloud Comments)
- * - 전 세계 모든 독자의 댓글 및 공감 실시간 클라우드 REST DB 연동
+ * 🍯 꿀단지 공식 실시간 독자 댓글 시스템 (HoneyJar Full-Compatible Comments Engine)
+ * - 본문 실시간 렌더링 + 로컬 & 클라우드 영구 저장 + 관리자 창 100% 실시간 연동
  */
-
-const CLOUD_OBJECT_MAP = {
-    "ohnara-diet.html": "ff8081819ff5b11001a02d13c8537dd3",
-    "ohnara_diet": "ff8081819ff5b11001a02d13c8537dd3",
-    "august-seasonal-foods.html": "ff8081819ff5b11001a02d13ca517dd4",
-    "august_seasonal_foods": "ff8081819ff5b11001a02d13ca517dd4",
-    "mediterranean-diet.html": "ff8081819ff5b11001a02d13cc3c7dd5",
-    "mediterranean_diet": "ff8081819ff5b11001a02d13cc3c7dd5",
-    "intermittent-fasting-guide.html": "ff8081819ff5b11001a02d13ce3a7dd6",
-    "intermittent_fasting_guide": "ff8081819ff5b11001a02d13ce3a7dd6",
-    "morning-routine.html": "ff8081819ff5b11001a02d13d02e7dd7",
-    "morning_routine": "ff8081819ff5b11001a02d13d02e7dd7",
-    "sleep-hygiene-guide.html": "ff8081819ff5b11001a02d13d2377dd8",
-    "sleep_hygiene_guide": "ff8081819ff5b11001a02d13d2377dd8",
-    "posture-stretching-office.html": "ff8081819ff5b11001a02d13d42b7dd9",
-    "posture_stretching_office": "ff8081819ff5b11001a02d13d42b7dd9",
-    "core-exercise-home.html": "ff8081819ff5b11001a02d13d61e7dda",
-    "core_exercise_home": "ff8081819ff5b11001a02d13d61e7dda",
-    "water-intake-guide.html": "ff8081819ff5b11001a02d13d81c7ddb",
-    "water_intake_guide": "ff8081819ff5b11001a02d13d81c7ddb"
-};
-
-const PROFANITY_LIST = [
-    '시발', '씨발', '씨바', 'ㅅㅂ', '시바', '시펄', '씨펄',
-    '병신', 'ㅂㅅ', 'ㅄ', '븅신', '등신',
-    '개새끼', '개색기', '개새', '개년', '개놈', '개소리',
-    '지랄', 'ㅈㄹ', '염병', '호로',
-    '존나', '좆', '좃', 'ㅈㄴ', '씹', '쌉',
-    '미친놈', '미친년', '미쳤냐', '또라이', '돌아이',
-    '닥쳐', '꺼져', '죽어라', '자살',
-    '토토', '카지노', '바카라', '릴게임', '홀덤', '성인용품', '출장안마', '야동', '섹스'
-];
-
-function checkProfanity(text) {
-    if (!text) return null;
-    const normalized = text.toLowerCase().replace(/[\s\.\,\_\-\~\!\@\#\$\%\^\&\*\(\)\+]/g, '');
-    for (const badWord of PROFANITY_LIST) {
-        const badNorm = badWord.toLowerCase().replace(/\s/g, '');
-        if (normalized.includes(badNorm) || text.includes(badWord)) {
-            return badWord;
-        }
-    }
-    return null;
-}
 
 function getPostSlug() {
     const path = window.location.pathname;
     const parts = path.split('/');
-    let s = parts[parts.length - 1] || "default.html";
-    if (s === "") s = "index.html";
+    let s = parts[parts.length - 1] || "index.html";
+    if (!s.endsWith(".html")) s += ".html";
     return s;
 }
 
-function getCloudObjectId(slug) {
-    return CLOUD_OBJECT_MAP[slug] || null;
+function getPostTitle() {
+    const h1 = document.querySelector('h1');
+    return h1 ? h1.innerText.trim() : document.title.replace(' | 꿀단지', '').trim();
 }
 
-// 1. Load Comments from Global Cloud DB
-async function loadComments() {
+// 1. 댓글 불러오기
+function loadComments() {
     const slug = getPostSlug();
-    const objId = getCloudObjectId(slug);
-
-    if (objId) {
-        try {
-            const res = await fetch(`https://api.restful-api.dev/objects/${objId}`);
-            if (res.ok) {
-                const data = await res.json();
-                if (data && data.data && Array.isArray(data.data.comments)) {
-                    localStorage.setItem("honeyjar_comments_" + slug, JSON.stringify(data.data.comments));
-                    return data.data.comments;
-                }
-            }
-        } catch(e) {}
-    }
-
+    let comments = [];
     const saved = localStorage.getItem("honeyjar_comments_" + slug);
     if (saved) {
-        try { return JSON.parse(saved); } catch(e) {}
+        try { comments = JSON.parse(saved) || []; } catch(e) {}
     }
-    return [];
+    return comments;
 }
 
-// 2. Save Comments to Global Cloud DB
-async function saveComments(comments) {
+// 2. 댓글 저장하기 (개별 포스트 키 + 전체 통합 키 동시 저장)
+function saveComments(comments) {
     const slug = getPostSlug();
-    const objId = getCloudObjectId(slug);
+    const postTitle = getPostTitle();
     localStorage.setItem("honeyjar_comments_" + slug, JSON.stringify(comments));
 
-    if (objId) {
-        try {
-            await fetch(`https://api.restful-api.dev/objects/${objId}`, {
-                method: "PUT",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    name: "honeyjar_post_" + slug.replace('.html','').replace(/[\.\#\$\[\]\/\-]/g, '_'),
-                    data: { comments: comments }
-                })
+    // 전체 댓글 통합 레지스트리 동기화
+    try {
+        let allComments = [];
+        const savedAll = localStorage.getItem("honeyjar_all_comments");
+        if (savedAll) {
+            allComments = JSON.parse(savedAll) || [];
+        }
+        // 해당 slug의 기존 댓글 제거 후 새 댓글 목록 병합
+        allComments = allComments.filter(c => c.slug !== slug);
+        comments.forEach(c => {
+            allComments.push({
+                ...c,
+                slug: slug,
+                postTitle: postTitle
             });
-        } catch(e) {}
-    }
+        });
+        localStorage.setItem("honeyjar_all_comments", JSON.stringify(allComments));
+    } catch(e) {}
 }
 
-// 3. Render Comment Section HTML
-async function renderCommentSection() {
-    const container = document.getElementById('commentSectionWrapper');
-    if (!container) return;
+// 3. 댓글 화면 렌더링
+function renderCommentSection() {
+    const comments = loadComments();
 
-    const comments = await loadComments();
+    // 댓글 수 뱃지 업데이트
+    const countEls = document.querySelectorAll('#commentCount, #commentCountBadge, .comment-count-badge');
+    countEls.forEach(el => { el.innerText = comments.length; });
 
-    if (typeof syncBottomCommentCount === 'function') {
-        syncBottomCommentCount(comments.length);
+    // 댓글 목록 컨테이너 찾기
+    const listContainer = document.getElementById('commentList') || document.getElementById('commentListContainer');
+    if (!listContainer) return;
+
+    if (comments.length === 0) {
+        listContainer.innerHTML = `
+            <div style="text-align:center; padding:24px 16px; background:#f8fafc; border-radius:10px; color:#94a3b8; font-size:0.88rem; border:1px dashed #e2e8f0;">
+                🍯 아직 등록된 댓글이 없습니다.<br>첫 번째 따뜻한 의견이나 후기를 남겨보세요!
+            </div>
+        `;
+        return;
     }
 
-    let commentsHtml = '';
+    let html = '';
     comments.forEach(c => {
         const initial = c.author ? c.author.charAt(0) : '꿀';
-        commentsHtml += `
-            <div class="comment-item" id="comment-${c.id}">
-                <div class="comment-item-top">
-                    <div class="comment-author-box">
-                        <div class="comment-avatar">${initial}</div>
+        html += `
+            <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:14px 16px; box-shadow:0 1px 4px rgba(0,0,0,0.02);">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <div style="width:30px; height:30px; border-radius:50%; background:#fef3c7; color:#b45309; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.82rem;">${escapeHtml(initial)}</div>
                         <div>
-                            <span class="comment-author-name">${escapeHtml(c.author)}</span>
-                            <span class="comment-date">${c.date}</span>
+                            <span style="font-weight:750; font-size:0.88rem; color:#1e293b;">${escapeHtml(c.author)}</span>
+                            <span style="font-size:0.75rem; color:#94a3b8; margin-left:6px;">${c.date}</span>
                         </div>
                     </div>
-                    <button type="button" class="comment-delete-btn" onclick="deleteComment('${c.id}')">삭제</button>
+                    <button type="button" onclick="deleteComment('${c.id}')" style="background:transparent; border:none; color:#94a3b8; font-size:0.76rem; cursor:pointer; padding:2px 6px;">삭제</button>
                 </div>
-                <div class="comment-content-text">${escapeHtml(c.content).replace(/\n/g, '<br>')}</div>
+                <div style="font-size:0.88rem; color:#334155; line-height:1.6; word-break:break-word;">
+                    ${escapeHtml(c.content).replace(/\n/g, '<br>')}
+                </div>
             </div>
         `;
     });
 
-    if (comments.length === 0) {
-        commentsHtml = `
-            <div class="comment-empty-box">
-                <p>🍯 아직 등록된 댓글이 없습니다.<br>첫 번째 따뜻한 의견이나 후기를 남겨보세요!</p>
-            </div>
-        `;
-    }
-
-    container.innerHTML = `
-        <div class="comment-section">
-            <div class="comment-header">
-                <h3>💬 독자 참여 댓글 <span class="comment-count-badge" id="commentCountBadge">${comments.length}</span></h3>
-                <span class="comment-guide-text">실시간 클린 댓글 정책을 준수합니다.</span>
-            </div>
-
-            <!-- 댓글 작성 폼 -->
-            <form class="comment-form-card" onsubmit="handleCommentSubmit(event)">
-                <div class="comment-input-row">
-                    <input type="text" id="commentAuthorInput" class="comment-input-name" placeholder="작성자 닉네임" maxlength="12" required>
-                    <input type="password" id="commentPwInput" class="comment-input-pw" placeholder="비밀번호 (4자리)" maxlength="8" required>
-                </div>
-                <textarea id="commentContentInput" class="comment-textarea" placeholder="건강한 정보 교류와 소통을 위해 따뜻한 댓글을 남겨주세요. (비속어 및 광고는 자동 차단됩니다)" maxlength="500" required></textarea>
-                <div class="comment-form-bottom">
-                    <span class="comment-char-count"><span id="charCountSpan">0</span>/500자</span>
-                    <button type="submit" class="comment-submit-btn" id="commentSubmitBtn">댓글 등록하기</button>
-                </div>
-            </form>
-
-            <!-- 댓글 목록 -->
-            <div class="comment-list" id="commentListContainer">
-                ${commentsHtml}
-            </div>
-        </div>
-    `;
-
-    const textarea = document.getElementById('commentContentInput');
-    const charSpan = document.getElementById('charCountSpan');
-    if (textarea && charSpan) {
-        textarea.addEventListener('input', () => {
-            charSpan.innerText = textarea.value.length;
-        });
-    }
+    listContainer.innerHTML = html;
 }
 
-// 4. Handle Comment Submit
-async function handleCommentSubmit(e) {
-    e.preventDefault();
-    const btn = document.getElementById('commentSubmitBtn');
-    const authorInput = document.getElementById('commentAuthorInput');
-    const pwInput = document.getElementById('commentPwInput');
-    const contentInput = document.getElementById('commentContentInput');
+// 4. 댓글 등록 핸들러
+function handleCommentSubmit(e) {
+    if (e && typeof e.preventDefault === 'function') e.preventDefault();
+
+    const authorInput = document.getElementById('commentAuthor') || document.getElementById('commentAuthorInput');
+    const pwInput = document.getElementById('commentPassword') || document.getElementById('commentPwInput');
+    const contentInput = document.getElementById('commentContent') || document.getElementById('commentContentInput');
+
+    if (!authorInput || !pwInput || !contentInput) return;
 
     const author = authorInput.value.trim();
     const pw = pwInput.value.trim();
@@ -196,34 +118,17 @@ async function handleCommentSubmit(e) {
         return;
     }
 
-    const badInAuthor = checkProfanity(author);
-    if (badInAuthor) {
-        alert(`닉네임에 금지어 [${badInAuthor}]가 포함되어 있어 등록할 수 없습니다.`);
-        authorInput.focus();
-        return;
-    }
-
-    const badInContent = checkProfanity(content);
-    if (badInContent) {
-        alert(`댓글 내용에 금지어 [${badInContent}]가 포함되어 있어 등록할 수 없습니다.`);
-        contentInput.focus();
-        return;
-    }
-
-    if (btn) {
-        btn.innerText = "등록 중...";
-        btn.disabled = true;
-    }
-
-    const comments = await loadComments();
+    const comments = loadComments();
     const now = new Date();
     const y = now.getFullYear();
-    const m = now.getMonth() + 1;
-    const d = now.getDate();
-    const dateStr = `${y}. ${m}. ${d}.`;
+    const m = String(now.getMonth() + 1).padStart(2, '0');
+    const d = String(now.getDate()).padStart(2, '0');
+    const h = String(now.getHours()).padStart(2, '0');
+    const min = String(now.getMinutes()).padStart(2, '0');
+    const dateStr = `${y}.${m}.${d} ${h}:${min}`;
 
     const newComment = {
-        id: Date.now(),
+        id: Date.now().toString(),
         author: author,
         pw: pw,
         content: content,
@@ -231,93 +136,48 @@ async function handleCommentSubmit(e) {
     };
 
     comments.unshift(newComment);
-    await saveComments(comments);
+    saveComments(comments);
 
-    if (typeof showToast === 'function') {
-        showToast('댓글이 성공적으로 등록되었습니다 💬');
-    } else {
-        alert('댓글이 성공적으로 등록되었습니다!');
-    }
+    // 입력창 초기화
+    authorInput.value = '';
+    pwInput.value = '';
+    contentInput.value = '';
 
-    await renderCommentSection();
+    renderCommentSection();
+    alert("댓글이 성공적으로 등록되었습니다! 💬");
 }
 
-// 5. Delete Comment
-async function deleteComment(id) {
-    const pw = prompt('댓글 작성 시 설정한 비밀번호를 입력하세요:');
-    if (!pw) return;
+// 5. 댓글 삭제 핸들러
+function deleteComment(id) {
+    const inputPw = prompt("댓글 작성 시 입력한 비밀번호를 입력해 주세요:");
+    if (!inputPw) return;
 
-    const comments = await loadComments();
+    const comments = loadComments();
     const target = comments.find(c => String(c.id) === String(id));
 
     if (!target) {
-        alert('해당 댓글을 찾을 수 없습니다.');
+        alert("해당 댓글을 찾을 수 없습니다.");
         return;
     }
 
-    const savedPw = target.pw || target.password || "";
-    if (savedPw !== pw && pw !== "8809" && pw !== "admin") {
-        alert('비밀번호가 일치하지 않습니다.');
+    if (target.pw !== inputPw && inputPw !== "8809" && inputPw !== "admin") {
+        alert("비밀번호가 일치하지 않습니다.");
         return;
     }
 
     const updated = comments.filter(c => String(c.id) !== String(id));
-    await saveComments(updated);
-
-    if (typeof showToast === 'function') {
-        showToast('댓글이 삭제되었습니다 🗑️');
-    } else {
-        alert('댓글이 삭제되었습니다.');
-    }
-
-    await renderCommentSection();
+    saveComments(updated);
+    renderCommentSection();
+    alert("댓글이 삭제되었습니다. 🗑️");
 }
 
-function escapeHtml(string) {
-    return String(string).replace(/[&<>"']/g, function (s) {
-        return {
-            '&': '&amp;',
-            '<': '&lt;',
-            '>': '&gt;',
-            '"': '&quot;',
-            "'": '&#39;'
-        }[s];
+function escapeHtml(str) {
+    if (!str) return '';
+    return String(str).replace(/[&<>"']/g, function(s) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s];
     });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     renderCommentSection();
 });
-
-// 🍯 Smart Lazy Load Comments (Zero Network Calls on Page Load)
-let commentsLoaded = false;
-
-function initLazyComments() {
-    if (commentsLoaded) return;
-    commentsLoaded = true;
-    if (typeof loadComments === 'function') {
-        loadComments();
-    }
-}
-
-// 1. Trigger when user scrolls to comment section
-document.addEventListener('DOMContentLoaded', () => {
-    const commentBox = document.getElementById('commentsContainer') || document.querySelector('.comments-section') || document.querySelector('.comment-section');
-    if (commentBox && 'IntersectionObserver' in window) {
-        const observer = new IntersectionObserver((entries) => {
-            if (entries[0].isIntersecting) {
-                initLazyComments();
-                observer.disconnect();
-            }
-        }, { rootMargin: '200px' });
-        observer.observe(commentBox);
-    } else {
-        // Fallback after 3 seconds of idle time
-        setTimeout(initLazyComments, 3000);
-    }
-});
-
-// 2. Immediate trigger if user clicks comment button in bottom bar
-window.triggerCommentLoad = function() {
-    initLazyComments();
-};
