@@ -4,11 +4,287 @@
     <!-- 📊 Google Analytics 4 (GA4 공식 초광속 비동기 태그) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V39MF2GD3C"></script>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-V39MF2GD3C');
-    </script>
+    let currentSelectedCategory = 'all';
+    let currentSearchQuery = '';
+    let pcShown = 6;
+    let mobileShown = 4;
+
+    function isCardCategoryMatch(itemCat, selectedCat) {
+        if (!selectedCat || selectedCat === 'all') return true;
+        itemCat = (itemCat || '').trim();
+        if (selectedCat.includes('식단') && (itemCat.includes('식단') || itemCat.includes('영양'))) return true;
+        if (selectedCat === '홈트레이닝' && itemCat.includes('홈트레이닝')) return true;
+        if ((selectedCat.includes('라이프') || selectedCat.includes('웰니스')) && (itemCat.includes('라이프') || itemCat.includes('웰니스'))) return true;
+        return itemCat.includes(selectedCat);
+    }
+
+    function applyAdminHiddenFilter() {
+        try {
+            let hiddenSlugs = [];
+            const saved = localStorage.getItem('HONEYJAR_ADMIN_POSTS_V1');
+            if (saved) {
+                try {
+                    const adminPosts = JSON.parse(saved);
+                    const legacyHidden = adminPosts.filter(p => p.isHidden).map(p => p.slug);
+                    hiddenSlugs = Array.from(new Set([...hiddenSlugs, ...legacyHidden]));
+                } catch(e) {}
+            }
+
+            // 1. PC 카드 필터링
+            const allPcCards = Array.from(document.querySelectorAll('#desktopCardsGrid .article-item'));
+            allPcCards.forEach(el => {
+                const link = el.querySelector('a');
+                const href = link ? (link.getAttribute('href') || '') : '';
+                if (hiddenSlugs.some(slug => href.includes(slug))) {
+                    el.setAttribute('data-admin-hidden', 'true');
+                } else {
+                    el.removeAttribute('data-admin-hidden');
+                }
+            });
+
+            const livePcCards = allPcCards.filter(el => el.getAttribute('data-admin-hidden') !== 'true');
+            const matchedPcCards = livePcCards.filter(el => {
+                const c = el.getAttribute('data-category') || '';
+                const title = (el.querySelector('h3') ? el.querySelector('h3').textContent : '').toLowerCase();
+                const desc = (el.querySelector('p') ? el.querySelector('p').textContent : '').toLowerCase();
+                
+                const catMatch = isCardCategoryMatch(c, currentSelectedCategory);
+                const searchMatch = !currentSearchQuery || title.includes(currentSearchQuery) || desc.includes(currentSearchQuery) || c.toLowerCase().includes(currentSearchQuery);
+                return catMatch && searchMatch;
+            });
+
+            allPcCards.forEach(el => {
+                el.style.setProperty('display', 'none', 'important');
+            });
+
+            matchedPcCards.forEach((el, idx) => {
+                if (idx < pcShown) {
+                    el.style.setProperty('display', 'flex', 'important');
+                } else {
+                    el.style.setProperty('display', 'none', 'important');
+                }
+            });
+
+            const pcBtn = document.getElementById('btnPcLoadMore');
+            if (pcBtn) {
+                pcBtn.style.display = (matchedPcCards.length > pcShown) ? 'inline-block' : 'none';
+            }
+
+            // 2. 모바일 피드 스트림 필터링
+            const allMobFeeds = Array.from(document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item'));
+            allMobFeeds.forEach(el => {
+                const link = el.querySelector('a');
+                const href = link ? (link.getAttribute('href') || '') : '';
+                if (hiddenSlugs.some(slug => href.includes(slug))) {
+                    el.setAttribute('data-admin-hidden', 'true');
+                } else {
+                    el.removeAttribute('data-admin-hidden');
+                }
+            });
+
+            const liveMobFeeds = allMobFeeds.filter(el => el.getAttribute('data-admin-hidden') !== 'true');
+            const matchedMobFeeds = liveMobFeeds.filter(el => {
+                const c = el.getAttribute('data-category') || '';
+                const title = (el.querySelector('h3') ? el.querySelector('h3').textContent : '').toLowerCase();
+                const desc = (el.querySelector('p') ? el.querySelector('p').textContent : '').toLowerCase();
+                
+                const catMatch = isCardCategoryMatch(c, currentSelectedCategory);
+                const searchMatch = !currentSearchQuery || title.includes(currentSearchQuery) || desc.includes(currentSearchQuery) || c.toLowerCase().includes(currentSearchQuery);
+                return catMatch && searchMatch;
+            });
+
+            allMobFeeds.forEach(el => {
+                el.style.setProperty('display', 'none', 'important');
+            });
+
+            matchedMobFeeds.forEach((el, idx) => {
+                if (idx < mobileShown) {
+                    el.style.setProperty('display', 'flex', 'important');
+                } else {
+                    el.style.setProperty('display', 'none', 'important');
+                }
+            });
+
+            const mobBtn = document.getElementById('btnMobileLoadMore');
+            const mobLoadWrap = document.getElementById('mobileLoadMoreWrapper');
+            if (mobBtn && mobLoadWrap) {
+                if (matchedMobFeeds.length > mobileShown) {
+                    mobLoadWrap.style.display = 'block';
+                    mobBtn.style.display = 'inline-block';
+                } else {
+                    mobLoadWrap.style.display = 'none';
+                    mobBtn.style.display = 'none';
+                }
+            }
+
+            // 3. 인기글 TOP 10 실시간 재정렬
+            const top10List = Array.from(document.querySelectorAll('.hero-master-right li'));
+            let currentRank = 1;
+            top10List.forEach(li => {
+                const a = li.querySelector('a');
+                const href = a ? (a.getAttribute('href') || '') : '';
+                if (hiddenSlugs.some(slug => href.includes(slug))) {
+                    li.style.setProperty('display', 'none', 'important');
+                } else {
+                    if (currentRank <= 10) {
+                        li.style.setProperty('display', 'flex', 'important');
+                        const rankSpan = li.querySelector('span:first-child');
+                        if (rankSpan) {
+                            rankSpan.innerText = currentRank;
+                            if (currentRank <= 5) rankSpan.style.color = '#c26908';
+                            else rankSpan.style.color = '#94a3b8';
+                        }
+                        currentRank++;
+                    } else {
+                        li.style.setProperty('display', 'none', 'important');
+                    }
+                }
+            });
+        } catch(e) {
+            console.error('Filter error:', e);
+        }
+    }
+
+    function loadMorePcArticles() {
+        pcShown += 6;
+        applyAdminHiddenFilter();
+    }
+
+    function loadMoreMobileArticles() {
+        mobileShown += 4;
+        applyAdminHiddenFilter();
+    }
+
+    function filterDesktopCategory(cat, btn) {
+        currentSelectedCategory = cat;
+        pcShown = 999; // 카테고리 탭 선택 시 해당 카테고리 글 시원하게 전체 표시
+
+        document.querySelectorAll('.clean-nav .nav-cat-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+
+        const titleEl = document.getElementById('desktopSectionTitle');
+        if (titleEl) {
+            if (cat === 'all') titleEl.textContent = '전체 칼럼 모음';
+            else if (cat.includes('식단')) titleEl.textContent = '식단·영양 칼럼 모음';
+            else if (cat === '홈트레이닝') titleEl.textContent = '홈트레이닝 칼럼 모음';
+            else if (cat === '라이프 웰니스') titleEl.textContent = '라이프 웰니스 칼럼 모음';
+            else titleEl.textContent = cat + ' 칼럼 모음';
+        }
+
+        applyAdminHiddenFilter();
+    }
+
+    function filterTistoryFeed(cat, label) {
+        currentSelectedCategory = cat;
+        mobileShown = 999;
+        
+        const lbl = document.getElementById('currentCategoryLabel');
+        if (lbl) lbl.innerText = label;
+
+        document.querySelectorAll('.category-modal-item').forEach(item => {
+            item.classList.remove('active');
+            if (item.textContent.includes(label)) item.classList.add('active');
+        });
+
+        applyAdminHiddenFilter();
+    }
+
+    function filterArticlesBySearch(query) {
+        currentSearchQuery = (query || '').trim().toLowerCase();
+        applyAdminHiddenFilter();
+    }
+
+    function onSearchType(query, mode) {
+        const q = (query || '').trim().toLowerCase();
+        const pcClear = document.getElementById('btnPcClearSearch');
+        const mobClear = document.getElementById('btnMobileClearSearch');
+        
+        if (pcClear) pcClear.style.display = q.length > 0 ? 'inline-block' : 'none';
+        if (mobClear) mobClear.style.display = q.length > 0 ? 'inline-block' : 'none';
+
+        const pcInput = document.getElementById('pcSearchInput');
+        const mobInput = document.getElementById('mobileSearchInput');
+        if (mode === 'pc' && mobInput && mobInput.value !== query) mobInput.value = query;
+        if (mode === 'mob' && pcInput && pcInput.value !== query) pcInput.value = query;
+
+        filterArticlesBySearch(q);
+    }
+
+    function runSearch(mode) {
+        const input = mode === 'pc' ? document.getElementById('pcSearchInput') : document.getElementById('mobileSearchInput');
+        const q = input ? input.value.trim().toLowerCase() : '';
+        filterArticlesBySearch(q);
+        
+        const targetSection = document.getElementById('desktopCardsGrid') || document.getElementById('tistoryFeedContainer');
+        if (targetSection && q) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    function clearLiveSearch(mode) {
+        const pcInput = document.getElementById('pcSearchInput');
+        const mobInput = document.getElementById('mobileSearchInput');
+        if (pcInput) pcInput.value = '';
+        if (mobInput) mobInput.value = '';
+
+        const pcClear = document.getElementById('btnPcClearSearch');
+        const mobClear = document.getElementById('btnMobileClearSearch');
+        if (pcClear) pcClear.style.display = 'none';
+        if (mobClear) mobClear.style.display = 'none';
+
+        filterArticlesBySearch('');
+    }
+
+    // 📱 모바일 드로어 및 카테고리 모달 제어
+    function openCategoryModal() {
+        const modal = document.getElementById('categoryModal');
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    function closeCategoryModal() {
+        const modal = document.getElementById('categoryModal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const catParam = urlParams.get('cat');
+        if (catParam) {
+            const targetBtn = Array.from(document.querySelectorAll('.clean-nav .nav-cat-btn')).find(b => b.textContent.includes(catParam) || b.getAttribute('href').includes(encodeURIComponent(catParam)));
+            filterDesktopCategory(catParam, targetBtn);
+            filterTistoryFeed(catParam, catParam);
+        } else {
+            applyAdminHiddenFilter();
+        }
+
+        // 모바일 드로어
+        const btnOpen = document.getElementById('btnOpenMobileDrawer');
+        const btnClose = document.getElementById('btnCloseMobileDrawer');
+        const overlay = document.getElementById('drawerOverlay');
+        const drawer = document.getElementById('naverMobileDrawer');
+
+        if (btnOpen && drawer && overlay) {
+            btnOpen.addEventListener('click', () => {
+                drawer.classList.add('open');
+                overlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+            const closeMenu = () => {
+                drawer.classList.remove('open');
+                overlay.classList.remove('open');
+                document.body.style.overflow = '';
+            };
+            if (btnClose) btnClose.addEventListener('click', closeMenu);
+            overlay.addEventListener('click', closeMenu);
+        }
+    });
+</script>
     <meta name="naver-site-verification" content="777188dc9a6f7168d15fca2b95716d6c12c39aa8" />
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1101,475 +1377,287 @@
     </footer>
 
     <script>
-        // 🍯 [글로벌 페이지네이션 & 랭킹 제어 변수]
-        let pcShown = 6;
-        let mobileShown = 4;
-        let currentSearchQuery = "";
+    let currentSelectedCategory = 'all';
+    let currentSearchQuery = '';
+    let pcShown = 6;
+    let mobileShown = 4;
 
-        // 🍯 [11편 마스터 칼럼 레지스트리]
-        const MASTER_ALL_POSTS = [
-            { slug: "post-meal-walk-blood-sugar.html", title: "식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 루틴", category: "라이프 웰니스", thumb: "images/posts/walking/thumb.jpg?v=2.0", desc: "식후 15분 이내 10분 걷기가 인슐린 분비를 30% 낮추고 혈당 스파이크와 내장지방을 막는 과학적 기전.", date: "2026.08.25" },
-            { slug: "knee-safe-squat-workout.html", title: "초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세", category: "홈트레이닝", thumb: "images/posts/squat/thumb.jpg?v=2.0", desc: "무릎 관절 연골을 보호하며 대퇴사두근과 둔근을 안전하게 강화하는 3대 하체 운동 테크닉과 10분 홈트 루틴.", date: "2026.08.24" },
-            { slug: "ohnara-diet.html", title: "오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동", category: "식단 & 영양", thumb: "images/posts/ohnara/thumb.jpg?v=1.2", desc: "배우 오나라의 샐러드 식단 팩트 분석부터 중년 여성의 기초대사량을 지키는 3대 복합 다관절 운동 루틴까지 실생활에 적용하는 지속 가능한 웰니스 가이드.", date: "2026.08.19" },
-            { slug: "august-seasonal-foods.html", title: "8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드", category: "식단 & 영양", thumb: "images/posts/august/thumb.jpg?v=1.2", desc: "전복의 타우린부터 복숭아의 유기산까지, 늦여름 피로를 날려주는 천연 보약 식재료 5가지.", date: "2026.08.19" },
-            { slug: "mediterranean-diet.html", title: "세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁", category: "식단 & 영양", thumb: "images/posts/mediterranean/thumb.jpg?v=1.2", desc: "심혈관 건강과 장수를 돕는 지중해식 식단의 4대 원리와 대체 식재료 장보기 팁.", date: "2026.08.19" },
-            { slug: "intermittent-fasting-guide.html", title: "간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표", category: "식단 & 영양", thumb: "images/posts/fasting/thumb.jpg?v=1.2", desc: "체지방 감량과 오토파지 활성화를 돕는 16:8 간헐적 단식의 정확한 방법과 혈당 스파이크 습관.", date: "2026.08.19" },
-            { slug: "morning-routine.html", title: "아침 공복 유산소와 식사 타이밍, 혈당 스파이크 방지 습관", category: "라이프 웰니스", thumb: "images/posts/morning/thumb.jpg?v=1.2", desc: "기상 후 첫 끼니 순서와 가벼운 공복 유산소가 대사 건강과 인슐린 감수성에 미치는 영향.", date: "2026.08.19" },
-            { slug: "sleep-hygiene-guide.html", title: "수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환경 가이드", category: "라이프 웰니스", thumb: "images/posts/sleep/thumb.jpg?v=1.2", desc: "만성 피로를 해소하고 깊은 숙면을 유도하는 최적의 실내 온도, 조명 환경, 카페인 반감기 수칙.", date: "2026.08.19" },
-            { slug: "posture-stretching-office.html", title: "직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭", category: "홈트레이닝", thumb: "images/posts/posture/thumb.jpg?v=1.2", desc: "모니터 앞에서 굳어버린 목과 어깨를 풀어주고 굽은 등과 척추 정렬을 회복하는 초간단 오피스 루틴.", date: "2026.08.19" },
-            { slug: "core-exercise-home.html", title: "바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴", category: "홈트레이닝", thumb: "images/posts/core/thumb.jpg?v=1.2", desc: "데드버그, 버드독, 글루트 브릿지 등 요추 부담 없이 척추 기립근과 복부 심부 근육을 단단하게 지지하는 운동법.", date: "2026.08.19" },
-            { slug: "water-intake-guide.html", title: "하루 물 2리터 권장량의 진실, 올바른 수분 섭취법과 체내 밸런스", category: "식단 & 영양", thumb: "images/posts/water/thumb.jpg?v=1.2", desc: "획일적인 2L 기준 대신 내 몸무게에 맞춘 정확한 수분 섭취 공식과 체내 전해질 밸런스를 지키는 스마트한 음수 습관.", date: "2026.08.19" }
-        ];
+    function isCardCategoryMatch(itemCat, selectedCat) {
+        if (!selectedCat || selectedCat === 'all') return true;
+        itemCat = (itemCat || '').trim();
+        if (selectedCat.includes('식단') && (itemCat.includes('식단') || itemCat.includes('영양'))) return true;
+        if (selectedCat === '홈트레이닝' && itemCat.includes('홈트레이닝')) return true;
+        if ((selectedCat.includes('라이프') || selectedCat.includes('웰니스')) && (itemCat.includes('라이프') || itemCat.includes('웰니스'))) return true;
+        return itemCat.includes(selectedCat);
+    }
 
-        // 🔒 [관리자 숨김 필터 & 배너 승계 & TOP 10 & 6칸 꽉 채움 통합 엔진]
-        function applyAdminHiddenFilter() {
-            try {
-                let hiddenSlugs = JSON.parse(localStorage.getItem('honeyjar_hidden_slugs') || '[]');
-                const saved = localStorage.getItem('honeyjar_admin_posts');
-                if (saved) {
-                    try {
-                        const adminPosts = JSON.parse(saved);
-                        const legacyHidden = adminPosts.filter(p => p.isHidden).map(p => p.slug);
-                        hiddenSlugs = Array.from(new Set([...hiddenSlugs, ...legacyHidden]));
-                    } catch(e) {}
-                }
-
-                // 1. PC 카드 그리드 숨김 처리 & 6개 꽉 채움
-                const allPcCards = Array.from(document.querySelectorAll('#desktopCardsGrid .article-item'));
-                allPcCards.forEach(el => {
-                    const link = el.querySelector('a');
-                    const href = link ? (link.getAttribute('href') || '') : '';
-                    if (hiddenSlugs.some(slug => href.includes(slug))) {
-                        el.setAttribute('data-admin-hidden', 'true');
-                        el.style.setProperty('display', 'none', 'important');
-                    } else {
-                        el.removeAttribute('data-admin-hidden');
-                    }
-                });
-
-                const livePcCards = allPcCards.filter(el => el.getAttribute('data-admin-hidden') !== 'true');
-                livePcCards.forEach((el, idx) => {
-                    if (idx < pcShown) {
-                        el.style.setProperty('display', 'flex', 'important');
-                    } else {
-                        el.style.setProperty('display', 'none', 'important');
-                    }
-                });
-                const pcBtn = document.getElementById('btnPcLoadMore');
-                if (pcBtn) pcBtn.style.display = (livePcCards.length <= pcShown) ? 'none' : 'inline-block';
-
-                // 2. 모바일 피드 스트림 4개 꽉 채움
-                const allMobFeeds = Array.from(document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item'));
-                allMobFeeds.forEach(el => {
-                    const link = el.querySelector('a');
-                    const href = link ? (link.getAttribute('href') || '') : '';
-                    if (hiddenSlugs.some(slug => href.includes(slug))) {
-                        el.setAttribute('data-admin-hidden', 'true');
-                        el.style.setProperty('display', 'none', 'important');
-                    } else {
-                        el.removeAttribute('data-admin-hidden');
-                    }
-                });
-                const liveMobFeeds = allMobFeeds.filter(el => el.getAttribute('data-admin-hidden') !== 'true');
-                liveMobFeeds.forEach((el, idx) => {
-                    if (idx < mobileShown) {
-                        el.style.setProperty('display', 'flex', 'important');
-                    } else {
-                        el.style.setProperty('display', 'none', 'important');
-                    }
-                });
-
-                // 3. 인기글 TOP 10 실시간 재정렬 (1~10번 꽉 채움)
-                const top10List = Array.from(document.querySelectorAll('.hero-master-right li'));
-                let currentRank = 1;
-                top10List.forEach(li => {
-                    const a = li.querySelector('a');
-                    const href = a ? (a.getAttribute('href') || '') : '';
-                    if (hiddenSlugs.some(slug => href.includes(slug))) {
-                        li.style.setProperty('display', 'none', 'important');
-                    } else {
-                        if (currentRank <= 10) {
-                            li.style.setProperty('display', 'flex', 'important');
-                            const rankSpan = li.querySelector('span:first-child');
-                            if (rankSpan) {
-                                rankSpan.innerText = currentRank;
-                                if (currentRank <= 5) rankSpan.style.color = '#c26908';
-                                else rankSpan.style.color = '#94a3b8';
-                            }
-                            currentRank++;
-                        } else {
-                            li.style.setProperty('display', 'none', 'important');
-                        }
-                    }
-                });
-
-                // 4. 상단 에디터 PICK 배너 완전체 일괄 동기화
-                const livePosts = MASTER_ALL_POSTS.filter(p => !hiddenSlugs.includes(p.slug));
-                if (livePosts.length > 0) {
-                    const topHero = livePosts[0];
-                    const heroLeft = document.querySelector('.hero-master-left');
-                    if (heroLeft) {
-                        heroLeft.querySelectorAll('a').forEach(a => a.setAttribute('href', 'posts/' + topHero.slug));
-                        const img = heroLeft.querySelector('img');
-                        if (img) {
-                            img.setAttribute('src', topHero.thumb);
-                            img.setAttribute('alt', topHero.title);
-                        }
-                        const catTag = heroLeft.querySelector('.hero-cat-tag');
-                        if (catTag) catTag.innerText = topHero.category;
-                        const titleLink = heroLeft.querySelector('.hero-title-text a');
-                        if (titleLink) titleLink.innerText = topHero.title;
-                        const descP = heroLeft.querySelector('.hero-desc-text');
-                        if (descP) descP.innerText = topHero.desc;
-                        const dateSpan = heroLeft.querySelector('div[style*="font-size:0.75rem"] span');
-                        if (dateSpan) dateSpan.innerText = `에디터 혀니 · ${topHero.date}`;
-                    }
-                    const mobPick = document.querySelector('.mobile-editor-pick-card');
-                    if (mobPick) {
-                        mobPick.setAttribute('onclick', `location.href='posts/${topHero.slug}'`);
-                        const mobTitle = mobPick.querySelector('h4');
-                        if (mobTitle) mobTitle.innerText = topHero.title;
-                        const mobImg = mobPick.querySelector('img');
-                        if (mobImg) {
-                            mobImg.setAttribute('src', topHero.thumb);
-                            mobImg.setAttribute('alt', topHero.title);
-                        }
-                    }
-                }
-            } catch(e) {}
-        }
-
-        // 🍯 PC 칼럼 초기화 및 더보기
-        function initPcArticles() {
-            applyAdminHiddenFilter();
-        }
-
-        function loadMorePcArticles() {
-            pcShown += 3;
-            applyAdminHiddenFilter();
-            const livePcCards = Array.from(document.querySelectorAll('#desktopCardsGrid .article-item')).filter(el => el.getAttribute('data-admin-hidden') !== 'true');
-            if (pcShown >= livePcCards.length) {
-                const btn = document.getElementById('btnPcLoadMore');
-                if (btn) btn.style.display = 'none';
-                showTemporaryEndMsg('pcAllLoadedMsg');
+    function applyAdminHiddenFilter() {
+        try {
+            let hiddenSlugs = [];
+            const saved = localStorage.getItem('HONEYJAR_ADMIN_POSTS_V1');
+            if (saved) {
+                try {
+                    const adminPosts = JSON.parse(saved);
+                    const legacyHidden = adminPosts.filter(p => p.isHidden).map(p => p.slug);
+                    hiddenSlugs = Array.from(new Set([...hiddenSlugs, ...legacyHidden]));
+                } catch(e) {}
             }
-        }
 
-                // ==========================================================================
-        // 🍯 [모바일 전용] 더보기 및 카테고리 모달 제어 엔진
-        // ==========================================================================
-
-        /**
-         * 1. 모바일 피드 초기화
-         */
-        function initMobileArticles() {
-            applyAdminHiddenFilter();
-        }
-
-        /**
-         * 2. 모바일 [더보기 ▾] 버튼 클릭 시 동작
-         * - mobileShown 변수를 +4 증가시켜 숨겨진 글을 추가 노출
-         * - 11편 전체가 다 노출되면 더보기 버튼을 숨기고 안내 메시지 출력
-         */
-        function loadMoreMobileArticles() {
-            mobileShown += 4;
-            applyAdminHiddenFilter();
-            const liveMobFeeds = Array.from(document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item')).filter(el => el.getAttribute('data-admin-hidden') !== 'true');
-            if (mobileShown >= liveMobFeeds.length) {
-                const btn = document.getElementById('btnMobileLoadMore');
-                if (btn) btn.style.display = 'none';
-                showTemporaryEndMsg('mobileAllLoadedMsg');
-            }
-        }
-
-        /**
-         * 3. 모바일 마지막 로딩 완료 안내 메시지 표시 (2.5초 후 자동 숨김)
-         */
-        function showTemporaryEndMsg(id) {
-            const el = document.getElementById(id);
-            if (el) {
-                el.style.display = 'block';
-                setTimeout(() => { el.style.display = 'none'; }, 2500);
-            }
-        }
-
-        /**
-         * 4. 모바일 카테고리 모달 내부 글 편수 실시간 계산 (관리자 숨김 글 반영)
-         */
-        function updateCategoryCounts() {
-            const allItems = Array.from(document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item'))
-                .filter(item => item.getAttribute('data-admin-hidden') !== 'true');
-            
-            const dietCount = allItems.filter(item => {
-                const c = item.getAttribute('data-category') || '';
-                return c.includes('식단') || c.includes('영양');
-            }).length;
-
-            const hometCount = allItems.filter(item => {
-                const c = item.getAttribute('data-category') || '';
-                return c.includes('홈트레이닝');
-            }).length;
-
-            const wellnessCount = allItems.filter(item => {
-                const c = item.getAttribute('data-category') || '';
-                return c.includes('라이프') || c.includes('웰니스');
-            }).length;
-
-            const elAll = document.getElementById('modalCountAll');
-            const elDiet = document.getElementById('modalCountDiet');
-            const elHomet = document.getElementById('modalCountHomet');
-            const elWellness = document.getElementById('modalCountWellness');
-
-            if (elAll) elAll.innerText = allItems.length;
-            if (elDiet) elDiet.innerText = dietCount;
-            if (elHomet) elHomet.innerText = hometCount;
-            if (elWellness) elWellness.innerText = wellnessCount;
-        }
-
-        /**
-         * 5. 모바일 [전체 칼럼 / 전체 분류 보기 ›] 클릭 시 모달 열기
-         */
-        function openCategoryModal() {
-            updateCategoryCounts();
-            const modal = document.getElementById('categoryModal');
-            if (modal) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden'; // 배경 스크롤 방지
-            }
-        }
-
-        /**
-         * 6. 모바일 카테고리 모달 닫기
-         */
-        function closeCategoryModal() {
-            const modal = document.getElementById('categoryModal');
-            if (modal) {
-                modal.classList.remove('active');
-                document.body.style.overflow = ''; // 배경 스크롤 복원
-            }
-        }
-
-        /**
-         * 7. 모바일 카테고리 선택 시 피드 실시간 필터링
-         * @param {string} cat - 선택한 카테고리 키워드 ('all', '식단 & 영양', '홈트레이닝', '라이프 웰니스')
-         * @param {string} label - 화면 바에 표시될 텍스트
-         */
-        function filterTistoryFeed(cat, label) {
-            currentSelectedCategory = cat;
-            mobileShown = 4;
-            
-            const lbl = document.getElementById('currentCategoryLabel');
-            if (lbl) lbl.innerText = label;
-
-            // 모달 아이템 선택 활성화 스타일 토글
-            document.querySelectorAll('.category-modal-item').forEach(item => {
-                item.classList.remove('active');
-                if (item.textContent.includes(label)) item.classList.add('active');
-            });
-
-            applyAdminHiddenFilter();
-            const items = Array.from(document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item'))
-                .filter(item => item.getAttribute('data-admin-hidden') !== 'true');
-
-            let visibleMatches = 0;
-            items.forEach((item, idx) => {
-                const itemCat = (item.getAttribute('data-category') || '').trim();
-                let isMatch = false;
-
-                if (cat === 'all') {
-                    isMatch = true;
-                } else if (cat.includes('식단') && (itemCat.includes('식단') || itemCat.includes('영양'))) {
-                    isMatch = true;
-                } else if (cat === '홈트레이닝' && itemCat.includes('홈트레이닝')) {
-                    isMatch = true;
-                } else if (cat === '라이프 웰니스' && (itemCat.includes('라이프') || itemCat.includes('웰니스'))) {
-                    isMatch = true;
-                }
-
-                if (isMatch) {
-                    if (cat === 'all') {
-                        if (idx < mobileShown) {
-                            item.style.setProperty('display', 'flex', 'important');
-                        } else {
-                            item.style.setProperty('display', 'none', 'important');
-                        }
-                    } else {
-                        item.style.setProperty('display', 'flex', 'important');
-                    }
-                    visibleMatches++;
+            // 1. PC 카드 필터링
+            const allPcCards = Array.from(document.querySelectorAll('#desktopCardsGrid .article-item'));
+            allPcCards.forEach(el => {
+                const link = el.querySelector('a');
+                const href = link ? (link.getAttribute('href') || '') : '';
+                if (hiddenSlugs.some(slug => href.includes(slug))) {
+                    el.setAttribute('data-admin-hidden', 'true');
                 } else {
-                    item.style.setProperty('display', 'none', 'important');
+                    el.removeAttribute('data-admin-hidden');
                 }
             });
 
-            // 더보기 버튼 노출 여부 제어
-            const btnMore = document.getElementById('btnMobileLoadMore');
-            const moLoadWrap = document.getElementById('mobileLoadMoreWrapper');
-            if (btnMore && moLoadWrap) {
-                if (cat === 'all' && items.length > mobileShown) {
-                    moLoadWrap.style.display = 'block';
-                    btnMore.style.display = 'inline-block';
+            const livePcCards = allPcCards.filter(el => el.getAttribute('data-admin-hidden') !== 'true');
+            const matchedPcCards = livePcCards.filter(el => {
+                const c = el.getAttribute('data-category') || '';
+                const title = (el.querySelector('h3') ? el.querySelector('h3').textContent : '').toLowerCase();
+                const desc = (el.querySelector('p') ? el.querySelector('p').textContent : '').toLowerCase();
+                
+                const catMatch = isCardCategoryMatch(c, currentSelectedCategory);
+                const searchMatch = !currentSearchQuery || title.includes(currentSearchQuery) || desc.includes(currentSearchQuery) || c.toLowerCase().includes(currentSearchQuery);
+                return catMatch && searchMatch;
+            });
+
+            allPcCards.forEach(el => {
+                el.style.setProperty('display', 'none', 'important');
+            });
+
+            matchedPcCards.forEach((el, idx) => {
+                if (idx < pcShown) {
+                    el.style.setProperty('display', 'flex', 'important');
                 } else {
-                    moLoadWrap.style.display = 'none';
-                    btnMore.style.display = 'none';
-                }
-            }
-        }
-
-        // 🎯 100% 무결점 카테고리 탭 필터 엔진
-        let currentSelectedCategory = 'all';
-
-        function filterDesktopCategory(cat, btn) {
-            currentSelectedCategory = cat;
-
-            // 1. 상단 메뉴 탭 활성화 뱃지
-            document.querySelectorAll('.clean-nav .nav-cat-btn').forEach(b => b.classList.remove('active'));
-            if (btn) {
-                btn.classList.add('active');
-            }
-
-            // 2. 섹션 제목 동적 변경
-            const titleEl = document.getElementById('desktopSectionTitle');
-            if (titleEl) {
-                if (cat === 'all') titleEl.textContent = '전체 칼럼 모음';
-                else if (cat.includes('식단')) titleEl.textContent = '식단·영양 칼럼 모음';
-                else if (cat === '홈트레이닝') titleEl.textContent = '홈트레이닝 칼럼 모음';
-                else if (cat === '라이프 웰니스') titleEl.textContent = '라이프 웰니스 칼럼 모음';
-                else titleEl.textContent = cat + ' 칼럼 모음';
-            }
-
-            // 3. PC 카드 필터링
-            applyAdminHiddenFilter();
-            const pcCards = Array.from(document.querySelectorAll('#desktopCardsGrid .article-item'))
-                .filter(el => el.getAttribute('data-admin-hidden') !== 'true');
-
-            let matchCount = 0;
-            pcCards.forEach(card => {
-                const cardCat = (card.getAttribute('data-category') || '').trim();
-                let isMatch = false;
-
-                if (cat === 'all') {
-                    isMatch = true;
-                } else if (cat.includes('식단') && (cardCat.includes('식단') || cardCat.includes('영양'))) {
-                    isMatch = true;
-                } else if (cat === '홈트레이닝' && cardCat.includes('홈트레이닝')) {
-                    isMatch = true;
-                } else if (cat === '라이프 웰니스' && (cardCat.includes('라이프') || cardCat.includes('웰니스'))) {
-                    isMatch = true;
-                }
-
-                if (isMatch) {
-                    card.style.setProperty('display', 'flex', 'important');
-                    matchCount++;
-                } else {
-                    card.style.setProperty('display', 'none', 'important');
+                    el.style.setProperty('display', 'none', 'important');
                 }
             });
 
             const pcBtn = document.getElementById('btnPcLoadMore');
             if (pcBtn) {
-                pcBtn.style.display = (cat === 'all' && pcCards.length > pcShown) ? 'inline-block' : 'none';
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            applyAdminHiddenFilter();
-        });
-    
-        // ==========================================================================
-        // 🔍 초광속 실시간 통합 검색 엔진 (PC & 모바일 1000% 완벽 필터링)
-        // ==========================================================================
-
-        function onSearchType(query, mode) {
-            const q = (query || '').trim().toLowerCase();
-            const pcClear = document.getElementById('btnPcClearSearch');
-            const mobClear = document.getElementById('btnMobileClearSearch');
-            
-            if (pcClear) pcClear.style.display = q.length > 0 ? 'inline-block' : 'none';
-            if (mobClear) mobClear.style.display = q.length > 0 ? 'inline-block' : 'none';
-
-            // PC와 모바일 인풋 동기화
-            const pcInput = document.getElementById('pcSearchInput');
-            const mobInput = document.getElementById('mobileSearchInput');
-            if (mode === 'pc' && mobInput && mobInput.value !== query) mobInput.value = query;
-            if (mode === 'mob' && pcInput && pcInput.value !== query) pcInput.value = query;
-
-            filterArticlesBySearch(q);
-        }
-
-        function runSearch(mode) {
-            const input = mode === 'pc' ? document.getElementById('pcSearchInput') : document.getElementById('mobileSearchInput');
-            const q = input ? input.value.trim().toLowerCase() : '';
-            filterArticlesBySearch(q);
-            
-            const targetSection = document.getElementById('desktopCardsGrid') || document.getElementById('tistoryFeedContainer');
-            if (targetSection && q) {
-                targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
-        }
-
-        function clearLiveSearch() {
-            const pcInput = document.getElementById('pcSearchInput');
-            const mobInput = document.getElementById('mobileSearchInput');
-            const pcClear = document.getElementById('btnPcClearSearch');
-            const mobClear = document.getElementById('btnMobileClearSearch');
-
-            if (pcInput) pcInput.value = '';
-            if (mobInput) mobInput.value = '';
-            if (pcClear) pcClear.style.display = 'none';
-            if (mobClear) mobClear.style.display = 'none';
-
-            filterArticlesBySearch('');
-        }
-
-        function filterArticlesBySearch(q) {
-            // 1. PC 3열 카드 필터링
-            const pcCards = document.querySelectorAll('#desktopCardsGrid .article-item');
-            const pcTitle = document.getElementById('desktopSectionTitle');
-            const pcMoreBtn = document.getElementById('btnPcLoadMore');
-            let pcMatchCount = 0;
-
-            if (q) {
-                pcCards.forEach(card => {
-                    const text = card.innerText.toLowerCase();
-                    if (text.includes(q)) {
-                        card.style.setProperty('display', 'flex', 'important');
-                        pcMatchCount++;
-                    } else {
-                        card.style.setProperty('display', 'none', 'important');
-                    }
-                });
-
-                if (pcTitle) {
-                    pcTitle.innerHTML = `🔍 <span style="color:#c26908;">"${q}"</span> 검색 결과 (${pcMatchCount}편)`;
-                }
-                if (pcMoreBtn) pcMoreBtn.style.setProperty('display', 'none', 'important');
-            } else {
-                if (pcTitle) pcTitle.innerText = "전체 칼럼 모음";
-                applyAdminHiddenFilter();
+                pcBtn.style.display = (matchedPcCards.length > pcShown) ? 'inline-block' : 'none';
             }
 
             // 2. 모바일 피드 스트림 필터링
-            const mobFeeds = document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item');
-            const mobMoreBtn = document.getElementById('btnMobileLoadMore');
-            let mobMatchCount = 0;
+            const allMobFeeds = Array.from(document.querySelectorAll('#tistoryFeedContainer .tistory-feed-item'));
+            allMobFeeds.forEach(el => {
+                const link = el.querySelector('a');
+                const href = link ? (link.getAttribute('href') || '') : '';
+                if (hiddenSlugs.some(slug => href.includes(slug))) {
+                    el.setAttribute('data-admin-hidden', 'true');
+                } else {
+                    el.removeAttribute('data-admin-hidden');
+                }
+            });
 
-            if (q) {
-                mobFeeds.forEach(item => {
-                    const text = item.innerText.toLowerCase();
-                    if (text.includes(q)) {
-                        item.style.setProperty('display', 'flex', 'important');
-                        mobMatchCount++;
-                    } else {
-                        item.style.setProperty('display', 'none', 'important');
-                    }
-                });
-                if (mobMoreBtn) mobMoreBtn.style.setProperty('display', 'none', 'important');
-            } else {
-                applyAdminHiddenFilter();
+            const liveMobFeeds = allMobFeeds.filter(el => el.getAttribute('data-admin-hidden') !== 'true');
+            const matchedMobFeeds = liveMobFeeds.filter(el => {
+                const c = el.getAttribute('data-category') || '';
+                const title = (el.querySelector('h3') ? el.querySelector('h3').textContent : '').toLowerCase();
+                const desc = (el.querySelector('p') ? el.querySelector('p').textContent : '').toLowerCase();
+                
+                const catMatch = isCardCategoryMatch(c, currentSelectedCategory);
+                const searchMatch = !currentSearchQuery || title.includes(currentSearchQuery) || desc.includes(currentSearchQuery) || c.toLowerCase().includes(currentSearchQuery);
+                return catMatch && searchMatch;
+            });
+
+            allMobFeeds.forEach(el => {
+                el.style.setProperty('display', 'none', 'important');
+            });
+
+            matchedMobFeeds.forEach((el, idx) => {
+                if (idx < mobileShown) {
+                    el.style.setProperty('display', 'flex', 'important');
+                } else {
+                    el.style.setProperty('display', 'none', 'important');
+                }
+            });
+
+            const mobBtn = document.getElementById('btnMobileLoadMore');
+            const mobLoadWrap = document.getElementById('mobileLoadMoreWrapper');
+            if (mobBtn && mobLoadWrap) {
+                if (matchedMobFeeds.length > mobileShown) {
+                    mobLoadWrap.style.display = 'block';
+                    mobBtn.style.display = 'inline-block';
+                } else {
+                    mobLoadWrap.style.display = 'none';
+                    mobBtn.style.display = 'none';
+                }
             }
+
+            // 3. 인기글 TOP 10 실시간 재정렬
+            const top10List = Array.from(document.querySelectorAll('.hero-master-right li'));
+            let currentRank = 1;
+            top10List.forEach(li => {
+                const a = li.querySelector('a');
+                const href = a ? (a.getAttribute('href') || '') : '';
+                if (hiddenSlugs.some(slug => href.includes(slug))) {
+                    li.style.setProperty('display', 'none', 'important');
+                } else {
+                    if (currentRank <= 10) {
+                        li.style.setProperty('display', 'flex', 'important');
+                        const rankSpan = li.querySelector('span:first-child');
+                        if (rankSpan) {
+                            rankSpan.innerText = currentRank;
+                            if (currentRank <= 5) rankSpan.style.color = '#c26908';
+                            else rankSpan.style.color = '#94a3b8';
+                        }
+                        currentRank++;
+                    } else {
+                        li.style.setProperty('display', 'none', 'important');
+                    }
+                }
+            });
+        } catch(e) {
+            console.error('Filter error:', e);
         }
-    </script>
+    }
+
+    function loadMorePcArticles() {
+        pcShown += 6;
+        applyAdminHiddenFilter();
+    }
+
+    function loadMoreMobileArticles() {
+        mobileShown += 4;
+        applyAdminHiddenFilter();
+    }
+
+    function filterDesktopCategory(cat, btn) {
+        currentSelectedCategory = cat;
+        pcShown = 999; // 카테고리 탭 선택 시 해당 카테고리 글 시원하게 전체 표시
+
+        document.querySelectorAll('.clean-nav .nav-cat-btn').forEach(b => b.classList.remove('active'));
+        if (btn) btn.classList.add('active');
+
+        const titleEl = document.getElementById('desktopSectionTitle');
+        if (titleEl) {
+            if (cat === 'all') titleEl.textContent = '전체 칼럼 모음';
+            else if (cat.includes('식단')) titleEl.textContent = '식단·영양 칼럼 모음';
+            else if (cat === '홈트레이닝') titleEl.textContent = '홈트레이닝 칼럼 모음';
+            else if (cat === '라이프 웰니스') titleEl.textContent = '라이프 웰니스 칼럼 모음';
+            else titleEl.textContent = cat + ' 칼럼 모음';
+        }
+
+        applyAdminHiddenFilter();
+    }
+
+    function filterTistoryFeed(cat, label) {
+        currentSelectedCategory = cat;
+        mobileShown = 999;
+        
+        const lbl = document.getElementById('currentCategoryLabel');
+        if (lbl) lbl.innerText = label;
+
+        document.querySelectorAll('.category-modal-item').forEach(item => {
+            item.classList.remove('active');
+            if (item.textContent.includes(label)) item.classList.add('active');
+        });
+
+        applyAdminHiddenFilter();
+    }
+
+    function filterArticlesBySearch(query) {
+        currentSearchQuery = (query || '').trim().toLowerCase();
+        applyAdminHiddenFilter();
+    }
+
+    function onSearchType(query, mode) {
+        const q = (query || '').trim().toLowerCase();
+        const pcClear = document.getElementById('btnPcClearSearch');
+        const mobClear = document.getElementById('btnMobileClearSearch');
+        
+        if (pcClear) pcClear.style.display = q.length > 0 ? 'inline-block' : 'none';
+        if (mobClear) mobClear.style.display = q.length > 0 ? 'inline-block' : 'none';
+
+        const pcInput = document.getElementById('pcSearchInput');
+        const mobInput = document.getElementById('mobileSearchInput');
+        if (mode === 'pc' && mobInput && mobInput.value !== query) mobInput.value = query;
+        if (mode === 'mob' && pcInput && pcInput.value !== query) pcInput.value = query;
+
+        filterArticlesBySearch(q);
+    }
+
+    function runSearch(mode) {
+        const input = mode === 'pc' ? document.getElementById('pcSearchInput') : document.getElementById('mobileSearchInput');
+        const q = input ? input.value.trim().toLowerCase() : '';
+        filterArticlesBySearch(q);
+        
+        const targetSection = document.getElementById('desktopCardsGrid') || document.getElementById('tistoryFeedContainer');
+        if (targetSection && q) {
+            targetSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    function clearLiveSearch(mode) {
+        const pcInput = document.getElementById('pcSearchInput');
+        const mobInput = document.getElementById('mobileSearchInput');
+        if (pcInput) pcInput.value = '';
+        if (mobInput) mobInput.value = '';
+
+        const pcClear = document.getElementById('btnPcClearSearch');
+        const mobClear = document.getElementById('btnMobileClearSearch');
+        if (pcClear) pcClear.style.display = 'none';
+        if (mobClear) mobClear.style.display = 'none';
+
+        filterArticlesBySearch('');
+    }
+
+    // 📱 모바일 드로어 및 카테고리 모달 제어
+    function openCategoryModal() {
+        const modal = document.getElementById('categoryModal');
+        if (modal) {
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    }
+
+    function closeCategoryModal() {
+        const modal = document.getElementById('categoryModal');
+        if (modal) {
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const catParam = urlParams.get('cat');
+        if (catParam) {
+            const targetBtn = Array.from(document.querySelectorAll('.clean-nav .nav-cat-btn')).find(b => b.textContent.includes(catParam) || b.getAttribute('href').includes(encodeURIComponent(catParam)));
+            filterDesktopCategory(catParam, targetBtn);
+            filterTistoryFeed(catParam, catParam);
+        } else {
+            applyAdminHiddenFilter();
+        }
+
+        // 모바일 드로어
+        const btnOpen = document.getElementById('btnOpenMobileDrawer');
+        const btnClose = document.getElementById('btnCloseMobileDrawer');
+        const overlay = document.getElementById('drawerOverlay');
+        const drawer = document.getElementById('naverMobileDrawer');
+
+        if (btnOpen && drawer && overlay) {
+            btnOpen.addEventListener('click', () => {
+                drawer.classList.add('open');
+                overlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            });
+            const closeMenu = () => {
+                drawer.classList.remove('open');
+                overlay.classList.remove('open');
+                document.body.style.overflow = '';
+            };
+            if (btnClose) btnClose.addEventListener('click', closeMenu);
+            overlay.addEventListener('click', closeMenu);
+        }
+    });
+</script>
     <!-- 📱 카테고리 선택 모달 -->
     <!-- ==========================================================================
          📱 [모바일 카테고리 팝업 모달 마크업]
