@@ -1,4 +1,4 @@
-﻿/**
+﻿﻿/**
  * 🍯 꿀단지 공식 모바일 액션 & 실시간 인기글 랭킹 엔진 (HoneyJar Real-Time Global Features & Dynamic Popular Ranking)
  * - 1인 1하트 중복 방지 + 글로벌 실시간 하트 동기화 + 하단바 댓글수 즉시 연동
  * - 🕒 3일 후 자동 소멸 스마트 최신 뱃지 시스템 (Auto-Expiring New Badge System)
@@ -11,103 +11,125 @@ var ABACUS_NS = window.ABACUS_NS || "honeyjar_wellness";
 // 📚 꿀단지 공식 11대 칼럼 마스터 레지스트리 (index.html 메인 TOP 10과 100% 칼각 일치)
 const HONEYJAR_POSTS_REGISTRY = [
     {
-        slug: "ohnara-diet.html",
-        slugKey: "ohnara_diet",
-        title: "오나라 51세 식단과 50대 근력 운동법",
-        fullTitle: "오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동",
-        thumb: "images/posts/ohnara/thumb.jpg?v=1.2",
-        cat: "식단 & 영양",
-        baseWeight: 150
+        "slug": "post-meal-walk-blood-sugar.html",
+        "slugKey": "post_meal_walk_blood_sugar",
+        "title": "식후 10분 걷기와 혈당 스파이크 차단",
+        "fullTitle": "식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 루틴",
+        "thumb": "images/posts/walking/thumb.jpg?v=2.0",
+        "cat": "라이프 웰니스",
+        "baseWeight": 160,
+        "date": "2026. 8. 25.",
+        "summary": "식후 15분 이내 10분 걷기가 인슐린 분비를 30% 낮추고 혈당 스파이크와 식곤증, 내장지방을 막는 과학적 기전과 실내 제자리 걷기 꿀팁."
     },
     {
-        slug: "post-meal-walk-blood-sugar.html",
-        slugKey: "post_meal_walk_blood_sugar",
-        title: "식후 10분 걷기와 혈당 스파이크 차단",
-        fullTitle: "식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 루틴",
-        thumb: "images/posts/walking/thumb.jpg?v=2.0",
-        cat: "라이프 웰니스",
-        baseWeight: 140
+        "slug": "knee-safe-squat-workout.html",
+        "slugKey": "knee_safe_squat_workout",
+        "title": "무릎 안 아픈 스쿼트·런지 3대 수칙",
+        "fullTitle": "초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세",
+        "thumb": "images/posts/squat/thumb.jpg?v=2.0",
+        "cat": "홈트레이닝",
+        "baseWeight": 150,
+        "date": "2026. 8. 25.",
+        "summary": "스쿼트와 런지 시 무릎 통증(슬개건염) 없이 하체 근육을 키우는 3대 관절 보호 수칙과 초보자 맞춤 10분 하체 홈트 루틴."
     },
     {
-        slug: "knee-safe-squat-workout.html",
-        slugKey: "knee_safe_squat_workout",
-        title: "무릎 안 아픈 스쿼트·런지 3대 수칙",
-        fullTitle: "초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세",
-        thumb: "images/posts/squat/thumb.jpg?v=2.0",
-        cat: "홈트레이닝",
-        baseWeight: 130
+        "slug": "ohnara-diet.html",
+        "slugKey": "ohnara_diet",
+        "title": "오나라 51세 식단과 50대 근력 운동법",
+        "fullTitle": "오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동",
+        "thumb": "images/posts/ohnara/thumb.jpg?v=1.2",
+        "cat": "식단 & 영양",
+        "baseWeight": 140,
+        "date": "2026. 8. 19.",
+        "summary": "배우 오나라의 샐러드 식단 팩트 분석부터 중년 여성의 기초대사량을 지키는 3대 복합 다관절 운동 루틴까지."
     },
     {
-        slug: "august-seasonal-foods.html",
-        slugKey: "august_seasonal_foods",
-        title: "8월 제철 음식 5가지 영양 가이드",
-        fullTitle: "8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드",
-        thumb: "images/posts/august/thumb.jpg?v=1.1",
-        cat: "식단 & 영양",
-        baseWeight: 120
+        "slug": "august-seasonal-foods.html",
+        "slugKey": "august_seasonal_foods",
+        "title": "8월 제철 음식 5가지 영양 가이드",
+        "fullTitle": "8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드",
+        "thumb": "images/posts/august/thumb.jpg?v=1.1",
+        "cat": "식단 & 영양",
+        "baseWeight": 130,
+        "date": "2026. 8. 19.",
+        "summary": "늦여름 지친 몸을 깨우는 장어, 전복, 포도, 복숭아, 옥수수의 효능과 올바른 섭취법."
     },
     {
-        slug: "mediterranean-diet.html",
-        slugKey: "mediterranean_diet",
-        title: "세계 1위 건강 식단 지중해식 가이드",
-        fullTitle: "세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁",
-        thumb: "images/posts/mediterranean/thumb.jpg?v=1.2",
-        cat: "식단 & 영양",
-        baseWeight: 110
+        "slug": "mediterranean-diet.html",
+        "slugKey": "mediterranean_diet",
+        "title": "세계 1위 건강 식단 지중해식 가이드",
+        "fullTitle": "세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁",
+        "thumb": "images/posts/mediterranean/thumb.jpg?v=1.2",
+        "cat": "식단 & 영양",
+        "baseWeight": 120,
+        "date": "2026. 8. 19.",
+        "summary": "지중해식 식단의 심혈관 보호 기전과 올리브유, 통곡물, 채소 중심의 한국형 맞춤 식단 구성법."
     },
     {
-        slug: "intermittent-fasting-guide.html",
-        slugKey: "intermittent_fasting_guide",
-        title: "간헐적 단식 16:8 방법과 식사 시간표",
-        fullTitle: "간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표",
-        thumb: "images/posts/fasting/thumb.jpg?v=1.1",
-        cat: "식단 & 영양",
-        baseWeight: 100
+        "slug": "intermittent-fasting-guide.html",
+        "slugKey": "intermittent_fasting_guide",
+        "title": "간헐적 단식 16:8 방법과 식사 시간표",
+        "fullTitle": "간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표",
+        "thumb": "images/posts/fasting/thumb.jpg?v=1.1",
+        "cat": "식단 & 영양",
+        "baseWeight": 110,
+        "date": "2026. 8. 19.",
+        "summary": "자가포식(오토파지) 유도 원리와 16:8 시간표 구성, 근손실 없는 간헐적 단식 실천 꿀팁."
     },
     {
-        slug: "morning-routine.html",
-        slugKey: "morning_routine",
-        title: "활력 깨우는 모닝 루틴 5단계",
-        fullTitle: "아침 공복 루틴 가이드: 체지방 감량과 활력을 돕는 기상 1시간 습관",
-        thumb: "images/posts/morning/thumb.jpg?v=1.2",
-        cat: "라이프 웰니스",
-        baseWeight: 90
+        "slug": "morning-routine.html",
+        "slugKey": "morning_routine",
+        "title": "활력 깨우는 모닝 루틴 5단계",
+        "fullTitle": "아침 공복 루틴 가이드: 체지방 감량과 활력을 돕는 기상 1시간 습관",
+        "thumb": "images/posts/morning/thumb.jpg?v=1.2",
+        "cat": "라이프 웰니스",
+        "baseWeight": 100,
+        "date": "2026. 8. 19.",
+        "summary": "기상 직후 미온수 한 잔부터 림프 순환 스트레칭까지 하루 컨디션을 바꾸는 아침 20분 루틴."
     },
     {
-        slug: "sleep-hygiene-guide.html",
-        slugKey: "sleep_hygiene_guide",
-        title: "숙면을 부르는 수면 위생 수칙 7가지",
-        fullTitle: "수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환경 가이드",
-        thumb: "images/posts/sleep/thumb.jpg?v=1.2",
-        cat: "라이프 웰니스",
-        baseWeight: 80
+        "slug": "sleep-hygiene-guide.html",
+        "slugKey": "sleep_hygiene_guide",
+        "title": "숙면을 부르는 수면 위생 수칙 7가지",
+        "fullTitle": "수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환경 가이드",
+        "thumb": "images/posts/sleep/thumb.jpg?v=1.2",
+        "cat": "라이프 웰니스",
+        "baseWeight": 90,
+        "date": "2026. 8. 19.",
+        "summary": "수면 호르몬 멜라토닌 분비를 돕는 조명, 침실 온도, 블루라이트 차단 수칙과 불면증 완화 루틴."
     },
     {
-        slug: "posture-stretching-office.html",
-        slugKey: "posture_stretching_office",
-        title: "직장인 거북목 교정 5분 스트레칭",
-        fullTitle: "직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭",
-        thumb: "images/posts/posture/thumb.jpg?v=1.2",
-        cat: "홈트레이닝",
-        baseWeight: 70
+        "slug": "posture-stretching-office.html",
+        "slugKey": "posture_stretching_office",
+        "title": "직장인 거북목 교정 5분 스트레칭",
+        "fullTitle": "직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭",
+        "thumb": "images/posts/posture/thumb.jpg?v=1.2",
+        "cat": "홈트레이닝",
+        "baseWeight": 80,
+        "date": "2026. 8. 19.",
+        "summary": "의자에 앉아서 하는 흉추 신전 스트레칭과 견갑골 후인 하강 운동으로 목·어깨 통증 완화."
     },
     {
-        slug: "core-exercise-home.html",
-        slugKey: "core_exercise_home",
-        title: "허리 통증 잡는 10분 코어 운동 루틴",
-        fullTitle: "바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴",
-        thumb: "images/posts/core/thumb.jpg?v=1.2",
-        cat: "홈트레이닝",
-        baseWeight: 60
+        "slug": "core-exercise-home.html",
+        "slugKey": "core_exercise_home",
+        "title": "허리 통증 잡는 10분 코어 운동 루틴",
+        "fullTitle": "바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴",
+        "thumb": "images/posts/core/thumb.jpg?v=1.2",
+        "cat": "홈트레이닝",
+        "baseWeight": 70,
+        "date": "2026. 8. 19.",
+        "summary": "허리 부담 없는 플랭크 변형 동작과 버드독, 데드버그로 척추 기립근과 복횡근 강화."
     },
     {
-        slug: "water-intake-guide.html",
-        slugKey: "water_intake_guide",
-        title: "내 몸에 맞는 하루 물 섭취량 계산법",
-        fullTitle: "하루 물 2리터 권장량의 진실, 올바른 수분 섭취법과 체내 밸런스",
-        thumb: "images/posts/water/thumb.jpg?v=1.2",
-        cat: "식단 & 영양",
-        baseWeight: 50
+        "slug": "water-intake-guide.html",
+        "slugKey": "water_intake_guide",
+        "title": "내 몸에 맞는 하루 물 섭취량 계산법",
+        "fullTitle": "체중별 하루 적정 수분 섭취량과 올바른 물 마시는 시간대",
+        "thumb": "images/posts/water/thumb.jpg?v=1.2",
+        "cat": "식단 & 영양",
+        "baseWeight": 60,
+        "date": "2026. 8. 19.",
+        "summary": "신체 대사율을 높이는 시간대별 수분 섭취 타이밍과 물 마시기 습관 형성 가이드."
     }
 ];
 
@@ -264,12 +286,13 @@ function showToast(message) {
     }, 2400);
 }
 
-// 3. 🕒 3일 후 자동 소멸 스마트 최신 뱃지 시스템
+// 3. 🕒 3일 후 자동 소멸 스마트 최신 뱃지 시스템 (3-Day Auto-Expiring Badges)
 function initAutoExpiringBadges() {
     const DAYS_LIMIT = 3;
     const now = new Date();
-    // 포스트 상세 페이지의 .article-meta-bar는 빌더 템플릿이 단일 뱃지를 정적으로 관리하므로 중복 방지를 위해 제외
-    const metaDateElements = document.querySelectorAll('.feed-item-meta span, .clean-card .article-item div[style*="font-size:0.76rem"]');
+    
+    // PC 그리드 및 모바일 피드의 모든 날짜 영역 탐색
+    const metaDateElements = document.querySelectorAll('.clean-card div[style*="font-size:0.76rem"], .feed-item-date, .tistory-feed-item .feed-item-date');
 
     metaDateElements.forEach(el => {
         const text = el.textContent || '';
@@ -281,31 +304,14 @@ function initAutoExpiringBadges() {
         const diffTime = now.getTime() - postDate.getTime();
         const diffDays = diffTime / (1000 * 60 * 60 * 24);
         
-        const baseDateStr = `${postDate.getFullYear()}.${String(postDate.getMonth()+1).padStart(2, '0')}.${String(postDate.getDate()).padStart(2, '0')}`;
-        
-        const article = el.closest('article');
-        const catBadge = article ? article.querySelector('.feed-item-cat, .clean-card span[style*="font-size:0.75rem"]') : null;
+        const baseDateStr = `${postDate.getFullYear()}. ${postDate.getMonth()+1}. ${postDate.getDate()}.`;
 
         if (diffDays >= 0 && diffDays <= DAYS_LIMIT) {
-            el.innerHTML = baseDateStr;
-            
-            if (catBadge && !catBadge.querySelector('.badge-cat-new') && !catBadge.textContent.includes('NEW')) {
-                const newTag = document.createElement('span');
-                newTag.className = 'badge-cat-new';
-                newTag.textContent = ' · NEW';
-                newTag.style.color = '#e11d48';
-                newTag.style.fontWeight = '800';
-                catBadge.appendChild(newTag);
-            }
+            // 3일 이내 작성된 글: (최신) 뱃지 자동 부착
+            el.innerHTML = `<span>${baseDateStr}</span> <span class="badge-cat-new" style="color:#e11d48; font-weight:800; font-size:0.76rem; margin-left:4px;">(최신)</span>`;
         } else {
-            el.textContent = baseDateStr;
-            if (catBadge) {
-                const catNew = catBadge.querySelector('.badge-cat-new');
-                if (catNew) catNew.remove();
-                catBadge.textContent = catBadge.textContent.replace(' · NEW', '').replace('', '').replace('· NEW', '').replace('· 관절 보호', '').trim();
-                const originCat = article.getAttribute('data-category');
-                if (originCat) catBadge.textContent = originCat;
-            }
+            // 3일 지난 글: (최신) 뱃지 100% 자동 소멸
+            el.innerHTML = `<span>${baseDateStr}</span>`;
         }
     });
 }
