@@ -415,8 +415,7 @@ async function initDynamicPopularRanking() {
 
 document.addEventListener('DOMContentLoaded', () => {
     initBottomHeart();
-    initAutoExpiringBadges();
-    renderEditorPickCard();
+        renderEditorPickCard();
     initDynamicPopularRanking();
 });
 
