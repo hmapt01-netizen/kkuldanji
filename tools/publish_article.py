@@ -259,7 +259,7 @@ def update_sitemap_and_rss(sitemap_path, rss_path, title, cat, slug, desc):
 
 def validate_mobile_readability(body_html):
     try:
-        captions = re.findall(r'<div[^>]*class=["']img-caption["'][^>]*>([\s\S]*?)</div>', body_html)
+        captions = re.findall(r"""<div[^>]*class=["']img-caption["'][^>]*>([\s\S]*?)</div>""", body_html)
         for c in captions:
             clean = re.sub(r'<[^>]+>', '', c).strip()
             if len(clean) > 45:
