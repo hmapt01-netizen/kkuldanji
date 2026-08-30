@@ -258,12 +258,14 @@ def update_sitemap_and_rss(sitemap_path, rss_path, title, cat, slug, desc):
 
 
 def validate_mobile_readability(body_html):
-    # Check caption lengths
-    captions = re.findall(r'<div[^>]*class=["']img-caption["'][^>]*>([\s\S]*?)</div>', body_html)
-    for c in captions:
-        clean = re.sub(r'<[^>]+>', '', c).strip()
-        if len(clean) > 45:
-            print(f"[WARN] Caption is longer than 45 chars (Mobile 1-line standard exceeded): '{clean[:35]}...' ({len(clean)} chars)")
+    try:
+        captions = re.findall(r'<div[^>]*class=["']img-caption["'][^>]*>([\s\S]*?)</div>', body_html)
+        for c in captions:
+            clean = re.sub(r'<[^>]+>', '', c).strip()
+            if len(clean) > 45:
+                print(f"[WARN] Caption is longer than 45 chars: '{clean[:35]}...' ({len(clean)} chars)")
+    except Exception as e:
+        pass
 
 def publish_post(title, cat, date, slug, thumb, desc, body_html, faqs, references, academic_source, json_ld_article, json_ld_faq, related_slug=None):
     root_dir = r'd:\작업\꿀단지'
