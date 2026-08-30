@@ -19,7 +19,8 @@ const HONEYJAR_POSTS_REGISTRY = [
         "cat": "라이프 웰니스",
         "baseWeight": 160,
         "date": "2026. 8. 25.",
-        "summary": "식후 15분 이내 10분 걷기가 인슐린 분비를 30% 낮추고 혈당 스파이크와 식곤증, 내장지방을 막는 과학적 기전과 실내 제자리 걷기 꿀팁."
+        "summary": "식후 15분 이내 10분 걷기가 인슐린 분비를 30% 낮추고 혈당 스파이크와 식곤증, 내장지방을 막는 과학적 기전과 실내 제자리 걷기 꿀팁.",
+        "isEditorPick": false
     },
     {
         "slug": "knee-safe-squat-workout.html",
@@ -30,7 +31,8 @@ const HONEYJAR_POSTS_REGISTRY = [
         "cat": "홈트레이닝",
         "baseWeight": 150,
         "date": "2026. 8. 25.",
-        "summary": "스쿼트와 런지 시 무릎 통증(슬개건염) 없이 하체 근육을 키우는 3대 관절 보호 수칙과 초보자 맞춤 10분 하체 홈트 루틴."
+        "summary": "스쿼트와 런지 시 무릎 통증(슬개건염) 없이 하체 근육을 키우는 3대 관절 보호 수칙과 초보자 맞춤 10분 하체 홈트 루틴.",
+        "isEditorPick": false
     },
     {
         "slug": "ohnara-diet.html",
@@ -41,7 +43,8 @@ const HONEYJAR_POSTS_REGISTRY = [
         "cat": "식단 & 영양",
         "baseWeight": 140,
         "date": "2026. 8. 19.",
-        "summary": "배우 오나라의 샐러드 식단 팩트 분석부터 중년 여성의 기초대사량을 지키는 3대 복합 다관절 운동 루틴까지."
+        "summary": "배우 오나라의 샐러드 식단 팩트 분석부터 중년 여성의 기초대사량을 지키는 3대 복합 다관절 운동 루틴까지.",
+        "isEditorPick": false
     },
     {
         "slug": "august-seasonal-foods.html",
@@ -52,7 +55,8 @@ const HONEYJAR_POSTS_REGISTRY = [
         "cat": "식단 & 영양",
         "baseWeight": 130,
         "date": "2026. 8. 19.",
-        "summary": "늦여름 지친 몸을 깨우는 장어, 전복, 포도, 복숭아, 옥수수의 효능과 올바른 섭취법."
+        "summary": "늦여름 지친 몸을 깨우는 장어, 전복, 포도, 복숭아, 옥수수의 효능과 올바른 섭취법.",
+        "isEditorPick": false
     },
     {
         "slug": "mediterranean-diet.html",
@@ -63,7 +67,8 @@ const HONEYJAR_POSTS_REGISTRY = [
         "cat": "식단 & 영양",
         "baseWeight": 120,
         "date": "2026. 8. 19.",
-        "summary": "지중해식 식단의 심혈관 보호 기전과 올리브유, 통곡물, 채소 중심의 한국형 맞춤 식단 구성법."
+        "summary": "지중해식 식단의 심혈관 보호 기전과 올리브유, 통곡물, 채소 중심의 한국형 맞춤 식단 구성법.",
+        "isEditorPick": false
     },
     {
         "slug": "intermittent-fasting-guide.html",
@@ -74,7 +79,8 @@ const HONEYJAR_POSTS_REGISTRY = [
         "cat": "식단 & 영양",
         "baseWeight": 110,
         "date": "2026. 8. 19.",
-        "summary": "자가포식(오토파지) 유도 원리와 16:8 시간표 구성, 근손실 없는 간헐적 단식 실천 꿀팁."
+        "summary": "자가포식(오토파지) 유도 원리와 16:8 시간표 구성, 근손실 없는 간헐적 단식 실천 꿀팁.",
+        "isEditorPick": false
     },
     {
         "slug": "morning-routine.html",
@@ -85,7 +91,8 @@ const HONEYJAR_POSTS_REGISTRY = [
         "cat": "라이프 웰니스",
         "baseWeight": 100,
         "date": "2026. 8. 19.",
-        "summary": "기상 직후 미온수 한 잔부터 림프 순환 스트레칭까지 하루 컨디션을 바꾸는 아침 20분 루틴."
+        "summary": "기상 직후 미온수 한 잔부터 림프 순환 스트레칭까지 하루 컨디션을 바꾸는 아침 20분 루틴.",
+        "isEditorPick": false
     },
     {
         "slug": "sleep-hygiene-guide.html",
@@ -96,7 +103,8 @@ const HONEYJAR_POSTS_REGISTRY = [
         "cat": "라이프 웰니스",
         "baseWeight": 90,
         "date": "2026. 8. 19.",
-        "summary": "수면 호르몬 멜라토닌 분비를 돕는 조명, 침실 온도, 블루라이트 차단 수칙과 불면증 완화 루틴."
+        "summary": "수면 호르몬 멜라토닌 분비를 돕는 조명, 침실 온도, 블루라이트 차단 수칙과 불면증 완화 루틴.",
+        "isEditorPick": false
     },
     {
         "slug": "posture-stretching-office.html",
@@ -107,7 +115,8 @@ const HONEYJAR_POSTS_REGISTRY = [
         "cat": "홈트레이닝",
         "baseWeight": 80,
         "date": "2026. 8. 19.",
-        "summary": "의자에 앉아서 하는 흉추 신전 스트레칭과 견갑골 후인 하강 운동으로 목·어깨 통증 완화."
+        "summary": "의자에 앉아서 하는 흉추 신전 스트레칭과 견갑골 후인 하강 운동으로 목·어깨 통증 완화.",
+        "isEditorPick": false
     },
     {
         "slug": "core-exercise-home.html",
@@ -118,7 +127,8 @@ const HONEYJAR_POSTS_REGISTRY = [
         "cat": "홈트레이닝",
         "baseWeight": 70,
         "date": "2026. 8. 19.",
-        "summary": "허리 부담 없는 플랭크 변형 동작과 버드독, 데드버그로 척추 기립근과 복횡근 강화."
+        "summary": "허리 부담 없는 플랭크 변형 동작과 버드독, 데드버그로 척추 기립근과 복횡근 강화.",
+        "isEditorPick": false
     },
     {
         "slug": "water-intake-guide.html",
@@ -129,7 +139,8 @@ const HONEYJAR_POSTS_REGISTRY = [
         "cat": "식단 & 영양",
         "baseWeight": 60,
         "date": "2026. 8. 19.",
-        "summary": "신체 대사율을 높이는 시간대별 수분 섭취 타이밍과 물 마시기 습관 형성 가이드."
+        "summary": "신체 대사율을 높이는 시간대별 수분 섭취 타이밍과 물 마시기 습관 형성 가이드.",
+        "isEditorPick": false
     }
 ];
 
@@ -469,3 +480,68 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     } catch(e) {}
 });
+
+    // 🌟 [에디터 PICK 전용 데이터 바인딩 엔진: 100% 무결점 자동 렌더링]
+    function renderEditorPickCard() {
+        if (typeof HONEYJAR_POSTS_REGISTRY === 'undefined' || !Array.isArray(HONEYJAR_POSTS_REGISTRY) || HONEYJAR_POSTS_REGISTRY.length === 0) return;
+        
+        // isEditorPick: true인 글 검색 (없으면 첫 번째 글)
+        const localPickSlug = localStorage.getItem('chageul_editor_pick_slug') || localStorage.getItem('honeyjar_editor_pick_slug');
+        let pickPost = null;
+        if (localPickSlug) {
+            pickPost = HONEYJAR_POSTS_REGISTRY.find(p => p.slug === localPickSlug || p.slug === localPickSlug + '.html' || p.slug.replace('.html','') === localPickSlug.replace('.html',''));
+        }
+        if (!pickPost) {
+            pickPost = HONEYJAR_POSTS_REGISTRY.find(p => p.isEditorPick === true) || HONEYJAR_POSTS_REGISTRY[0];
+        }
+        if (!pickPost) return;
+
+        const postHref = 'posts/' + pickPost.slug;
+        const postTitle = pickPost.fullTitle || pickPost.title || '';
+        const postThumb = pickPost.thumb || '';
+        const postCat = pickPost.cat || '포커스';
+        const postDate = pickPost.date || '2026. 8. 30.';
+        const postDesc = pickPost.summary || `"${postTitle}"에 대한 상세 분석 및 가이드`;
+
+        // 1. PC 좌측 히어로 대형 배너 업데이트
+        const heroLeft = document.querySelector('.hero-master-left');
+        if (heroLeft) {
+            const heroA = heroLeft.querySelector('a');
+            const heroImg = heroLeft.querySelector('img');
+            const heroCat = heroLeft.querySelector('.hero-cat-tag');
+            const heroH2A = heroLeft.querySelector('.hero-title-text a');
+            const heroDesc = heroLeft.querySelector('.hero-desc-text');
+            const heroMeta = heroLeft.querySelector('div[style*="border-top"] span');
+
+            if (heroA) heroA.setAttribute('href', postHref);
+            if (heroImg) {
+                heroImg.setAttribute('src', postThumb);
+                heroImg.setAttribute('alt', postTitle);
+            }
+            if (heroCat) heroCat.textContent = postCat;
+            if (heroH2A) {
+                heroH2A.setAttribute('href', postHref);
+                heroH2A.textContent = postTitle;
+            }
+            if (heroDesc) heroDesc.textContent = `"${postDesc}"`;
+            if (heroMeta) heroMeta.textContent = `차를 쓰다 · ${postDate}`;
+        }
+
+        // 2. 모바일 매거진 커버 배너 업데이트
+        const mobPick = document.querySelector('.mobile-editor-pick-card');
+        if (mobPick) {
+            mobPick.setAttribute('onclick', `location.href='${postHref}'`);
+            const mobImg = mobPick.querySelector('img');
+            const mobH3 = mobPick.querySelector('h3');
+            const mobP = mobPick.querySelector('p');
+            const mobDate = mobPick.querySelector('div[style*="border-top"] span');
+
+            if (mobImg) {
+                mobImg.setAttribute('src', postThumb);
+                mobImg.setAttribute('alt', postTitle);
+            }
+            if (mobH3) mobH3.textContent = postTitle;
+            if (mobP) mobP.textContent = `"${postDesc}"`;
+            if (mobDate) mobDate.textContent = `차를 쓰다 · ${postDate}`;
+        }
+    }

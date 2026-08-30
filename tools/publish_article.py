@@ -1,3 +1,27 @@
+
+def auto_verify_index_integrity(root_dir):
+    index_path = os.path.join(root_dir, 'index.html')
+    if not os.path.exists(index_path):
+        return True
+    with open(index_path, 'r', encoding='utf-8', errors='ignore') as f:
+        text = f.read()
+
+    # 1. Verify inline script brace balance
+    scripts = re.findall(r'<script(?![^>]*src)[^>]*>([\s\S]*?)</script>', text)
+    for i, s in enumerate(scripts):
+        open_b = s.count('{')
+        close_b = s.count('}')
+        if open_b != close_b:
+            print(f"[FATAL ERROR] index.html inline script {i+1} brace mismatch! ({open_b} vs {close_b})")
+            return False
+
+    # 2. Verify hero grid structure
+    if text.count('class="hero-master-left"') != 1 or text.count('class="hero-master-right"') != 1:
+        print("[FATAL ERROR] index.html hero-master-grid layout tag corrupted!")
+        return False
+
+    return True
+
 # -*- coding: utf-8 -*-
 """
 🍯 꿀단지 (HONEYJAR) 올인원 마스터 자동 발행 및 구글/IndexNow 실시간 색인 엔진
@@ -232,6 +256,15 @@ def update_sitemap_and_rss(sitemap_path, rss_path, title, cat, slug, desc):
                     f.write(r_text)
                 print(f"[OK] Updated rss.xml for {slug}")
 
+
+def validate_mobile_readability(body_html):
+    # Check caption lengths
+    captions = re.findall(r'<div[^>]*class=["']img-caption["'][^>]*>([\s\S]*?)</div>', body_html)
+    for c in captions:
+        clean = re.sub(r'<[^>]+>', '', c).strip()
+        if len(clean) > 45:
+            print(f"[WARN] Caption is longer than 45 chars (Mobile 1-line standard exceeded): '{clean[:35]}...' ({len(clean)} chars)")
+
 def publish_post(title, cat, date, slug, thumb, desc, body_html, faqs, references, academic_source, json_ld_article, json_ld_faq, related_slug=None):
     root_dir = r'd:\작업\꿀단지'
     web_dir = os.path.join(root_dir, 'kkuldanji_web')
@@ -282,6 +315,7 @@ def publish_post(title, cat, date, slug, thumb, desc, body_html, faqs, reference
     rendered = rendered.replace("{{JSON_LD_ARTICLE}}", json_ld_article)
     rendered = rendered.replace("{{JSON_LD_FAQ}}", json_ld_faq)
 
+    validate_mobile_readability(body_html)
     with open(out_path, 'w', encoding='utf-8-sig') as f:
         f.write(rendered)
     print(f"[OK] Generated {out_path}")
