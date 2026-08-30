@@ -1,4 +1,4 @@
-﻿﻿<!DOCTYPE html>
+﻿﻿﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <!-- 📊 Google Analytics 4 (GA4 공식 초광속 비동기 태그) -->
@@ -987,6 +987,22 @@
     }
 
     // 👁️ 9. 칼럼 숨김/공개 토글
+    
+    function setPostAsEditorPick(slug) {
+        const p = posts.find(item => item.slug === slug);
+        if (!p) return;
+        
+        localStorage.setItem('honeyjar_editor_pick_slug', p.slug);
+        
+        posts.forEach(item => {
+            item.isEditorPick = (item.slug === p.slug);
+        });
+        
+        savePostsData();
+        renderTable();
+        alert(`👑 [${p.title}] 글이 메인 화면 '에디터 PICK'으로 즉시 지정되었습니다!`);
+    }
+
     function toggleHidePost(id) {
         const post = posts.find(p => p.id === id);
         if (!post) return;

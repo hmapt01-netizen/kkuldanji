@@ -144,77 +144,100 @@ def update_admin_html(admin_path, post_obj):
             print(f"[ERROR] Updating admin.html: {e}")
 
 def update_index_html(index_path, title, cat, date, slug, thumb, desc):
-    if not os.path.exists(index_path):
+    root_dir = os.path.dirname(index_path)
+    features_path = os.path.join(root_dir, 'js', 'features.js')
+    if not os.path.exists(features_path):
         return
-    with open(index_path, 'r', encoding='utf-8') as f:
-        text = f.read()
 
-    # 1. Clean previous (최신) badges
+    with open(features_path, 'r', encoding='utf-8') as f:
+        f_text = f.read()
 
-    # 2. Insert into Desktop clean-grid (Card 1)
-    desktop_card = f"""                <!-- Post 1 (LATEST): {title} -->
-                <article class="clean-card article-item" data-category="{cat}" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
+    m = re.search(r'const HONEYJAR_POSTS_REGISTRY = (\[[\s\S]*?\]);', f_text)
+    if not m:
+        return
+    posts = json.loads(m.group(1))
+
+    # 1. Build PC Desktop Grid
+    desktop_cards_html = []
+    for idx, p in enumerate(posts):
+        p_slug = p['slug']
+        p_title = p.get('fullTitle', p.get('title', ''))
+        p_cat = p.get('cat', '신차소식')
+        p_date = p.get('date', '2026. 8. 30.')
+        p_thumb = p.get('thumb', '')
+        p_desc = p.get('summary', '')
+        short_desc = (p_desc[:80] + '...') if len(p_desc) > 80 else p_desc
+        badge_html = '<span class="badge-cat-new" style="color:#e11d48; font-weight:800; font-size:0.76rem; margin-left:4px;">(최신)</span>' if idx == 0 else ''
+
+        card = f'''                <!-- Post {idx+1}: {p_title} -->
+                <article class="clean-card article-item" data-category="{p_cat}" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
                     <div style="position:relative; height:180px;">
-                        <a href="posts/{slug}">
-                            <img src="{thumb}" alt="{title}" style="width:100%; height:100%; object-fit:cover;" fetchpriority="high" decoding="async">
+                        <a href="posts/{p_slug}">
+                            <img src="{p_thumb}" alt="{p_title}" style="width:100%; height:100%; object-fit:cover;" {"fetchpriority=\"high\"" if idx < 3 else "loading=\"lazy\""} decoding="async">
                         </a>
                     </div>
                     <div style="padding:16px; display:flex; flex-direction:column; flex:1;">
-                        <span style="font-size:0.75rem; color:#c26908; font-weight:750; margin-bottom:2px;">{cat}</span>
+                        <span style="font-size:0.75rem; color:#c26908; font-weight:750; margin-bottom:2px;">{p_cat}</span>
                         <h3 style="font-size:1.02rem; font-weight:800; color:#111827; margin:2px 0 6px 0; line-height:1.38;">
-                            <a href="posts/{slug}">{title}</a>
+                            <a href="posts/{p_slug}">{p_title}</a>
                         </h3>
-                        <p style="font-size:0.86rem; color:#475569; line-height:1.6; margin-bottom:6px;">{desc}</p>
+                        <p style="font-size:0.86rem; color:#475569; line-height:1.6; margin-bottom:6px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">{short_desc}</p>
                         <div style="font-size:0.76rem; color:#94a3b8; margin-top:auto; display:flex; align-items:center; gap:6px;">
-                            <span>{date}</span>
-                            <span class="badge-cat-new" style="color:#e11d48; font-weight:800; font-size:0.76rem; margin-left:4px;">(최신)</span>
+                            <span>{p_date}</span>
+                            {badge_html}
                         </div>
                     </div>
-                </article>
-"""
-    grid_marker = '<section class="clean-grid" id="desktopCardsGrid"'
-    pos = text.find(grid_marker)
-    if pos != -1:
-        ins_point = text.find('>', pos) + 1
-        if f'href="posts/{slug}"' in text[ins_point:]:
-            text = re.sub(rf'<!-- Post[^\n]*\n\s*<article[^>]*>[\s\S]*?<a href="posts/{re.escape(slug)}"[\s\S]*?</article>', '', text, count=1)
-            pos = text.find(grid_marker)
-            ins_point = text.find('>', pos) + 1
-        text = text[:ins_point] + '\n' + desktop_card + text[ins_point:]
+                </article>'''
+        desktop_cards_html.append(card)
 
-    # 3. Insert into Mobile Feed (Card 1)
-    mobile_card = f"""
-                <!-- Mobile Feed Card 1 (LATEST): {title} -->
-                <article class="tistory-feed-item" data-category="{cat}">
+    all_desktop_grid = '\n' + '\n\n'.join(desktop_cards_html) + '\n            '
+
+    # 2. Build Mobile Feed
+    mobile_feed_html = []
+    for idx, p in enumerate(posts):
+        p_slug = p['slug']
+        p_title = p.get('fullTitle', p.get('title', ''))
+        p_cat = p.get('cat', '신차소식')
+        p_date = p.get('date', '2026. 8. 30.')
+        p_thumb = p.get('thumb', '')
+        p_desc = p.get('summary', '')
+        short_desc = (p_desc[:80] + '...') if len(p_desc) > 80 else p_desc
+        badge_html = '<span class="feed-item-badge" style="color:#e11d48; font-weight:800; font-size:0.76rem; margin-left:4px;">(최신)</span>' if idx == 0 else ''
+
+        m_card = f'''                <!-- Mobile Feed Card {idx+1}: {p_title} -->
+                <article class="tistory-feed-item feed-visible" data-category="{p_cat}" onclick="location.href=\'posts/{p_slug}\'" style="cursor:pointer;">
                     <div class="feed-item-content">
-                        <span class="feed-item-cat"><span class="feed-badge-new" style="background:#e11d48; color:#fff; font-size:0.68rem; font-weight:800; padding:2px 6px; border-radius:4px; margin-right:4px;">NEW</span> {cat}</span>
+                        <span class="feed-item-cat">{p_cat}</span>
                         <h3 class="feed-item-title">
-                            <a href="posts/{slug}">{title}</a>
+                            <a href="posts/{p_slug}">{p_title}</a>
                         </h3>
-                        <p class="feed-item-summary">{desc}</p>
-                        <div class="feed-item-meta">
-                            <span class="feed-item-date">{date}</span>
-                            <span class="feed-item-badge" style="color:#e11d48; font-weight:800; font-size:0.76rem; margin-left:4px;">(최신)</span>
+                        <p class="feed-item-desc" style="display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin:4px 0 6px 0; font-size:0.84rem; color:#64748b; line-height:1.5;">{short_desc}</p>
+                        <div class="feed-item-meta" style="font-size:0.76rem; color:#94a3b8;">
+                            <span class="feed-item-date">{p_date}</span>
+                            {badge_html}
                         </div>
                     </div>
-                    <a href="posts/{slug}" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
-                        <img src="{thumb}" alt="{title}" class="feed-item-thumb" loading="lazy" decoding="async">
+                    <a href="posts/{p_slug}" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
+                        <img src="{p_thumb}" alt="{p_title}" class="feed-item-thumb" {"fetchpriority=\"high\"" if idx < 2 else "loading=\"lazy\""} decoding="async">
                     </a>
-                </article>
-"""
-    feed_marker = 'id="tistoryFeedContainer"'
-    fpos = text.find(feed_marker)
-    if fpos != -1:
-        fins_point = text.find('>', fpos) + 1
-        if f'posts/{slug}' in text[fins_point:fins_point+3000]:
-            text = re.sub(rf'<!-- Mobile Feed[^\n]*\n\s*<article[^>]*posts/{re.escape(slug)}[\s\S]*?</article>', '', text, count=1)
-            fpos = text.find(feed_marker)
-            fins_point = text.find('>', fpos) + 1
-        text = text[:fins_point] + mobile_card + text[fins_point:]
+                </article>'''
+        mobile_feed_html.append(m_card)
+
+    all_mobile_feed = '\n' + '\n\n'.join(mobile_feed_html) + '\n            '
+
+    with open(index_path, 'r', encoding='utf-8') as f:
+        index_text = f.read()
+
+    pc_grid_pattern = r'(<section class="clean-grid" id="desktopCardsGrid"[^>]*>)[\s\S]*?(</section>\s*<!-- 더보기 버튼)'
+    index_text = re.sub(pc_grid_pattern, r'\1' + all_desktop_grid + r'\2', index_text)
+
+    mob_feed_pattern = r'(<div class="tistory-feed-list" id="tistoryFeedContainer">)[\s\S]*?(</div>\s*<div class="mobile-load-more-wrap")'
+    index_text = re.sub(mob_feed_pattern, r'\1' + all_mobile_feed + r'\2', index_text)
 
     with open(index_path, 'w', encoding='utf-8-sig') as f:
-        f.write(text)
-    print(f"[OK] Updated index.html clean-grid & mobile feed for {slug}")
+        f.write(index_text)
+    print(f"[OK] Deterministically recompiled index.html from registry!")
+
 
 def update_sitemap_and_rss(sitemap_path, rss_path, title, cat, slug, desc):
     if os.path.exists(sitemap_path):

@@ -318,7 +318,7 @@ function initAutoExpiringBadges() {
         const baseDateStr = `${postDate.getFullYear()}. ${postDate.getMonth()+1}. ${postDate.getDate()}.`;
 
         if (diffDays >= 0 && diffDays <= DAYS_LIMIT) {
-            // 3일 이내 작성된 글: (최신) 뱃지 자동 부착
+            // 3일 이내 작성된 글: 단 1개의 (최신) 뱃지만 부착 (중복 제거)
             el.innerHTML = `<span>${baseDateStr}</span> <span class="badge-cat-new" style="color:#e11d48; font-weight:800; font-size:0.76rem; margin-left:4px;">(최신)</span>`;
         } else {
             // 3일 지난 글: (최신) 뱃지 100% 자동 소멸
@@ -416,6 +416,7 @@ async function initDynamicPopularRanking() {
 document.addEventListener('DOMContentLoaded', () => {
     initBottomHeart();
     initAutoExpiringBadges();
+    renderEditorPickCard();
     initDynamicPopularRanking();
 });
 
@@ -524,7 +525,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 heroH2A.textContent = postTitle;
             }
             if (heroDesc) heroDesc.textContent = `"${postDesc}"`;
-            if (heroMeta) heroMeta.textContent = `차를 쓰다 · ${postDate}`;
+            if (heroMeta) heroMeta.textContent = `에디터 혀니 · ${postDate}`;
         }
 
         // 2. 모바일 매거진 커버 배너 업데이트
@@ -542,6 +543,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (mobH3) mobH3.textContent = postTitle;
             if (mobP) mobP.textContent = `"${postDesc}"`;
-            if (mobDate) mobDate.textContent = `차를 쓰다 · ${postDate}`;
+            if (mobDate) mobDate.textContent = `에디터 혀니 · ${postDate}`;
         }
+    }
+
+    if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        renderEditorPickCard();
     }
