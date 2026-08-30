@@ -1,4 +1,4 @@
-﻿/* 📱 모바일 스마트 상단 헤더 스크롤 영구 상단 고정 (Always Fixed Sticky) */
+﻿﻿/* 📱 모바일 스마트 상단 헤더 스크롤 영구 상단 고정 (Always Fixed Sticky) */
 @media (max-width: 768px) {
     body.tistory-single-post {
         padding-top: 52px !important;
@@ -3201,12 +3201,18 @@ img {
 }
 .article-featured-img-box, .article-section-img-box {
     width: 100% !important;
-    aspect-ratio: unset !important;
-    background: transparent !important;
+    aspect-ratio: 16 / 9 !important;
+    background: #f1f5f9 !important;
     border-radius: 12px !important;
-    overflow: visible !important;
-    contain: none !important;
+    overflow: hidden !important;
+    margin: 24px 0 !important;
     text-align: center !important;
+}
+.article-section-img-box img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    display: block !important;
 }
 .article-featured-img-box figcaption {
     display: block !important;

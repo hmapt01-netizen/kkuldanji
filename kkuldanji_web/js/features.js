@@ -1,4 +1,4 @@
-﻿﻿﻿﻿/**
+﻿﻿﻿﻿﻿/**
  * 🍯 꿀단지 공식 모바일 액션 & 실시간 인기글 랭킹 엔진 (HoneyJar Real-Time Global Features & Dynamic Popular Ranking)
  * - 1인 1하트 중복 방지 + 글로벌 실시간 하트 동기화 + 하단바 댓글수 즉시 연동
  * - 🕒 3일 후 자동 소멸 스마트 최신 뱃지 시스템 (Auto-Expiring New Badge System)
@@ -342,7 +342,7 @@ async function initDynamicPopularRanking() {
         }
     } catch(e) {}
 
-    // 1) 숨겨지지 않은 공개 글만 골라 실시간 조회수 점수 계산
+    // 1) 꿀단지 전체 글 가중치 및 실시간 조회수 합산
     const rankedPosts = HONEYJAR_POSTS_REGISTRY
         .filter(post => !hiddenSlugs.includes(post.slug))
         .map(post => {
@@ -352,7 +352,7 @@ async function initDynamicPopularRanking() {
                 if (!isNaN(localHits)) liveHits = localHits;
             } catch(e) {}
             
-            const totalScore = post.baseWeight + (liveHits * 3);
+            const totalScore = (post.baseWeight || 100) + (liveHits * 3);
             return {
                 ...post,
                 score: totalScore,
@@ -361,56 +361,69 @@ async function initDynamicPopularRanking() {
             };
         });
 
-    // 2) 점수 기준 내림차순(높은 순) 정렬 후 TOP 10 추출
+    // 2) 점수 기준 정렬
     rankedPosts.sort((a, b) => b.score - a.score);
     const top10 = rankedPosts.slice(0, 10);
     const top5Mobile = rankedPosts.slice(0, 5);
 
-    // 3) PC 데스크톱 사이드바 위젯 렌더링 (TOP 10 10편 완벽 렌더링)
-    const sidebarLists = document.querySelectorAll('.popular-list');
+    // 3) PC 메인 히어로 우측 TOP 10 위젯 업데이트
+    const heroRightList = document.querySelector('.hero-master-right ul');
+    if (heroRightList) {
+        let html = '';
+        top10.forEach((item, idx) => {
+            const rankNum = idx + 1;
+            const rankColor = rankNum <= 3 ? '#c26908' : '#94a3b8';
+            html += `
+                <li style="display:flex; align-items:center; gap:10px; padding:3px 0;">
+                    <span style="font-size:0.98rem; font-weight:900; color:${rankColor}; width:20px; text-align:center; flex-shrink:0;">${rankNum}</span>
+                    <a href="${item.linkUrl}" style="font-size:0.88rem; font-weight:${rankNum <= 3 ? '750' : '650'}; color:${rankNum <= 3 ? '#1e293b' : '#334155'}; text-decoration:none; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1;" title="${item.fullTitle || item.title}">${item.fullTitle || item.title}</a>
+                </li>
+            `;
+        });
+        heroRightList.innerHTML = html;
+    }
+
+    // 4) 모바일 메인 인기글 TOP 5 카드 업데이트
+    const mobTop5Container = document.querySelector('.mobile-popular-top5-card, #mobilePopularBox');
+    if (mobTop5Container) {
+        let html = '';
+        top5Mobile.forEach((item, idx) => {
+            const rankNum = idx + 1;
+            const rankColor = rankNum <= 3 ? '#c26908' : '#94a3b8';
+            html += `
+                <div style="display:flex; justify-content:space-between; align-items:center; padding:11px 0; border-bottom:1px solid #f1f5f9; cursor:pointer;" onclick="location.href='${item.linkUrl}'">
+                    <div style="flex:1; padding-right:12px; min-width:0;">
+                        <h4 style="font-size:0.90rem; font-weight:800; color:#111827; margin:0 0 4px 0; line-height:1.35; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">
+                            ${item.fullTitle || item.title}
+                        </h4>
+                        <div style="display:flex; align-items:center; font-size:0.75rem;">
+                            <span style="font-weight:800; color:${rankColor}; margin-right:8px;">TOP ${rankNum}</span>
+                            <span style="color:#64748b;">${item.cat || '라이프 웰니스'}</span>
+                        </div>
+                    </div>
+                    <img src="${item.thumbUrl}" alt="${item.fullTitle || item.title}" style="width:60px; height:60px; border-radius:10px; object-fit:cover; flex-shrink:0;">
+                </div>
+            `;
+        });
+        mobTop5Container.innerHTML = html;
+    }
+
+    // 5) 본문 페이지(포스트 상세) 사이드바 위젯 렌더링
+    const sidebarLists = document.querySelectorAll('.popular-list, #popularPostsWidgetList');
     sidebarLists.forEach(listEl => {
         let html = '';
         top10.forEach((item, idx) => {
             const rankNum = idx + 1;
-            const rankColor = rankNum <= 5 ? '#c26908' : '#94a3b8';
+            const rankColor = rankNum <= 3 ? '#c26908' : (rankNum <= 5 ? '#ea580c' : '#94a3b8');
             html += `
-                <li class="popular-item" style="display:flex; align-items:center; gap:10px; padding:6px 0; border-bottom:1px solid #f8fafc;">
+                <li class="popular-item" style="display:flex; align-items:center; gap:10px; padding:7px 0; border-bottom:1px solid #f8fafc;">
                     <span class="popular-rank" style="font-size:0.95rem; font-weight:900; color:${rankColor}; width:20px; text-align:center; flex-shrink:0;">${rankNum}</span>
-                    <a href="${item.linkUrl}" class="popular-link" style="font-size:0.88rem; font-weight:650; color:#334155; text-decoration:none; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1;" title="${item.title}">${item.title}</a>
+                    <a href="${item.linkUrl}" class="popular-link" style="font-size:0.86rem; font-weight:${rankNum <= 3 ? '700' : '650'}; color:${rankNum <= 3 ? '#1e293b' : '#334155'}; text-decoration:none; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; flex:1;" title="${item.fullTitle || item.title}">${item.fullTitle || item.title}</a>
                 </li>
             `;
         });
         listEl.innerHTML = html;
     });
-
-    // 사이드바 위젯 헤더 타이틀을 '인기글 TOP 10'으로 정돈
-    const widgetTitles = document.querySelectorAll('.sidebar-widget .widget-title span');
-    widgetTitles.forEach(titleEl => {
-        if (titleEl.textContent.includes('인기')) {
-            titleEl.textContent = '인기글 TOP 10';
-        }
-    });
-
-    // 4) 모바일 메인 인기글 카드 박스 렌더링
-    const mobilePopularBox = document.querySelector('.popular-posts-card-box');
-    if (mobilePopularBox) {
-        let mobileHtml = '';
-        top5Mobile.forEach((item, idx) => {
-            mobileHtml += `
-                <a href="${item.linkUrl}" class="popular-post-row">
-                    <div class="popular-post-left">
-                        <h3 class="popular-post-heading">${item.fullTitle}</h3>
-                        <div class="popular-post-meta">
-                            <span style="color:#c26908; font-weight:750;">TOP ${idx + 1}</span>
-                            <span>${item.cat}</span>
-                        </div>
-                    </div>
-                    <img src="${item.thumbUrl}" alt="${item.title}" class="popular-post-thumb">
-                </a>
-            `;
-        });
-        mobilePopularBox.innerHTML = mobileHtml;
-    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -485,8 +498,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderEditorPickCard() {
         if (typeof HONEYJAR_POSTS_REGISTRY === 'undefined' || !Array.isArray(HONEYJAR_POSTS_REGISTRY) || HONEYJAR_POSTS_REGISTRY.length === 0) return;
         
-        // isEditorPick: true인 글 검색 (없으면 첫 번째 글)
-        const localPickSlug = localStorage.getItem('chageul_editor_pick_slug') || localStorage.getItem('honeyjar_editor_pick_slug');
+        // ONLY read honeyjar_editor_pick_slug (Never read chageul!)
+        const localPickSlug = localStorage.getItem('honeyjar_editor_pick_slug');
         let pickPost = null;
         if (localPickSlug) {
             pickPost = HONEYJAR_POSTS_REGISTRY.find(p => p.slug === localPickSlug || p.slug === localPickSlug + '.html' || p.slug.replace('.html','') === localPickSlug.replace('.html',''));
@@ -499,19 +512,19 @@ document.addEventListener('DOMContentLoaded', () => {
         const postHref = 'posts/' + pickPost.slug;
         const postTitle = pickPost.fullTitle || pickPost.title || '';
         const postThumb = pickPost.thumb || '';
-        const postCat = pickPost.cat || '포커스';
+        const postCat = pickPost.cat || '라이프 웰니스';
         const postDate = pickPost.date || '2026. 8. 30.';
         const postDesc = pickPost.summary || `"${postTitle}"에 대한 상세 분석 및 가이드`;
 
-        // 1. PC 좌측 히어로 대형 배너 업데이트
+        // 1. PC 좌측 대형 화보 추천 카드 업데이트
         const heroLeft = document.querySelector('.hero-master-left');
         if (heroLeft) {
             const heroA = heroLeft.querySelector('a');
             const heroImg = heroLeft.querySelector('img');
             const heroCat = heroLeft.querySelector('.hero-cat-tag');
-            const heroH2A = heroLeft.querySelector('.hero-title-text a');
+            const heroH2A = heroLeft.querySelector('.hero-title-text a, h2 a');
             const heroDesc = heroLeft.querySelector('.hero-desc-text');
-            const heroMeta = heroLeft.querySelector('div[style*="border-top"] span');
+            const heroMeta = heroLeft.querySelector('div[style*="border-top"] span, .hero-meta-span');
 
             if (heroA) heroA.setAttribute('href', postHref);
             if (heroImg) {
@@ -523,29 +536,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 heroH2A.setAttribute('href', postHref);
                 heroH2A.textContent = postTitle;
             }
-            if (heroDesc) heroDesc.textContent = `"${postDesc}"`;
+            if (heroDesc) heroDesc.textContent = postDesc;
             if (heroMeta) heroMeta.textContent = `에디터 혀니 · ${postDate}`;
         }
 
-        // 2. 모바일 매거진 커버 배너 업데이트
+        // 2. 모바일 에디터 PICK 배너 업데이트
         const mobPick = document.querySelector('.mobile-editor-pick-card');
         if (mobPick) {
             mobPick.setAttribute('onclick', `location.href='${postHref}'`);
             const mobImg = mobPick.querySelector('img');
-            const mobH3 = mobPick.querySelector('h3');
-            const mobP = mobPick.querySelector('p');
-            const mobDate = mobPick.querySelector('div[style*="border-top"] span');
+            const mobTitle = mobPick.querySelector('h4, h3');
 
             if (mobImg) {
                 mobImg.setAttribute('src', postThumb);
                 mobImg.setAttribute('alt', postTitle);
             }
-            if (mobH3) mobH3.textContent = postTitle;
-            if (mobP) mobP.textContent = `"${postDesc}"`;
-            if (mobDate) mobDate.textContent = `에디터 혀니 · ${postDate}`;
+            if (mobTitle) mobTitle.textContent = postTitle;
         }
     }
 
     if (document.readyState === 'complete' || document.readyState === 'interactive') {
         renderEditorPickCard();
+        initDynamicPopularRanking();
     }
