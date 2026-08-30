@@ -1,4 +1,4 @@
-﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <!-- 📊 Google Analytics 4 (GA4 공식 초광속 비동기 태그) -->
@@ -951,6 +951,7 @@
                         <button type="button" class="btn-sm-hide" onclick="toggleHidePost(${post.id})">
                             ${post.isHidden ? '공개로 전환' : '숨김'}
                         </button>
+                        <button type="button" style="background:${post.isEditorPick ? '#f59e0b' : '#f8fafc'}; color:${post.isEditorPick ? '#ffffff' : '#b45309'}; border:1px solid ${post.isEditorPick ? '#d97706' : '#fde68a'}; padding:4px 8px; border-radius:4px; font-size:0.78rem; font-weight:750; cursor:pointer;" onclick="setPostAsEditorPick('${post.slug}')">${post.isEditorPick ? '👑 PICK' : '🌟 PICK'}</button>
                     </div>
                 </td>
             `;

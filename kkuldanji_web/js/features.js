@@ -1,4 +1,4 @@
-﻿﻿/**
+﻿﻿﻿﻿/**
  * 🍯 꿀단지 공식 모바일 액션 & 실시간 인기글 랭킹 엔진 (HoneyJar Real-Time Global Features & Dynamic Popular Ranking)
  * - 1인 1하트 중복 방지 + 글로벌 실시간 하트 동기화 + 하단바 댓글수 즉시 연동
  * - 🕒 3일 후 자동 소멸 스마트 최신 뱃지 시스템 (Auto-Expiring New Badge System)
@@ -20,7 +20,7 @@ const HONEYJAR_POSTS_REGISTRY = [
         "baseWeight": 160,
         "date": "2026. 8. 25.",
         "summary": "식후 15분 이내 10분 걷기가 인슐린 분비를 30% 낮추고 혈당 스파이크와 식곤증, 내장지방을 막는 과학적 기전과 실내 제자리 걷기 꿀팁.",
-        "isEditorPick": false
+        "isEditorPick": true
     },
     {
         "slug": "knee-safe-squat-workout.html",

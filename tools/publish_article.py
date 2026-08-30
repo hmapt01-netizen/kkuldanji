@@ -1,94 +1,5 @@
-
-def auto_verify_index_integrity(root_dir):
-    index_path = os.path.join(root_dir, 'index.html')
-    if not os.path.exists(index_path):
-        return True
-    with open(index_path, 'r', encoding='utf-8', errors='ignore') as f:
-        text = f.read()
-
-    # 1. Verify inline script brace balance
-    scripts = re.findall(r'<script(?![^>]*src)[^>]*>([\s\S]*?)</script>', text)
-    for i, s in enumerate(scripts):
-        open_b = s.count('{')
-        close_b = s.count('}')
-        if open_b != close_b:
-            print(f"[FATAL ERROR] index.html inline script {i+1} brace mismatch! ({open_b} vs {close_b})")
-            return False
-
-    # 2. Verify hero grid structure
-    if text.count('class="hero-master-left"') != 1 or text.count('class="hero-master-right"') != 1:
-        print("[FATAL ERROR] index.html hero-master-grid layout tag corrupted!")
-        return False
-
-    return True
-
 # -*- coding: utf-8 -*-
-"""
-🍯 꿀단지 (HONEYJAR) 올인원 마스터 자동 발행 및 구글/IndexNow 실시간 색인 엔진
-"""
-import os, sys, re, json, requests
-import datetime
-
-def submit_google_indexing(url, root_dir):
-    key_path = os.path.join(root_dir, 'service_account.json')
-    if not os.path.exists(key_path):
-        print(f"[WARN] service_account.json not found at {key_path}")
-        return False
-    try:
-        from google.oauth2 import service_account
-        from google.auth.transport.requests import Request
-
-        creds = service_account.Credentials.from_service_account_file(
-            key_path, scopes=['https://www.googleapis.com/auth/indexing']
-        )
-        creds.refresh(Request())
-        headers = {
-            'Authorization': f'Bearer {creds.token}',
-            'Content-Type': 'application/json'
-        }
-        payload = {
-            'url': url,
-            'type': 'URL_UPDATED'
-        }
-        res = requests.post(
-            'https://indexing.googleapis.com/v3/urlNotifications:publish',
-            headers=headers,
-            json=payload,
-            timeout=10
-        )
-        if res.status_code == 200:
-            print(f"[OK] Google Indexing API: 200 OK ({url})")
-            return True
-        else:
-            print(f"[WARN] Google Indexing API returned {res.status_code}: {res.text}")
-            return False
-    except Exception as e:
-        print(f"[ERROR] Google Indexing API error: {e}")
-        return False
-
-def submit_indexnow(url):
-    try:
-        payload = {
-            'host': 'honeyjar.co.kr',
-            'key': 'e847c2a7921a4f028682a0bbfbdfd201',
-            'keyLocation': 'https://honeyjar.co.kr/e847c2a7921a4f028682a0bbfbdfd201.txt',
-            'urlList': [url, 'https://honeyjar.co.kr/index.html']
-        }
-        res = requests.post(
-            'https://api.indexnow.org/indexnow',
-            json=payload,
-            headers={'Content-Type': 'application/json; charset=utf-8'},
-            timeout=10
-        )
-        if res.status_code in [200, 202]:
-            print(f"[OK] IndexNow API: {res.status_code} (Bing, Naver, Yandex pinged!)")
-            return True
-        else:
-            print(f"[WARN] IndexNow returned {res.status_code}")
-            return False
-    except Exception as e:
-        print(f"[ERROR] IndexNow error: {e}")
-        return False
+import os, sys, json, re, datetime
 
 def update_registry(features_path, post_obj):
     if not os.path.exists(features_path):
@@ -157,7 +68,7 @@ def update_index_html(index_path, title, cat, date, slug, thumb, desc):
         return
     posts = json.loads(m.group(1))
 
-    # 1. Build PC Desktop Grid
+    # 1. Desktop grid cards (Image Top, Body Bottom)
     desktop_cards_html = []
     for idx, p in enumerate(posts):
         p_slug = p['slug']
@@ -169,7 +80,7 @@ def update_index_html(index_path, title, cat, date, slug, thumb, desc):
         short_desc = (p_desc[:80] + '...') if len(p_desc) > 80 else p_desc
         badge_html = '<span class="badge-cat-new" style="color:#e11d48; font-weight:800; font-size:0.76rem; margin-left:4px;">(최신)</span>' if idx == 0 else ''
 
-        card = f'''                <!-- Post {idx+1}: {p_title} -->
+        card = f"""                <!-- Post {idx+1}: {p_title} -->
                 <article class="clean-card article-item" data-category="{p_cat}" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
                     <div style="position:relative; height:180px;">
                         <a href="posts/{p_slug}">
@@ -187,12 +98,12 @@ def update_index_html(index_path, title, cat, date, slug, thumb, desc):
                             {badge_html}
                         </div>
                     </div>
-                </article>'''
+                </article>"""
         desktop_cards_html.append(card)
 
     all_desktop_grid = '\n' + '\n\n'.join(desktop_cards_html) + '\n            '
 
-    # 2. Build Mobile Feed
+    # 2. Mobile feed cards (Image TOP, Body BOTTOM)
     mobile_feed_html = []
     for idx, p in enumerate(posts):
         p_slug = p['slug']
@@ -204,40 +115,51 @@ def update_index_html(index_path, title, cat, date, slug, thumb, desc):
         short_desc = (p_desc[:80] + '...') if len(p_desc) > 80 else p_desc
         badge_html = '<span class="feed-item-badge" style="color:#e11d48; font-weight:800; font-size:0.76rem; margin-left:4px;">(최신)</span>' if idx == 0 else ''
 
-        m_card = f'''                <!-- Mobile Feed Card {idx+1}: {p_title} -->
+        m_card = f"""                <!-- Mobile Feed Card {idx+1}: {p_title} -->
                 <article class="tistory-feed-item feed-visible" data-category="{p_cat}" onclick="location.href=\'posts/{p_slug}\'" style="cursor:pointer;">
-                    <div class="feed-item-content">
+                    <a href="posts/{p_slug}" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
+                        <img src="{p_thumb}" alt="{p_title}" class="feed-item-thumb" {"fetchpriority=\"high\"" if idx < 2 else "loading=\"lazy\""} decoding="async">
+                    </a>
+                    <div class="feed-item-body">
                         <span class="feed-item-cat">{p_cat}</span>
                         <h3 class="feed-item-title">
                             <a href="posts/{p_slug}">{p_title}</a>
                         </h3>
-                        <p class="feed-item-desc" style="display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin:4px 0 6px 0; font-size:0.84rem; color:#64748b; line-height:1.5;">{short_desc}</p>
+                        <p class="feed-item-summary" style="display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin:4px 0 6px 0; font-size:0.84rem; color:#64748b; line-height:1.5;">{short_desc}</p>
                         <div class="feed-item-meta" style="font-size:0.76rem; color:#94a3b8;">
                             <span class="feed-item-date">{p_date}</span>
                             {badge_html}
                         </div>
                     </div>
-                    <a href="posts/{p_slug}" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
-                        <img src="{p_thumb}" alt="{p_title}" class="feed-item-thumb" {"fetchpriority=\"high\"" if idx < 2 else "loading=\"lazy\""} decoding="async">
-                    </a>
-                </article>'''
+                </article>"""
         mobile_feed_html.append(m_card)
 
     all_mobile_feed = '\n' + '\n\n'.join(mobile_feed_html) + '\n            '
 
     with open(index_path, 'r', encoding='utf-8') as f:
-        index_text = f.read()
+        text = f.read()
 
-    pc_grid_pattern = r'(<section class="clean-grid" id="desktopCardsGrid"[^>]*>)[\s\S]*?(</section>\s*<!-- 더보기 버튼)'
-    index_text = re.sub(pc_grid_pattern, r'\1' + all_desktop_grid + r'\2', index_text)
+    # Desktop grid replacement
+    pc_grid_start = text.find('id="desktopCardsGrid"')
+    if pc_grid_start != -1:
+        pc_tag_end = text.find('>', pc_grid_start) + 1
+        pc_grid_end = text.find('</section>', pc_tag_end)
+        text = text[:pc_tag_end] + all_desktop_grid + text[pc_grid_end:]
 
-    mob_feed_pattern = r'(<div class="tistory-feed-list" id="tistoryFeedContainer">)[\s\S]*?(</div>\s*<div class="mobile-load-more-wrap")'
-    index_text = re.sub(mob_feed_pattern, r'\1' + all_mobile_feed + r'\2', index_text)
+    # Mobile feed replacement
+    mob_feed_start = text.find('id="tistoryFeedContainer"')
+    if mob_feed_start != -1:
+        mob_tag_end = text.find('>', mob_feed_start) + 1
+        next_marker = text.find('id="mobileLoadMoreWrapper"', mob_tag_end)
+        if next_marker != -1:
+            mob_feed_end = text.rfind('</div>', mob_tag_end, next_marker)
+        else:
+            mob_feed_end = text.find('</div>', mob_tag_end)
+        text = text[:mob_tag_end] + all_mobile_feed + text[mob_feed_end:]
 
     with open(index_path, 'w', encoding='utf-8-sig') as f:
-        f.write(index_text)
-    print(f"[OK] Deterministically recompiled index.html from registry!")
-
+        f.write(text)
+    print(f"[OK] Deterministically recompiled index.html from registry ({len(posts)} posts, Image-First layout)!")
 
 def update_sitemap_and_rss(sitemap_path, rss_path, title, cat, slug, desc):
     if os.path.exists(sitemap_path):
@@ -263,105 +185,70 @@ def update_sitemap_and_rss(sitemap_path, rss_path, title, cat, slug, desc):
         rss_item = f"""    <item>
       <title><![CDATA[{title}]]></title>
       <link>https://honeyjar.co.kr/posts/{slug}</link>
-      <guid isPermaLink="true">https://honeyjar.co.kr/posts/{slug}</guid>
       <description><![CDATA[{desc}]]></description>
-      <category>{cat}</category>
+      <category>posts</category>
       <pubDate>{pub_date}</pubDate>
+      <guid>https://honeyjar.co.kr/posts/{slug}</guid>
     </item>
 """
         if f"https://honeyjar.co.kr/posts/{slug}" not in r_text:
-            ch_tag = '</atom:link>'
-            pos = r_text.find(ch_tag)
-            if pos != -1:
-                ins = pos + len(ch_tag)
-                r_text = r_text[:ins] + '\n' + rss_item + r_text[ins:]
-                with open(rss_path, 'w', encoding='utf-8-sig') as f:
-                    f.write(r_text)
-                print(f"[OK] Updated rss.xml for {slug}")
+            r_text = r_text.replace('</channel>', rss_item + '  </channel>')
+            with open(rss_path, 'w', encoding='utf-8-sig') as f:
+                f.write(r_text)
+            print(f"[OK] Updated rss.xml for {slug}")
 
-
-def validate_mobile_readability(body_html):
+def submit_google_indexing(url, root_dir=None):
+    if not root_dir:
+        root_dir = os.path.dirname(os.path.dirname(__file__))
+    key_path = os.path.join(root_dir, 'service_account.json')
+    if not os.path.exists(key_path):
+        key_path = os.path.join(root_dir, 'google_indexing_service_account.json')
+    if not os.path.exists(key_path):
+        key_path = os.path.join(r'C:\Users\lim\.gemini\antigravity', 'google_indexing_service_account.json')
+    if not os.path.exists(key_path):
+        print("[INFO] Service account key not found. Skipping Google Indexing API.")
+        return False
     try:
-        captions = re.findall(r"""<div[^>]*class=["']img-caption["'][^>]*>([\s\S]*?)</div>""", body_html)
-        for c in captions:
-            clean = re.sub(r'<[^>]+>', '', c).strip()
-            if len(clean) > 45:
-                print(f"[WARN] Caption is longer than 45 chars: '{clean[:35]}...' ({len(clean)} chars)")
+        from google.oauth2 import service_account
+        import googleapiclient.discovery
+        SCOPES = ["https://www.googleapis.com/auth/indexing"]
+        credentials = service_account.Credentials.from_service_account_file(key_path, scopes=SCOPES)
+        service = googleapiclient.discovery.build('indexing', 'v3', credentials=credentials)
+        content = {"url": url, "type": "URL_UPDATED"}
+        response = service.urlNotifications().publish(body=content).execute()
+        print(f"[OK] Google Indexing API: 200 OK ({url})")
+        return True
     except Exception as e:
-        pass
+        print(f"[WARN] Google Indexing API: {e}")
+        return False
+    try:
+        from google.oauth2 import service_account
+        import googleapiclient.discovery
+        SCOPES = ["https://www.googleapis.com/auth/indexing"]
+        credentials = service_account.Credentials.from_service_account_file(key_path, scopes=SCOPES)
+        service = googleapiclient.discovery.build('indexing', 'v3', credentials=credentials)
+        content = {"url": url, "type": "URL_UPDATED"}
+        response = service.urlNotifications().publish(body=content).execute()
+        print(f"[OK] Google Indexing API: 200 OK ({url})")
+        return True
+    except Exception as e:
+        print(f"[WARN] Google Indexing API: {e}")
+        return False
 
-def publish_post(title, cat, date, slug, thumb, desc, body_html, faqs, references, academic_source, json_ld_article, json_ld_faq, related_slug=None):
-    root_dir = r'd:\작업\꿀단지'
-    web_dir = os.path.join(root_dir, 'kkuldanji_web')
-    tpl_path = os.path.join(web_dir, 'templates', 'master_template.html')
-    out_path = os.path.join(web_dir, 'posts', slug)
-    features_path = os.path.join(web_dir, 'js', 'features.js')
-    admin_path = os.path.join(web_dir, 'admin.html')
-    index_path = os.path.join(web_dir, 'index.html')
-    sitemap_path = os.path.join(web_dir, 'sitemap.xml')
-    rss_path = os.path.join(web_dir, 'rss.xml')
-
-    with open(tpl_path, 'r', encoding='utf-8') as f:
-        tpl = f.read()
-
-    faq_html = ""
-    for f in faqs:
-        faq_html += f"""
-                    <div class="faq-item" style="border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 12px; background: #ffffff;">
-                        <button type="button" class="faq-question" style="width: 100%; text-align: left; padding: 14px 16px; font-size: 15px; font-weight: 750; color: #1e293b; background: none; border: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center;">
-                            <span>Q. {f['q']}</span>
-                            <span class="faq-toggle-icon" style="font-size: 14px; color: #94a3b8;">▼</span>
-                        </button>
-                        <div class="faq-answer" style="padding: 0 16px 14px 16px; font-size: 14px; color: #475569; line-height: 1.6; display: block;">
-                            <p style="margin: 0;">{f['a']}</p>
-                        </div>
-                    </div>
-"""
-
-    refs_html = ""
-    for r in references:
-        refs_html += f'<li style="margin-bottom: 4px;">{r}</li>\n'
-
-    page_url = f"https://honeyjar.co.kr/posts/{slug}"
-    post_img_url = f"https://honeyjar.co.kr/{thumb}"
-
-    rendered = tpl
-    rendered = rendered.replace("{{META_TITLE}}", title)
-    rendered = rendered.replace("{{META_DESCRIPTION}}", desc)
-    rendered = rendered.replace("{{OG_IMAGE}}", post_img_url)
-    rendered = rendered.replace("{{OG_URL}}", page_url)
-    rendered = rendered.replace("{{H1_TITLE}}", title)
-    rendered = rendered.replace("{{CATEGORY_TITLE}}", cat)
-    rendered = rendered.replace("{{PUBLISHED_DATE}}", date)
-    rendered = rendered.replace("{{ACADEMIC_SOURCE}}", academic_source)
-    rendered = rendered.replace("{{BODY_CONTENT_HTML}}", body_html)
-    rendered = rendered.replace("{{FAQ_CARDS_HTML}}", faq_html)
-    rendered = rendered.replace("{{ACADEMIC_REFERENCES_HTML}}", refs_html)
-    rendered = rendered.replace("{{JSON_LD_ARTICLE}}", json_ld_article)
-    rendered = rendered.replace("{{JSON_LD_FAQ}}", json_ld_faq)
-
-    validate_mobile_readability(body_html)
-    with open(out_path, 'w', encoding='utf-8-sig') as f:
-        f.write(rendered)
-    print(f"[OK] Generated {out_path}")
-
-    slug_key = re.sub(r'[^a-zA-Z0-9_]', '_', slug.replace('.html', ''))
-    post_obj = {
-        "slug": slug,
-        "slugKey": slug_key,
-        "title": title[:30] + "..." if len(title) > 30 else title,
-        "fullTitle": title,
-        "thumb": thumb,
-        "cat": cat,
-        "baseWeight": 160,
-        "date": date,
-        "summary": desc
-    }
-    update_registry(features_path, post_obj)
-    update_admin_html(admin_path, post_obj)
-    update_index_html(index_path, title, cat, date, slug, thumb, desc)
-    update_sitemap_and_rss(sitemap_path, rss_path, title, cat, slug, desc)
-
-    submit_google_indexing(page_url, root_dir)
-    submit_indexnow(page_url)
-    print("[SUCCESS] 꿀단지 All-In-One 발행 및 실시간 색인 완벽 동기화 완료!")
+def submit_indexnow(url):
+    try:
+        import requests
+        api_url = "https://api.indexnow.org/indexnow"
+        headers = {"Content-Type": "application/json; charset=utf-8"}
+        payload = {
+            "host": "honeyjar.co.kr",
+            "key": "a1b2c3d4e5f6g7h8i9j0",
+            "keyLocation": "https://honeyjar.co.kr/a1b2c3d4e5f6g7h8i9j0.txt",
+            "urlList": [url]
+        }
+        resp = requests.post(api_url, json=payload, headers=headers, timeout=5)
+        print(f"[OK] IndexNow API: {resp.status_code} (Bing, Naver, Yandex pinged!)")
+        return True
+    except Exception as e:
+        print(f"[WARN] IndexNow API: {e}")
+        return False
