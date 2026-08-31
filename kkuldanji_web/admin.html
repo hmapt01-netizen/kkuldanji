@@ -897,14 +897,18 @@
             } catch (e) {}
         }
 
-        // defaultPosts(12개)를 기준으로 최신 상태 구축 + 사용자의 isHidden / views 설정값 승계
+        const currentPickSlug = localStorage.getItem('honeyjar_editor_pick_slug') || 'post-meal-walk-blood-sugar.html';
+
+        // defaultPosts(12개)를 기준으로 최신 상태 구축 + 사용자의 isHidden / views / isEditorPick 설정값 승계
         posts = defaultPosts.map(def => {
             const key = def.slug || def.id;
             const savedItem = savedPostsMap[key];
+            const isPick = (def.slug === currentPickSlug || def.slug.replace('.html','') === currentPickSlug.replace('.html',''));
             return {
                 ...def,
                 views: savedItem ? (savedItem.views || def.views) : def.views,
-                isHidden: savedItem ? Boolean(savedItem.isHidden) : Boolean(def.isHidden)
+                isHidden: savedItem ? Boolean(savedItem.isHidden) : Boolean(def.isHidden),
+                isEditorPick: isPick
             };
         });
 
