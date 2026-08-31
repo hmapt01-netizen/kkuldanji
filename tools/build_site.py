@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import re
+import time
 
 if sys.platform == 'win32':
     sys.stdout.reconfigure(encoding='utf-8')
@@ -190,6 +191,11 @@ idx_content = re.sub(r'id="modalCountAll">\d+<', f'id="modalCountAll">{count_all
 idx_content = re.sub(r'id="modalCountDiet">\d+<', f'id="modalCountDiet">{count_diet}<', idx_content)
 idx_content = re.sub(r'id="modalCountHomet">\d+<', f'id="modalCountHomet">{count_homet}<', idx_content)
 idx_content = re.sub(r'id="modalCountWellness">\d+<', f'id="modalCountWellness">{count_wellness}<', idx_content)
+
+# Cache busting for JS files
+now_ts = time.strftime('%Y%m%d_%H%M%S')
+idx_content = re.sub(r'js/features\.js(?:\?v=[^"]*)?', f'js/features.js?v={now_ts}', idx_content)
+idx_content = re.sub(r'js/comments\.js(?:\?v=[^"]*)?', f'js/comments.js?v={now_ts}', idx_content)
 
 with open(index_tpl_path, "w", encoding="utf-8-sig") as f:
     f.write(idx_content)
