@@ -1,36 +1,31 @@
-﻿[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+param(
+    [string]$TargetUrl
+)
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
 
 $hostName = "honeyjar.co.kr"
 $key = "9f8e438914b14e369238c92a2a015386"
 $keyLocation = "https://honeyjar.co.kr/$key.txt"
 
-$urls = @(
-    "https://honeyjar.co.kr/",
-    "https://honeyjar.co.kr/posts/ohnara-diet.html",
-    "https://honeyjar.co.kr/posts/post-meal-walk-blood-sugar.html",
-    "https://honeyjar.co.kr/posts/knee-safe-squat-workout.html",
-    "https://honeyjar.co.kr/posts/august-seasonal-foods.html",
-    "https://honeyjar.co.kr/posts/mediterranean-diet.html",
-    "https://honeyjar.co.kr/posts/intermittent-fasting-guide.html",
-    "https://honeyjar.co.kr/posts/morning-routine.html",
-    "https://honeyjar.co.kr/posts/sleep-hygiene-guide.html",
-    "https://honeyjar.co.kr/posts/posture-stretching-office.html",
-    "https://honeyjar.co.kr/posts/core-exercise-home.html",
-    "https://honeyjar.co.kr/posts/water-intake-guide.html"
-)
+if (-not $TargetUrl) {
+    $dataPath = Join-Path $PSScriptRoot "..\data\posts_db.json"
+    $postsJson = Get-Content -Path $dataPath -Raw -Encoding UTF8 | ConvertFrom-Json
+    $latestSlug = $postsJson[0].slug
+    $TargetUrl = "https://honeyjar.co.kr/posts/$latestSlug"
+}
 
 $payloadObj = @{
     host = $hostName
     key = $key
     keyLocation = $keyLocation
-    urlList = $urls
+    urlList = @($TargetUrl)
 }
 
 $jsonBody = $payloadObj | ConvertTo-Json -Depth 3
 
 try {
-    $res = Invoke-RestMethod -Uri "https://api.indexnow.org/indexnow" -Method Post -Body $jsonBody -ContentType "application/json; charset=utf-8" -TimeoutSec 10
-    Write-Host "✨ [IndexNow 성공] 마이크로소프트 빙(Bing) 본사로 $($urls.Count)개 URL 실시간 색인 발사 완료!" -ForegroundColor Green
+    $res = Invoke-RestMethod -Uri "https://api.indexnow.org/indexnow" -Method Post -Body $jsonBody -ContentType "application/json; charset=utf-8" -TimeoutSec 15
+    Write-Host "✨ [IndexNow 색인 완료] 신규 발행 글 1편 ($TargetUrl) ➔ 마이크로소프트 빙(Bing)·네이버 실시간 색인 발사 성공!" -ForegroundColor Green
 } catch {
-    Write-Host "ℹ️ [IndexNow 전송 완료] 상태 코드: $($_.Exception.Response.StatusCode.value__)" -ForegroundColor Green
+    Write-Host "ℹ️ [IndexNow 전송 완료] ($TargetUrl) 상태: $($_.Exception.Response.StatusCode.value__)" -ForegroundColor Green
 }

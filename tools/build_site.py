@@ -10,7 +10,8 @@ if sys.platform == 'win32':
 web_root = r"d:\작업\꿀단지\kkuldanji_web"
 data_path = r"d:\작업\꿀단지\data\posts_db.json"
 post_tpl_path = os.path.join(web_root, "templates", "master_template.html")
-index_tpl_path = os.path.join(web_root, "index.html")
+index_tpl_path = os.path.join(web_root, "templates", "index_template.html")
+target_index_path = os.path.join(web_root, "index.html")
 
 with open(data_path, "r", encoding="utf-8-sig") as f:
     posts = json.load(f)
@@ -71,7 +72,22 @@ def deduplicate_body_first_image(body_html, thumb_url):
         intro_part = re.sub(r'<p>\s*<img[^>]+>\s*</p>', remove_if_match, intro_part)
         intro_part = re.sub(r'<p[^>]*>\s*(?:&nbsp;)?\s*</p>', '', intro_part)
 
-    return intro_part + rest_part
+# Build Registry Data
+registry_items = []
+for p in posts:
+    registry_items.append({
+        "slug": p["slug"],
+        "slugKey": p.get("slugKey", p["slug"].replace(".html", "")),
+        "title": p.get("shortTitle", p["title"]),
+        "fullTitle": p["title"],
+        "thumb": p["thumb"],
+        "cat": p["category"],
+        "date": p.get("date", "2026.08.31"),
+        "summary": p.get("desc", ""),
+        "baseWeight": 150,
+        "isEditorPick": p.get("isEditorPick", False)
+    })
+registry_json = json.dumps(registry_items, ensure_ascii=False)
 
 for idx, p in enumerate(posts):
     slug = p["slug"]
@@ -165,6 +181,7 @@ for idx, p in enumerate(posts):
     out = out.replace("{{FAQ_CARDS_HTML}}", faq_html)
     out = out.replace("{{JSON_LD_ARTICLE}}", json_ld_article)
     out = out.replace("{{JSON_LD_FAQ}}", json_ld_faq)
+    out = out.replace("{{REGISTRY_JSON_INLINE}}", registry_json)
 
     # Write post file with UTF-8 BOM
     target_post_path = os.path.join(web_root, "posts", slug)
@@ -220,161 +237,33 @@ for idx, p in enumerate(posts, 1):
                     </div>
                 </article>\n'''
 
+# 2. index.html 컴파일 (순수 템플릿 기반 100% 확정적 컴파일)
 with open(index_tpl_path, "r", encoding="utf-8") as f:
     idx_content = f.read()
 
-# 2. index.html 컴파일 (PC 3열 그리드 + 모바일 1열 피드 + 히어로 PICK)
-pick_post = next((p for p in posts if p.get("isEditorPick")), posts[0])
-escaped_pick_title = pick_post["title"].replace('"', '&quot;')
-escaped_pick_desc = pick_post["desc"].replace('"', '&quot;')
-
-hero_left_html = f'''                <div class="hero-master-left">
-                    <script>
-                    (function(){{
-                        var pickSlug = '';
-                        try {{ pickSlug = localStorage.getItem('honeyjar_editor_pick_slug'); }} catch(e){{}}
-                        var reg = window.HONEYJAR_POSTS_REGISTRY || [];
-                        var p = null;
-                        if (pickSlug && reg.length > 0) {{
-                            p = reg.find(function(x){{ return x.slug === pickSlug || x.slug.replace('.html','') === String(pickSlug).replace('.html',''); }});
-                        }}
-                        if (!p && reg.length > 0) {{
-                            p = reg.find(function(x){{ return x.isEditorPick; }}) || reg[0];
-                        }}
-                        var slug = p ? p.slug : '{pick_post["slug"]}';
-                        var thumb = p ? p.thumb : '{pick_post["thumb"]}';
-                        var cat = p ? (p.cat || '{pick_post["category"]}') : '{pick_post["category"]}';
-                        var title = p ? (p.fullTitle || p.title) : '{escaped_pick_title}';
-                        var desc = p ? (p.summary || p.desc || '') : '{escaped_pick_desc}';
-                        var date = p ? (p.date || '{pick_post["date"]}') : '{pick_post["date"]}';
-                        var safeTitle = String(title).replace(/"/g, '&quot;');
-                        var safeDesc = String(desc).replace(/"/g, '&quot;');
-
-                        document.write(
-                            '<div style="position:relative; height:315px; overflow:hidden; flex-shrink:0;">' +
-                                '<a href="posts/' + slug + '" style="display:block; width:100%; height:100%;">' +
-                                    '<img src="' + thumb + '" alt="' + safeTitle + '" style="width:100%; height:100%; object-fit:cover;" fetchpriority="high" decoding="async">' +
-                                '</a>' +
-                            '</div>' +
-                            '<div style="padding:10px 18px 12px 18px; display:flex; flex-direction:column; flex:1; justify-content:space-between;">' +
-                                '<div>' +
-                                    '<span class="hero-cat-tag" style="font-size:0.74rem; font-weight:750; color:#c26908; text-transform:uppercase; margin:0 0 2px 0; display:block; line-height:1.1;">' + cat + '</span>' +
-                                    '<h2 class="hero-title-text" style="font-size:1.18rem; font-weight:850; color:#111827; line-height:1.35; margin:2px 0 5px 0;">' +
-                                        '<a href="posts/' + slug + '" style="color:#111827; text-decoration:none;">' + title + '</a>' +
-                                    '</h2>' +
-                                    '<p class="hero-desc-text" style="font-size:0.85rem; color:#475569; line-height:1.45; margin:0 0 4px 0;">"' + safeDesc + '"</p>' +
-                                '</div>' +
-                                '<div style="font-size:0.75rem; color:#94a3b8; padding-top:4px; border-top:1px solid #f8fafc; margin-top:2px;">' +
-                                    '<span>에디터 혀니 · ' + date + '</span>' +
-                                '</div>' +
-                            '</div>'
-                        );
-                    }})();
-                    </script>
-                    <noscript>
-                        <div style="position:relative; height:315px; overflow:hidden; flex-shrink:0;">
-                            <a href="posts/{pick_post["slug"]}" style="display:block; width:100%; height:100%;">
-                                <img src="{pick_post["thumb"]}" alt="{escaped_pick_title}" style="width:100%; height:100%; object-fit:cover;">
-                            </a>
-                        </div>
-                    </noscript>
-                </div>'''
-
-idx_content = re.sub(r'<div class="hero-master-left"[\s\S]*?</div>\s*</div>\s*</div>\s*<!-- 우측:', hero_left_html + '\n\n                <!-- 우측:', idx_content)
-
-# Replace mobile editor pick
-mobile_pick_html = f'''            <!-- 🌟 2. 모바일 이번 주 에디터 PICK 하이라이트 배너 -->
-            <section class="mobile-editor-pick-card" style="background:#ffffff; border:1px solid #fde047; border-radius:14px; padding:14px 16px; margin-top:14px; margin-bottom:18px; box-shadow:0 2px 10px rgba(234, 179, 8, 0.08); cursor:pointer;">
-                <script>
-                (function(){{
-                    var pickSlug = '';
-                    try {{ pickSlug = localStorage.getItem('honeyjar_editor_pick_slug'); }} catch(e){{}}
-                    var reg = window.HONEYJAR_POSTS_REGISTRY || [];
-                    var p = null;
-                    if (pickSlug && reg.length > 0) {{
-                        p = reg.find(function(x){{ return x.slug === pickSlug || x.slug.replace('.html','') === String(pickSlug).replace('.html',''); }});
-                    }}
-                    if (!p && reg.length > 0) {{
-                        p = reg.find(function(x){{ return x.isEditorPick; }}) || reg[0];
-                    }}
-                    var slug = p ? p.slug : '{pick_post["slug"]}';
-                    var thumb = p ? p.thumb : '{pick_post["thumb"]}';
-                    var title = p ? (p.fullTitle || p.title) : '{escaped_pick_title}';
-                    var safeTitle = String(title).replace(/"/g, '&quot;');
-
-                    document.write(
-                        '<div onclick="location.href=\\'posts/' + slug + '\\'" style="display:flex; justify-content:space-between; align-items:center; gap:12px;">' +
-                            '<div style="flex:1; min-width:0;">' +
-                                '<span style="font-size:0.75rem; font-weight:800; color:#ea580c; display:flex; align-items:center; gap:4px; margin-bottom:4px;">' +
-                                    '👑 이번 주 에디터 PICK' +
-                                '</span>' +
-                                '<h4 style="font-size:0.92rem; font-weight:850; color:#111827; margin:0 0 6px 0; line-height:1.35; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">' +
-                                    safeTitle +
-                                '</h4>' +
-                                '<span style="font-size:0.78rem; font-weight:750; color:#d97706; display:inline-flex; align-items:center; gap:2px;">' +
-                                    '칼럼 바로 읽기 ›' +
-                                '</span>' +
-                            '</div>' +
-                            '<img src="' + thumb + '" alt="' + safeTitle + '" style="width:68px; height:68px; border-radius:10px; object-fit:cover; flex-shrink:0;">' +
-                        '</div>'
-                    );
-                }})();
-                </script>
-            </section>'''
-idx_content = re.sub(r'<section class="mobile-editor-pick-card[\s\S]*?</section>', mobile_pick_html, idx_content)
-
-# Replace desktop grid
-grid_replacement = f'<section class="clean-grid" id="desktopCardsGrid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;">\n{pc_cards_html}            </section>'
-idx_content = re.sub(r'<section class="clean-grid" id="desktopCardsGrid"[^>]*>[\s\S]*?</section>', grid_replacement, idx_content)
-
-# Replace mobile feed
-feed_replacement = f'<div class="tistory-feed-list" id="tistoryFeedContainer">\n{mobile_feed_html}            </div>'
-idx_content = re.sub(r'<div class="tistory-feed-list" id="tistoryFeedContainer">[\s\S]*?</div>\s*<!-- [^>]*더보기[^>]*-->', feed_replacement + '\n\n            <!-- 모바일 더보기 버튼 -->', idx_content)
-
-# Update modal counts
 count_all = len(posts)
 count_diet = sum(1 for p in posts if "식단" in p["category"])
 count_homet = sum(1 for p in posts if "홈트" in p["category"])
 count_wellness = sum(1 for p in posts if "웰니스" in p["category"])
-
-idx_content = re.sub(r'id="modalCountAll">\d+<', f'id="modalCountAll">{count_all}<', idx_content)
-idx_content = re.sub(r'id="modalCountDiet">\d+<', f'id="modalCountDiet">{count_diet}<', idx_content)
-idx_content = re.sub(r'id="modalCountHomet">\d+<', f'id="modalCountHomet">{count_homet}<', idx_content)
-idx_content = re.sub(r'id="modalCountWellness">\d+<', f'id="modalCountWellness">{count_wellness}<', idx_content)
-
-# Build Registry Data
-registry_items = []
-for p in posts:
-    registry_items.append({
-        "slug": p["slug"],
-        "slugKey": p.get("slugKey", p["slug"].replace(".html", "")),
-        "title": p.get("shortTitle", p["title"]),
-        "fullTitle": p["title"],
-        "thumb": p["thumb"],
-        "cat": p["category"],
-        "date": p.get("date", "2026.08.31"),
-        "summary": p.get("desc", ""),
-        "baseWeight": 150,
-        "isEditorPick": p.get("isEditorPick", False)
-    })
-registry_json = json.dumps(registry_items, ensure_ascii=False)
-
-# Inject Registry into <head> of index.html for 0.000s instant synchronous document.write
-registry_head_tag = f'<script id="postsRegistryData">window.HONEYJAR_POSTS_REGISTRY = {registry_json};</script>'
-if '<script id="postsRegistryData">' in idx_content:
-    idx_content = re.sub(r'<script id="postsRegistryData">[\s\S]*?</script>', registry_head_tag, idx_content)
-else:
-    idx_content = idx_content.replace('</head>', f'    {registry_head_tag}\n</head>')
-
-# Cache busting for JS files
 now_ts = time.strftime('%Y%m%d_%H%M%S')
-idx_content = re.sub(r'js/features\.js(?:\?v=[^"]*)?', f'js/features.js?v={now_ts}', idx_content)
-idx_content = re.sub(r'js/comments\.js(?:\?v=[^"]*)?', f'js/comments.js?v={now_ts}', idx_content)
 
-with open(index_tpl_path, "w", encoding="utf-8-sig") as f:
+idx_content = idx_content.replace("{{POSTS_REGISTRY_JSON}}", registry_json)
+idx_content = idx_content.replace("{{PC_GRID_CARDS}}", pc_cards_html.strip())
+idx_content = idx_content.replace("{{MOBILE_FEED_CARDS}}", mobile_feed_html.strip())
+idx_content = idx_content.replace("{{COUNT_ALL}}", str(count_all))
+idx_content = idx_content.replace("{{COUNT_DIET}}", str(count_diet))
+idx_content = idx_content.replace("{{COUNT_HOMET}}", str(count_homet))
+idx_content = idx_content.replace("{{COUNT_WELLNESS}}", str(count_wellness))
+idx_content = idx_content.replace("{{CACHE_BUST_TS}}", now_ts)
+
+# Strict Validation Assertions
+if posts[0]["slug"] not in idx_content:
+    raise ValueError(f"CRITICAL ERROR: Latest post {posts[0]['slug']} was not found in index.html after build!")
+
+with open(target_index_path, "w", encoding="utf-8-sig") as f:
     f.write(idx_content)
 
-print(f"  ✓ 2. index.html PC/모바일 그리드 12개 일괄 컴파일 완료!")
+print(f"  ✓ 2. index.html 템플릿 기반 PC/모바일 그리드 {len(posts)}개 100% 완전 컴파일 완료!")
 
 # 3. js/features.js 레지스트리 일괄 컴파일
 features_path = os.path.join(web_root, "js", "features.js")
@@ -382,7 +271,8 @@ if os.path.exists(features_path):
     with open(features_path, "r", encoding="utf-8") as f:
         feat_content = f.read()
 
-    new_registry_str = f"window.HONEYJAR_POSTS_REGISTRY = window.HONEYJAR_POSTS_REGISTRY || {registry_json};\nvar HONEYJAR_POSTS_REGISTRY = window.HONEYJAR_POSTS_REGISTRY;"
+    new_registry_str = f"\nwindow.HONEYJAR_POSTS_REGISTRY = window.HONEYJAR_POSTS_REGISTRY || {registry_json};\nvar HONEYJAR_POSTS_REGISTRY = window.HONEYJAR_POSTS_REGISTRY;\n"
+    feat_content = re.sub(r'//[^\n]*HONEYJAR_POSTS_REGISTRY[^\n]*\n?', '', feat_content)
     feat_content = re.sub(r'(?:window\.HONEYJAR_POSTS_REGISTRY[\s\S]*?;)?\s*const HONEYJAR_POSTS_REGISTRY = \[[\s\S]*?\];', new_registry_str, feat_content)
     feat_content = re.sub(r'window\.HONEYJAR_POSTS_REGISTRY = window\.HONEYJAR_POSTS_REGISTRY \|\| \[[\s\S]*?\];\s*var HONEYJAR_POSTS_REGISTRY = window\.HONEYJAR_POSTS_REGISTRY;', new_registry_str, feat_content)
 
