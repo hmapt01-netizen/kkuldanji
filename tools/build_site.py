@@ -34,6 +34,45 @@ def get_entry_img_src(thumb_path):
         return thumb_path
     return f"../{thumb_path.lstrip('/')}"
 
+def deduplicate_body_first_image(body_html, thumb_url):
+    if not body_html or not thumb_url:
+        return body_html
+    
+    thumb_keys = set()
+    for m in re.findall(r'dJM[a-zA-Z0-9]+', thumb_url):
+        thumb_keys.add(m)
+    for m in re.findall(r'[\w\-]+\.(?:jpg|png|webp|jpeg)', thumb_url):
+        if m.lower() not in ['img.jpg', 'thumb.jpg', 'logo.png', 'favicon.png']:
+            thumb_keys.add(m)
+    
+    if not thumb_keys:
+        return body_html
+
+    split_pos = body_html.find('목차')
+    if split_pos == -1:
+        split_pos = body_html.find('Table of Contents')
+    if split_pos == -1:
+        split_pos = body_html.find('<h3')
+    if split_pos == -1:
+        split_pos = len(body_html) // 2
+
+    intro_part = body_html[:split_pos]
+    rest_part = body_html[split_pos:]
+
+    if any(k in intro_part for k in thumb_keys):
+        def remove_if_match(m):
+            block = m.group(0)
+            if any(k in block for k in thumb_keys):
+                return ""
+            return block
+
+        intro_part = re.sub(r'<div class="img-box"[^>]*>[\s\S]*?</div>\s*(?:</div>)?', remove_if_match, intro_part)
+        intro_part = re.sub(r'(?:<p>\s*)?<figure class="post-photo-figure"[^>]*>[\s\S]*?</figure>(?:\s*</p>)?', remove_if_match, intro_part)
+        intro_part = re.sub(r'<p>\s*<img[^>]+>\s*</p>', remove_if_match, intro_part)
+        intro_part = re.sub(r'<p[^>]*>\s*(?:&nbsp;)?\s*</p>', '', intro_part)
+
+    return intro_part + rest_part
+
 for idx, p in enumerate(posts):
     slug = p["slug"]
     is_latest = p.get("isLatest", False)
@@ -119,7 +158,8 @@ for idx, p in enumerate(posts):
     out = out.replace("{{LATEST_BADGE_HTML}}", latest_badge)
     out = out.replace("{{ACADEMIC_SOURCE}}", p.get("academicSource", "임상영양학·보건학 연구 데이터 기반"))
     out = out.replace("{{FEATURED_IMAGE_HTML}}", featured_img_html)
-    out = out.replace("{{BODY_CONTENT_HTML}}", p["bodyHtml"])
+    cleaned_body_html = deduplicate_body_first_image(p["bodyHtml"], p.get("thumb", ""))
+    out = out.replace("{{BODY_CONTENT_HTML}}", cleaned_body_html)
     out = out.replace("{{ACADEMIC_REFERENCES_HTML}}", p.get("academicRefs", ""))
     out = out.replace("{{RELATED_ARTICLES_HTML}}", related_html)
     out = out.replace("{{FAQ_CARDS_HTML}}", faq_html)
