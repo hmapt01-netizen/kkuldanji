@@ -594,7 +594,35 @@ figure.post-photo-figure figcaption,
             display: block !important;
             margin: 0 auto !important;
         }
+            /* 📱 모바일 하단 액션바 100% 완벽 레이아웃 */
+        @media (max-width: 768px) {
+            body.tistory-single-post { padding-top: 52px !important; }
             
+            .naver-bottom-container {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                width: 100% !important;
+                max-width: 500px !important;
+            }
+            .naver-bottom-actions {
+                display: flex !important;
+                align-items: center !important;
+                gap: 22px !important;
+            }
+            .naver-bottom-btn {
+                display: inline-flex !important;
+                align-items: center !important;
+                gap: 6px !important;
+                background: transparent !important;
+                border: none !important;
+                color: #475569 !important;
+                font-size: 0.95rem !important;
+                font-weight: 600 !important;
+                cursor: pointer !important;
+                padding: 4px 6px !important;
+            }
+        }
             /* 🌟 대표 메인 화보 (Rule 5 표준: 풍경/음식/운동 16:9 와이드 풀와이드 / 인물 화보 contain) */
         figure.article-featured-img-box,
         .article-featured-img-box {

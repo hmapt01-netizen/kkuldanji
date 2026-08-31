@@ -23,19 +23,28 @@ with open(post_tpl_path, "r", encoding="utf-8") as f:
 
 # Make sure template has clean mobile header and NO bottom bar
 post_tpl = re.sub(r'<nav class="naver-bottom-bar"[\s\S]*?</nav>', '', post_tpl)
-post_tpl = re.sub(r'/\* 📱 모바일 하단 액션바[\s\S]*?\.naver-bottom-btn \{[\s\S]*?\}\s*\}', '', post_tpl)
 post_tpl = re.sub(r'\.naver-bottom-bar\s*\{[^\}]*\}', '', post_tpl)
 
-for p in posts:
+def get_entry_img_src(thumb_path):
+    if not thumb_path:
+        return "../images/logo.png"
+    if thumb_path.startswith("http://") or thumb_path.startswith("https://"):
+        return thumb_path
+    if thumb_path.startswith("../"):
+        return thumb_path
+    return f"../{thumb_path.lstrip('/')}"
+
+for idx, p in enumerate(posts):
     slug = p["slug"]
     is_latest = p.get("isLatest", False)
-    nav_diet = "active" if p["category"] == "식단 & 영양" else ""
-    nav_homet = "active" if p["category"] == "홈트레이닝" else ""
-    nav_wellness = "active" if p["category"] == "라이프 웰니스" else ""
-    latest_badge = '<span style="color:#ef4444; font-size:0.78rem; font-weight:500; margin-left:4px;">NEW</span>' if is_latest else ''
+    nav_diet = "active" if "식단" in p["category"] else ""
+    nav_homet = "active" if "홈트" in p["category"] else ""
+    nav_wellness = "active" if "웰니스" in p["category"] else ""
+    latest_badge = ' <span class="badge-latest">NEW</span>' if is_latest else ''
     
     # FAQ Cards HTML
     faq_html = ""
+    faq_entities = []
     for faq in p.get("faqs", []):
         faq_html += f'''<div class="faq-card">
     <div class="faq-q">
@@ -45,13 +54,19 @@ for p in posts:
         <strong>A.</strong> {faq["a"]}
     </div>
 </div>\n'''
+        faq_entities.append({
+            "@type": "Question",
+            "name": faq["q"],
+            "acceptedAnswer": {"@type": "Answer", "text": faq["a"]}
+        })
 
     # JSON-LD Article
+    entry_thumb_full = p['thumb'] if p['thumb'].startswith('http') else f"https://honeyjar.co.kr/{p['thumb']}"
     json_ld_article = json.dumps({
         "@context": "https://schema.org",
         "@type": "Article",
         "headline": p["title"],
-        "image": [f"https://honeyjar.co.kr/{p['thumb']}"],
+        "image": [entry_thumb_full],
         "datePublished": f"{p['date'].replace('.', '-')}T09:00:00+09:00",
         "dateModified": f"{p['date'].replace('.', '-')}T09:00:00+09:00",
         "author": {"@type": "Person", "name": "에디터 혀니"},
@@ -60,13 +75,6 @@ for p in posts:
     }, ensure_ascii=False)
 
     # JSON-LD FAQ
-    faq_entities = []
-    for faq in p.get("faqs", []):
-        faq_entities.append({
-            "@type": "Question",
-            "name": faq["q"],
-            "acceptedAnswer": {"@type": "Answer", "text": faq["a"]}
-        })
     json_ld_faq = json.dumps({
         "@context": "https://schema.org",
         "@type": "FAQPage",
@@ -76,6 +84,7 @@ for p in posts:
     # Related Article Box
     rel_slug = p.get("relatedSlug", "post-meal-walk-blood-sugar.html")
     rel_post = next((item for item in posts if item["slug"] == rel_slug), posts[1] if len(posts)>1 else posts[0])
+    rel_img_src = get_entry_img_src(rel_post.get('thumb', ''))
     related_html = f'''<div class="related-articles-section" style="background:#fffdf7; border:1.5px solid #fde68a; border-radius:14px; padding:18px 20px; margin:32px 0; box-sizing:border-box;">
     <div style="margin-bottom:12px;">
         <span style="display:inline-flex; align-items:center; gap:5px; background:#fef3c7; color:#b45309; font-size:0.82rem; font-weight:800; padding:4px 12px; border-radius:20px;">
@@ -83,7 +92,7 @@ for p in posts:
         </span>
     </div>
     <a href="{rel_post['slug']}" style="display:flex; gap:14px; text-decoration:none; color:inherit; align-items:flex-start;">
-        <img src="../{rel_post['thumb']}" alt="{rel_post['title']}" style="width:88px; height:66px; object-fit:cover; border-radius:8px; flex-shrink:0; display:block;">
+        <img src="{rel_img_src}" alt="{rel_post['title']}" style="width:88px; height:66px; object-fit:cover; border-radius:8px; flex-shrink:0; display:block;">
         <div style="display:flex; flex-direction:column; justify-content:flex-start; flex:1; min-width:0;">
             <h4 style="font-size:1.02rem; font-weight:800; color:#0f172a; margin:0 0 6px 0; line-height:1.4; word-break:keep-all;">{rel_post['title']}</h4>
             <p style="font-size:0.84rem; color:#64748b; margin:0; line-height:1.4; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">{rel_post['desc']}</p>
@@ -92,12 +101,13 @@ for p in posts:
 </div>'''
 
     # Featured Image HTML
-    featured_img_html = f'''<div class="article-featured-img-box"><img src="../{p['thumb']}" alt="{p['title']}" fetchpriority="high" decoding="async"><figcaption>{p.get('featuredCaption', p['title'])}</figcaption></div>'''
+    entry_featured_img = get_entry_img_src(p.get('thumb', ''))
+    featured_img_html = f'''<div class="article-featured-img-box"><img src="{entry_featured_img}" alt="{p['title']}" fetchpriority="high" decoding="async"><figcaption>{p.get('featuredCaption', p['title'])}</figcaption></div>'''
 
     out = post_tpl
     out = out.replace("{{META_TITLE}}", p["title"])
     out = out.replace("{{META_DESCRIPTION}}", p["desc"])
-    out = out.replace("{{OG_IMAGE}}", f"https://honeyjar.co.kr/{p['thumb']}")
+    out = out.replace("{{OG_IMAGE}}", entry_thumb_full)
     out = out.replace("{{OG_URL}}", f"https://honeyjar.co.kr/posts/{slug}")
     out = out.replace("{{SHORT_TITLE}}", p.get("shortTitle", p["title"]))
     out = out.replace("{{NAV_ACTIVE_DIET}}", nav_diet)

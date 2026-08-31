@@ -594,7 +594,35 @@ figure.post-photo-figure figcaption,
             display: block !important;
             margin: 0 auto !important;
         }
+            /* 📱 모바일 하단 액션바 100% 완벽 레이아웃 */
+        @media (max-width: 768px) {
+            body.tistory-single-post { padding-top: 52px !important; }
             
+            .naver-bottom-container {
+                display: flex !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                width: 100% !important;
+                max-width: 500px !important;
+            }
+            .naver-bottom-actions {
+                display: flex !important;
+                align-items: center !important;
+                gap: 22px !important;
+            }
+            .naver-bottom-btn {
+                display: inline-flex !important;
+                align-items: center !important;
+                gap: 6px !important;
+                background: transparent !important;
+                border: none !important;
+                color: #475569 !important;
+                font-size: 0.95rem !important;
+                font-weight: 600 !important;
+                cursor: pointer !important;
+                padding: 4px 6px !important;
+            }
+        }
             /* 🌟 대표 메인 화보 (Rule 5 표준: 풍경/음식/운동 16:9 와이드 풀와이드 / 인물 화보 contain) */
         figure.article-featured-img-box,
         .article-featured-img-box {
@@ -861,7 +889,7 @@ figure.post-photo-figure figcaption,
                             <span>에디터 혀니</span>
                             <span>·</span>
                             <span>2026.08.30</span>
-                            <span style="color:#ef4444; font-size:0.78rem; font-weight:500; margin-left:4px;">NEW</span>
+                             <span class="badge-latest">NEW</span>
                         </div>
                         <button type="button" onclick="copyArticleUrl()" class="meta-share-btn pc-only-share" title="글 주소 복사하기">
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
