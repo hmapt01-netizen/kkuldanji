@@ -173,6 +173,65 @@ for idx, p in enumerate(posts, 1):
 with open(index_tpl_path, "r", encoding="utf-8") as f:
     idx_content = f.read()
 
+# 2. index.html 컴파일 (PC 3열 그리드 + 모바일 1열 피드 + 히어로 PICK)
+pick_post = next((p for p in posts if p.get("isEditorPick")), posts[0])
+escaped_pick_title = pick_post["title"].replace('"', '&quot;')
+escaped_pick_desc = pick_post["desc"].replace('"', '&quot;')
+
+hero_left_html = f'''                <div class="hero-master-left">
+                    <script>
+                    (function(){{
+                        var pickSlug = '';
+                        try {{ pickSlug = localStorage.getItem('honeyjar_editor_pick_slug'); }} catch(e){{}}
+                        var reg = window.HONEYJAR_POSTS_REGISTRY || [];
+                        var p = null;
+                        if (pickSlug && reg.length > 0) {{
+                            p = reg.find(function(x){{ return x.slug === pickSlug || x.slug.replace('.html','') === String(pickSlug).replace('.html',''); }});
+                        }}
+                        if (!p && reg.length > 0) {{
+                            p = reg.find(function(x){{ return x.isEditorPick; }}) || reg[0];
+                        }}
+                        var slug = p ? p.slug : '{pick_post["slug"]}';
+                        var thumb = p ? p.thumb : '{pick_post["thumb"]}';
+                        var cat = p ? (p.cat || '{pick_post["category"]}') : '{pick_post["category"]}';
+                        var title = p ? (p.fullTitle || p.title) : '{escaped_pick_title}';
+                        var desc = p ? (p.summary || p.desc || '') : '{escaped_pick_desc}';
+                        var date = p ? (p.date || '{pick_post["date"]}') : '{pick_post["date"]}';
+                        var safeTitle = String(title).replace(/"/g, '&quot;');
+                        var safeDesc = String(desc).replace(/"/g, '&quot;');
+
+                        document.write(
+                            '<div style="position:relative; height:315px; overflow:hidden; flex-shrink:0;">' +
+                                '<a href="posts/' + slug + '" style="display:block; width:100%; height:100%;">' +
+                                    '<img src="' + thumb + '" alt="' + safeTitle + '" style="width:100%; height:100%; object-fit:cover;" fetchpriority="high" decoding="async">' +
+                                '</a>' +
+                            '</div>' +
+                            '<div style="padding:10px 18px 12px 18px; display:flex; flex-direction:column; flex:1; justify-content:space-between;">' +
+                                '<div>' +
+                                    '<span class="hero-cat-tag" style="font-size:0.74rem; font-weight:750; color:#c26908; text-transform:uppercase; margin:0 0 2px 0; display:block; line-height:1.1;">' + cat + '</span>' +
+                                    '<h2 class="hero-title-text" style="font-size:1.18rem; font-weight:850; color:#111827; line-height:1.35; margin:2px 0 5px 0;">' +
+                                        '<a href="posts/' + slug + '" style="color:#111827; text-decoration:none;">' + title + '</a>' +
+                                    '</h2>' +
+                                    '<p class="hero-desc-text" style="font-size:0.85rem; color:#475569; line-height:1.45; margin:0 0 4px 0;">"' + safeDesc + '"</p>' +
+                                '</div>' +
+                                '<div style="font-size:0.75rem; color:#94a3b8; padding-top:4px; border-top:1px solid #f8fafc; margin-top:2px;">' +
+                                    '<span>에디터 혀니 · ' + date + '</span>' +
+                                '</div>' +
+                            '</div>'
+                        );
+                    }})();
+                    </script>
+                    <noscript>
+                        <div style="position:relative; height:315px; overflow:hidden; flex-shrink:0;">
+                            <a href="posts/{pick_post["slug"]}" style="display:block; width:100%; height:100%;">
+                                <img src="{pick_post["thumb"]}" alt="{escaped_pick_title}" style="width:100%; height:100%; object-fit:cover;">
+                            </a>
+                        </div>
+                    </noscript>
+                </div>'''
+
+idx_content = re.sub(r'<div class="hero-master-left"[\s\S]*?</div>\s*</div>\s*</div>\s*<!-- 우측:', hero_left_html + '\n\n                <!-- 우측:', idx_content)
+
 # Replace desktop grid
 grid_replacement = f'<section class="clean-grid" id="desktopCardsGrid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;">\n{pc_cards_html}            </section>'
 idx_content = re.sub(r'<section class="clean-grid" id="desktopCardsGrid"[^>]*>[\s\S]*?</section>', grid_replacement, idx_content)

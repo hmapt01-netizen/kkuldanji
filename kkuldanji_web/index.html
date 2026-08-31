@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <!-- 📊 Google Analytics 4 (GA4 공식 초광속 비동기 태그) -->
@@ -514,26 +514,56 @@
             <section class="featured-post hero-master-grid">
                 
                 <!-- 좌측: 와이드 590px 대형 화보 대표 추천 칼럼 카드 (화보 315px 대폭 확장 + 하단 여백 초밀착) -->
-                <div class="hero-master-left">
-                    <div style="position:relative; height:315px; overflow:hidden; flex-shrink:0;">
-                        <a href="posts/post-meal-walk-blood-sugar.html" style="display:block; width:100%; height:100%;">
-                            <img src="images/posts/walking/thumb.jpg?v=2.0" alt="식후 10분 걷기의 기적" style="width:100%; height:100%; object-fit:cover;" fetchpriority="high" decoding="async">
-                        </a>
-                    </div>
-                    <div style="padding:10px 18px 12px 18px; display:flex; flex-direction:column; flex:1; justify-content:space-between;">
-                        <div>
-                            <span class="hero-cat-tag" style="font-size:0.74rem; font-weight:750; color:#c26908; text-transform:uppercase; margin:0 0 2px 0; display:block; line-height:1.1;">라이프 웰니스</span>
-                            <h2 class="hero-title-text" style="font-size:1.18rem; font-weight:850; color:#111827; line-height:1.35; margin:2px 0 5px 0;">
-                                <a href="posts/post-meal-walk-blood-sugar.html" style="color:#111827; text-decoration:none;">식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 루틴</a>
-                            </h2>
-                            <p class="hero-desc-text" style="font-size:0.85rem; color:#475569; line-height:1.45; margin:0 0 4px 0;">
-                                식후 15분 이내 10분 걷기가 인슐린 분비를 30% 낮추고 혈당 스파이크와 내장지방을 막는 과학적 기전.
-                            </p>
+                                <div class="hero-master-left">
+                    <script>
+                    (function(){
+                        var pickSlug = '';
+                        try { pickSlug = localStorage.getItem('honeyjar_editor_pick_slug'); } catch(e){}
+                        var reg = window.HONEYJAR_POSTS_REGISTRY || [];
+                        var p = null;
+                        if (pickSlug && reg.length > 0) {
+                            p = reg.find(function(x){ return x.slug === pickSlug || x.slug.replace('.html','') === String(pickSlug).replace('.html',''); });
+                        }
+                        if (!p && reg.length > 0) {
+                            p = reg.find(function(x){ return x.isEditorPick; }) || reg[0];
+                        }
+                        var slug = p ? p.slug : 'fruit-washing-liver-health.html';
+                        var thumb = p ? p.thumb : 'images/posts/fruit-washing-liver-health/thumb.jpg';
+                        var cat = p ? (p.cat || '식단 & 영양') : '식단 & 영양';
+                        var title = p ? (p.fullTitle || p.title) : '&quot;식초물 몇 방울로 소독 끝?&quot; 과일 솜털·틈새 속 보이지 않는 위험과 식약처 공인 30초 세척법';
+                        var desc = p ? (p.summary || p.desc || '') : '식초물 담금 세척의 착각과 복숭아·무화과·딸기의 올바른 세척법! 멍든 과일 곰팡이 독소의 간 건강 영향과 식약처 공인 30초 수돗물 세척법을 알기 쉽게 정리했습니다.';
+                        var date = p ? (p.date || '2026.08.30') : '2026.08.30';
+                        var safeTitle = String(title).replace(/"/g, '&quot;');
+                        var safeDesc = String(desc).replace(/"/g, '&quot;');
+
+                        document.write(
+                            '<div style="position:relative; height:315px; overflow:hidden; flex-shrink:0;">' +
+                                '<a href="posts/' + slug + '" style="display:block; width:100%; height:100%;">' +
+                                    '<img src="' + thumb + '" alt="' + safeTitle + '" style="width:100%; height:100%; object-fit:cover;" fetchpriority="high" decoding="async">' +
+                                '</a>' +
+                            '</div>' +
+                            '<div style="padding:10px 18px 12px 18px; display:flex; flex-direction:column; flex:1; justify-content:space-between;">' +
+                                '<div>' +
+                                    '<span class="hero-cat-tag" style="font-size:0.74rem; font-weight:750; color:#c26908; text-transform:uppercase; margin:0 0 2px 0; display:block; line-height:1.1;">' + cat + '</span>' +
+                                    '<h2 class="hero-title-text" style="font-size:1.18rem; font-weight:850; color:#111827; line-height:1.35; margin:2px 0 5px 0;">' +
+                                        '<a href="posts/' + slug + '" style="color:#111827; text-decoration:none;">' + title + '</a>' +
+                                    '</h2>' +
+                                    '<p class="hero-desc-text" style="font-size:0.85rem; color:#475569; line-height:1.45; margin:0 0 4px 0;">"' + safeDesc + '"</p>' +
+                                '</div>' +
+                                '<div style="font-size:0.75rem; color:#94a3b8; padding-top:4px; border-top:1px solid #f8fafc; margin-top:2px;">' +
+                                    '<span>에디터 혀니 · ' + date + '</span>' +
+                                '</div>' +
+                            '</div>'
+                        );
+                    })();
+                    </script>
+                    <noscript>
+                        <div style="position:relative; height:315px; overflow:hidden; flex-shrink:0;">
+                            <a href="posts/fruit-washing-liver-health.html" style="display:block; width:100%; height:100%;">
+                                <img src="images/posts/fruit-washing-liver-health/thumb.jpg" alt="&quot;식초물 몇 방울로 소독 끝?&quot; 과일 솜털·틈새 속 보이지 않는 위험과 식약처 공인 30초 세척법" style="width:100%; height:100%; object-fit:cover;">
+                            </a>
                         </div>
-                        <div style="font-size:0.75rem; color:#94a3b8; padding-top:4px; border-top:1px solid #f8fafc; margin-top:2px;">
-                            <span>에디터 혀니 · 2026.08.25</span>
-                        </div>
-                    </div>
+                    </noscript>
                 </div>
 
                 <!-- 우측: 420px 인기글 TOP 10 랭킹 위젯 (상단 헤더 앰버 골드 강조 배너 적용) -->
@@ -1634,8 +1664,8 @@
     </div>
 
     <script defer src="js/analytics.js"></script>
-    <script defer src="js/comments.js?v=20260831_141526"></script>
-    <script defer src="js/features.js?v=20260831_141526"></script>
+    <script defer src="js/comments.js?v=20260831_142726"></script>
+    <script defer src="js/features.js?v=20260831_142726"></script>
     <script defer src="js/tracker.js"></script>
 </body>
 </html>
