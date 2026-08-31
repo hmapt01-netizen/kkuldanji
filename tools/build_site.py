@@ -342,6 +342,30 @@ idx_content = re.sub(r'id="modalCountDiet">\d+<', f'id="modalCountDiet">{count_d
 idx_content = re.sub(r'id="modalCountHomet">\d+<', f'id="modalCountHomet">{count_homet}<', idx_content)
 idx_content = re.sub(r'id="modalCountWellness">\d+<', f'id="modalCountWellness">{count_wellness}<', idx_content)
 
+# Build Registry Data
+registry_items = []
+for p in posts:
+    registry_items.append({
+        "slug": p["slug"],
+        "slugKey": p.get("slugKey", p["slug"].replace(".html", "")),
+        "title": p.get("shortTitle", p["title"]),
+        "fullTitle": p["title"],
+        "thumb": p["thumb"],
+        "cat": p["category"],
+        "date": p.get("date", "2026.08.31"),
+        "summary": p.get("desc", ""),
+        "baseWeight": 150,
+        "isEditorPick": p.get("isEditorPick", False)
+    })
+registry_json = json.dumps(registry_items, ensure_ascii=False)
+
+# Inject Registry into <head> of index.html for 0.000s instant synchronous document.write
+registry_head_tag = f'<script id="postsRegistryData">window.HONEYJAR_POSTS_REGISTRY = {registry_json};</script>'
+if '<script id="postsRegistryData">' in idx_content:
+    idx_content = re.sub(r'<script id="postsRegistryData">[\s\S]*?</script>', registry_head_tag, idx_content)
+else:
+    idx_content = idx_content.replace('</head>', f'    {registry_head_tag}\n</head>')
+
 # Cache busting for JS files
 now_ts = time.strftime('%Y%m%d_%H%M%S')
 idx_content = re.sub(r'js/features\.js(?:\?v=[^"]*)?', f'js/features.js?v={now_ts}', idx_content)
@@ -358,22 +382,9 @@ if os.path.exists(features_path):
     with open(features_path, "r", encoding="utf-8") as f:
         feat_content = f.read()
 
-    registry_entries = []
-    for p in posts:
-        escaped_h1 = p["title"].replace('"', '\\"')
-        escaped_short = p.get("shortTitle", p["title"]).replace('"', '\\"')
-        registry_entries.append(f'''    {{
-        slug: "{p["slug"]}",
-        slugKey: "{p.get("slugKey", p["slug"].replace(".html", ""))}",
-        title: "{escaped_short}",
-        fullTitle: "{escaped_h1}",
-        thumb: "{p["thumb"]}",
-        cat: "{p["category"]}",
-        baseWeight: 150
-    }}''')
-
-    new_registry_str = "const HONEYJAR_POSTS_REGISTRY = [\n" + ",\n".join(registry_entries) + "\n];"
-    feat_content = re.sub(r'const HONEYJAR_POSTS_REGISTRY = \[[\s\S]*?\];', new_registry_str, feat_content)
+    new_registry_str = f"window.HONEYJAR_POSTS_REGISTRY = window.HONEYJAR_POSTS_REGISTRY || {registry_json};\nvar HONEYJAR_POSTS_REGISTRY = window.HONEYJAR_POSTS_REGISTRY;"
+    feat_content = re.sub(r'(?:window\.HONEYJAR_POSTS_REGISTRY[\s\S]*?;)?\s*const HONEYJAR_POSTS_REGISTRY = \[[\s\S]*?\];', new_registry_str, feat_content)
+    feat_content = re.sub(r'window\.HONEYJAR_POSTS_REGISTRY = window\.HONEYJAR_POSTS_REGISTRY \|\| \[[\s\S]*?\];\s*var HONEYJAR_POSTS_REGISTRY = window\.HONEYJAR_POSTS_REGISTRY;', new_registry_str, feat_content)
 
     with open(features_path, "w", encoding="utf-8-sig") as f:
         f.write(feat_content)
