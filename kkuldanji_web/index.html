@@ -1213,6 +1213,63 @@
     let pcShown = 6;
     let mobileShown = 4;
 
+    function renderEditorPickCard() {
+        const localPickSlug = localStorage.getItem('honeyjar_editor_pick_slug') || 'post-meal-walk-blood-sugar.html';
+        
+        const allCards = Array.from(document.querySelectorAll('#desktopCardsGrid .article-item'));
+        const targetCard = allCards.find(el => {
+            const a = el.querySelector('a');
+            const href = a ? (a.getAttribute('href') || '') : '';
+            return href.includes(localPickSlug) || href.replace('.html', '').includes(localPickSlug.replace('.html', ''));
+        });
+
+        if (!targetCard) return;
+
+        const targetLink = targetCard.querySelector('a') ? targetCard.querySelector('a').getAttribute('href') : ('posts/' + localPickSlug);
+        const targetImg = targetCard.querySelector('img') ? targetCard.querySelector('img').getAttribute('src') : '';
+        const targetCat = targetCard.getAttribute('data-category') || '건강 칼럼';
+        const targetTitle = targetCard.querySelector('h3') ? targetCard.querySelector('h3').textContent.trim() : '';
+        const targetDesc = targetCard.querySelector('p') ? targetCard.querySelector('p').textContent.trim() : '';
+        const targetDate = targetCard.querySelector('div[style*="color:#94a3b8"] span') ? targetCard.querySelector('div[style*="color:#94a3b8"] span').textContent.trim() : '2026.08.30';
+
+        // 1. PC 좌측 히어로 대형 화보 배너 업데이트
+        const heroLeft = document.querySelector('.hero-master-left');
+        if (heroLeft) {
+            const heroA = heroLeft.querySelector('a');
+            const heroImg = heroLeft.querySelector('img');
+            const heroCat = heroLeft.querySelector('.hero-cat-tag');
+            const heroH2A = heroLeft.querySelector('.hero-title-text a, h2 a');
+            const heroDesc = heroLeft.querySelector('.hero-desc-text');
+            const heroMeta = heroLeft.querySelector('div[style*="border-top"] span, .hero-meta-span');
+
+            if (heroA) heroA.setAttribute('href', targetLink);
+            if (heroImg) {
+                heroImg.setAttribute('src', targetImg);
+                heroImg.setAttribute('alt', targetTitle);
+            }
+            if (heroCat) heroCat.textContent = targetCat;
+            if (heroH2A) {
+                heroH2A.setAttribute('href', targetLink);
+                heroH2A.textContent = targetTitle;
+            }
+            if (heroDesc) heroDesc.textContent = targetDesc;
+            if (heroMeta) heroMeta.textContent = `에디터 혀니 · ${targetDate}`;
+        }
+
+        // 2. 모바일 에디터 PICK 배너 업데이트
+        const mobPick = document.querySelector('.mobile-editor-pick-card');
+        if (mobPick) {
+            mobPick.setAttribute('onclick', `location.href='${targetLink}'`);
+            const mobH4 = mobPick.querySelector('h4, h3');
+            const mobImg = mobPick.querySelector('img');
+            if (mobH4) mobH4.textContent = targetTitle;
+            if (mobImg) {
+                mobImg.setAttribute('src', targetImg);
+                mobImg.setAttribute('alt', targetTitle);
+            }
+        }
+    }
+
     function isCardCategoryMatch(itemCat, selectedCat) {
         if (!selectedCat || selectedCat === 'all') return true;
         itemCat = (itemCat || '').trim();
