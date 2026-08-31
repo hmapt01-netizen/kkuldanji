@@ -12,7 +12,7 @@ data_path = r"d:\작업\꿀단지\data\posts_db.json"
 post_tpl_path = os.path.join(web_root, "templates", "master_template.html")
 index_tpl_path = os.path.join(web_root, "index.html")
 
-with open(data_path, "r", encoding="utf-8") as f:
+with open(data_path, "r", encoding="utf-8-sig") as f:
     posts = json.load(f)
 
 print(f"🚀 [꿀단지 정석 SSG 컴파일러 가동] 총 {len(posts)}개 포스트 일괄 빌드 시작...")

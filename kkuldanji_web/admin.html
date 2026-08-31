@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <!-- 📊 Google Analytics 4 (GA4 공식 초광속 비동기 태그) -->
@@ -504,7 +504,10 @@
                 <span>🍯 혀니의 꿀단지 운영 콘솔</span>
                 <span class="admin-status-badge">● 보안 세션 연결됨</span>
             </h1>
-            <div style="display: flex; gap: 14px; align-items: center;">
+            <div style="display: flex; gap: 12px; align-items: center;">
+                <button id="btnGitHubSyncConfig" onclick="configureGitHubToken()" style="background:#1e293b; color:#ffffff; border:1px solid #475569; padding:7px 12px; border-radius:8px; font-size:0.82rem; font-weight:750; cursor:pointer; display:inline-flex; align-items:center; gap:6px; transition:all 0.15s;">
+                    <span style="color:#94a3b8;">○</span> ☁️ 깃허브 토큰 설정
+                </button>
                 <a href="index.html" target="_blank" style="color: #94a3b8; font-size: 0.86rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">내 블로그 바로가기 ↗</a>
                 <button onclick="handleAdminLogout()" class="admin-logout-btn">로그아웃</button>
             </div>
@@ -697,6 +700,7 @@
         loadPostsData();
         renderTable();
         loadAllAdminComments();
+        updateGitHubBtnStatus();
     }
 
     // 🚪 4. 로그아웃 처리
@@ -1007,6 +1011,165 @@
 
     // 👁️ 9. 칼럼 숨김/공개 토글
     
+    // ============================================================================
+    // ☁️ GitHub API 클라우드 마스터 DB 실시간 동기화 엔진
+    // ============================================================================
+    const GITHUB_REPO_CONFIG = {
+        owner: "hmapt01-netizen",
+        repo: "kkuldanji",
+        branch: "main"
+    };
+
+    function showAdminToast(msg, type = "info") {
+        let toast = document.getElementById('adminLiveToast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'adminLiveToast';
+            toast.style.cssText = `
+                position: fixed;
+                bottom: 28px;
+                right: 28px;
+                background: #0f172a;
+                color: #ffffff;
+                padding: 14px 22px;
+                border-radius: 12px;
+                font-size: 0.92rem;
+                font-weight: 750;
+                box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+                border: 1px solid rgba(255,255,255,0.15);
+                z-index: 999999;
+                transform: translateY(80px);
+                opacity: 0;
+                transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+                display: flex;
+                align-items: center;
+                gap: 10px;
+            `;
+            document.body.appendChild(toast);
+        }
+        
+        let icon = "ℹ️";
+        if (type === "success") icon = "✅";
+        if (type === "loading") icon = "⏳";
+        if (type === "error") icon = "❌";
+        
+        toast.innerHTML = `<span>${icon}</span> <span>${msg}</span>`;
+        toast.style.transform = "translateY(0)";
+        toast.style.opacity = "1";
+        
+        clearTimeout(toast._timer);
+        if (type !== "loading") {
+            toast._timer = setTimeout(() => {
+                toast.style.transform = "translateY(80px)";
+                toast.style.opacity = "0";
+            }, 4000);
+        }
+    }
+
+    function updateGitHubBtnStatus() {
+        const btn = document.getElementById('btnGitHubSyncConfig');
+        if (!btn) return;
+        const token = localStorage.getItem('honeyjar_github_token');
+        if (token) {
+            btn.innerHTML = `<span style="color:#22c55e;">●</span> ☁️ 깃허브 클라우드 연동됨`;
+            btn.style.borderColor = "#22c55e";
+        } else {
+            btn.innerHTML = `<span style="color:#94a3b8;">○</span> ☁️ 깃허브 토큰 설정`;
+            btn.style.borderColor = "#475569";
+        }
+    }
+
+    function configureGitHubToken() {
+        const current = localStorage.getItem('honeyjar_github_token') || '';
+        const token = prompt("☁️ [꿀단지] GitHub Personal Access Token 입력:\n\n관리자 페이지에서 에디터 PICK이나 글 설정을 변경했을 때,\n깃허브 마스터 DB(posts_db.json)와 실서버에 100% 자동 반영됩니다.\n(최초 1회만 입력하시면 브라우저에 안전하게 보관됩니다)", current);
+        
+        if (token !== null) {
+            if (token.trim()) {
+                localStorage.setItem('honeyjar_github_token', token.trim());
+                updateGitHubBtnStatus();
+                showAdminToast("GitHub 토큰이 안전하게 저장되었습니다! 이제 모든 변경사항이 깃허브 마스터 DB에 자동 동기화됩니다.", "success");
+            } else {
+                localStorage.removeItem('honeyjar_github_token');
+                updateGitHubBtnStatus();
+                showAdminToast("GitHub 토큰이 해제되었습니다.", "info");
+            }
+        }
+    }
+
+    async function syncPostsDbToGitHub(commitMsg) {
+        let token = localStorage.getItem('honeyjar_github_token');
+        if (!token) {
+            const input = prompt("☁️ 실서버 마스터 DB(posts_db.json)에 자동 반영하기 위해 GitHub Access Token을 입력해주세요:\n(입력하시면 앞으로 모든 변경사항이 깃허브에 1초 만에 자동 저장됩니다)");
+            if (input && input.trim()) {
+                token = input.trim();
+                localStorage.setItem('honeyjar_github_token', token);
+                updateGitHubBtnStatus();
+            } else {
+                showAdminToast("⚠️ 토큰 미입력: 현재 브라우저에만 임시 적용되었습니다.", "info");
+                return;
+            }
+        }
+
+        showAdminToast("깃허브 마스터 DB(posts_db.json)에 실시간 커밋 & 배포 동기화 중...", "loading");
+
+        try {
+            const getUrl = `https://api.github.com/repos/${GITHUB_REPO_CONFIG.owner}/${GITHUB_REPO_CONFIG.repo}/contents/data/posts_db.json?ref=${GITHUB_REPO_CONFIG.branch}&_t=${Date.now()}`;
+            const getRes = await fetch(getUrl, {
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/vnd.github.v3+json'
+                }
+            });
+
+            if (!getRes.ok) {
+                throw new Error(`GitHub API 조회 실패 (상태 코드: ${getRes.status})`);
+            }
+
+            const fileInfo = await getRes.json();
+            const sha = fileInfo.sha;
+            const rawJson = decodeURIComponent(escape(atob(fileInfo.content.replace(/\s/g, ''))));
+            const remotePosts = JSON.parse(rawJson);
+
+            const pickSlug = localStorage.getItem('honeyjar_editor_pick_slug');
+            const hiddenSlugs = JSON.parse(localStorage.getItem('honeyjar_hidden_slugs') || '[]');
+
+            remotePosts.forEach(rp => {
+                const cleanSlug = rp.slug.replace('.html', '');
+                rp.isEditorPick = (rp.slug === pickSlug || cleanSlug === String(pickSlug).replace('.html', ''));
+                rp.isHidden = hiddenSlugs.some(hs => String(hs).replace('.html', '') === cleanSlug);
+            });
+
+            const updatedJsonStr = JSON.stringify(remotePosts, null, 2);
+            const encodedContent = btoa(unescape(encodeURIComponent(updatedJsonStr)));
+
+            const putUrl = `https://api.github.com/repos/${GITHUB_REPO_CONFIG.owner}/${GITHUB_REPO_CONFIG.repo}/contents/data/posts_db.json`;
+            const putRes = await fetch(putUrl, {
+                method: 'PUT',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Accept': 'application/vnd.github.v3+json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    message: commitMsg || `🍯 관리자 웹 콘솔 마스터 DB 동기화 (${new Date().toLocaleString('ko-KR')})`,
+                    content: encodedContent,
+                    sha: sha,
+                    branch: GITHUB_REPO_CONFIG.branch
+                })
+            });
+
+            if (putRes.ok) {
+                showAdminToast("🎉 깃허브 마스터 DB 반영 및 Cloudflare 전 세계 자동 배포가 완료되었습니다!", "success");
+            } else {
+                const errBody = await putRes.json();
+                throw new Error(errBody.message || `커밋 실패 (${putRes.status})`);
+            }
+        } catch (err) {
+            console.error("GitHub Sync Error:", err);
+            showAdminToast(`동기화 실패: ${err.message} (로컬 브라우저 설정은 유지됨)`, "error");
+        }
+    }
+
     function setPostAsEditorPick(slug) {
         const p = posts.find(item => item.slug === slug);
         if (!p) return;
@@ -1019,7 +1182,9 @@
         
         savePostsData();
         renderTable();
-        alert(`👑 [${p.title}] 글이 메인 화면 '에디터 PICK'으로 즉시 지정되었습니다!`);
+        showAdminToast(`👑 [${p.title}] 글이 에디터 PICK으로 지정되었습니다!`, "success");
+        
+        syncPostsDbToGitHub(`👑 에디터 PICK 변경: "${p.title}" (관리자 웹 실시간 동기화)`);
     }
 
     function toggleHidePost(id) {
@@ -1028,6 +1193,10 @@
         post.isHidden = !post.isHidden;
         savePostsData();
         renderTable();
+        const actionText = post.isHidden ? '비공개(숨김)' : '공개';
+        showAdminToast(`👁️ [${post.title}] 글이 ${actionText} 처리되었습니다.`, "info");
+        
+        syncPostsDbToGitHub(`👁️ 글 상태 변경 (${actionText}): "${post.title}" (관리자 웹 실시간 동기화)`);
     }
 
     // ✏️ 10. 수정 모드 시작 및 취소
