@@ -501,17 +501,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const heroDesc = heroLeft.querySelector('.hero-desc-text');
             const heroMeta = heroLeft.querySelector('div[style*="border-top"] span, .hero-meta-span');
 
-            if (heroA) heroA.setAttribute('href', postHref);
-            if (heroImg) {
+            if (heroA && heroA.getAttribute('href') !== postHref) heroA.setAttribute('href', postHref);
+            if (heroImg && heroImg.getAttribute('src') !== postThumb) {
                 heroImg.setAttribute('src', postThumb);
                 heroImg.setAttribute('alt', postTitle);
             }
-            if (heroCat) heroCat.textContent = postCat;
-            if (heroH2A) {
+            if (heroCat && heroCat.textContent !== postCat) heroCat.textContent = postCat;
+            if (heroH2A && heroH2A.textContent !== postTitle) {
                 heroH2A.setAttribute('href', postHref);
                 heroH2A.textContent = postTitle;
             }
-            if (heroDesc) heroDesc.textContent = postDesc;
+            if (heroDesc && heroDesc.textContent !== postDesc) heroDesc.textContent = postDesc;
             if (heroMeta) heroMeta.textContent = `에디터 혀니 · ${postDate}`;
         }
 
@@ -522,11 +522,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const mobImg = mobPick.querySelector('img');
             const mobTitle = mobPick.querySelector('h4, h3');
 
-            if (mobImg) {
+            if (mobImg && mobImg.getAttribute('src') !== postThumb) {
                 mobImg.setAttribute('src', postThumb);
                 mobImg.setAttribute('alt', postTitle);
             }
-            if (mobTitle) mobTitle.textContent = postTitle;
+            if (mobTitle && mobTitle.textContent !== postTitle) mobTitle.textContent = postTitle;
         }
     }
 

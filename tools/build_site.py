@@ -232,6 +232,47 @@ hero_left_html = f'''                <div class="hero-master-left">
 
 idx_content = re.sub(r'<div class="hero-master-left"[\s\S]*?</div>\s*</div>\s*</div>\s*<!-- 우측:', hero_left_html + '\n\n                <!-- 우측:', idx_content)
 
+# Replace mobile editor pick
+mobile_pick_html = f'''            <!-- 🌟 2. 모바일 이번 주 에디터 PICK 하이라이트 배너 -->
+            <section class="mobile-editor-pick-card" style="background:#ffffff; border:1px solid #fde047; border-radius:14px; padding:14px 16px; margin-top:14px; margin-bottom:18px; box-shadow:0 2px 10px rgba(234, 179, 8, 0.08); cursor:pointer;">
+                <script>
+                (function(){{
+                    var pickSlug = '';
+                    try {{ pickSlug = localStorage.getItem('honeyjar_editor_pick_slug'); }} catch(e){{}}
+                    var reg = window.HONEYJAR_POSTS_REGISTRY || [];
+                    var p = null;
+                    if (pickSlug && reg.length > 0) {{
+                        p = reg.find(function(x){{ return x.slug === pickSlug || x.slug.replace('.html','') === String(pickSlug).replace('.html',''); }});
+                    }}
+                    if (!p && reg.length > 0) {{
+                        p = reg.find(function(x){{ return x.isEditorPick; }}) || reg[0];
+                    }}
+                    var slug = p ? p.slug : '{pick_post["slug"]}';
+                    var thumb = p ? p.thumb : '{pick_post["thumb"]}';
+                    var title = p ? (p.fullTitle || p.title) : '{escaped_pick_title}';
+                    var safeTitle = String(title).replace(/"/g, '&quot;');
+
+                    document.write(
+                        '<div onclick="location.href=\\'posts/' + slug + '\\'" style="display:flex; justify-content:space-between; align-items:center; gap:12px;">' +
+                            '<div style="flex:1; min-width:0;">' +
+                                '<span style="font-size:0.75rem; font-weight:800; color:#ea580c; display:flex; align-items:center; gap:4px; margin-bottom:4px;">' +
+                                    '👑 이번 주 에디터 PICK' +
+                                '</span>' +
+                                '<h4 style="font-size:0.92rem; font-weight:850; color:#111827; margin:0 0 6px 0; line-height:1.35; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">' +
+                                    safeTitle +
+                                '</h4>' +
+                                '<span style="font-size:0.78rem; font-weight:750; color:#d97706; display:inline-flex; align-items:center; gap:2px;">' +
+                                    '칼럼 바로 읽기 ›' +
+                                '</span>' +
+                            '</div>' +
+                            '<img src="' + thumb + '" alt="' + safeTitle + '" style="width:68px; height:68px; border-radius:10px; object-fit:cover; flex-shrink:0;">' +
+                        '</div>'
+                    );
+                }})();
+                </script>
+            </section>'''
+idx_content = re.sub(r'<section class="mobile-editor-pick-card[\s\S]*?</section>', mobile_pick_html, idx_content)
+
 # Replace desktop grid
 grid_replacement = f'<section class="clean-grid" id="desktopCardsGrid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;">\n{pc_cards_html}            </section>'
 idx_content = re.sub(r'<section class="clean-grid" id="desktopCardsGrid"[^>]*>[\s\S]*?</section>', grid_replacement, idx_content)
