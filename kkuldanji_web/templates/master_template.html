@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
 <!-- 💰 Google AdSense 공식 승인 심사 코드 (자동 광고 스크립트) -->
@@ -852,16 +852,14 @@ figure.post-photo-figure figcaption,
 </head>
 <body class="tistory-single-post">
 
-    <!-- 📱 모바일 스마트 상단 헤더 -->
-    <header class="mobile-tistory-header">
-        <div class="m-header-inner">
-            <button type="button" class="m-btn-back" onclick="if(window.history.length > 1){window.history.back();}else{location.href='../index.html';}" aria-label="이전 페이지">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#111827" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
-            </button>
-            <span class="m-header-title">{{SHORT_TITLE}}</span>
-            <a href="../index.html" class="m-header-profile" aria-label="홈으로 가기">
-                <img src="../images/logo.png" alt="프로필" class="m-profile-img">
-            </a>
+    <!-- 📱 모바일 스마트 상단 헤더 (1줄 칼각 고정: [ ‹ 뒤로가기 ]  [ 혀니의 꿀단지 ]  [ ↑ 공유 ]) -->
+    <header class="mobile-tistory-header" style="display: flex !important; flex-direction: row !important; flex-wrap: nowrap !important; align-items: center !important; justify-content: space-between !important; width: 100% !important; height: 52px !important; min-height: 52px !important; max-height: 52px !important; background-color: #ffffff !important; border-bottom: 1px solid #e5e7eb !important; padding: 0 12px !important; position: fixed !important; top: 0 !important; left: 0 !important; z-index: 99999 !important; box-sizing: border-box !important; margin: 0 !important;">
+        <div style="display: flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important; width: 36px !important; height: 36px !important; min-width: 36px !important;">
+            <a href="../index.html" style="display: flex !important; align-items: center !important; justify-content: center !important; width: 36px !important; height: 36px !important; color: #475569 !important; text-decoration: none !important;" title="뒤로가기"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg></a>
+        </div>
+        <a href="../index.html" style="flex: 1 1 0% !important; min-width: 0 !important; font-size: 1.02rem !important; font-weight: 400 !important; color: #334155 !important; text-decoration: none !important; white-space: nowrap !important; text-align: center !important; line-height: 52px !important; height: 52px !important; display: block !important; letter-spacing: -0.2px !important;" title="메인 홈으로 가기">혀니의 꿀단지</a>
+        <div style="display: flex !important; align-items: center !important; justify-content: center !important; flex-shrink: 0 !important; width: 36px !important; height: 36px !important; min-width: 36px !important;">
+            <button type="button" onclick="copyArticleUrl()" style="display: flex !important; align-items: center !important; justify-content: center !important; width: 36px !important; height: 36px !important; background: transparent !important; border: none !important; color: #475569 !important; cursor: pointer !important; padding: 0 !important;" title="공유하기"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#475569" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg></button>
         </div>
     </header>
 
@@ -878,11 +876,9 @@ figure.post-photo-figure figcaption,
             <nav class="clean-nav">
                 <ul>
                     <li><a href="../index.html" class="nav-cat-btn">홈</a></li>
-                    <li><a href="../index.html?cat=식단 & 영양" class="nav-cat-btn {{NAV_ACTIVE_DIET}}">식단·영양</a></li>
+                    <li><a href="../index.html?cat=식단%20%26%20영양" class="nav-cat-btn {{NAV_ACTIVE_DIET}}">식단·영양</a></li>
                     <li><a href="../index.html?cat=홈트레이닝" class="nav-cat-btn {{NAV_ACTIVE_HOMET}}">홈트레이닝</a></li>
-                    <li><a href="../index.html?cat=라이프 웰니스" class="nav-cat-btn {{NAV_ACTIVE_WELLNESS}}">라이프 웰니스</a></li>
-                    
-                    
+                    <li><a href="../index.html?cat=라이프%20웰니스" class="nav-cat-btn {{NAV_ACTIVE_WELLNESS}}">라이프 웰니스</a></li>
                 </ul>
             </nav>
         </div>
@@ -902,14 +898,18 @@ figure.post-photo-figure figcaption,
                     <h1 class="article-title" style="font-size:1.72rem; font-weight:850; color:#111827; line-height:1.42; margin-bottom:14px; letter-spacing:-0.4px;">
                         {{H1_TITLE}}
                     </h1>
-                    <!-- 메타바 (에디터 혀니 · 날짜 · (최신) · 학술 출처 태그) -->
-                    <div class="article-meta-bar">
-                        <span>에디터 혀니</span>
-                        <span>·</span>
-                        <span>{{PUBLISHED_DATE}}</span>
-                        {{LATEST_BADGE_HTML}}
-                        <span>·</span>
-                        <span class="academic-source-tag">{{ACADEMIC_SOURCE}}</span>
+                    <!-- 메타바 (에디터 혀니 · 날짜 · NEW · 우측 공유) -->
+                    <div class="article-meta-bar" style="display:flex !important; justify-content:space-between !important; align-items:center !important; border-bottom:1px solid #f1f5f9 !important; padding-bottom:12px !important; margin-bottom:20px !important; font-size:0.84rem !important; color:#64748b !important;">
+                        <div style="display:flex !important; align-items:center !important; gap:6px !important;">
+                            <span>에디터 혀니</span>
+                            <span>·</span>
+                            <span>{{PUBLISHED_DATE}}</span>
+                            {{LATEST_BADGE_HTML}}
+                        </div>
+                        <button type="button" onclick="copyArticleUrl()" class="meta-share-btn pc-only-share" title="글 주소 복사하기">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
+                            <span>공유</span>
+                        </button>
                     </div>
                 </header>
 
