@@ -881,34 +881,34 @@
     let currentAdminPage = 1;
     const itemsPerPage = 10;
 
-    // 💾 6. 포스트 데이터 로드 및 썸네일 자동 정밀 동기화
+    // 💾 6. 포스트 데이터 로드 및 신규 글 100% 자동 동기화 (Smart Merge)
     function loadPostsData() {
-        const saved = localStorage.getItem('honeyjar_admin_posts');
+        const saved = localStorage.getItem('honeyjar_admin_posts') || localStorage.getItem('HONEYJAR_ADMIN_POSTS_V1');
+        let savedPostsMap = {};
         if (saved) {
             try {
                 const parsed = JSON.parse(saved);
-                if (Array.isArray(parsed) && parsed.length >= 11) {
-                    posts = parsed;
-                    // 구버전 캐시 썸네일 경로를 실제 고화질 파일 경로로 자동 동기화
-                    posts.forEach(p => {
-                        const def = defaultPosts.find(dp => dp.id === p.id || dp.slug === p.slug);
-                        if (def) {
-                            p.thumb = def.thumb;
-                        }
+                if (Array.isArray(parsed)) {
+                    parsed.forEach(p => {
+                        const key = p.slug || p.id;
+                        savedPostsMap[key] = p;
                     });
-                    savePostsData();
-                } else {
-                    posts = defaultPosts;
-                    savePostsData();
                 }
-            } catch (e) {
-                posts = defaultPosts;
-                savePostsData();
-            }
-        } else {
-            posts = defaultPosts;
-            savePostsData();
+            } catch (e) {}
         }
+
+        // defaultPosts(12개)를 기준으로 최신 상태 구축 + 사용자의 isHidden / views 설정값 승계
+        posts = defaultPosts.map(def => {
+            const key = def.slug || def.id;
+            const savedItem = savedPostsMap[key];
+            return {
+                ...def,
+                views: savedItem ? (savedItem.views || def.views) : def.views,
+                isHidden: savedItem ? Boolean(savedItem.isHidden) : Boolean(def.isHidden)
+            };
+        });
+
+        savePostsData();
         renderTable();
     }
 
