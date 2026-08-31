@@ -79,7 +79,7 @@ for idx, p in enumerate(posts):
     nav_diet = "active" if "식단" in p["category"] else ""
     nav_homet = "active" if "홈트" in p["category"] else ""
     nav_wellness = "active" if "웰니스" in p["category"] else ""
-    latest_badge = ' <span class="badge-latest">NEW</span>' if is_latest else ''
+    latest_badge = ' <span style="color:#ef4444; font-size:0.78rem; font-weight:500; margin-left:4px; border:none; background:none;">NEW</span>' if is_latest else ''
     
     # FAQ Cards HTML
     faq_html = ""
