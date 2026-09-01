@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <!-- 📊 Google Analytics 4 (GA4 공식 초광속 비동기 태그) -->
@@ -14,11 +14,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 🍯 꿀단지 공식 파비콘 -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <title>꿀단지 | 건강한 일상을 위한 라이프 & 웰니스 저널</title>
     <meta name="description" content="식단과 제철 영양, 10분 홈트레이닝 및 실생활 웰니스 꿀팁을 전하는 혀니의 꿀단지.">
         <!-- 🌐 OpenGraph / SNS 링크 공유 썸네일 (카카오톡, 네이버, 페이스북 최적화) -->
@@ -172,27 +172,42 @@
         color: #111827 !important;
         text-decoration: none !important;
     }
-    /* 3. 요약 (3줄 고정 높이 수평 일치) */
-    .clean-card p {
+    /* 3. 요약 (완벽한 2줄 Clamp 및 높이 칼각 정렬) */
+    .clean-card p,
+    .clean-card .card-summary {
         font-size: 0.86rem !important;
         color: #475569 !important;
-        line-height: 1.55 !important;
+        line-height: 1.6 !important;
         margin: 0 0 10px 0 !important;
-        min-height: 58px !important;
+        height: 2.75rem !important;
+        min-height: 2.75rem !important;
+        max-height: 2.75rem !important;
         display: -webkit-box !important;
-        -webkit-line-clamp: 3 !important;
+        -webkit-line-clamp: 2 !important;
         -webkit-box-orient: vertical !important;
         overflow: hidden !important;
+        text-overflow: ellipsis !important;
     }
-    /* 4. 날짜 (모든 카드의 바닥 수평선에 100% 칼각 정렬) */
-    .clean-card div[style*="color:#94a3b8"],
-    .clean-card .card-date {
+    /* 4. 날짜 및 NEW 뱃지 (모든 카드의 바닥 수평선에 100% 칼각 baseline 정렬) */
+    .clean-card .card-meta {
         font-size: 0.76rem !important;
         color: #94a3b8 !important;
         margin-top: auto !important;
         padding-top: 6px !important;
-        display: block !important;
+        display: flex !important;
+        align-items: baseline !important;
+        gap: 4px !important;
+        line-height: 1.2 !important;
         border-top: 1px solid #f8fafc !important;
+    }
+    .clean-card .card-date {
+        font-size: 0.76rem !important;
+        color: #94a3b8 !important;
+        display: inline-block !important;
+        line-height: 1.2 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
     }
 </style>
 <style id="heroGapCompressStyle">
@@ -1261,19 +1276,19 @@
             <ul class="category-modal-list">
                 <li class="category-modal-item active" onclick="filterTistoryFeed('all', '전체 칼럼'); closeCategoryModal();">
                     <span class="cat-name">전체 칼럼</span>
-                    <span class="cat-count" id="modalCountAll">{{COUNT_ALL}}</span>
+                    <span class="cat-arrow" style="font-size:0.95rem; font-weight:700; color:#d97706;">›</span>
                 </li>
                 <li class="category-modal-item" onclick="filterTistoryFeed('식단 & 영양', '식단 & 영양'); closeCategoryModal();">
                     <span class="cat-name">식단 & 영양</span>
-                    <span class="cat-count" id="modalCountDiet">{{COUNT_DIET}}</span>
+                    <span class="cat-arrow" style="font-size:0.95rem; font-weight:700; color:#94a3b8;">›</span>
                 </li>
                 <li class="category-modal-item" onclick="filterTistoryFeed('홈트레이닝', '홈트레이닝'); closeCategoryModal();">
                     <span class="cat-name">홈트레이닝</span>
-                    <span class="cat-count" id="modalCountHomet">{{COUNT_HOMET}}</span>
+                    <span class="cat-arrow" style="font-size:0.95rem; font-weight:700; color:#94a3b8;">›</span>
                 </li>
                 <li class="category-modal-item" onclick="filterTistoryFeed('라이프 웰니스', '라이프 웰니스'); closeCategoryModal();">
                     <span class="cat-name">라이프 웰니스</span>
-                    <span class="cat-count" id="modalCountWellness">{{COUNT_WELLNESS}}</span>
+                    <span class="cat-arrow" style="font-size:0.95rem; font-weight:700; color:#94a3b8;">›</span>
                 </li>
             </ul>
         </div>

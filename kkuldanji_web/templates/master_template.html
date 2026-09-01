@@ -17,12 +17,13 @@
     <title>{{META_TITLE}} | 꿀단지</title>
     <meta name="description" content="{{META_DESCRIPTION}}">
     
+    <link rel="canonical" href="{{OG_URL}}">
     <!-- 🍯 꿀단지 공식 파비콘 -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="../favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="../favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-touch-icon.png">
 
     <!-- 🌐 OpenGraph / SNS 링크 공유 썸네일 -->
     <meta property="og:type" content="article">
@@ -165,6 +166,8 @@
         figure.article-featured-img-box,
         .article-featured-img-box {
             width: 100% !important;
+            aspect-ratio: auto !important;
+            overflow: visible !important;
             margin: 0 0 32px 0 !important;
             background: transparent !important;
             text-align: center !important;
@@ -188,12 +191,12 @@
 .article-featured-img-box figcaption,
 figure.post-photo-figure figcaption,
 .post-photo-figure figcaption {
-    font-size: 0.82rem !important;
-    font-weight: 400 !important;
-    color: #94a3b8 !important;
+    font-size: 0.83rem !important;
+    font-weight: 500 !important;
+    color: #64748b !important;
     text-align: center !important;
     margin-top: 8px !important;
-    line-height: 1.5 !important;
+    line-height: 1.4 !important;
     letter-spacing: -0.2px !important;
     display: block !important;
 }
@@ -932,11 +935,8 @@ figure.post-photo-figure figcaption,
                         </div>
                     </div>
 
-                    <!-- 📚 전문 학술 자료 및 참고 문헌 (Rule 7 준수, 이모지 제외) -->
-                    <div class="ref-box" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:8px; padding:16px 18px; margin:32px 0; font-size:0.83rem; color:#64748b; line-height:1.65;">
-                        <strong style="color: #334155; display: block; margin-bottom: 6px;">전문 학술 자료 및 참고 문헌</strong>
-                        {{ACADEMIC_REFERENCES_HTML}}
-                    </div>
+                    <!-- 📚 참고 자료 (Rule 7 준수, 단일 박스, 이모지 제외) -->
+                    {{ACADEMIC_REFERENCES_HTML}}
 
                     <!-- 함께 읽으면 좋은 추천 칼럼 (글 마무리 후 다음 글 탐색 유도) -->
                     {{RELATED_ARTICLES_HTML}}

@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
     <!-- 📊 Google Analytics 4 (GA4 공식 초광속 비동기 태그) -->
@@ -14,11 +14,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- 🍯 꿀단지 공식 파비콘 -->
-    <link rel="icon" type="image/x-icon" href="/favicon.ico">
-    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
     <title>꿀단지 | 건강한 일상을 위한 라이프 & 웰니스 저널</title>
     <meta name="description" content="식단과 제철 영양, 10분 홈트레이닝 및 실생활 웰니스 꿀팁을 전하는 혀니의 꿀단지.">
         <!-- 🌐 OpenGraph / SNS 링크 공유 썸네일 (카카오톡, 네이버, 페이스북 최적화) -->
@@ -172,27 +172,42 @@
         color: #111827 !important;
         text-decoration: none !important;
     }
-    /* 3. 요약 (3줄 고정 높이 수평 일치) */
-    .clean-card p {
+    /* 3. 요약 (완벽한 2줄 Clamp 및 높이 칼각 정렬) */
+    .clean-card p,
+    .clean-card .card-summary {
         font-size: 0.86rem !important;
         color: #475569 !important;
-        line-height: 1.55 !important;
+        line-height: 1.6 !important;
         margin: 0 0 10px 0 !important;
-        min-height: 58px !important;
+        height: 2.75rem !important;
+        min-height: 2.75rem !important;
+        max-height: 2.75rem !important;
         display: -webkit-box !important;
-        -webkit-line-clamp: 3 !important;
+        -webkit-line-clamp: 2 !important;
         -webkit-box-orient: vertical !important;
         overflow: hidden !important;
+        text-overflow: ellipsis !important;
     }
-    /* 4. 날짜 (모든 카드의 바닥 수평선에 100% 칼각 정렬) */
-    .clean-card div[style*="color:#94a3b8"],
-    .clean-card .card-date {
+    /* 4. 날짜 및 NEW 뱃지 (모든 카드의 바닥 수평선에 100% 칼각 baseline 정렬) */
+    .clean-card .card-meta {
         font-size: 0.76rem !important;
         color: #94a3b8 !important;
         margin-top: auto !important;
         padding-top: 6px !important;
-        display: block !important;
+        display: flex !important;
+        align-items: baseline !important;
+        gap: 4px !important;
+        line-height: 1.2 !important;
         border-top: 1px solid #f8fafc !important;
+    }
+    .clean-card .card-date {
+        font-size: 0.76rem !important;
+        color: #94a3b8 !important;
+        display: inline-block !important;
+        line-height: 1.2 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        border: none !important;
     }
 </style>
 <style id="heroGapCompressStyle">
@@ -480,8 +495,8 @@
     </style>
     <!-- 💰 Google AdSense 공식 인증 및 자동 광고 코드 -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4739687813221133" crossorigin="anonymous"></script>
-    <script src="js/features.js?v=20260831_190710"></script>
-    <script id="postsRegistryData">window.HONEYJAR_POSTS_REGISTRY = [{"slug": "fruit-washing-liver-health.html", "slugKey": "fruit_washing_liver_health", "title": "과일 솜털·틈새 식초 세척의 진실과 식약처 30초 세척법", "fullTitle": "\"식초물 몇 방울로 소독 끝?\" 과일 솜털·틈새 속 보이지 않는 위험과 식약처 공인 30초 세척법", "thumb": "images/posts/fruit-washing-liver-health/thumb.jpg", "cat": "식단 & 영양", "date": "2026.08.30", "summary": "식초물 담금 세척의 착각과 복숭아·무화과·딸기의 올바른 세척법! 멍든 과일 곰팡이 독소의 간 건강 영향과 식약처 공인 30초 수돗물 세척법을 알기 쉽게 정리했습니다.", "baseWeight": 150, "isEditorPick": false}, {"slug": "post-meal-walk-blood-sugar.html", "slugKey": "walking", "title": "식후 10분 걷기의 기적", "fullTitle": "식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 골든타임 루틴", "thumb": "images/posts/walking/thumb.jpg", "cat": "라이프 웰니스", "date": "2026.08.25", "summary": "식후 15분 이내 10분 걷기가 인슐린 분비를 30% 낮추고 혈당 스파이크와 내장지방을 막는 과학적 기전.", "baseWeight": 150, "isEditorPick": false}, {"slug": "knee-safe-squat-workout.html", "slugKey": "squat", "title": "초보자 무릎 통증 없는 하체 근력 운동법", "fullTitle": "초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세", "thumb": "images/posts/squat/thumb.jpg", "cat": "홈트레이닝", "date": "2026.08.23", "summary": "관절에 무리 없이 대퇴사두근과 둔근을 강화하는 안전한 무릎 각도와 체중 지지 꿀팁.", "baseWeight": 150, "isEditorPick": false}, {"slug": "ohnara-diet.html", "slugKey": "ohnara", "title": "오나라 식단 공개, 51세 47kg 관리법과 50대 근", "fullTitle": "오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동", "thumb": "images/posts/ohnara/thumb.jpg", "cat": "식단 & 영양", "date": "2026.08.21", "summary": "배우 오나라의 샐러드 식단 팩트 분석부터 중년 여성의 기초대사량을 지키는 3대 복합 다관절 운동 루틴까지.", "baseWeight": 150, "isEditorPick": false}, {"slug": "august-seasonal-foods.html", "slugKey": "august", "title": "8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분", "fullTitle": "8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드", "thumb": "images/posts/august/thumb.jpg", "cat": "식단 & 영양", "date": "2026.08.19", "summary": "늦여름 지친 몸을 깨우는 장어, 전복, 포도, 복숭아, 옥수수의 효능과 올바른 섭취법.", "baseWeight": 150, "isEditorPick": false}, {"slug": "mediterranean-diet.html", "slugKey": "mediterranean", "title": "세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장", "fullTitle": "세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁", "thumb": "images/posts/mediterranean/thumb.jpg", "cat": "식단 & 영양", "date": "2026.08.19", "summary": "지중해식 식단의 심혈관 보호 기전과 올리브유, 통곡물, 채소 중심의 한국형 맞춤 식단 구성법.", "baseWeight": 150, "isEditorPick": false}, {"slug": "intermittent-fasting-guide.html", "slugKey": "fasting", "title": "간헐적 단식 16", "fullTitle": "간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표", "thumb": "images/posts/fasting/thumb.jpg", "cat": "식단 & 영양", "date": "2026.08.19", "summary": "자가포식(오토파지) 유도 원리와 16:8 시간표 구성, 근손실 없는 간헐적 단식 실천 꿀팁.", "baseWeight": 150, "isEditorPick": false}, {"slug": "morning-routine.html", "slugKey": "morning", "title": "활력 있는 하루를 만드는 아침 10분 모닝 루틴과 스트", "fullTitle": "활력 있는 하루를 만드는 아침 10분 모닝 루틴과 스트레칭", "thumb": "images/posts/morning/thumb.jpg", "cat": "라이프 웰니스", "date": "2026.08.19", "summary": "기상 직후 코르티솔 분비를 정상화하고 뇌를 깨우는 수분 섭취, 햇볕 쬐기, 가벼운 관절 가동성 루틴.", "baseWeight": 150, "isEditorPick": false}, {"slug": "sleep-hygiene-guide.html", "slugKey": "sleep", "title": "수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환", "fullTitle": "수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환경 가이드", "thumb": "images/posts/sleep/thumb.jpg", "cat": "라이프 웰니스", "date": "2026.08.19", "summary": "수면 호르몬 멜라토닌 분비를 돕는 조명, 침실 온도, 블루라이트 차단 수칙과 불면증 완화 루틴.", "baseWeight": 150, "isEditorPick": false}, {"slug": "posture-stretching-office.html", "slugKey": "posture", "title": "직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트", "fullTitle": "직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭", "thumb": "images/posts/posture/thumb.jpg", "cat": "홈트레이닝", "date": "2026.08.19", "summary": "의자에 앉아서 하는 흉추 신전 스트레칭과 견갑골 후인 하강 운동으로 목·어깨 통증 완화.", "baseWeight": 150, "isEditorPick": false}, {"slug": "core-exercise-home.html", "slugKey": "core", "title": "바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 ", "fullTitle": "바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴", "thumb": "images/posts/core/thumb.jpg", "cat": "홈트레이닝", "date": "2026.08.19", "summary": "허리 부담 없는 플랭크 변형 동작과 버드독, 데드버그로 척추 기립근과 복횡근 강화.", "baseWeight": 150, "isEditorPick": false}, {"slug": "water-intake-guide.html", "slugKey": "water", "title": "체중별 하루 적정 수분 섭취량과 올바른 물 마시는 시간", "fullTitle": "체중별 하루 적정 수분 섭취량과 올바른 물 마시는 시간대", "thumb": "images/posts/water/thumb.jpg", "cat": "식단 & 영양", "date": "2026.08.19", "summary": "신체 대사율을 높이는 시간대별 수분 섭취 타이밍과 물 마시기 습관 형성 가이드.", "baseWeight": 150, "isEditorPick": false}];</script>
+    <script src="js/features.js?v=20260901_195852"></script>
+    <script id="postsRegistryData">window.HONEYJAR_POSTS_REGISTRY = [{"slug": "2026-national-health-screening-guide.html", "slugKey": "health_screening_2026", "title": "2026 국가건강검진 짝수년생 무료 항목과 6대 암검진 혜택", "fullTitle": "“올해 내 차례일까?” 2026 국가건강검진 짝수년생 무료 항목과 놓치면 손해인 6대 암검진 팩트체크", "thumb": "images/posts/2026-health-screening-even-year/thumb.jpg", "cat": "라이프 웰니스", "date": "2026.09.01", "summary": "2026년 짝수년도 출생자를 위한 국가건강검진 전액 무료 항목과 6대 암검진 본인부담금, 모바일 1분 조회법 및 작년 미수검자 추가 신청 꿀팁을 에디터 혀니가 알기 쉽게 전해드립니다.", "baseWeight": 150, "isEditorPick": false}, {"slug": "fruit-washing-liver-health.html", "slugKey": "fruit_washing_liver_health", "title": "과일 솜털·틈새 식초 세척의 진실과 식약처 30초 세척법", "fullTitle": "\"식초물 몇 방울로 소독 끝?\" 과일 솜털·틈새 속 보이지 않는 위험과 식약처 공인 30초 세척법", "thumb": "images/posts/fruit-washing-liver-health/thumb.jpg", "cat": "식단 & 영양", "date": "2026.08.30", "summary": "식초물 담금 세척의 착각과 복숭아·무화과·딸기의 올바른 세척법! 멍든 과일 곰팡이 독소의 간 건강 영향과 식약처 공인 30초 수돗물 세척법을 알기 쉽게 정리했습니다.", "baseWeight": 150, "isEditorPick": false}, {"slug": "post-meal-walk-blood-sugar.html", "slugKey": "walking", "title": "식후 10분 걷기의 기적", "fullTitle": "식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 골든타임 루틴", "thumb": "images/posts/walking/thumb.jpg", "cat": "라이프 웰니스", "date": "2026.08.25", "summary": "식후 15분 이내 10분 걷기가 인슐린 분비를 30% 낮추고 혈당 스파이크와 내장지방을 막는 과학적 기전.", "baseWeight": 150, "isEditorPick": false}, {"slug": "knee-safe-squat-workout.html", "slugKey": "squat", "title": "초보자 무릎 통증 없는 하체 근력 운동법", "fullTitle": "초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세", "thumb": "images/posts/squat/thumb.jpg", "cat": "홈트레이닝", "date": "2026.08.23", "summary": "관절에 무리 없이 대퇴사두근과 둔근을 강화하는 안전한 무릎 각도와 체중 지지 꿀팁.", "baseWeight": 150, "isEditorPick": false}, {"slug": "ohnara-diet.html", "slugKey": "ohnara", "title": "오나라 식단 분석과 50대 중년 건강 관리법", "fullTitle": "“50대에도 47kg 유지 비결?” 배우 오나라 식단으로 본 중년 영양 밸런스와 필수 근력 운동법", "thumb": "images/posts/ohnara/thumb.jpg", "cat": "식단 & 영양", "date": "2026.08.21", "summary": "배우 오나라의 47kg 식단 사례를 통해 살펴본 50대 중년 여성의 영양 밀도 식사법, 기초대사량 극복을 위한 필수 단백질 섭취 요령, 4대 근력 운동 비교 가이드.", "baseWeight": 150, "isEditorPick": false}, {"slug": "august-seasonal-foods.html", "slugKey": "august", "title": "8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분", "fullTitle": "8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드", "thumb": "images/posts/august/thumb.jpg", "cat": "식단 & 영양", "date": "2026.08.19", "summary": "늦여름 지친 몸을 깨우는 장어, 전복, 포도, 복숭아, 옥수수의 효능과 올바른 섭취법.", "baseWeight": 150, "isEditorPick": false}, {"slug": "mediterranean-diet.html", "slugKey": "mediterranean", "title": "세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장", "fullTitle": "세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁", "thumb": "images/posts/mediterranean/thumb.jpg", "cat": "식단 & 영양", "date": "2026.08.19", "summary": "지중해식 식단의 심혈관 보호 기전과 올리브유, 통곡물, 채소 중심의 한국형 맞춤 식단 구성법.", "baseWeight": 150, "isEditorPick": false}, {"slug": "intermittent-fasting-guide.html", "slugKey": "fasting", "title": "간헐적 단식 16", "fullTitle": "간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표", "thumb": "images/posts/fasting/thumb.jpg", "cat": "식단 & 영양", "date": "2026.08.19", "summary": "자가포식(오토파지) 유도 원리와 16:8 시간표 구성, 근손실 없는 간헐적 단식 실천 꿀팁.", "baseWeight": 150, "isEditorPick": false}, {"slug": "morning-routine.html", "slugKey": "morning", "title": "활력 있는 하루를 만드는 아침 10분 모닝 루틴과 스트", "fullTitle": "활력 있는 하루를 만드는 아침 10분 모닝 루틴과 스트레칭", "thumb": "images/posts/morning/thumb.jpg", "cat": "라이프 웰니스", "date": "2026.08.19", "summary": "기상 직후 코르티솔 분비를 정상화하고 뇌를 깨우는 수분 섭취, 햇볕 쬐기, 가벼운 관절 가동성 루틴.", "baseWeight": 150, "isEditorPick": false}, {"slug": "sleep-hygiene-guide.html", "slugKey": "sleep", "title": "수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환", "fullTitle": "수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환경 가이드", "thumb": "images/posts/sleep/thumb.jpg", "cat": "라이프 웰니스", "date": "2026.08.19", "summary": "수면 호르몬 멜라토닌 분비를 돕는 조명, 침실 온도, 블루라이트 차단 수칙과 불면증 완화 루틴.", "baseWeight": 150, "isEditorPick": false}, {"slug": "posture-stretching-office.html", "slugKey": "posture", "title": "직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트", "fullTitle": "직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭", "thumb": "images/posts/posture/thumb.jpg", "cat": "홈트레이닝", "date": "2026.08.19", "summary": "의자에 앉아서 하는 흉추 신전 스트레칭과 견갑골 후인 하강 운동으로 목·어깨 통증 완화.", "baseWeight": 150, "isEditorPick": false}, {"slug": "core-exercise-home.html", "slugKey": "core", "title": "바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 ", "fullTitle": "바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴", "thumb": "images/posts/core/thumb.jpg", "cat": "홈트레이닝", "date": "2026.08.19", "summary": "허리 부담 없는 플랭크 변형 동작과 버드독, 데드버그로 척추 기립근과 복횡근 강화.", "baseWeight": 150, "isEditorPick": false}, {"slug": "water-intake-guide.html", "slugKey": "water", "title": "체중별 하루 적정 수분 섭취량과 올바른 물 마시는 시간", "fullTitle": "체중별 하루 적정 수분 섭취량과 올바른 물 마시는 시간대", "thumb": "images/posts/water/thumb.jpg", "cat": "식단 & 영양", "date": "2026.08.19", "summary": "신체 대사율을 높이는 시간대별 수분 섭취 타이밍과 물 마시기 습관 형성 가이드.", "baseWeight": 150, "isEditorPick": false}];</script>
 </head>
 <body>
 
@@ -645,11 +660,30 @@
             </div>
 
             <section class="clean-grid" id="desktopCardsGrid" style="display:grid; grid-template-columns:repeat(3, 1fr); gap:24px;">
-<!-- Post 1: &quot;식초물 몇 방울로 소독 끝?&quot; 과일 솜털·틈새 속 보이지 않는 위험과 식약처 공인 30초 세척법 -->
+<!-- Post 1: “올해 내 차례일까?” 2026 국가건강검진 짝수년생 무료 항목과 놓치면 손해인 6대 암검진 팩트체크 -->
+                <article class="clean-card article-item" data-category="라이프 웰니스" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
+                    <div style="position:relative; height:180px;">
+                        <a href="posts/2026-national-health-screening-guide.html">
+                            <img src="images/posts/2026-health-screening-even-year/thumb.jpg" alt="“올해 내 차례일까?” 2026 국가건강검진 짝수년생 무료 항목과 놓치면 손해인 6대 암검진 팩트체크" style="width:100%; height:100%; object-fit:cover;" fetchpriority='high' decoding="async">
+                        </a>
+                    </div>
+                    <div style="padding:16px; display:flex; flex-direction:column; flex:1;">
+                        <span style="font-size:0.75rem; color:#c26908; font-weight:750; margin-bottom:2px;">라이프 웰니스</span>
+                        <h3 style="font-size:1.02rem; font-weight:800; color:#111827; margin:2px 0 6px 0; line-height:1.38;">
+                            <a href="posts/2026-national-health-screening-guide.html">“올해 내 차례일까?” 2026 국가건강검진 짝수년생 무료 항목과 놓치면 손해인 6대 암검진 팩트체크</a>
+                        </h3>
+                        <p style="font-size:0.86rem; color:#475569; line-height:1.6; margin-bottom:6px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">2026년 짝수년도 출생자를 위한 국가건강검진 전액 무료 항목과 6대 암검진 본인부담금, 모바일 1분 조회법 및 작년 미수검자 추가 신청 꿀팁을 에디터 혀니가 알기 쉽게 전해드립니다.</p>
+                        <div style="font-size:0.76rem; color:#94a3b8; margin-top:auto; display:flex; align-items:center; gap:6px;">
+                            <span>2026.09.01</span>
+                            <span style="color:#ef4444; font-size:0.78rem; font-weight:500; margin-left:4px;">NEW</span>
+                        </div>
+                    </div>
+                </article>
+                <!-- Post 2: &quot;식초물 몇 방울로 소독 끝?&quot; 과일 솜털·틈새 속 보이지 않는 위험과 식약처 공인 30초 세척법 -->
                 <article class="clean-card article-item" data-category="식단 & 영양" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
                     <div style="position:relative; height:180px;">
                         <a href="posts/fruit-washing-liver-health.html">
-                            <img src="images/posts/fruit-washing-liver-health/thumb.jpg" alt="&quot;식초물 몇 방울로 소독 끝?&quot; 과일 솜털·틈새 속 보이지 않는 위험과 식약처 공인 30초 세척법" style="width:100%; height:100%; object-fit:cover;" fetchpriority='high' decoding="async">
+                            <img src="images/posts/fruit-washing-liver-health/thumb.jpg" alt="&quot;식초물 몇 방울로 소독 끝?&quot; 과일 솜털·틈새 속 보이지 않는 위험과 식약처 공인 30초 세척법" style="width:100%; height:100%; object-fit:cover;" loading='lazy' decoding="async">
                         </a>
                     </div>
                     <div style="padding:16px; display:flex; flex-direction:column; flex:1;">
@@ -660,11 +694,11 @@
                         <p style="font-size:0.86rem; color:#475569; line-height:1.6; margin-bottom:6px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">식초물 담금 세척의 착각과 복숭아·무화과·딸기의 올바른 세척법! 멍든 과일 곰팡이 독소의 간 건강 영향과 식약처 공인 30초 수돗물 세척법을 알기 쉽게 정리했습니다.</p>
                         <div style="font-size:0.76rem; color:#94a3b8; margin-top:auto; display:flex; align-items:center; gap:6px;">
                             <span>2026.08.30</span>
-                            <span style="color:#ef4444; font-size:0.78rem; font-weight:500; margin-left:4px;">NEW</span>
+                            
                         </div>
                     </div>
                 </article>
-                <!-- Post 2: 식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 골든타임 루틴 -->
+                <!-- Post 3: 식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 골든타임 루틴 -->
                 <article class="clean-card article-item" data-category="라이프 웰니스" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
                     <div style="position:relative; height:180px;">
                         <a href="posts/post-meal-walk-blood-sugar.html">
@@ -683,7 +717,7 @@
                         </div>
                     </div>
                 </article>
-                <!-- Post 3: 초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세 -->
+                <!-- Post 4: 초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세 -->
                 <article class="clean-card article-item" data-category="홈트레이닝" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
                     <div style="position:relative; height:180px;">
                         <a href="posts/knee-safe-squat-workout.html">
@@ -702,26 +736,26 @@
                         </div>
                     </div>
                 </article>
-                <!-- Post 4: 오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동 -->
+                <!-- Post 5: “50대에도 47kg 유지 비결?” 배우 오나라 식단으로 본 중년 영양 밸런스와 필수 근력 운동법 -->
                 <article class="clean-card article-item" data-category="식단 & 영양" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
                     <div style="position:relative; height:180px;">
                         <a href="posts/ohnara-diet.html">
-                            <img src="images/posts/ohnara/thumb.jpg" alt="오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동" style="width:100%; height:100%; object-fit:cover;" loading='lazy' decoding="async">
+                            <img src="images/posts/ohnara/thumb.jpg" alt="“50대에도 47kg 유지 비결?” 배우 오나라 식단으로 본 중년 영양 밸런스와 필수 근력 운동법" style="width:100%; height:100%; object-fit:cover;" loading='lazy' decoding="async">
                         </a>
                     </div>
                     <div style="padding:16px; display:flex; flex-direction:column; flex:1;">
                         <span style="font-size:0.75rem; color:#c26908; font-weight:750; margin-bottom:2px;">식단 & 영양</span>
                         <h3 style="font-size:1.02rem; font-weight:800; color:#111827; margin:2px 0 6px 0; line-height:1.38;">
-                            <a href="posts/ohnara-diet.html">오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동</a>
+                            <a href="posts/ohnara-diet.html">“50대에도 47kg 유지 비결?” 배우 오나라 식단으로 본 중년 영양 밸런스와 필수 근력 운동법</a>
                         </h3>
-                        <p style="font-size:0.86rem; color:#475569; line-height:1.6; margin-bottom:6px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">배우 오나라의 샐러드 식단 팩트 분석부터 중년 여성의 기초대사량을 지키는 3대 복합 다관절 운동 루틴까지.</p>
+                        <p style="font-size:0.86rem; color:#475569; line-height:1.6; margin-bottom:6px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;">배우 오나라의 47kg 식단 사례를 통해 살펴본 50대 중년 여성의 영양 밀도 식사법, 기초대사량 극복을 위한 필수 단백질 섭취 요령, 4대 근력 운동 비교 가이드.</p>
                         <div style="font-size:0.76rem; color:#94a3b8; margin-top:auto; display:flex; align-items:center; gap:6px;">
                             <span>2026.08.21</span>
                             
                         </div>
                     </div>
                 </article>
-                <!-- Post 5: 8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드 -->
+                <!-- Post 6: 8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드 -->
                 <article class="clean-card article-item" data-category="식단 & 영양" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
                     <div style="position:relative; height:180px;">
                         <a href="posts/august-seasonal-foods.html">
@@ -740,7 +774,7 @@
                         </div>
                     </div>
                 </article>
-                <!-- Post 6: 세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁 -->
+                <!-- Post 7: 세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁 -->
                 <article class="clean-card article-item" data-category="식단 & 영양" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
                     <div style="position:relative; height:180px;">
                         <a href="posts/mediterranean-diet.html">
@@ -759,7 +793,7 @@
                         </div>
                     </div>
                 </article>
-                <!-- Post 7: 간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표 -->
+                <!-- Post 8: 간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표 -->
                 <article class="clean-card article-item" data-category="식단 & 영양" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
                     <div style="position:relative; height:180px;">
                         <a href="posts/intermittent-fasting-guide.html">
@@ -778,7 +812,7 @@
                         </div>
                     </div>
                 </article>
-                <!-- Post 8: 활력 있는 하루를 만드는 아침 10분 모닝 루틴과 스트레칭 -->
+                <!-- Post 9: 활력 있는 하루를 만드는 아침 10분 모닝 루틴과 스트레칭 -->
                 <article class="clean-card article-item" data-category="라이프 웰니스" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
                     <div style="position:relative; height:180px;">
                         <a href="posts/morning-routine.html">
@@ -797,7 +831,7 @@
                         </div>
                     </div>
                 </article>
-                <!-- Post 9: 수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환경 가이드 -->
+                <!-- Post 10: 수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환경 가이드 -->
                 <article class="clean-card article-item" data-category="라이프 웰니스" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
                     <div style="position:relative; height:180px;">
                         <a href="posts/sleep-hygiene-guide.html">
@@ -816,7 +850,7 @@
                         </div>
                     </div>
                 </article>
-                <!-- Post 10: 직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭 -->
+                <!-- Post 11: 직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭 -->
                 <article class="clean-card article-item" data-category="홈트레이닝" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
                     <div style="position:relative; height:180px;">
                         <a href="posts/posture-stretching-office.html">
@@ -835,7 +869,7 @@
                         </div>
                     </div>
                 </article>
-                <!-- Post 11: 바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴 -->
+                <!-- Post 12: 바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴 -->
                 <article class="clean-card article-item" data-category="홈트레이닝" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
                     <div style="position:relative; height:180px;">
                         <a href="posts/core-exercise-home.html">
@@ -854,7 +888,7 @@
                         </div>
                     </div>
                 </article>
-                <!-- Post 12: 체중별 하루 적정 수분 섭취량과 올바른 물 마시는 시간대 -->
+                <!-- Post 13: 체중별 하루 적정 수분 섭취량과 올바른 물 마시는 시간대 -->
                 <article class="clean-card article-item" data-category="식단 & 영양" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
                     <div style="position:relative; height:180px;">
                         <a href="posts/water-intake-guide.html">
@@ -1048,10 +1082,27 @@
                         <!-- 📚 6. 모바일 풀 와이드 비주얼 카드 스트림 (캡처 디자인 100% 완벽 일치!) -->
             <div id="mobileSearchResultBanner" style="display:none;"></div>
                         <div class="tistory-feed-list" id="tistoryFeedContainer">
-<!-- Mobile Feed Card 1: &quot;식초물 몇 방울로 소독 끝?&quot; 과일 솜털·틈새 속 보이지 않는 위험과 식약처 공인 30초 세척법 -->
+<!-- Mobile Feed Card 1: “올해 내 차례일까?” 2026 국가건강검진 짝수년생 무료 항목과 놓치면 손해인 6대 암검진 팩트체크 -->
+                <article class="tistory-feed-item feed-visible" data-category="라이프 웰니스" onclick="location.href='posts/2026-national-health-screening-guide.html'" style="cursor:pointer;">
+                    <a href="posts/2026-national-health-screening-guide.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
+                        <img src="images/posts/2026-health-screening-even-year/thumb.jpg" alt="“올해 내 차례일까?” 2026 국가건강검진 짝수년생 무료 항목과 놓치면 손해인 6대 암검진 팩트체크" class="feed-item-thumb" fetchpriority='high' decoding="async">
+                    </a>
+                    <div class="feed-item-body">
+                        <span class="feed-item-cat">라이프 웰니스</span>
+                        <h3 class="feed-item-title">
+                            <a href="posts/2026-national-health-screening-guide.html">“올해 내 차례일까?” 2026 국가건강검진 짝수년생 무료 항목과 놓치면 손해인 6대 암검진 팩트체크</a>
+                        </h3>
+                        <p class="feed-item-summary" style="display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin:4px 0 6px 0; font-size:0.84rem; color:#64748b; line-height:1.5;">2026년 짝수년도 출생자를 위한 국가건강검진 전액 무료 항목과 6대 암검진 본인부담금, 모바일 1분 조회법 및 작년 미수검자 추가 신청 꿀팁을 에디터 혀니가 알기 쉽게 전해드립니다.</p>
+                        <div class="feed-item-meta" style="font-size:0.76rem; color:#94a3b8;">
+                            <span class="feed-item-date">2026.09.01</span>
+                            <span style="color:#ef4444; font-size:0.78rem; font-weight:500; margin-left:4px;">NEW</span>
+                        </div>
+                    </div>
+                </article>
+                <!-- Mobile Feed Card 2: &quot;식초물 몇 방울로 소독 끝?&quot; 과일 솜털·틈새 속 보이지 않는 위험과 식약처 공인 30초 세척법 -->
                 <article class="tistory-feed-item feed-visible" data-category="식단 & 영양" onclick="location.href='posts/fruit-washing-liver-health.html'" style="cursor:pointer;">
                     <a href="posts/fruit-washing-liver-health.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
-                        <img src="images/posts/fruit-washing-liver-health/thumb.jpg" alt="&quot;식초물 몇 방울로 소독 끝?&quot; 과일 솜털·틈새 속 보이지 않는 위험과 식약처 공인 30초 세척법" class="feed-item-thumb" fetchpriority='high' decoding="async">
+                        <img src="images/posts/fruit-washing-liver-health/thumb.jpg" alt="&quot;식초물 몇 방울로 소독 끝?&quot; 과일 솜털·틈새 속 보이지 않는 위험과 식약처 공인 30초 세척법" class="feed-item-thumb" loading='lazy' decoding="async">
                     </a>
                     <div class="feed-item-body">
                         <span class="feed-item-cat">식단 & 영양</span>
@@ -1061,11 +1112,11 @@
                         <p class="feed-item-summary" style="display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin:4px 0 6px 0; font-size:0.84rem; color:#64748b; line-height:1.5;">식초물 담금 세척의 착각과 복숭아·무화과·딸기의 올바른 세척법! 멍든 과일 곰팡이 독소의 간 건강 영향과 식약처 공인 30초 수돗물 세척법을 알기 쉽게 정리했습니다.</p>
                         <div class="feed-item-meta" style="font-size:0.76rem; color:#94a3b8;">
                             <span class="feed-item-date">2026.08.30</span>
-                            <span style="color:#ef4444; font-size:0.78rem; font-weight:500; margin-left:4px;">NEW</span>
+                            
                         </div>
                     </div>
                 </article>
-                <!-- Mobile Feed Card 2: 식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 골든타임 루틴 -->
+                <!-- Mobile Feed Card 3: 식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 골든타임 루틴 -->
                 <article class="tistory-feed-item feed-visible" data-category="라이프 웰니스" onclick="location.href='posts/post-meal-walk-blood-sugar.html'" style="cursor:pointer;">
                     <a href="posts/post-meal-walk-blood-sugar.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
                         <img src="images/posts/walking/thumb.jpg" alt="식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 골든타임 루틴" class="feed-item-thumb" loading='lazy' decoding="async">
@@ -1082,7 +1133,7 @@
                         </div>
                     </div>
                 </article>
-                <!-- Mobile Feed Card 3: 초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세 -->
+                <!-- Mobile Feed Card 4: 초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세 -->
                 <article class="tistory-feed-item feed-visible" data-category="홈트레이닝" onclick="location.href='posts/knee-safe-squat-workout.html'" style="cursor:pointer;">
                     <a href="posts/knee-safe-squat-workout.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
                         <img src="images/posts/squat/thumb.jpg" alt="초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세" class="feed-item-thumb" loading='lazy' decoding="async">
@@ -1099,24 +1150,24 @@
                         </div>
                     </div>
                 </article>
-                <!-- Mobile Feed Card 4: 오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동 -->
+                <!-- Mobile Feed Card 5: “50대에도 47kg 유지 비결?” 배우 오나라 식단으로 본 중년 영양 밸런스와 필수 근력 운동법 -->
                 <article class="tistory-feed-item feed-visible" data-category="식단 & 영양" onclick="location.href='posts/ohnara-diet.html'" style="cursor:pointer;">
                     <a href="posts/ohnara-diet.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
-                        <img src="images/posts/ohnara/thumb.jpg" alt="오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동" class="feed-item-thumb" loading='lazy' decoding="async">
+                        <img src="images/posts/ohnara/thumb.jpg" alt="“50대에도 47kg 유지 비결?” 배우 오나라 식단으로 본 중년 영양 밸런스와 필수 근력 운동법" class="feed-item-thumb" loading='lazy' decoding="async">
                     </a>
                     <div class="feed-item-body">
                         <span class="feed-item-cat">식단 & 영양</span>
                         <h3 class="feed-item-title">
-                            <a href="posts/ohnara-diet.html">오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동</a>
+                            <a href="posts/ohnara-diet.html">“50대에도 47kg 유지 비결?” 배우 오나라 식단으로 본 중년 영양 밸런스와 필수 근력 운동법</a>
                         </h3>
-                        <p class="feed-item-summary" style="display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin:4px 0 6px 0; font-size:0.84rem; color:#64748b; line-height:1.5;">배우 오나라의 샐러드 식단 팩트 분석부터 중년 여성의 기초대사량을 지키는 3대 복합 다관절 운동 루틴까지.</p>
+                        <p class="feed-item-summary" style="display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; margin:4px 0 6px 0; font-size:0.84rem; color:#64748b; line-height:1.5;">배우 오나라의 47kg 식단 사례를 통해 살펴본 50대 중년 여성의 영양 밀도 식사법, 기초대사량 극복을 위한 필수 단백질 섭취 요령, 4대 근력 운동 비교 가이드.</p>
                         <div class="feed-item-meta" style="font-size:0.76rem; color:#94a3b8;">
                             <span class="feed-item-date">2026.08.21</span>
                             
                         </div>
                     </div>
                 </article>
-                <!-- Mobile Feed Card 5: 8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드 -->
+                <!-- Mobile Feed Card 6: 8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드 -->
                 <article class="tistory-feed-item feed-visible" data-category="식단 & 영양" onclick="location.href='posts/august-seasonal-foods.html'" style="cursor:pointer;">
                     <a href="posts/august-seasonal-foods.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
                         <img src="images/posts/august/thumb.jpg" alt="8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드" class="feed-item-thumb" loading='lazy' decoding="async">
@@ -1133,7 +1184,7 @@
                         </div>
                     </div>
                 </article>
-                <!-- Mobile Feed Card 6: 세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁 -->
+                <!-- Mobile Feed Card 7: 세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁 -->
                 <article class="tistory-feed-item feed-visible" data-category="식단 & 영양" onclick="location.href='posts/mediterranean-diet.html'" style="cursor:pointer;">
                     <a href="posts/mediterranean-diet.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
                         <img src="images/posts/mediterranean/thumb.jpg" alt="세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁" class="feed-item-thumb" loading='lazy' decoding="async">
@@ -1150,7 +1201,7 @@
                         </div>
                     </div>
                 </article>
-                <!-- Mobile Feed Card 7: 간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표 -->
+                <!-- Mobile Feed Card 8: 간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표 -->
                 <article class="tistory-feed-item feed-visible" data-category="식단 & 영양" onclick="location.href='posts/intermittent-fasting-guide.html'" style="cursor:pointer;">
                     <a href="posts/intermittent-fasting-guide.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
                         <img src="images/posts/fasting/thumb.jpg" alt="간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표" class="feed-item-thumb" loading='lazy' decoding="async">
@@ -1167,7 +1218,7 @@
                         </div>
                     </div>
                 </article>
-                <!-- Mobile Feed Card 8: 활력 있는 하루를 만드는 아침 10분 모닝 루틴과 스트레칭 -->
+                <!-- Mobile Feed Card 9: 활력 있는 하루를 만드는 아침 10분 모닝 루틴과 스트레칭 -->
                 <article class="tistory-feed-item feed-visible" data-category="라이프 웰니스" onclick="location.href='posts/morning-routine.html'" style="cursor:pointer;">
                     <a href="posts/morning-routine.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
                         <img src="images/posts/morning/thumb.jpg" alt="활력 있는 하루를 만드는 아침 10분 모닝 루틴과 스트레칭" class="feed-item-thumb" loading='lazy' decoding="async">
@@ -1184,7 +1235,7 @@
                         </div>
                     </div>
                 </article>
-                <!-- Mobile Feed Card 9: 수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환경 가이드 -->
+                <!-- Mobile Feed Card 10: 수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환경 가이드 -->
                 <article class="tistory-feed-item feed-visible" data-category="라이프 웰니스" onclick="location.href='posts/sleep-hygiene-guide.html'" style="cursor:pointer;">
                     <a href="posts/sleep-hygiene-guide.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
                         <img src="images/posts/sleep/thumb.jpg" alt="수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환경 가이드" class="feed-item-thumb" loading='lazy' decoding="async">
@@ -1201,7 +1252,7 @@
                         </div>
                     </div>
                 </article>
-                <!-- Mobile Feed Card 10: 직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭 -->
+                <!-- Mobile Feed Card 11: 직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭 -->
                 <article class="tistory-feed-item feed-visible" data-category="홈트레이닝" onclick="location.href='posts/posture-stretching-office.html'" style="cursor:pointer;">
                     <a href="posts/posture-stretching-office.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
                         <img src="images/posts/posture/thumb.jpg" alt="직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭" class="feed-item-thumb" loading='lazy' decoding="async">
@@ -1218,7 +1269,7 @@
                         </div>
                     </div>
                 </article>
-                <!-- Mobile Feed Card 11: 바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴 -->
+                <!-- Mobile Feed Card 12: 바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴 -->
                 <article class="tistory-feed-item feed-visible" data-category="홈트레이닝" onclick="location.href='posts/core-exercise-home.html'" style="cursor:pointer;">
                     <a href="posts/core-exercise-home.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
                         <img src="images/posts/core/thumb.jpg" alt="바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴" class="feed-item-thumb" loading='lazy' decoding="async">
@@ -1235,7 +1286,7 @@
                         </div>
                     </div>
                 </article>
-                <!-- Mobile Feed Card 12: 체중별 하루 적정 수분 섭취량과 올바른 물 마시는 시간대 -->
+                <!-- Mobile Feed Card 13: 체중별 하루 적정 수분 섭취량과 올바른 물 마시는 시간대 -->
                 <article class="tistory-feed-item feed-visible" data-category="식단 & 영양" onclick="location.href='posts/water-intake-guide.html'" style="cursor:pointer;">
                     <a href="posts/water-intake-guide.html" class="feed-item-thumb-link" tabindex="-1" aria-hidden="true">
                         <img src="images/posts/water/thumb.jpg" alt="체중별 하루 적정 수분 섭취량과 올바른 물 마시는 시간대" class="feed-item-thumb" loading='lazy' decoding="async">
@@ -1691,27 +1742,27 @@
             <ul class="category-modal-list">
                 <li class="category-modal-item active" onclick="filterTistoryFeed('all', '전체 칼럼'); closeCategoryModal();">
                     <span class="cat-name">전체 칼럼</span>
-                    <span class="cat-count" id="modalCountAll">12</span>
+                    <span class="cat-arrow" style="font-size:0.95rem; font-weight:700; color:#d97706;">›</span>
                 </li>
                 <li class="category-modal-item" onclick="filterTistoryFeed('식단 & 영양', '식단 & 영양'); closeCategoryModal();">
                     <span class="cat-name">식단 & 영양</span>
-                    <span class="cat-count" id="modalCountDiet">6</span>
+                    <span class="cat-arrow" style="font-size:0.95rem; font-weight:700; color:#94a3b8;">›</span>
                 </li>
                 <li class="category-modal-item" onclick="filterTistoryFeed('홈트레이닝', '홈트레이닝'); closeCategoryModal();">
                     <span class="cat-name">홈트레이닝</span>
-                    <span class="cat-count" id="modalCountHomet">3</span>
+                    <span class="cat-arrow" style="font-size:0.95rem; font-weight:700; color:#94a3b8;">›</span>
                 </li>
                 <li class="category-modal-item" onclick="filterTistoryFeed('라이프 웰니스', '라이프 웰니스'); closeCategoryModal();">
                     <span class="cat-name">라이프 웰니스</span>
-                    <span class="cat-count" id="modalCountWellness">3</span>
+                    <span class="cat-arrow" style="font-size:0.95rem; font-weight:700; color:#94a3b8;">›</span>
                 </li>
             </ul>
         </div>
     </div>
 
     <script defer src="js/analytics.js"></script>
-    <script defer src="js/comments.js?v=20260831_190710"></script>
-    <script defer src="js/features.js?v=20260831_190710"></script>
+    <script defer src="js/comments.js?v=20260901_195852"></script>
+    <script defer src="js/features.js?v=20260901_195852"></script>
     <script defer src="js/tracker.js"></script>
 </body>
 </html>

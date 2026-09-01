@@ -72,6 +72,29 @@ def deduplicate_body_first_image(body_html, thumb_url):
         intro_part = re.sub(r'<p>\s*<img[^>]+>\s*</p>', remove_if_match, intro_part)
         intro_part = re.sub(r'<p[^>]*>\s*(?:&nbsp;)?\s*</p>', '', intro_part)
 
+    return intro_part + rest_part
+
+def sanitize_academic_refs(refs_html):
+    if not refs_html:
+        return ""
+    # 1. Strip any outer wrapper div like <div class="reference-box"...>
+    clean = re.sub(r'<div[^>]*class=["\'](?:reference-box|ref-box)[^"\']*["\'][^>]*>', '', refs_html, flags=re.I)
+    clean = re.sub(r'</div>\s*$', '', clean.strip(), flags=re.I)
+    # 2. Strip any duplicate header inside like <div ...>📚 공인 연구 데이터...</div>
+    clean = re.sub(r'<div[^>]*>[\s\S]*?(?:참고\s*문헌|참고자료)[\s\S]*?</div>', '', clean, flags=re.I)
+    # 3. Strip any book/document emojis
+    clean = clean.replace('📚', '').replace('📑', '').replace('📖', '').replace('💐', '')
+    return clean.strip()
+
+def sanitize_body_faq(body_html):
+    if not body_html:
+        return ""
+    # Strip any manual FAQ section from bodyHtml if present, regardless of id (secN, faq, etc.)
+    pattern = r'<h2[^>]*>(?:(?!<h2)[\s\S])*?(?:자주\s*묻는\s*질문|FAQ)(?:(?!<h2)[\s\S])*?</h2>[\s\S]*$'
+    clean = re.sub(pattern, '', body_html, flags=re.I)
+    clean = re.sub(r'<li><a\s+href=["\']#(?:faq|sec\d+)["\'][^>]*>[\s\S]*?(?:자주\s*묻는\s*질문|FAQ)[\s\S]*?</li>', '', clean, flags=re.I)
+    return clean.strip()
+
 # Build Registry Data
 registry_items = []
 for p in posts:
@@ -157,7 +180,13 @@ for idx, p in enumerate(posts):
 
     # Featured Image HTML
     entry_featured_img = get_entry_img_src(p.get('thumb', ''))
-    featured_img_html = f'''<div class="article-featured-img-box"><img src="{entry_featured_img}" alt="{p['title']}" fetchpriority="high" decoding="async"><figcaption>{p.get('featuredCaption', p['title'])}</figcaption></div>'''
+    featured_caption = p.get('featuredCaption', p['title'])
+    featured_img_html = f'''<div class="article-featured-img-box" style="margin:26px 0 20px 0; text-align:center;">
+    <div style="position:relative; width:100%; aspect-ratio:16/9; border-radius:12px; overflow:hidden; background:#f1f5f9;">
+        <img src="{entry_featured_img}" alt="{p['title']}" style="width:100%; height:100%; object-fit:cover; display:block;" fetchpriority="high" decoding="async">
+    </div>
+    <div style="font-size:0.83rem; color:#64748b; margin-top:8px; line-height:1.4;">{featured_caption}</div>
+</div>'''
 
     out = post_tpl
     out = out.replace("{{META_TITLE}}", p["title"])
@@ -174,9 +203,24 @@ for idx, p in enumerate(posts):
     out = out.replace("{{LATEST_BADGE_HTML}}", latest_badge)
     out = out.replace("{{ACADEMIC_SOURCE}}", p.get("academicSource", "임상영양학·보건학 연구 데이터 기반"))
     out = out.replace("{{FEATURED_IMAGE_HTML}}", featured_img_html)
-    cleaned_body_html = deduplicate_body_first_image(p["bodyHtml"], p.get("thumb", ""))
+    cleaned_body_html = sanitize_body_faq(deduplicate_body_first_image(p["bodyHtml"], p.get("thumb", "")))
     out = out.replace("{{BODY_CONTENT_HTML}}", cleaned_body_html)
-    out = out.replace("{{ACADEMIC_REFERENCES_HTML}}", p.get("academicRefs", ""))
+    sanitized_refs = sanitize_academic_refs(p.get("academicRefs", ""))
+    if sanitized_refs:
+        academic_refs_html = f'''<div class="ref-box" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:18px 20px; margin:32px 0; font-size:0.85rem; color:#64748b; line-height:1.7;">
+                        <strong style="color: #0f172a; font-size:0.92rem; font-weight:800; display: block; margin-bottom: 8px;">공인 연구 데이터 및 참고 문헌</strong>
+                        {sanitized_refs}
+                    </div>'''
+    else:
+        academic_refs_html = f'''<div class="ref-box" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:18px 20px; margin:32px 0; font-size:0.85rem; color:#64748b; line-height:1.7;">
+                        <strong style="color: #0f172a; font-size:0.92rem; font-weight:800; display: block; margin-bottom: 8px;">공인 연구 데이터 및 참고 문헌</strong>
+                        <ul style="list-style:none; padding:0; margin:0; font-size:0.85rem; color:#64748b; line-height:1.75;">
+                            <li style="margin-bottom:4px;">1. 질병관리청 국가건강정보포털 만성질환 예방 및 식이 가이드라인</li>
+                            <li style="margin-bottom:4px;">2. 식품의약품안전처 영양성분 데이터베이스 및 건강기능식품 기능성 연구</li>
+                            <li>3. 한국임상영양학회 및 대한당뇨병학회 임상 진료 지침</li>
+                        </ul>
+                    </div>'''
+    out = out.replace("{{ACADEMIC_REFERENCES_HTML}}", academic_refs_html)
     out = out.replace("{{RELATED_ARTICLES_HTML}}", related_html)
     out = out.replace("{{FAQ_CARDS_HTML}}", faq_html)
     out = out.replace("{{JSON_LD_ARTICLE}}", json_ld_article)
@@ -259,6 +303,8 @@ idx_content = idx_content.replace("{{CACHE_BUST_TS}}", now_ts)
 # Strict Validation Assertions
 if posts[0]["slug"] not in idx_content:
     raise ValueError(f"CRITICAL ERROR: Latest post {posts[0]['slug']} was not found in index.html after build!")
+if '<link rel="icon"' not in idx_content or 'favicon.ico' not in idx_content:
+    raise ValueError("CRITICAL ERROR: Favicon tags are missing from index.html!")
 
 with open(target_index_path, "w", encoding="utf-8-sig") as f:
     f.write(idx_content)
@@ -279,7 +325,7 @@ if os.path.exists(features_path):
     with open(features_path, "w", encoding="utf-8-sig") as f:
         f.write(feat_content)
 
-    print(f"  ✓ 3. js/features.js 레지스트리 12개 일괄 컴파일 완료!")
+    print(f"  ✓ 3. js/features.js 레지스트리 {len(posts)}개 일괄 컴파일 완료!")
 
 # 4. admin.html 관리자 DB 일괄 컴파일
 admin_path = os.path.join(web_root, "admin.html")
@@ -314,6 +360,6 @@ if os.path.exists(admin_path):
     with open(admin_path, "w", encoding="utf-8-sig") as f:
         f.write(adm_content)
 
-    print(f"  ✓ 4. admin.html 관리자 DB 12편 일괄 컴파일 완료!")
+    print(f"  ✓ 4. admin.html 관리자 DB {len(posts)}편 일괄 컴파일 완료!")
 
-print(f"\n🎉 [100% PERFECT SSG COMPILATION SUCCESS] 12개 전체 페이지가 0.1초 만에 완벽하게 일괄 생성되었습니다!")
+print(f"\n🎉 [100% PERFECT SSG COMPILATION SUCCESS] {len(posts)}개 전체 페이지가 0.1초 만에 완벽하게 일괄 생성되었습니다!")

@@ -257,10 +257,10 @@ def submit_indexnow(url):
 def validate_all_cards(features_path, index_path, reg_var='HONEYJAR_POSTS_REGISTRY'):
     db_path = r'd:\작업\꿀단지\data\posts_db.json'
     if os.path.exists(db_path):
-        with open(db_path, 'r', encoding='utf-8') as f:
+        with open(db_path, 'r', encoding='utf-8-sig') as f:
             posts = json.load(f)
     else:
-        with open(features_path, 'r', encoding='utf-8') as f:
+        with open(features_path, 'r', encoding='utf-8-sig') as f:
             f_text = f.read()
         m = re.search(r'const ' + reg_var + r' = (\[[\s\S]*?\]);', f_text)
         if not m:
