@@ -1,100 +1,114 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
   <channel>
     <title>혀니의 꿀단지</title>
-    <link>https://honeyjar.co.kr/</link>
-    <description>건강한 일상을 위한 라이프 &amp; 웰니스 전문 저널</description>
-    <language>ko</language>
-    <lastBuildDate>Mon, 25 Aug 2026 08:15:00 +0900</lastBuildDate>
-    <atom:link href="https://honeyjar.co.kr/rss.xml" rel="self" type="application/rss+xml" />
-
+    <link>https://honeyjar.co.kr</link>
+    <description>실속 있는 건강 정보와 웰니스 팁을 전하는 혀니의 꿀단지 매거진</description>
+    <language>ko-KR</language>
+    <pubDate>Tue, 01 Sep 2026 20:11:00 +0900</pubDate>
     <item>
-      <title>식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 골든타임 루틴</title>
+      <title><![CDATA[“올해 내 차례일까?” 2026 국가건강검진 짝수년생 무료 항목과 놓치면 손해인 6대 암검진 팩트체크]]></title>
+      <link>https://honeyjar.co.kr/posts/2026-national-health-screening-guide.html</link>
+      <description><![CDATA[2026년 짝수년도 출생자를 위한 국가건강검진 전액 무료 항목과 6대 암검진 본인부담금, 모바일 1분 조회법 및 작년 미수검자 추가 신청 꿀팁을 에디터 혀니가 알기 쉽게 전해드립니다.]]></description>
+      <category>posts</category>
+      <pubDate>Tue, 01 Sep 2026 20:11:00 +0900</pubDate>
+      <guid>https://honeyjar.co.kr/posts/2026-national-health-screening-guide.html</guid>
+    </item>
+    <item>
+      <title><![CDATA["식초물 몇 방울로 소독 끝?" 과일 솜털·틈새 속 보이지 않는 위험과 식약처 공인 30초 세척법]]></title>
+      <link>https://honeyjar.co.kr/posts/fruit-washing-liver-health.html</link>
+      <description><![CDATA[식초물 담금 세척의 착각과 복숭아·무화과·딸기의 올바른 세척법! 멍든 과일 곰팡이 독소의 간 건강 영향과 식약처 공인 30초 수돗물 세척법을 알기 쉽게 정리했습니다.]]></description>
+      <category>posts</category>
+      <pubDate>Tue, 01 Sep 2026 20:11:00 +0900</pubDate>
+      <guid>https://honeyjar.co.kr/posts/fruit-washing-liver-health.html</guid>
+    </item>
+    <item>
+      <title><![CDATA[식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 골든타임 루틴]]></title>
       <link>https://honeyjar.co.kr/posts/post-meal-walk-blood-sugar.html</link>
-      <description>식후 15분 이내 10분 걷기가 인슐린 분비를 30% 낮추고 혈당 스파이크와 식곤증, 내장지방을 막는 과학적 기전과 실내 제자리 걷기 꿀팁.</description>
-      <pubDate>Tue, 25 Aug 2026 11:30:00 +0900</pubDate>
+      <description><![CDATA[식후 15분 이내 10분 걷기가 인슐린 분비를 30% 낮추고 혈당 스파이크와 내장지방을 막는 과학적 기전.]]></description>
+      <category>posts</category>
+      <pubDate>Tue, 01 Sep 2026 20:11:00 +0900</pubDate>
       <guid>https://honeyjar.co.kr/posts/post-meal-walk-blood-sugar.html</guid>
     </item>
-
     <item>
-      <title>초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세와 관절 보호 3대 수칙</title>
+      <title><![CDATA[초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세]]></title>
       <link>https://honeyjar.co.kr/posts/knee-safe-squat-workout.html</link>
-      <description>스쿼트와 런지 시 무릎 통증(슬개건염) 없이 하체 근육을 키우는 3대 관절 보호 수칙(힙 힌지, 발 각도 외회전, 무게중심)과 초보자 맞춤 10분 하체 홈트 루틴.</description>
-      <pubDate>Mon, 25 Aug 2026 08:00:00 +0900</pubDate>
+      <description><![CDATA[관절에 무리 없이 대퇴사두근과 둔근을 강화하는 안전한 무릎 각도와 체중 지지 꿀팁.]]></description>
+      <category>posts</category>
+      <pubDate>Tue, 01 Sep 2026 20:11:00 +0900</pubDate>
       <guid>https://honeyjar.co.kr/posts/knee-safe-squat-workout.html</guid>
     </item>
-
     <item>
-      <title>오나라 식단 공개, 51세 47kg 관리법과 50대 근력 운동</title>
+      <title><![CDATA[“50대에도 47kg 유지 비결?” 배우 오나라 식단으로 본 중년 영양 밸런스와 필수 근력 운동법]]></title>
       <link>https://honeyjar.co.kr/posts/ohnara-diet.html</link>
-      <description>배우 오나라의 샐러드 식단 팩트 분석부터 중년 여성의 기초대사량을 지키는 3대 복합 다관절 운동 루틴까지.</description>
-      <pubDate>Wed, 19 Aug 2026 09:00:00 +0900</pubDate>
+      <description><![CDATA[배우 오나라의 47kg 식단 사례를 통해 살펴본 50대 중년 여성의 영양 밀도 식사법, 기초대사량 극복을 위한 필수 단백질 섭취 요령, 4대 근력 운동 비교 가이드.]]></description>
+      <category>posts</category>
+      <pubDate>Tue, 01 Sep 2026 20:11:00 +0900</pubDate>
       <guid>https://honeyjar.co.kr/posts/ohnara-diet.html</guid>
     </item>
-
     <item>
-      <title>8월 제철 음식 5선: 기력 회복과 면역력을 높이는 보약 식재료</title>
+      <title><![CDATA[8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드]]></title>
       <link>https://honeyjar.co.kr/posts/august-seasonal-foods.html</link>
-      <description>늦여름 지친 몸을 깨우는 장어, 전복, 포도, 복숭아, 옥수수의 효능과 올바른 섭취법.</description>
-      <pubDate>Wed, 19 Aug 2026 09:00:00 +0900</pubDate>
+      <description><![CDATA[늦여름 지친 몸을 깨우는 장어, 전복, 포도, 복숭아, 옥수수의 효능과 올바른 섭취법.]]></description>
+      <category>posts</category>
+      <pubDate>Tue, 01 Sep 2026 20:11:00 +0900</pubDate>
       <guid>https://honeyjar.co.kr/posts/august-seasonal-foods.html</guid>
     </item>
-
     <item>
-      <title>아침 공복 루틴 4단계: 활력과 면역력을 깨우는 모닝 리추얼</title>
-      <link>https://honeyjar.co.kr/posts/morning-routine.html</link>
-      <description>기상 직후 미온수 한 잔부터 림프 순환 스트레칭까지, 하루 컨디션을 바꾸는 아침 20분 루틴.</description>
-      <pubDate>Wed, 19 Aug 2026 09:00:00 +0900</pubDate>
-      <guid>https://honeyjar.co.kr/posts/morning-routine.html</guid>
-    </item>
-
-    <item>
-      <title>하루 물 섭취량 계산법과 올바르게 마시는 황금 시간대</title>
-      <link>https://honeyjar.co.kr/posts/water-intake-guide.html</link>
-      <description>체중별 하루 권장 수분 섭취량 계산 공식과 신진대사를 극대화하는 시간대별 수분 보충 가이드.</description>
-      <pubDate>Wed, 19 Aug 2026 09:00:00 +0900</pubDate>
-      <guid>https://honeyjar.co.kr/posts/water-intake-guide.html</guid>
-    </item>
-
-    <item>
-      <title>집에서 끝내는 허리 통증 완화 코어 운동 4가지</title>
-      <link>https://honeyjar.co.kr/posts/core-exercise-home.html</link>
-      <description>플랭크, 버드독, 글루트 브릿지, 데드버그로 완성하는 척추 안정화 홈트레이닝 루틴.</description>
-      <pubDate>Wed, 19 Aug 2026 09:00:00 +0900</pubDate>
-      <guid>https://honeyjar.co.kr/posts/core-exercise-home.html</guid>
-    </item>
-
-    <item>
-      <title>간헐적 단식 16:8 효과와 초보자를 위한 시간표 완벽 가이드</title>
-      <link>https://honeyjar.co.kr/posts/intermittent-fasting-guide.html</link>
-      <description>오토파지 기전부터 단식 중 허용되는 음료, 요요 방지 식단 구성법까지 총정리.</description>
-      <pubDate>Wed, 19 Aug 2026 09:00:00 +0900</pubDate>
-      <guid>https://honeyjar.co.kr/posts/intermittent-fasting-guide.html</guid>
-    </item>
-
-    <item>
-      <title>거북목·굽은 등 교정: 사무실에서 앉아서 하는 5분 스트레칭</title>
-      <link>https://honeyjar.co.kr/posts/posture-stretching-office.html</link>
-      <description>친턱 운동과 흉추 신전 스트레칭으로 만성 어깨 결림과 두통을 해소하는 실천법.</description>
-      <pubDate>Wed, 19 Aug 2026 09:00:00 +0900</pubDate>
-      <guid>https://honeyjar.co.kr/posts/posture-stretching-office.html</guid>
-    </item>
-
-    <item>
-      <title>숙면을 부르는 수면 위생 7원칙과 꿀잠 환경 만들기</title>
-      <link>https://honeyjar.co.kr/posts/sleep-hygiene-guide.html</link>
-      <description>멜라토닌 분비를 돕는 조명, 체온 조절 샤워법, 수면 2시간 전 스마트폰 차단 전략.</description>
-      <pubDate>Wed, 19 Aug 2026 09:00:00 +0900</pubDate>
-      <guid>https://honeyjar.co.kr/posts/sleep-hygiene-guide.html</guid>
-    </item>
-
-    <item>
-      <title>세계 1위 건강 식단 지중해식 식단 가이드와 한국형 식단표</title>
+      <title><![CDATA[세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁]]></title>
       <link>https://honeyjar.co.kr/posts/mediterranean-diet.html</link>
-      <description>올리브유, 통곡물, 채소, 생선 중심의 심혈관 건강 식단을 한국 마트 재료로 완성하는 법.</description>
-      <pubDate>Wed, 19 Aug 2026 09:00:00 +0900</pubDate>
+      <description><![CDATA[지중해식 식단의 심혈관 보호 기전과 올리브유, 통곡물, 채소 중심의 한국형 맞춤 식단 구성법.]]></description>
+      <category>posts</category>
+      <pubDate>Tue, 01 Sep 2026 20:11:00 +0900</pubDate>
       <guid>https://honeyjar.co.kr/posts/mediterranean-diet.html</guid>
     </item>
-
+    <item>
+      <title><![CDATA[간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표]]></title>
+      <link>https://honeyjar.co.kr/posts/intermittent-fasting-guide.html</link>
+      <description><![CDATA[자가포식(오토파지) 유도 원리와 16:8 시간표 구성, 근손실 없는 간헐적 단식 실천 꿀팁.]]></description>
+      <category>posts</category>
+      <pubDate>Tue, 01 Sep 2026 20:11:00 +0900</pubDate>
+      <guid>https://honeyjar.co.kr/posts/intermittent-fasting-guide.html</guid>
+    </item>
+    <item>
+      <title><![CDATA[활력 있는 하루를 만드는 아침 10분 모닝 루틴과 스트레칭]]></title>
+      <link>https://honeyjar.co.kr/posts/morning-routine.html</link>
+      <description><![CDATA[기상 직후 코르티솔 분비를 정상화하고 뇌를 깨우는 수분 섭취, 햇볕 쬐기, 가벼운 관절 가동성 루틴.]]></description>
+      <category>posts</category>
+      <pubDate>Tue, 01 Sep 2026 20:11:00 +0900</pubDate>
+      <guid>https://honeyjar.co.kr/posts/morning-routine.html</guid>
+    </item>
+    <item>
+      <title><![CDATA[수면의 질을 2배 높이는 멜라토닌 수면 위생과 침실 환경 가이드]]></title>
+      <link>https://honeyjar.co.kr/posts/sleep-hygiene-guide.html</link>
+      <description><![CDATA[수면 호르몬 멜라토닌 분비를 돕는 조명, 침실 온도, 블루라이트 차단 수칙과 불면증 완화 루틴.]]></description>
+      <category>posts</category>
+      <pubDate>Tue, 01 Sep 2026 20:11:00 +0900</pubDate>
+      <guid>https://honeyjar.co.kr/posts/sleep-hygiene-guide.html</guid>
+    </item>
+    <item>
+      <title><![CDATA[직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭]]></title>
+      <link>https://honeyjar.co.kr/posts/posture-stretching-office.html</link>
+      <description><![CDATA[의자에 앉아서 하는 흉추 신전 스트레칭과 견갑골 후인 하강 운동으로 목·어깨 통증 완화.]]></description>
+      <category>posts</category>
+      <pubDate>Tue, 01 Sep 2026 20:11:00 +0900</pubDate>
+      <guid>https://honeyjar.co.kr/posts/posture-stretching-office.html</guid>
+    </item>
+    <item>
+      <title><![CDATA[바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴]]></title>
+      <link>https://honeyjar.co.kr/posts/core-exercise-home.html</link>
+      <description><![CDATA[허리 부담 없는 플랭크 변형 동작과 버드독, 데드버그로 척추 기립근과 복횡근 강화.]]></description>
+      <category>posts</category>
+      <pubDate>Tue, 01 Sep 2026 20:11:00 +0900</pubDate>
+      <guid>https://honeyjar.co.kr/posts/core-exercise-home.html</guid>
+    </item>
+    <item>
+      <title><![CDATA[체중별 하루 적정 수분 섭취량과 올바른 물 마시는 시간대]]></title>
+      <link>https://honeyjar.co.kr/posts/water-intake-guide.html</link>
+      <description><![CDATA[신체 대사율을 높이는 시간대별 수분 섭취 타이밍과 물 마시기 습관 형성 가이드.]]></description>
+      <category>posts</category>
+      <pubDate>Tue, 01 Sep 2026 20:11:00 +0900</pubDate>
+      <guid>https://honeyjar.co.kr/posts/water-intake-guide.html</guid>
+    </item>
   </channel>
 </rss>
