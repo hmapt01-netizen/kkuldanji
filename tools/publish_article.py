@@ -164,8 +164,8 @@ def update_index_html(index_path, title, cat, date, slug, thumb, desc):
 
 def update_sitemap_and_rss(sitemap_path, rss_path, title, cat, slug, desc):
     if os.path.exists(sitemap_path):
-        with open(sitemap_path, 'r', encoding='utf-8') as f:
-            s_text = f.read()
+        with open(sitemap_path, 'r', encoding='utf-8-sig') as f:
+            s_text = f.read().lstrip('\ufeff')
         url_entry = f"""  <url>
     <loc>https://honeyjar.co.kr/posts/{slug}</loc>
     <lastmod>{datetime.datetime.now().strftime('%Y-%m-%d')}</lastmod>
@@ -175,13 +175,13 @@ def update_sitemap_and_rss(sitemap_path, rss_path, title, cat, slug, desc):
 """
         if f"https://honeyjar.co.kr/posts/{slug}" not in s_text:
             s_text = s_text.replace('</urlset>', url_entry + '</urlset>')
-            with open(sitemap_path, 'w', encoding='utf-8-sig') as f:
+            with open(sitemap_path, 'w', encoding='utf-8') as f:
                 f.write(s_text)
             print(f"[OK] Updated sitemap.xml for {slug}")
 
     if os.path.exists(rss_path):
-        with open(rss_path, 'r', encoding='utf-8') as f:
-            r_text = f.read()
+        with open(rss_path, 'r', encoding='utf-8-sig') as f:
+            r_text = f.read().lstrip('\ufeff')
         pub_date = datetime.datetime.now().strftime('%a, %d %b %Y %H:%M:00 +0900')
         rss_item = f"""    <item>
       <title><![CDATA[{title}]]></title>
@@ -194,7 +194,7 @@ def update_sitemap_and_rss(sitemap_path, rss_path, title, cat, slug, desc):
 """
         if f"https://honeyjar.co.kr/posts/{slug}" not in r_text:
             r_text = r_text.replace('</channel>', rss_item + '  </channel>')
-            with open(rss_path, 'w', encoding='utf-8-sig') as f:
+            with open(rss_path, 'w', encoding='utf-8') as f:
                 f.write(r_text)
             print(f"[OK] Updated rss.xml for {slug}")
 
