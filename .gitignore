@@ -9,3 +9,6 @@ upload.ps1
 !kkuldanji_web/**/*.json
 !data/posts_db.json
 tools/deploy_site.py
+
+__pycache__/
+*.pyc
