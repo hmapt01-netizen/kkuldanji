@@ -1,4 +1,4 @@
-﻿.agents/
+.agents/
 *.tmp
 *.log
 scratch/
@@ -7,3 +7,5 @@ upload.ps1
 꿀단지_업로드.bat
 *.json
 !kkuldanji_web/**/*.json
+!data/posts_db.json
+tools/deploy_site.py

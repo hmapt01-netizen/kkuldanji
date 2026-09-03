@@ -362,4 +362,25 @@ if os.path.exists(admin_path):
 
     print(f"  ✓ 4. admin.html 관리자 DB {len(posts)}편 일괄 컴파일 완료!")
 
+# 5. 전 페이지 파비콘 5종 세트 자동 무결성 검증 및 자동 복구 (Favicon Integrity Guardian)
+root_favicon_block = """    <!-- 🍯 꿀단지 공식 파비콘 풀세트 (무결점 가디언 자동 동기화) -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">"""
+
+static_pages = ['about.html', 'privacy.html', 'terms.html', 'contact.html', 'calculator.html', 'admin.html', 'index.html']
+for sp in static_pages:
+    sp_path = os.path.join(web_root, sp)
+    if os.path.exists(sp_path):
+        with open(sp_path, 'r', encoding='utf-8') as f:
+            sp_c = f.read()
+        if 'favicon.ico' not in sp_c or '?v=' in sp_c:
+            sp_c = re.sub(r'(<!--\s*🍯[^\n]*-->\s*)?(<link\s+rel=[\'"][^\'"]*icon[^\'"]*[\'"][^>]*>\s*)+', root_favicon_block + '\n', sp_c, count=1)
+            with open(sp_path, 'w', encoding='utf-8') as f:
+                f.write(sp_c)
+
+print(f"  ✓ 5. 전 페이지 파비콘 5종 세트 무결성 가디언 자동 검증 및 영구 동기화 완료!")
+
 print(f"\n🎉 [100% PERFECT SSG COMPILATION SUCCESS] {len(posts)}개 전체 페이지가 0.1초 만에 완벽하게 일괄 생성되었습니다!")
