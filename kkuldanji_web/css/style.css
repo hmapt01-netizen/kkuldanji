@@ -1,4 +1,4 @@
-﻿﻿/* 📱 모바일 스마트 상단 헤더 스크롤 영구 상단 고정 (Always Fixed Sticky) */
+﻿/* 📱 모바일 스마트 상단 헤더 스크롤 영구 상단 고정 (Always Fixed Sticky) */
 @media (max-width: 768px) {
     body.tistory-single-post {
         padding-top: 52px !important;
@@ -4202,30 +4202,54 @@ footer.clean-footer {
 
 @media screen and (max-width: 768px) {
     footer.clean-footer {
-        margin-top: 20px !important;
+        margin-top: 24px !important;
+        text-align: center !important;
     }
     .footer-inner {
         flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
         text-align: center !important;
-        gap: 10px !important;
-        padding: 20px 16px 36px !important;
+        gap: 14px !important;
+        padding: 24px 16px 40px !important;
+    }
+    .footer-inner > div {
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        text-align: center !important;
+        gap: 14px !important;
+        width: 100% !important;
+    }
+    .footer-info-group {
+        text-align: center !important;
+        width: 100% !important;
+    }
+    .footer-copy {
+        text-align: center !important;
+        margin-bottom: 6px !important;
     }
     .footer-meta-desktop {
         display: none !important;
     }
     .footer-meta-mobile {
         display: block !important;
+        text-align: center !important;
     }
     .footer-meta-mobile p {
-        margin: 0 0 3px 0 !important;
+        margin: 0 0 4px 0 !important;
         font-size: 0.79rem !important;
         color: #64748b !important;
+        text-align: center !important;
     }
     .footer-links {
         justify-content: center !important;
-        gap: 12px !important;
+        align-items: center !important;
+        width: 100% !important;
+        gap: 14px !important;
     }
 }
+
 
 /* 🔗 상단 공유 버튼 - 메타바와 100% 일체화된 순수 텍스트 스타일 */
 .btn-share-top {
