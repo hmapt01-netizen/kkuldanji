@@ -364,13 +364,15 @@ document.addEventListener('DOMContentLoaded', () => {
     function renderEditorPickCard() {
         if (typeof HONEYJAR_POSTS_REGISTRY === 'undefined' || !Array.isArray(HONEYJAR_POSTS_REGISTRY) || HONEYJAR_POSTS_REGISTRY.length === 0) return;
         
-        const localPickSlug = localStorage.getItem('honeyjar_editor_pick_slug');
-        let pickPost = null;
-        if (localPickSlug) {
-            pickPost = HONEYJAR_POSTS_REGISTRY.find(p => p.slug === localPickSlug || p.slug === localPickSlug + '.html' || p.slug.replace('.html','') === localPickSlug.replace('.html',''));
+        let pickPost = HONEYJAR_POSTS_REGISTRY.find(p => p.isEditorPick);
+        if (!pickPost) {
+            const localPickSlug = localStorage.getItem('honeyjar_editor_pick_slug');
+            if (localPickSlug) {
+                pickPost = HONEYJAR_POSTS_REGISTRY.find(p => p.slug === localPickSlug || p.slug === localPickSlug + '.html' || p.slug.replace('.html','') === localPickSlug.replace('.html',''));
+            }
         }
         if (!pickPost) {
-            pickPost = HONEYJAR_POSTS_REGISTRY.find(p => p.slug === 'post-meal-walk-blood-sugar.html') || HONEYJAR_POSTS_REGISTRY[0];
+            pickPost = HONEYJAR_POSTS_REGISTRY.find(p => p.slug === 'slow-aging-rice-recipe.html') || HONEYJAR_POSTS_REGISTRY[0];
         }
         if (!pickPost) return;
 
