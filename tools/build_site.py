@@ -20,7 +20,7 @@ with open(data_path, "r", encoding="utf-8-sig") as f:
 print(f"🚀 [꿀단지 정석 SSG 컴파일러 가동] 총 {len(posts)}개 포스트 일괄 빌드 시작...")
 
 # 1. posts/*.html 일괄 컴파일
-with open(post_tpl_path, "r", encoding="utf-8") as f:
+with open(post_tpl_path, "r", encoding="utf-8-sig") as f:
     post_tpl = f.read()
 
 # Make sure template has clean mobile header and NO bottom bar
@@ -238,7 +238,7 @@ for idx, p in enumerate(posts):
 
     # Write post file with UTF-8 BOM
     target_post_path = os.path.join(web_root, "posts", slug)
-    with open(target_post_path, "w", encoding="utf-8-sig") as f_out:
+    with open(target_post_path, "w", encoding="utf-8") as f_out:
         f_out.write(out)
 
 print(f"  ✓ 1. posts/*.html {len(posts)}개 포스트 전수 무결점 컴파일 완료 (태그 1:1 일치 전수 검증 통과)!")
@@ -292,7 +292,7 @@ for idx, p in enumerate(posts, 1):
                 </article>\n'''
 
 # 2. index.html 컴파일 (순수 템플릿 기반 100% 확정적 컴파일)
-with open(index_tpl_path, "r", encoding="utf-8") as f:
+with open(index_tpl_path, "r", encoding="utf-8-sig") as f:
     idx_content = f.read()
 
 count_all = len(posts)
@@ -316,7 +316,7 @@ if posts[0]["slug"] not in idx_content:
 if '<link rel="icon"' not in idx_content or 'favicon.ico' not in idx_content:
     raise ValueError("CRITICAL ERROR: Favicon tags are missing from index.html!")
 
-with open(target_index_path, "w", encoding="utf-8-sig") as f:
+with open(target_index_path, "w", encoding="utf-8") as f:
     f.write(idx_content)
 
 print(f"  ✓ 2. index.html 템플릿 기반 PC/모바일 그리드 {len(posts)}개 100% 완전 컴파일 완료!")
@@ -332,7 +332,7 @@ if os.path.exists(features_path):
     feat_content = re.sub(r'(?:window\.HONEYJAR_POSTS_REGISTRY[\s\S]*?;)?\s*const HONEYJAR_POSTS_REGISTRY = \[[\s\S]*?\];', new_registry_str, feat_content)
     feat_content = re.sub(r'window\.HONEYJAR_POSTS_REGISTRY = window\.HONEYJAR_POSTS_REGISTRY \|\| \[[\s\S]*?\];\s*var HONEYJAR_POSTS_REGISTRY = window\.HONEYJAR_POSTS_REGISTRY;', new_registry_str, feat_content)
 
-    with open(features_path, "w", encoding="utf-8-sig") as f:
+    with open(features_path, "w", encoding="utf-8") as f:
         f.write(feat_content)
 
     print(f"  ✓ 3. js/features.js 레지스트리 {len(posts)}개 일괄 컴파일 완료!")
@@ -367,7 +367,7 @@ if os.path.exists(admin_path):
     adm_content = re.sub(r'발행된 칼럼 목록 관리 \(\d+편\)', f'발행된 칼럼 목록 관리 ({len(posts)}편)', adm_content)
     adm_content = re.sub(r'tableTotalCount">\d+<', f'tableTotalCount">{len(posts)}<', adm_content)
 
-    with open(admin_path, "w", encoding="utf-8-sig") as f:
+    with open(admin_path, "w", encoding="utf-8") as f:
         f.write(adm_content)
 
     print(f"  ✓ 4. admin.html 관리자 DB {len(posts)}편 일괄 컴파일 완료!")

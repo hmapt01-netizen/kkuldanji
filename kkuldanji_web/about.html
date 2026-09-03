@@ -1,354 +1,702 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+<!DOCTYPE html>
+
 <html lang="ko">
+
 <head>
+
 <!-- 📊 Google Analytics 4 (GA4 공식 초광속 비동기 태그) -->
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V2RMP3SCRQ"></script>
+
     <script>
+
         window.dataLayer = window.dataLayer || [];
+
         function gtag(){dataLayer.push(arguments);}
+
         gtag('js', new Date());
+
         gtag('config', 'G-V2RMP3SCRQ');
+
     </script>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                                                                                                                                    <!-- 🍯 꿀단지 공식 파비콘 풀세트 (무결점 가디언 자동 동기화) -->
+
+                                                                                                                                            <!-- 🍯 꿀단지 공식 파비콘 풀세트 (무결점 가디언 자동 동기화) -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <title>매거진 소개 (About Us) | 꿀단지</title>
+
     <meta name="description" content="꿀단지 매거진 소개 및 운영자 혀니의 큐레이션 철학 안내.">
+
     
+
     
+
     
+
     <link rel="stylesheet" href="css/style.css?v=20260903_v2">
+
     <style id="guaranteedMobileNavStyle">
+
         
+
         
+
         .brand-text-stack { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
+
             display: flex !important;
+
             flex-direction: column !important;
+
             justify-content: center !important;
+
             line-height: 1.15 !important;
+
         }
+
         .brand-sub-title { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
+
             font-size: 0.72rem !important;
+
             font-weight: 800 !important;
+
             color: #c26908 !important;
+
             letter-spacing: 0.5px !important;
+
         }
+
         .brand-main-title { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
+
             font-size: 1.35rem !important;
+
             font-weight: 800 !important;
+
             color: #111827 !important;
+
             letter-spacing: -0.5px !important;
+
         }
+
+
 
         /* 📱 모바일 (768px 이하): PC 메뉴바 숨김 */
+
         @media (max-width: 768px) {
+
             .desktop-header,
+
             .clean-nav {
+
                 display: none !important;
+
             }
+
             .naver-mobile-top-bar {
+
                 display: flex !important;
+
                 position: sticky !important;
+
                 top: 0 !important;
+
                 left: 0 !important;
+
                 width: 100% !important;
+
                 height: 54px !important;
+
                 background: #ffffff !important;
+
                 border-bottom: 1px solid #f1f5f9 !important;
+
                 justify-content: space-between !important;
+
                 align-items: center !important;
+
                 padding: 0 16px !important;
+
                 z-index: 1000 !important;
+
                 box-sizing: border-box !important;
+
             }
+
         }
+
+
 
         /* 💻 PC (769px 이상): 모바일 요소 숨김 */
+
         @media (min-width: 769px) {
+
             .naver-mobile-top-bar,
+
             #naverMobileDrawer,
+
             .drawer-overlay {
+
                 display: none !important;
+
             }
+
             .desktop-header {
+
                 display: block !important;
+
             }
+
         }
+
     </style>
+
     <!-- 💰 Google AdSense 공식 인증 및 자동 광고 코드 -->
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4739687813221133" crossorigin="anonymous"></script>
+
 </head>
+
 <body>
 
+
+
 <!-- 📱 모바일 상단 바 -->
+
 <div class="naver-mobile-top-bar">
+
     <a href="index.html" class="brand-title" style="gap: 8px;">
+
         <img src="images/logo.png?v=11.0" alt="꿀단지 심볼" class="brand-logo-img" style="height: 30px;">
+
         <div class="brand-text-stack">
+
             <span class="brand-sub-title">혀니의</span>
+
             <span class="brand-main-title" style="font-size: 1.2rem;">꿀단지</span>
+
         </div>
+
     </a>
+
     <button type="button" class="btn-mobile-menu-open" style="background:transparent; border:none; padding:6px; cursor:pointer;" id="btnOpenMobileDrawer" aria-label="메뉴 열기">
+
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
             <line x1="3" y1="12" x2="21" y2="12"></line>
+
             <line x1="3" y1="6" x2="21" y2="6"></line>
+
             <line x1="3" y1="18" x2="21" y2="18"></line>
+
         </svg>
+
     </button>
+
 </div>
 
+
+
 <!-- 💻 PC 전용 깔끔한 상단 헤더 -->
+
 <header class="clean-header desktop-header">
+
     <div class="header-container">
+
         <a href="index.html" class="brand-title">
+
             <img src="images/logo.png?v=11.0" alt="꿀단지 심볼" class="brand-logo-img">
+
             <div class="brand-text-stack">
+
                 <span class="brand-sub-title">혀니의</span>
+
                 <span class="brand-main-title">꿀단지</span>
+
             </div>
+
         </a>
+
         <nav class="clean-nav">
+
             <ul>
+
                 <li><a href="index.html">홈</a></li>
+
                 <li><a href="index.html?cat=%EC%8B%9D%EB%8B%A8%20%26%20%EC%98%81%EC%96%91">식단·영양</a></li>
+
                 <li><a href="index.html?cat=%ED%99%88%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%8B%9D">홈트레이닝</a></li>
+
                 <li><a href="index.html?cat=%EB%9D%BC%EC%9D%B4%ED%94%84%20%EC%9B%B0%EB%8B%88%EC%8A%A4">라이프 웰니스</a></li>
+
                 
+
                 
+
             </ul>
+
         </nav>
+
     </div>
+
 </header>
 
+
+
 <!-- 📱 모바일 드로어 메뉴 (이모지 제외 미니멀 표준) -->
+
 <div class="drawer-overlay" id="drawerOverlay"></div>
+
 <aside class="naver-mobile-drawer" id="naverMobileDrawer">
+
     <div class="drawer-header">
+
         <a href="index.html" class="drawer-brand" style="display:flex; align-items:center; gap:8px; text-decoration:none;" title="메인 홈으로 가기">
+
             <img src="images/logo.png" alt="꿀단지 심볼" style="height: 30px; width: auto;">
+
             <div class="brand-text-stack">
+
                 <span class="brand-sub-title" style="font-size: 0.72rem;">혀니의</span>
+
                 <span class="brand-main-title" style="font-size: 1.15rem;">꿀단지</span>
+
             </div>
+
         </a>
+
         <button type="button" class="btn-drawer-close" id="btnCloseMobileDrawer" aria-label="메뉴 닫기" style="background:transparent; border:none; font-size:1.5rem; color:#64748b; cursor:pointer;">&times;</button>
+
     </div>
+
     <div class="drawer-body">
+
         <ul class="drawer-menu-list">
+
             <li><a href="about.html" class="drawer-nav-item">소개</a></li>
+
             <li><a href="privacy.html" class="drawer-nav-item">개인정보처리방침</a></li>
+
             <li><a href="terms.html" class="drawer-nav-item">이용약관</a></li>
+
             <li><a href="contact.html" class="drawer-nav-item">문의하기</a></li>
+
         </ul>
+
     </div>
+
 </aside>
 
+
+
 <main class="container">
+
     <div class="article-layout-grid">
 
+
+
         <article class="article-main-col">
+
             <div class="article-wrap">
+
                 <header class="article-header">
+
                     <span class="article-cat-tag">소개 (ABOUT)</span>
+
                     <h1 class="article-main-title">신뢰할 수 있는 건강과 라이프스타일 가이드, 꿀단지</h1>
+
                     <div class="article-meta-bar">
+
                         <span>발행인·편집인: 임진현 · 편집국: 대한민국 서울시 도봉구 해등로 231 · 최종 개정: 2026년 8월</span>
+
                     </div>
+
                 </header>
 
+
+
                 <div class="article-body">
+
 <p><strong>「꿀단지」</strong>는 바쁜 현대인들을 위해 일상에서 실천 가능한 건강 관리, 식단 영양 정보, 올바른 운동 루틴 및 웰니스 라이프스타일을 전문적이고 객관적인 시각으로 전달하는 독립 디지털 매거진입니다.</p>
 
+
+
                     <h2>1. 우리의 창간 미션 (Our Mission)</h2>
+
                     <p>오늘날 인터넷에는 수많은 건강 정보와 다이어트 비법이 넘쳐나지만, 클릭 몇 번으로 마주치는 자극적인 가짜 상식, 상업적 이익만을 노린 과장 광고, 그리고 난해한 의학 논문 용어들은 오히려 독자들을 더 피로하고 불안하게 만듭니다.</p>
+
                     <p>꿀단지는 바로 이러한 고민에서 출발했습니다. <strong>'사실(Fact), 관찰(Observation), 균형(Balance)'</strong>의 3대 원칙을 바탕으로, 매일 아침 마시는 커피 한 잔의 골든타임, 오늘 저녁 밥상에 올릴 잡곡의 황금 비율, 의자에 앉아 굳어진 목과 어깨를 풀어주는 3분의 벽 스트레칭처럼 <strong>"우리의 오늘 하루를 실제로 가볍고 맑게 바꿔주는 실속 있는 건강 꿀팁"</strong>만을 엄선하여 전합니다.</p>
 
+
+
                     <h2>2. 꿀단지 편집국과 수석 에디터 혀니의 약속</h2>
+
                     <p>꿀단지 편집국은 <strong>'철저한 데이터 검증'</strong>과 <strong>'따뜻하고 친근한 소통'</strong>의 조화를 최우선 가치로 삼습니다. 딱딱한 의학 교과서의 권위주의를 내려놓고, 내 가족의 건강을 진심으로 챙겨주는 다정한 이웃 건강 멘토의 시선으로 독자 여러분과 소통합니다.</p>
+
                     <p>
+
                         <strong>• 팩트체크 &amp; 리서치 데스크</strong>: 국내외 공인 연구기관(농촌진흥청, 하버드 의대, NIH, 서울아산병원 등)의 최신 학술 논문 및 실측 데이터를 교차 검증하여 과학적 사실 관계를 1차 규명합니다.<br>
+
                         <strong>• 수석 칼럼니스트 (에디터 혀니)</strong>: 검증된 전문 지식을 독자의 눈높이에 맞추어, 누구나 무릎을 탁 치며 쉽게 이해할 수 있는 직관적인 생활 밀착 언어와 숏단락 호흡으로 집필 및 큐레이션을 총괄합니다.<br>
+
                         <strong>• 편집국 총괄 감수 (발행인 임진현)</strong>: 상업적 과장이나 특정 업체 후원성 왜곡을 배제하고, 독자에게 실질적인 도움이 되는 '1도의 작은 습관'만을 엄선하여 최종 발행을 승인합니다.
+
                     </p>
+
                     <p>수십만 원짜리 고통스러운 시술이나 비현실적인 극단적 굶기를 강요하지 않습니다. 저녁 밥통에 렌틸콩 한 줌을 섞는 작은 변화, 식후 딱 10분을 걷는 소박한 루틴처럼 누구나 지금 당장 실천할 수 있는 '1도의 따뜻한 습관'을 선물합니다.</p>
 
+
+
                     <h2>3. 엄격한 콘텐츠 편집 기준 (E-E-A-T 검증 체계)</h2>
+
                     <p>꿀단지는 구글이 요구하는 최고 수준의 신뢰도(E-E-A-T: 경험, 전문성, 권위, 신뢰)를 달성하기 위해 아래 3대 원칙을 1%의 타협 없이 엄격히 고수합니다.</p>
+
                     <ul>
+
                         <li><strong>공인 연구기관 팩트체크 원칙</strong>: 풍문이나 검증되지 않은 민간요법은 일체 배제합니다. 농촌진흥청, 서울아산병원, 미국화학학회(ACS), 미국 국립보건원(NIH), 하버드 의대 등 국내외 공인 연구기관의 실측 통계와 최신 학술 논문 데이터를 교차 검증하여 정밀 수록합니다.</li>
+
                         <li><strong>상업적 과장 및 사이비 배제</strong>: 특정 건강기능식품이나 약품의 무분별한 뒷광고, 협찬성 과대광고를 100% 배제합니다. 오직 독자의 건강 증진과 실생활 효익만을 최우선 가치로 두며, 부작용과 주의점까지 객관적으로 투명하게 밝힙니다.</li>
+
                         <li><strong>생활 밀착형 실천주의</strong>: 이론에만 그치는 지식은 지양합니다. 독자가 무릎을 탁 치며 쉽게 이해할 수 있는 직관적인 생활 비유와 단계별 인포그래픽 카드를 통해, 글을 읽은 직후 곧바로 삶에 적용할 수 있는 솔루션을 제안합니다.</li>
+
                     </ul>
 
+
+
                     <div class="clean-callout">
+
                         <p><strong>🍯 꿀단지 3대 핵심 웰니스 카테고리</strong></p>
+
                         <ul style="margin: 8px 0 0 18px;">
+
                             <li><strong>식단 & 영양</strong>: 극단적인 굶기가 아닌 지속 가능한 저속노화 식단, 항산화 식재료 및 제철 영양 관리</li>
+
                             <li><strong>홈트레이닝</strong>: 헬스장에 가지 않고도 집에서 부상 없이 기초 근력과 코어를 강화하는 생활 밀착 운동법</li>
+
                             <li><strong>라이프 웰니스</strong>: 수면 위생, 시간생물학적 호르몬 조절, 스트레스 완화 등 일상의 활력을 되찾는 토탈 케어</li>
+
                         </ul>
+
                     </div>
+
+
 
                     <h2>4. 건강 및 의학 정보에 관한 면책 고지 (Medical Disclaimer)</h2>
+
                     <div class="clean-callout" style="background:#f8fafc; border-left:4px solid #f59e0b; padding:16px 18px; border-radius:8px; font-size:0.92rem; color:#475569; line-height:1.7;">
+
                         <p><strong>⚠️ 의학적 자문 배제 안내</strong></p>
+
                         <p style="margin-top:6px;">본 사이트 「꿀단지」에서 제공하는 모든 식단, 영양, 운동, 수면 및 건강 관련 콘텐츠는 공인된 보건 기관 및 학술 연구 데이터를 바탕으로 한 일반 정보 제공을 목적으로 합니다. 본 콘텐츠는 의학적 진단, 처방, 또는 전문 의료진의 치료를 대신할 수 없습니다.</p>
+
                         <p style="margin-top:6px;">개인의 기저질환, 알레르기, 복용 약물이나 신체 상태에 따라 적합성이 다를 수 있으므로, 구체적인 치료나 새로운 식단·운동 루틴을 시작하기 전에는 반드시 전문 의료인과 직접 상담하시기 바랍니다.</p>
+
                     </div>
+
+
 
                     <h2>5. 편집진 및 공식 독자 소통 창구</h2>
+
                     <p>꿀단지 편집국은 독자 여러분의 따뜻한 피드백과 건설적인 비판을 언제나 열린 마음으로 환영합니다. 칼럼에 대한 의문점이나 제휴 제안, 정정 요청이 있으실 경우 언제든 아래의 공식 소통 창구로 편안하게 연락 주시기 바랍니다.</p>
+
                     <div class="clean-callout">
+
                         <p><strong>매거진 공식 명칭</strong>: 혀니의 꿀단지 (KKULDANJI Magazine)</p>
+
                         <p style="margin-top:4px;"><strong>발행인 겸 편집국 총괄</strong>: 임진현 | <strong>수석에디터</strong>: 혀니 (Chief Wellness Columnist)</p>
+
                         <p style="margin-top:4px;"><strong>편집국 공식 이메일</strong>: hmapt01@gmail.com (24시간 접수)</p>
+
                         <p style="margin-top:4px;"><strong>공식 소재지</strong>: 대한민국 서울특별시 도봉구 해등로 231</p>
+
                     </div>
+
                 </div>
+
             </div>
+
         </article>
 
+
+
         <!-- Right Sidebar Column (300px) -->
+
                 <aside class="article-sidebar">
+
             
+
             <!-- 1. Editor Profile Widget -->
+
             <div class="sidebar-profile-card">
+
                 <div class="avatar-box">
+
                     <img src="images/logo.png" alt="에디터 혀니">
+
                 </div>
+
                 <div class="profile-name">에디터 혀니</div>
+
                 <p class="profile-desc">
+
                     정직하고 유익한 라이프 &amp; 웰니스 꿀팁을 전하는 꿀단지 공식 에디터입니다.
+
                 </p>
+
                 <span class="profile-badge">✓ 웰니스 칼럼니스트</span>
+
             </div>
 
+
+
             <!-- 2. Popular Posts TOP 10 Widget -->
+
             <div class="sidebar-widget" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; padding:22px 20px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.03);">
+
                 <h3 class="widget-title" style="font-size:1.02rem; font-weight:800; color:#111827; margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid #f1f5f9; display:flex; align-items:center; gap:6px;">
+
                     <span>인기글 TOP 10</span>
+
                 </h3>
+
                 <ul class="popular-list" id="popularPostsWidgetList">
+
                     <!-- JS 실시간 자동 렌더링 -->
+
                 </ul>
+
             </div>
+
+
 
         </aside>
 
+
+
     </div>
+
 </main>
 
+
+
 <footer class="clean-footer">
+
         <div class="footer-inner" style="max-width:1060px; margin:0 auto; padding:28px 20px 36px;">
+
             <!-- 상단 2단 분할: 좌측(발행·법적 정보) vs 우측(공식 채널/소통 뱃지) -->
+
             <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:20px; padding-bottom:18px; border-bottom:1px solid #f1f5f9; width:100%;">
+
                 <!-- 좌측 정보 그룹 -->
+
                 <div class="footer-info-group" style="flex:1; min-width:320px;">
+
                     <p class="footer-copy" style="margin-bottom:6px;">&copy; 2026 <strong>꿀단지</strong>. All rights reserved.</p>
+
                     <p class="footer-meta-desktop" style="font-size:0.83rem; color:#64748b; line-height:1.6; margin-bottom:5px;">
+
                         제호: 혀니의 꿀단지 | 발행인: 임진현 | 수석에디터: 혀니 | 이메일: hmapt01@gmail.com | 주소: 대한민국 서울시 도봉구 해등로 231
+
                     </p>
+
                     <div class="footer-meta-mobile" style="display:none;">
+
                         <p>제호: 혀니의 꿀단지 | 발행인: 임진현 | 수석에디터: 혀니</p>
+
                         <p>이메일: hmapt01@gmail.com | 주소: 대한민국 서울시 도봉구 해등로 231</p>
+
                     </div>
+
                     <p class="footer-copyright-warning" style="font-size:0.78rem; color:#94a3b8; line-height:1.5; margin-bottom:3px;">
+
                         꿀단지의 모든 콘텐츠(기사·화보)는 저작권법의 보호를 받으며, 사전 승인 없는 무단 전재, 복사, 배포 및 AI 무단 학습을 엄격히 금합니다.
+
                     </p>
+
                     <p class="footer-disclaimer" style="font-size:0.77rem; color:#94a3b8; line-height:1.5; margin:0;">
+
                         ※ 꿀단지의 건강 정보는 일반 상식 제공용이며, 의사의 진료 및 전문 치료를 대신할 수 없습니다.
+
                     </p>
+
                 </div>
+
+
 
                 <!-- 우측 공식 채널 & 소통 뱃지 세트 (차분하고 세련된 모노크롬 다크그레이 톤) -->
+
                 <div class="footer-social-group" style="display:flex; align-items:center; gap:10px; flex-shrink:0; padding-top:4px;">
+
                     <!-- 1. 네이버 공식 채널 -->
+
                     <a href="https://blog.naver.com/hmapt1" target="_blank" rel="noopener noreferrer" title="네이버 공식 블로그" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:#475569; color:#ffffff; font-size:0.92rem; font-weight:850; text-decoration:none; transition:background 0.15s, transform 0.15s;" onmouseover="this.style.background='#1e293b'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#475569'; this.style.transform='translateY(0)'">
+
                         N
+
                     </a>
+
                     <!-- 2. 공식 문의하기 (우리 사이트 문의 폼 페이지로 직접 이동!) -->
+
                     <a href="contact.html" title="1:1 문의 및 의견 보내기" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:#475569; color:#ffffff; text-decoration:none; transition:background 0.15s, transform 0.15s;" onmouseover="this.style.background='#1e293b'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#475569'; this.style.transform='translateY(0)'">
+
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+
                     </a>
+
                     <!-- 3. RSS 피드 구독 (구글 색인 & 파워유저용) -->
+
                     <a href="feed.xml" target="_blank" title="RSS 피드 구독" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:#475569; color:#ffffff; text-decoration:none; transition:background 0.15s, transform 0.15s;" onmouseover="this.style.background='#1e293b'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#475569'; this.style.transform='translateY(0)'">
+
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+
                     </a>
+
                     <!-- 4. 맨 위로 가기 (TOP) -->
+
                     <a href="#top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;" title="화면 맨 위로 이동" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:#475569; color:#ffffff; text-decoration:none; transition:background 0.15s, transform 0.15s;" onmouseover="this.style.background='#1e293b'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#475569'; this.style.transform='translateY(0)'">
+
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+
                     </a>
+
                 </div>
+
             </div>
+
+
 
             <!-- 하단 행: 7대 정책 메뉴 링크 + 매거진 영문 서명 -->
+
             <div style="padding-top:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; width:100%;">
+
                 <ul class="footer-links" style="display:flex; flex-wrap:wrap; gap:14px; list-style:none; padding:0; margin:0;">
+
                     <li><a href="about.html">매체소개</a></li>
+
                     <li><a href="terms.html">이용약관</a></li>
+
                     <li><a href="privacy.html">개인정보처리방침</a></li>
+
                     <li><a href="youth-protection.html">청소년보호정책</a></li>
+
                     <li><a href="copyright.html">저작권보호정책</a></li>
+
                     <li><a href="email-rejection.html">이메일무단수집거부</a></li>
+
                     <li><a href="contact.html">문의하기</a></li>
+
                     <li><a href="admin.html" class="footer-admin-link">관리자</a></li>
+
                 </ul>
+
                 <div class="footer-brand-tag" style="font-size:0.75rem; font-weight:700; color:#94a3b8; letter-spacing:0.5px;">
+
                     KKULDANJI WELLNESS MAGAZINE
+
                 </div>
+
             </div>
+
         </div>
+
     </footer>
 
+
+
 <script>
+
     // 📱 모바일 드로어 메뉴 완벽 제어
+
     document.addEventListener('DOMContentLoaded', () => {
+
         const btnOpen = document.getElementById('btnOpenMobileDrawer');
+
         const btnClose = document.getElementById('btnCloseMobileDrawer');
+
         const overlay = document.getElementById('drawerOverlay');
+
         const drawer = document.getElementById('naverMobileDrawer');
 
+
+
         function openDrawer() {
+
             if (drawer) {
+
                 drawer.classList.add('active', 'open');
+
                 drawer.style.setProperty('right', '0', 'important');
+
             }
+
             if (overlay) {
+
                 overlay.classList.add('active', 'open');
+
                 overlay.style.setProperty('display', 'block', 'important');
+
             }
+
             document.body.style.overflow = 'hidden';
+
         }
+
+
 
         function closeDrawer() {
+
             if (drawer) {
+
                 drawer.classList.remove('active', 'open');
+
                 drawer.style.setProperty('right', '-280px', 'important');
+
             }
+
             if (overlay) {
+
                 overlay.classList.remove('active', 'open');
+
                 overlay.style.setProperty('display', 'none', 'important');
+
             }
+
             document.body.style.overflow = '';
+
         }
 
+
+
         if (btnOpen) btnOpen.addEventListener('click', openDrawer);
+
         if (btnClose) btnClose.addEventListener('click', closeDrawer);
+
         if (overlay) overlay.addEventListener('click', closeDrawer);
+
         
+
         document.addEventListener('keydown', (e) => {
+
             if (e.key === 'Escape') closeDrawer();
+
         });
+
     });
+
 </script>
+
     <script defer src="js/features.js"></script>
+
 </body>
+
 </html>
+
+
+
 
 

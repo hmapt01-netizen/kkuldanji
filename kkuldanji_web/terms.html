@@ -1,365 +1,724 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+<!DOCTYPE html>
+
 <html lang="ko">
+
 <head>
+
 <!-- 📊 Google Analytics 4 (GA4 공식 초광속 비동기 태그) -->
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V2RMP3SCRQ"></script>
+
     <script>
+
         window.dataLayer = window.dataLayer || [];
+
         function gtag(){dataLayer.push(arguments);}
+
         gtag('js', new Date());
+
         gtag('config', 'G-V2RMP3SCRQ');
+
     </script>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                                                                                                                                    <!-- 🍯 꿀단지 공식 파비콘 풀세트 (무결점 가디언 자동 동기화) -->
+
+                                                                                                                                            <!-- 🍯 꿀단지 공식 파비콘 풀세트 (무결점 가디언 자동 동기화) -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 <title>이용약관 및 면책조항 (Terms of Service) | 꿀단지</title>
+
     <meta name="description" content="꿀단지 매거진의 서비스 이용약관, 저작권 규정 및 의학·건강 정보 면책조항입니다.">
+
     
+
     
+
     
+
     <link rel="stylesheet" href="css/style.css?v=20260903_v2">
+
     <style id="guaranteedMobileNavStyle">
+
         
+
         
+
         .brand-text-stack { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
+
             display: flex !important;
+
             flex-direction: column !important;
+
             justify-content: center !important;
+
             line-height: 1.15 !important;
+
         }
+
         .brand-sub-title { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
+
             font-size: 0.72rem !important;
+
             font-weight: 800 !important;
+
             color: #c26908 !important;
+
             letter-spacing: 0.5px !important;
+
         }
+
         .brand-main-title { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
+
             font-size: 1.35rem !important;
+
             font-weight: 800 !important;
+
             color: #111827 !important;
+
             letter-spacing: -0.5px !important;
+
         }
+
+
 
         /* 📱 모바일 (768px 이하): PC 메뉴바 숨김 */
+
         @media (max-width: 768px) {
+
             .desktop-header,
+
             .clean-nav {
+
                 display: none !important;
+
             }
+
             .naver-mobile-top-bar {
+
                 display: flex !important;
+
                 position: sticky !important;
+
                 top: 0 !important;
+
                 left: 0 !important;
+
                 width: 100% !important;
+
                 height: 54px !important;
+
                 background: #ffffff !important;
+
                 border-bottom: 1px solid #f1f5f9 !important;
+
                 justify-content: space-between !important;
+
                 align-items: center !important;
+
                 padding: 0 16px !important;
+
                 z-index: 1000 !important;
+
                 box-sizing: border-box !important;
+
             }
+
         }
+
+
 
         /* 💻 PC (769px 이상): 모바일 요소 숨김 */
+
         @media (min-width: 769px) {
+
             .naver-mobile-top-bar,
+
             #naverMobileDrawer,
+
             .drawer-overlay {
+
                 display: none !important;
+
             }
+
             .desktop-header {
+
                 display: block !important;
+
             }
+
         }
+
     </style>
+
     <!-- 💰 Google AdSense 공식 인증 및 자동 광고 코드 -->
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4739687813221133" crossorigin="anonymous"></script>
+
 </head>
+
 <body>
 
+
+
 <!-- 📱 모바일 상단 바 -->
+
 <div class="naver-mobile-top-bar">
+
     <a href="index.html" class="brand-title" style="gap: 8px;">
+
         <img src="images/logo.png?v=11.0" alt="꿀단지 심볼" class="brand-logo-img" style="height: 30px;">
+
         <div class="brand-text-stack">
+
             <span class="brand-sub-title">혀니의</span>
+
             <span class="brand-main-title" style="font-size: 1.2rem;">꿀단지</span>
+
         </div>
+
     </a>
+
     <button type="button" class="btn-mobile-menu-open" style="background:transparent; border:none; padding:6px; cursor:pointer;" id="btnOpenMobileDrawer" aria-label="메뉴 열기">
+
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1e293b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
             <line x1="3" y1="12" x2="21" y2="12"></line>
+
             <line x1="3" y1="6" x2="21" y2="6"></line>
+
             <line x1="3" y1="18" x2="21" y2="18"></line>
+
         </svg>
+
     </button>
+
 </div>
 
+
+
 <!-- 💻 PC 전용 깔끔한 상단 헤더 -->
+
 <header class="clean-header desktop-header">
+
     <div class="header-container">
+
         <a href="index.html" class="brand-title">
+
             <img src="images/logo.png?v=11.0" alt="꿀단지 심볼" class="brand-logo-img">
+
             <div class="brand-text-stack">
+
                 <span class="brand-sub-title">혀니의</span>
+
                 <span class="brand-main-title">꿀단지</span>
+
             </div>
+
         </a>
+
         <nav class="clean-nav">
+
             <ul>
+
                 <li><a href="index.html">홈</a></li>
+
                 <li><a href="index.html?cat=%EC%8B%9D%EB%8B%A8%20%26%20%EC%98%81%EC%96%91">식단·영양</a></li>
+
                 <li><a href="index.html?cat=%ED%99%88%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%8B%9D">홈트레이닝</a></li>
+
                 <li><a href="index.html?cat=%EB%9D%BC%EC%9D%B4%ED%94%84%20%EC%9B%B0%EB%8B%88%EC%8A%A4">라이프 웰니스</a></li>
+
                 
+
                 
+
             </ul>
+
         </nav>
+
     </div>
+
 </header>
 
+
+
 <!-- 📱 모바일 드로어 메뉴 (이모지 제외 미니멀 표준) -->
+
 <div class="drawer-overlay" id="drawerOverlay"></div>
+
 <aside class="naver-mobile-drawer" id="naverMobileDrawer">
+
     <div class="drawer-header">
+
         <a href="index.html" class="drawer-brand" style="display:flex; align-items:center; gap:8px; text-decoration:none;" title="메인 홈으로 가기">
+
             <img src="images/logo.png" alt="꿀단지 심볼" style="height: 30px; width: auto;">
+
             <div class="brand-text-stack">
+
                 <span class="brand-sub-title" style="font-size: 0.72rem;">혀니의</span>
+
                 <span class="brand-main-title" style="font-size: 1.15rem;">꿀단지</span>
+
             </div>
+
         </a>
+
         <button type="button" class="btn-drawer-close" id="btnCloseMobileDrawer" aria-label="메뉴 닫기" style="background:transparent; border:none; font-size:1.5rem; color:#64748b; cursor:pointer;">&times;</button>
+
     </div>
+
     <div class="drawer-body">
+
         <ul class="drawer-menu-list">
+
             <li><a href="about.html" class="drawer-nav-item">소개</a></li>
+
             <li><a href="privacy.html" class="drawer-nav-item">개인정보처리방침</a></li>
+
             <li><a href="terms.html" class="drawer-nav-item">이용약관</a></li>
+
             <li><a href="contact.html" class="drawer-nav-item">문의하기</a></li>
+
         </ul>
+
     </div>
+
 </aside>
 
+
+
 <main class="container">
+
     <div class="article-layout-grid">
 
+
+
         <article class="article-main-col">
+
             <div class="article-wrap">
+
                 <header class="article-header">
+
                     <span class="article-cat-tag">이용약관</span>
+
                     <h1 class="article-main-title">이용약관 및 면책조항 (Terms of Service)</h1>
+
                     <div class="article-meta-bar">
+
                         <span>적용 일자: 2026년 8월 19일 · 최종 개정: 2026년 8월</span>
+
                     </div>
+
                 </header>
 
+
+
                 <div class="article-body">
+
 <p>본 약관은 <strong>「꿀단지」</strong>(이하 '본 사이트')가 제공하는 디지털 건강·라이프스타일 매거진 및 관련 제반 서비스(이하 '서비스')의 이용 조건과 절차, 이용자와 회사의 권리, 의무 및 책임사항, 그리고 지식재산권과 의학적 면책조항을 규정함을 목적으로 합니다.</p>
 
+
+
                     <h2>제1조 (목적 및 정의)</h2>
+
                     <p>1. 본 약관은 본 사이트가 독자에게 제공하는 모든 건강 칼럼, 영양 분석표, 홈트레이닝 가이드, 건강 계산기 등의 서비스를 이용함에 있어 회사와 이용자 간의 기본적인 권리와 의무를 규정합니다.</p>
+
                     <p>2. '이용자'란 본 사이트에 접속하여 본 약관에 따라 회사가 제공하는 콘텐츠를 열람하거나 제반 기능을 이용하는 모든 독자를 의미합니다.</p>
 
+
+
                     <h2>제2조 (약관의 효력 및 변경)</h2>
+
                     <p>1. 본 약관은 서비스 화면에 게시하거나 기타의 방법으로 이용자에게 공지함으로써 효력이 발생합니다.</p>
+
                     <p>2. 회사는 「약관의 규제에 관한 법률」, 「정보통신망 이용촉진 및 정보보호 등에 관한 법률」 등 관련 법령을 위배하지 않는 범위 내에서 본 약관을 개정할 수 있습니다.</p>
+
                     <p>3. 개정된 약관은 적용일자 최소 7일 전부터 웹사이트를 통해 공지되며, 변경 공지 이후에도 서비스를 계속 이용하는 경우 개정 약관에 동의한 것으로 간주합니다.</p>
 
+
+
                     <h2>제3조 (서비스의 제공 및 내용)</h2>
+
                     <p>회사는 독자에게 다음과 같은 서비스를 무상으로 제공합니다.</p>
+
                     <ul>
+
                         <li>저속노화 식단, 영양소 조합 및 건강 레시피 분석 칼럼</li>
+
                         <li>부상 예방을 위한 단계별 홈트레이닝, 스트레칭 및 체형 교정 가이드</li>
+
                         <li>수면 위생, 시간생물학 및 일상 웰니스 생활 습관 정보</li>
+
                         <li>일일 적정 수분 섭취량, 기초대사량 계산기 등 인터랙티브 도구</li>
+
                         <li>독자 댓글 소통 및 건강 정보 커뮤니티 공간</li>
+
                     </ul>
+
+
 
                     <h2>제4조 (서비스의 중단 및 책임 제한)</h2>
+
                     <p>1. 회사는 정보통신설비의 보수점검, 교체, 고장, 통신두절 또는 천재지변 등 불가항력적인 사유가 발생한 경우에는 서비스의 제공을 일시적으로 중단할 수 있습니다.</p>
+
                     <p>2. 회사는 무료로 제공되는 본 서비스의 일시 중단이나 변경으로 인하여 이용자가 입은 손해에 대하여 고의 또는 중과실이 없는 한 책임을 지지 않습니다.</p>
 
+
+
                     <h2>제5조 (이용자의 의무 및 금지행위)</h2>
+
                     <p>이용자는 본 서비스를 이용할 때 다음 각 호의 행위를 하여서는 아니 됩니다.</p>
+
                     <ul>
+
                         <li>회사의 사전 서면 승인 없이 자동화된 스크립트, 로봇(Robot), 크롤러(Crawler) 등을 동원하여 콘텐츠를 무단 대량 수집하거나 웹 서버에 비정상적인 부하를 야기하는 행위</li>
+
                         <li>본 사이트에 게시된 텍스트, 화보 이미지, 비교표, 인포그래픽을 무단 복제하여 타 사이트에 재배포하거나 상업적으로 재판매하는 행위</li>
+
                         <li>회사의 저작권, 상표권 등 지식재산권을 침해하거나 명예를 훼손하는 행위</li>
+
                         <li>댓글창에 타인을 모욕, 비방하거나 허위 사실 및 음란물을 유포하는 행위</li>
+
                     </ul>
 
+
+
                     <h2>제6조 (지식재산권 및 저작권의 보호)</h2>
+
                     <p>1. 본 사이트에 수록된 모든 기사, 칼럼, 텍스트, 16:9 HD 화보 이미지, 그래픽 디자인, 인포그래픽 카드, 비교표 및 웹사이트 고유 UI 레이아웃의 저작권과 지식재산권은 발행인 임진현(꿀단지)에 전속합니다.</p>
+
                     <p>2. 이용자는 본 사이트의 콘텐츠를 개인적인 열람 목적으로만 이용할 수 있으며, 회사의 사전 서면 동의 없는 무단 전재, 크롤링, AI 모델의 무단 학습 데이터셋 활용을 엄격히 금지합니다.</p>
+
                     <p>3. 비영리 목적의 단순 인용의 경우, 반드시 <strong>'출처(꿀단지 매거진) 및 해당 포스트의 원문 링크 URL'을 명확히 명시</strong>한 경우에 한하여 일부분의 발췌 인용이 허용됩니다.</p>
 
+
+
                     <h2>제7조 (의학 및 건강 정보에 대한 면책 고지 - Medical Disclaimer)</h2>
+
                     <div class="clean-callout">
+
                         <p><strong>⚠️ 필독 의학 면책 고지 (Medical Disclaimer)</strong></p>
+
                         <p style="margin-top:6px;">본 사이트에 게재된 모든 건강, 영양, 식단, 운동, 수면 관련 콘텐츠는 국내외 공인 연구기관(농촌진흥청, 하버드 의대, 질병관리청, 서울아산병원 등)의 학술 논문 및 연구 자료를 바탕으로 작성된 <strong>'일반적인 건강 상식 및 라이프스타일 가이드'</strong>입니다.</p>
+
                         <p style="margin-top:6px;">1. 본 콘텐츠는 <strong>의사, 한의사, 약사 등 공인된 전문 의료진의 의학적 진단, 소견, 처방 및 전문 치료를 대신할 수 없습니다.</strong></p>
+
                         <p style="margin-top:6px;">2. 개인의 유전적 요인, 기저질환, 알레르기, 현재 복용 중인 의약품과의 상호작용에 따라 동일한 식단이나 운동이라도 효과와 부작용이 크게 다를 수 있습니다.</p>
+
                         <p style="margin-top:6px;">3. 질환의 예방이나 치료를 목적으로 새로운 식단, 고강도 운동, 영양 보충제 섭취를 시작하기 전에는 <strong>반드시 전문 의료진과 직접 상담</strong>하시기 바랍니다.</p>
+
                         <p style="margin-top:6px;">4. 이용자가 본 사이트의 정보를 참고하여 자의적으로 행한 판단이나 실천으로 발생한 건강상의 직·간접적 손해에 대해 회사는 법적 책임을 지지 않습니다.</p>
+
                     </div>
 
+
+
                     <h2>제8조 (제3자 광고 및 외부 링크에 대한 책임의 한계)</h2>
+
                     <p>1. 본 사이트는 구글 애드센스(Google AdSense) 등 제3자 광고 사업자가 송출하는 문맥 기반 광고 배너 및 텍스트 광고를 포함하고 있습니다.</p>
+
                     <p>2. 광고 배너를 클릭하여 연결된 제3자의 웹사이트는 회사와 무관한 독립된 운영 주체이며, 회사는 해당 외부 사이트가 제공하는 상품, 서비스의 품질, 정확성 및 개인정보 보호 관행에 대해 일체 보증하거나 책임지지 않습니다.</p>
 
+
+
                     <h2>제9조 (손해배상 및 면책)</h2>
+
                     <p>1. 회사는 무료로 제공되는 본 서비스의 이용과 관련하여 관련 법령에 특별한 규정이 없는 한 어떠한 손해배상 책임도 부담하지 않습니다.</p>
+
                     <p>2. 이용자가 본 약관의 규정을 위반함으로 인하여 회사에 손해가 발생하게 되는 경우, 약관을 위반한 이용자는 회사에 발생하는 모든 손해를 배상하여야 합니다.</p>
 
+
+
                     <h2>제10조 (분쟁의 해결 및 관할 법원)</h2>
+
                     <p>1. 회사와 이용자 간에 서비스 이용과 관련하여 발생한 분쟁은 상호 원만한 합의를 위해 성실히 협의합니다.</p>
+
                     <p>2. 서비스 이용으로 발생한 분쟁에 대하여는 대한민국 법률을 준거법으로 적용하며, 분쟁으로 인한 소송이 제기될 경우 민사소송법상의 관할 법원 또는 회사의 본점 소재지를 관할하는 법원을 전속 관할 법원으로 합니다.</p>
+
                 </div>
+
             </div>
+
         </article>
 
+
+
         <!-- Right Sidebar Column (300px) -->
+
                 <aside class="article-sidebar">
+
             
+
             <!-- 1. Editor Profile Widget -->
+
             <div class="sidebar-profile-card">
+
                 <div class="avatar-box">
+
                     <img src="images/logo.png" alt="에디터 혀니">
+
                 </div>
+
                 <div class="profile-name">에디터 혀니</div>
+
                 <p class="profile-desc">
+
                     정직하고 유익한 라이프 &amp; 웰니스 꿀팁을 전하는 꿀단지 공식 에디터입니다.
+
                 </p>
+
                 <span class="profile-badge">✓ 웰니스 칼럼니스트</span>
+
             </div>
 
+
+
             <!-- 2. Popular Posts TOP 10 Widget -->
+
             <div class="sidebar-widget" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; padding:22px 20px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.03);">
+
                 <h3 class="widget-title" style="font-size:1.02rem; font-weight:800; color:#111827; margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid #f1f5f9; display:flex; align-items:center; gap:6px;">
+
                     <span>인기글 TOP 10</span>
+
                 </h3>
+
                 <ul class="popular-list" id="popularPostsWidgetList">
+
                     <!-- JS 실시간 자동 렌더링 -->
+
                 </ul>
+
             </div>
+
+
 
         </aside>
 
+
+
     </div>
+
 </main>
 
+
+
 <footer class="clean-footer">
+
         <div class="footer-inner" style="max-width:1060px; margin:0 auto; padding:28px 20px 36px;">
+
             <!-- 상단 2단 분할: 좌측(발행·법적 정보) vs 우측(공식 채널/소통 뱃지) -->
+
             <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:20px; padding-bottom:18px; border-bottom:1px solid #f1f5f9; width:100%;">
+
                 <!-- 좌측 정보 그룹 -->
+
                 <div class="footer-info-group" style="flex:1; min-width:320px;">
+
                     <p class="footer-copy" style="margin-bottom:6px;">&copy; 2026 <strong>꿀단지</strong>. All rights reserved.</p>
+
                     <p class="footer-meta-desktop" style="font-size:0.83rem; color:#64748b; line-height:1.6; margin-bottom:5px;">
+
                         제호: 혀니의 꿀단지 | 발행인: 임진현 | 수석에디터: 혀니 | 이메일: hmapt01@gmail.com | 주소: 대한민국 서울시 도봉구 해등로 231
+
                     </p>
+
                     <div class="footer-meta-mobile" style="display:none;">
+
                         <p>제호: 혀니의 꿀단지 | 발행인: 임진현 | 수석에디터: 혀니</p>
+
                         <p>이메일: hmapt01@gmail.com | 주소: 대한민국 서울시 도봉구 해등로 231</p>
+
                     </div>
+
                     <p class="footer-copyright-warning" style="font-size:0.78rem; color:#94a3b8; line-height:1.5; margin-bottom:3px;">
+
                         꿀단지의 모든 콘텐츠(기사·화보)는 저작권법의 보호를 받으며, 사전 승인 없는 무단 전재, 복사, 배포 및 AI 무단 학습을 엄격히 금합니다.
+
                     </p>
+
                     <p class="footer-disclaimer" style="font-size:0.77rem; color:#94a3b8; line-height:1.5; margin:0;">
+
                         ※ 꿀단지의 건강 정보는 일반 상식 제공용이며, 의사의 진료 및 전문 치료를 대신할 수 없습니다.
+
                     </p>
+
                 </div>
+
+
 
                 <!-- 우측 공식 채널 & 소통 뱃지 세트 (차분하고 세련된 모노크롬 다크그레이 톤) -->
+
                 <div class="footer-social-group" style="display:flex; align-items:center; gap:10px; flex-shrink:0; padding-top:4px;">
+
                     <!-- 1. 네이버 공식 채널 -->
+
                     <a href="https://blog.naver.com/hmapt1" target="_blank" rel="noopener noreferrer" title="네이버 공식 블로그" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:#475569; color:#ffffff; font-size:0.92rem; font-weight:850; text-decoration:none; transition:background 0.15s, transform 0.15s;" onmouseover="this.style.background='#1e293b'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#475569'; this.style.transform='translateY(0)'">
+
                         N
+
                     </a>
+
                     <!-- 2. 공식 문의하기 (우리 사이트 문의 폼 페이지로 직접 이동!) -->
+
                     <a href="contact.html" title="1:1 문의 및 의견 보내기" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:#475569; color:#ffffff; text-decoration:none; transition:background 0.15s, transform 0.15s;" onmouseover="this.style.background='#1e293b'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#475569'; this.style.transform='translateY(0)'">
+
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+
                     </a>
+
                     <!-- 3. RSS 피드 구독 (구글 색인 & 파워유저용) -->
+
                     <a href="feed.xml" target="_blank" title="RSS 피드 구독" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:#475569; color:#ffffff; text-decoration:none; transition:background 0.15s, transform 0.15s;" onmouseover="this.style.background='#1e293b'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#475569'; this.style.transform='translateY(0)'">
+
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+
                     </a>
+
                     <!-- 4. 맨 위로 가기 (TOP) -->
+
                     <a href="#top" onclick="window.scrollTo({top:0, behavior:'smooth'}); return false;" title="화면 맨 위로 이동" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:#475569; color:#ffffff; text-decoration:none; transition:background 0.15s, transform 0.15s;" onmouseover="this.style.background='#1e293b'; this.style.transform='translateY(-2px)'" onmouseout="this.style.background='#475569'; this.style.transform='translateY(0)'">
+
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M18 15l-6-6-6 6"/></svg>
+
                     </a>
+
                 </div>
+
             </div>
+
+
 
             <!-- 하단 행: 7대 정책 메뉴 링크 + 매거진 영문 서명 -->
+
             <div style="padding-top:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; width:100%;">
+
                 <ul class="footer-links" style="display:flex; flex-wrap:wrap; gap:14px; list-style:none; padding:0; margin:0;">
+
                     <li><a href="about.html">매체소개</a></li>
+
                     <li><a href="terms.html">이용약관</a></li>
+
                     <li><a href="privacy.html">개인정보처리방침</a></li>
+
                     <li><a href="youth-protection.html">청소년보호정책</a></li>
+
                     <li><a href="copyright.html">저작권보호정책</a></li>
+
                     <li><a href="email-rejection.html">이메일무단수집거부</a></li>
+
                     <li><a href="contact.html">문의하기</a></li>
+
                     <li><a href="admin.html" class="footer-admin-link">관리자</a></li>
+
                 </ul>
+
                 <div class="footer-brand-tag" style="font-size:0.75rem; font-weight:700; color:#94a3b8; letter-spacing:0.5px;">
+
                     KKULDANJI WELLNESS MAGAZINE
+
                 </div>
+
             </div>
+
         </div>
+
     </footer>
 
+
+
 <script>
+
     // 📱 모바일 드로어 메뉴 완벽 제어
+
     document.addEventListener('DOMContentLoaded', () => {
+
         const btnOpen = document.getElementById('btnOpenMobileDrawer');
+
         const btnClose = document.getElementById('btnCloseMobileDrawer');
+
         const overlay = document.getElementById('drawerOverlay');
+
         const drawer = document.getElementById('naverMobileDrawer');
 
+
+
         function openDrawer() {
+
             if (drawer) {
+
                 drawer.classList.add('active', 'open');
+
                 drawer.style.setProperty('right', '0', 'important');
+
             }
+
             if (overlay) {
+
                 overlay.classList.add('active', 'open');
+
                 overlay.style.setProperty('display', 'block', 'important');
+
             }
+
             document.body.style.overflow = 'hidden';
+
         }
+
+
 
         function closeDrawer() {
+
             if (drawer) {
+
                 drawer.classList.remove('active', 'open');
+
                 drawer.style.setProperty('right', '-280px', 'important');
+
             }
+
             if (overlay) {
+
                 overlay.classList.remove('active', 'open');
+
                 overlay.style.setProperty('display', 'none', 'important');
+
             }
+
             document.body.style.overflow = '';
+
         }
 
+
+
         if (btnOpen) btnOpen.addEventListener('click', openDrawer);
+
         if (btnClose) btnClose.addEventListener('click', closeDrawer);
+
         if (overlay) overlay.addEventListener('click', closeDrawer);
+
         
+
         document.addEventListener('keydown', (e) => {
+
             if (e.key === 'Escape') closeDrawer();
+
         });
+
     });
+
 </script>
+
     <script defer src="js/features.js"></script>
+
 </body>
+
 </html>
+
