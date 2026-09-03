@@ -1062,25 +1062,51 @@ figure.post-photo-figure figcaption,
 
     <!-- 📄 푸터 -->
     <footer class="clean-footer">
-        <div class="footer-inner">
-            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; width:100%;">
-                <div class="footer-info-group">
-                    <p class="footer-copy">&copy; 2026 <strong>꿀단지</strong>. All rights reserved.</p>
-                    <p class="footer-meta-desktop">
+        <div class="footer-inner" style="max-width:1060px; margin:0 auto; padding:28px 20px 36px;">
+            <!-- 상단 2단 분할: 좌측(발행·법적 정보) vs 우측(공식 채널/소통 뱃지) -->
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:20px; padding-bottom:18px; border-bottom:1px solid #f1f5f9; width:100%;">
+                <!-- 좌측 정보 그룹 -->
+                <div class="footer-info-group" style="flex:1; min-width:320px;">
+                    <p class="footer-copy" style="margin-bottom:6px;">&copy; 2026 <strong>꿀단지</strong>. All rights reserved.</p>
+                    <p class="footer-meta-desktop" style="font-size:0.83rem; color:#64748b; line-height:1.6; margin-bottom:5px;">
                         제호: 혀니의 꿀단지 | 발행인: 임진현 | 수석에디터: 혀니 | 이메일: hmapt01@gmail.com | 주소: 대한민국 서울시 도봉구 해등로 231
                     </p>
-                    <div class="footer-meta-mobile">
+                    <div class="footer-meta-mobile" style="display:none;">
                         <p>제호: 혀니의 꿀단지 | 발행인: 임진현 | 수석에디터: 혀니</p>
                         <p>이메일: hmapt01@gmail.com | 주소: 대한민국 서울시 도봉구 해등로 231</p>
                     </div>
-                    <p class="footer-copyright-warning" style="font-size:0.79rem; color:#64748b; line-height:1.5; margin-top:5px;">
+                    <p class="footer-copyright-warning" style="font-size:0.78rem; color:#94a3b8; line-height:1.5; margin-bottom:3px;">
                         꿀단지의 모든 콘텐츠(기사·화보)는 저작권법의 보호를 받으며, 사전 승인 없는 무단 전재, 복사, 배포 및 AI 무단 학습을 엄격히 금합니다.
                     </p>
-                    <p class="footer-disclaimer" style="font-size:0.78rem; color:#94a3b8; line-height:1.5; margin-top:4px;">
+                    <p class="footer-disclaimer" style="font-size:0.77rem; color:#94a3b8; line-height:1.5; margin:0;">
                         ※ 꿀단지의 건강 정보는 일반 상식 제공용이며, 의사의 진료 및 전문 치료를 대신할 수 없습니다.
                     </p>
                 </div>
-                <ul class="footer-links">
+
+                <!-- 우측 공식 채널 & 소통 뱃지 세트 (여행톡톡 & 코메디닷컴 정석 규격) -->
+                <div class="footer-social-group" style="display:flex; align-items:center; gap:10px; flex-shrink:0; padding-top:4px;">
+                    <!-- 네이버 공식 채널 -->
+                    <a href="https://section.blog.naver.com" target="_blank" rel="noopener noreferrer" title="네이버 공식 블로그" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:#03c75a; color:#ffffff; font-size:0.92rem; font-weight:900; text-decoration:none; box-shadow:0 2px 6px rgba(3,199,90,0.25); transition:transform 0.15s, opacity 0.15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                        N
+                    </a>
+                    <!-- 인스타그램 공식 채널 -->
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" title="인스타그램 공식 채널" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); color:#ffffff; text-decoration:none; box-shadow:0 2px 6px rgba(220,39,67,0.25); transition:transform 0.15s, opacity 0.15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+                    </a>
+                    <!-- 24h 공식 문의 이메일 -->
+                    <a href="mailto:hmapt01@gmail.com" title="편집국 24h 공식 문의" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:#334155; color:#ffffff; text-decoration:none; box-shadow:0 2px 6px rgba(51,65,85,0.25); transition:transform 0.15s, background 0.15s;" onmouseover="this.style.transform='translateY(-2px)'; this.style.background='#0f172a'" onmouseout="this.style.transform='translateY(0)'; this.style.background='#334155'">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    </a>
+                    <!-- RSS 피드 구독 -->
+                    <a href="../feed.xml" target="_blank" title="RSS 피드 구독" style="display:flex; align-items:center; justify-content:center; width:36px; height:36px; border-radius:50%; background:#ea580c; color:#ffffff; text-decoration:none; box-shadow:0 2px 6px rgba(234,88,12,0.25); transition:transform 0.15s, opacity 0.15s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+                        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+                    </a>
+                </div>
+            </div>
+
+            <!-- 하단 행: 7대 정책 메뉴 링크 + 매거진 영문 서명 -->
+            <div style="padding-top:14px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:12px; width:100%;">
+                <ul class="footer-links" style="display:flex; flex-wrap:wrap; gap:14px; list-style:none; padding:0; margin:0;">
                     <li><a href="../about.html">매체소개</a></li>
                     <li><a href="../terms.html">이용약관</a></li>
                     <li><a href="../privacy.html">개인정보처리방침</a></li>
@@ -1090,6 +1116,9 @@ figure.post-photo-figure figcaption,
                     <li><a href="../contact.html">문의하기</a></li>
                     <li><a href="../admin.html" class="footer-admin-link">관리자</a></li>
                 </ul>
+                <div class="footer-brand-tag" style="font-size:0.75rem; font-weight:700; color:#94a3b8; letter-spacing:0.5px;">
+                    KKULDANJI WELLNESS MAGAZINE
+                </div>
             </div>
         </div>
     </footer>
