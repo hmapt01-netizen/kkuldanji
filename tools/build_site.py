@@ -3,6 +3,7 @@ import sys
 import json
 import re
 import time
+import datetime
 
 if sys.platform == 'win32':
     sys.stdout.reconfigure(encoding='utf-8')
@@ -391,5 +392,100 @@ for sp in static_pages:
                 f.write(sp_c)
 
 print(f"  ✓ 5. 전 페이지 파비콘 5종 세트 무결성 가디언 자동 검증 및 영구 동기화 완료!")
+
+
+# 6. feed.xml (RSS 2.0 표준 피드) 및 sitemap.xml 영구 자동 컴파일러 (Googlebot SEO 최적화)
+def parse_korean_date_to_rfc822(date_str):
+    # e.g., '2026. 9. 3.' or '2026.09.03'
+    nums = re.findall(r'\d+', date_str)
+    if len(nums) >= 3:
+        year, month, day = int(nums[0]), int(nums[1]), int(nums[2])
+        dt = datetime.datetime(year, month, day, 9, 0, 0, tzinfo=datetime.timezone(datetime.timedelta(hours=9)))
+        return dt.strftime('%a, %d %b %Y %H:%M:%S +0900')
+    return datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime('%a, %d %b %Y %H:%M:%S +0900')
+
+now_rfc822 = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime('%a, %d %b %Y %H:%M:%S +0900')
+now_iso = datetime.datetime.now(datetime.timezone(datetime.timedelta(hours=9))).strftime('%Y-%m-%d')
+
+rss_items = []
+sitemap_urls = [
+    f"""  <url>
+    <loc>https://honeyjar.co.kr/</loc>
+    <lastmod>{now_iso}</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
+  </url>""",
+    f"""  <url>
+    <loc>https://honeyjar.co.kr/about.html</loc>
+    <lastmod>{now_iso}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>""",
+    f"""  <url>
+    <loc>https://honeyjar.co.kr/contact.html</loc>
+    <lastmod>{now_iso}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>"""
+]
+
+for p in posts:
+    slug = p["slug"]
+    title = p["title"]
+    desc = p.get("desc", p.get("summary", title))
+    cat = p.get("category", "라이프 웰니스")
+    pub_date_rfc = parse_korean_date_to_rfc822(p.get("date", "2026. 8. 30."))
+    post_url = f"https://honeyjar.co.kr/posts/{slug}"
+    
+    # RSS item
+    rss_items.append(f"""    <item>
+      <title><![CDATA[{title}]]></title>
+      <link>{post_url}</link>
+      <description><![CDATA[{desc}]]></description>
+      <category><![CDATA[{cat}]]></category>
+      <author>hmapt01@gmail.com (에디터 혀니)</author>
+      <guid isPermaLink="true">{post_url}</guid>
+      <pubDate>{pub_date_rfc}</pubDate>
+    </item>""")
+    
+    # Sitemap url
+    sitemap_urls.append(f"""  <url>
+    <loc>{post_url}</loc>
+    <lastmod>{now_iso}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>""")
+
+# 1) feed.xml 생성
+feed_xml_content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>혀니의 꿀단지 - 라이프 &amp; 웰니스 건강 매거진</title>
+    <link>https://honeyjar.co.kr/</link>
+    <description>바쁜 현대인을 위한 건강 식단 영양, 홈트레이닝, 라이프 웰니스 실속 건강 매거진</description>
+    <language>ko-kr</language>
+    <lastBuildDate>{now_rfc822}</lastBuildDate>
+    <atom:link href="https://honeyjar.co.kr/feed.xml" rel="self" type="application/rss+xml"/>
+{chr(10).join(rss_items)}
+  </channel>
+</rss>
+"""
+
+feed_path = os.path.join(web_root, "feed.xml")
+with open(feed_path, "w", encoding="utf-8") as f:
+    f.write(feed_xml_content)
+
+# 2) sitemap.xml 생성
+sitemap_xml_content = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+{chr(10).join(sitemap_urls)}
+</urlset>
+"""
+
+sitemap_path = os.path.join(web_root, "sitemap.xml")
+with open(sitemap_path, "w", encoding="utf-8") as f:
+    f.write(sitemap_xml_content)
+
+print(f"  ✓ 6. feed.xml (RSS 2.0) 및 sitemap.xml {len(posts)}개 포스트 영구 자동 컴파일 완료!")
 
 print(f"\n🎉 [100% PERFECT SSG COMPILATION SUCCESS] {len(posts)}개 전체 페이지가 0.1초 만에 완벽하게 일괄 생성되었습니다!")
