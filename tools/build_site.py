@@ -228,13 +228,20 @@ for idx, p in enumerate(posts):
     out = out.replace("{{JSON_LD_ARTICLE}}", json_ld_article)
     out = out.replace("{{JSON_LD_FAQ}}", json_ld_faq)
     out = out.replace("{{REGISTRY_JSON_INLINE}}", registry_json)
+    # 🛡️ HTML Tag Balance Guardian (HTML 태그 개수 1:1 완벽 일치 자동 검증)
+    for tag_name in ['div', 'section', 'article', 'main', 'aside']:
+        opens = len(re.findall(rf'<{tag_name}\b[^>]*>', out, re.I))
+        closes = len(re.findall(rf'</{tag_name}>', out, re.I))
+        if opens != closes:
+            raise ValueError(f"🚨 [CRITICAL HTML TAG MISMATCH] {slug} 포스트의 <{tag_name}> 태그가 불일치합니다! (열림: {opens}개, 닫힘: {closes}개). 레이아웃 붕괴를 막기 위해 빌드를 즉시 강제 중단합니다!")
 
     # Write post file with UTF-8 BOM
     target_post_path = os.path.join(web_root, "posts", slug)
     with open(target_post_path, "w", encoding="utf-8-sig") as f_out:
         f_out.write(out)
 
-print(f"  ✓ 1. posts/*.html {len(posts)}개 포스트 전수 무결점 컴파일 완료!")
+print(f"  ✓ 1. posts/*.html {len(posts)}개 포스트 전수 무결점 컴파일 완료 (태그 1:1 일치 전수 검증 통과)!")
+
 
 # 2. index.html 컴파일
 pc_cards_html = ""
