@@ -1,4 +1,4 @@
-﻿/* 📱 모바일 스마트 상단 헤더 스크롤 영구 상단 고정 (Always Fixed Sticky) */
+/* 📱 모바일 스마트 상단 헤더 스크롤 영구 상단 고정 (Always Fixed Sticky) */
 @media (max-width: 768px) {
     body.tistory-single-post {
         padding-top: 52px !important;
@@ -3680,6 +3680,26 @@ img {
                 line-height: 1.82 !important;
                 margin: 0 0 18px 0 !important;
             }
+        }
+
+        /* 📖 인용구 카드 상하 여백 황금 균형 (하단 여백 중첩 원천 차단) */
+        .lead-quote-card,
+        .article-body-content > div:first-child {
+            padding: 16px 20px !important;
+            box-sizing: border-box !important;
+        }
+        .lead-quote-card p,
+        .lead-quote-card div,
+        .article-body-content > div:first-child p,
+        .article-body-content > div:first-child div {
+            margin: 0 0 8px 0 !important;
+        }
+        .lead-quote-card p:last-child,
+        .lead-quote-card div:last-child,
+        .article-body-content > div:first-child p:last-child,
+        .article-body-content > div:first-child div:last-child {
+            margin-bottom: 0 !important;
+            margin-top: 0 !important;
         }
 
         /* 📖 모바일 터치 최적화 목차 박스 (Rule 1-2 영구 표준: 좌측 주황색 포인트 라인 100% 통일) */
