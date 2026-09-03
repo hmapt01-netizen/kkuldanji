@@ -116,7 +116,7 @@ registry_json = json.dumps(registry_items, ensure_ascii=False)
 
 for idx, p in enumerate(posts):
     slug = p["slug"]
-    is_latest = p.get("isLatest", False)
+    is_latest = (idx == 0)  # 🛡️ 첫 번째 포스트(가장 최신 글)에 항상 NEW 뱃지 자동 부여
     nav_diet = "active" if "식단" in p["category"] else ""
     nav_homet = "active" if "홈트" in p["category"] else ""
     nav_wellness = "active" if "웰니스" in p["category"] else ""
@@ -246,7 +246,7 @@ print(f"  ✓ 1. posts/*.html {len(posts)}개 포스트 전수 무결점 컴파�
 # 2. index.html 컴파일
 pc_cards_html = ""
 for idx, p in enumerate(posts, 1):
-    badge = '<span style="color:#ef4444; font-size:0.78rem; font-weight:500; margin-left:4px;">NEW</span>' if p.get("isLatest", False) else ''
+    badge = '<span style="color:#ef4444; font-size:0.78rem; font-weight:500; margin-left:4px;">NEW</span>' if idx == 1 else ''
     escaped_title = p["title"].replace('"', '&quot;')
     pc_cards_html += f'''                <!-- Post {idx}: {escaped_title} -->
                 <article class="clean-card article-item" data-category="{p["category"]}" style="background:#fff; border:1px solid #e2e8f0; border-radius:12px; overflow:hidden; display:flex; flex-direction:column;">
@@ -270,7 +270,7 @@ for idx, p in enumerate(posts, 1):
 
 mobile_feed_html = ""
 for idx, p in enumerate(posts, 1):
-    badge = '<span style="color:#ef4444; font-size:0.78rem; font-weight:500; margin-left:4px;">NEW</span>' if p.get("isLatest", False) else ''
+    badge = '<span style="color:#ef4444; font-size:0.78rem; font-weight:500; margin-left:4px;">NEW</span>' if idx == 1 else ''
     escaped_title = p["title"].replace('"', '&quot;')
     mobile_feed_html += f'''                <!-- Mobile Feed Card {idx}: {escaped_title} -->
                 <article class="tistory-feed-item feed-visible" data-category="{p["category"]}" onclick="location.href='posts/{p["slug"]}'" style="cursor:pointer;">
