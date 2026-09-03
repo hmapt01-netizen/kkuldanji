@@ -77,9 +77,11 @@ def deduplicate_body_first_image(body_html, thumb_url):
 def sanitize_academic_refs(refs_html):
     if not refs_html:
         return ""
-    # 1. Strip any outer wrapper div like <div class="reference-box"...>
-    clean = re.sub(r'<div[^>]*class=["\'](?:reference-box|ref-box)[^"\']*["\'][^>]*>', '', refs_html, flags=re.I)
-    clean = re.sub(r'</div>\s*$', '', clean.strip(), flags=re.I)
+    clean = refs_html.strip()
+    # 1. Strip outer wrapper div ONLY IF it starts with reference-box or ref-box
+    if re.match(r'^\s*<div[^>]*class=["\'](?:reference-box|ref-box)[^"\']*["\'][^>]*>', clean, flags=re.I):
+        clean = re.sub(r'^\s*<div[^>]*class=["\'](?:reference-box|ref-box)[^"\']*["\'][^>]*>', '', clean, flags=re.I)
+        clean = re.sub(r'</div>\s*$', '', clean, flags=re.I)
     # 2. Strip any duplicate header inside like <div ...>📚 공인 연구 데이터...</div>
     clean = re.sub(r'<div[^>]*>[\s\S]*?(?:참고\s*문헌|참고자료)[\s\S]*?</div>', '', clean, flags=re.I)
     # 3. Strip any book/document emojis
