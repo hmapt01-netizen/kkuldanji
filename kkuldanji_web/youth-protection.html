@@ -187,50 +187,31 @@
         </article>
 
         <!-- Right Sidebar Column (300px) -->
-        <aside class="article-sidebar">
-
+                <aside class="article-sidebar">
+            
             <!-- 1. Editor Profile Widget -->
-            <div class="sidebar-widget">
-                <div class="profile-card-content">
-                    <img src="images/logo.png" alt="에디터 혀니" class="profile-avatar-img">
-                    <div class="profile-name">에디터 혀니</div>
-                    <p class="profile-desc">
-                        정직하고 유익한 라이프 & 웰니스 꿀팁을 전하는 꿀단지 공식 에디터입니다.
-                    </p>
-                    <span class="profile-badge">✓ 웰니스 칼럼니스트</span>
+            <div class="sidebar-profile-card">
+                <div class="avatar-box">
+                    <img src="images/logo.png" alt="에디터 혀니">
                 </div>
+                <div class="profile-name">에디터 혀니</div>
+                <p class="profile-desc">
+                    정직하고 유익한 라이프 &amp; 웰니스 꿀팁을 전하는 꿀단지 공식 에디터입니다.
+                </p>
+                <span class="profile-badge">✓ 웰니스 칼럼니스트</span>
             </div>
 
             <!-- 2. Popular Posts TOP 10 Widget -->
-            <div class="sidebar-widget">
-                <div class="widget-title">
+            <div class="sidebar-widget" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; padding:22px 20px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.03);">
+                <h3 class="widget-title" style="font-size:1.02rem; font-weight:800; color:#111827; margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid #f1f5f9; display:flex; align-items:center; gap:6px;">
                     <span>인기글 TOP 10</span>
-                </div>
-                <ul class="popular-list">
-                    <li class="popular-item">
-                        <span class="popular-rank">1</span>
-                        <a href="posts/ohnara-diet.html" class="popular-link">오나라 51세 식단과 50대 근력 운동법</a>
-                    </li>
-                    <li class="popular-item">
-                        <span class="popular-rank">2</span>
-                        <a href="posts/august-seasonal-foods.html" class="popular-link">8월 제철 음식 5가지 영양 가이드</a>
-                    </li>
-                    <li class="popular-item">
-                        <span class="popular-rank">3</span>
-                        <a href="posts/intermittent-fasting-guide.html" class="popular-link">간헐적 단식 16:8 성공 식사 시간표</a>
-                    </li>
-                    <li class="popular-item">
-                        <span class="popular-rank">4</span>
-                        <a href="posts/posture-stretching-office.html" class="popular-link">직장인 거북목 교정 5분 스트레칭</a>
-                    </li>
-                    <li class="popular-item">
-                        <span class="popular-rank">5</span>
-                        <a href="posts/water-intake-guide.html" class="popular-link">하루 물 2리터 권장량의 진실</a>
-                    </li>
+                </h3>
+                <ul class="popular-list" id="popularPostsWidgetList">
+                    <!-- JS 실시간 자동 렌더링 -->
                 </ul>
             </div>
 
-            </aside>
+        </aside>
 
     </div>
 </main>
