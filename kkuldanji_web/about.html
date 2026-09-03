@@ -1,11 +1,7 @@
-
-<!DOCTYPE html>
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
-    <title>매거진 소개 (About Us) | 꿀단지</title>
-    <meta name="description" content="꿀단지 웰니스 매거진의 창간 비전, 에디터 혀니 소개 및 3대 편집 윤리 강령(E-E-A-T 팩트체크 원칙) 전문입니다.">
-
-    <!-- 📊 Google Analytics 4 (GA4 공식 초광속 비동기 태그) -->
+<!-- 📊 Google Analytics 4 (GA4 공식 초광속 비동기 태그) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V2RMP3SCRQ"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -15,154 +11,84 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- 🍯 꿀단지 공식 파비콘 풀세트 (무결점 가디언 자동 동기화) -->
+                                                                                                    <!-- 🍯 꿀단지 공식 파비콘 풀세트 (무결점 가디언 자동 동기화) -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>매거진 소개 (About Us) | 꿀단지</title>
+    <meta name="description" content="꿀단지 매거진 소개 및 운영자 혀니의 큐레이션 철학 안내.">
+    
+    
+    
     <link rel="stylesheet" href="css/style.css?v=20260903_v2">
+    <style id="guaranteedMobileNavStyle">
+        
+        
+        .brand-text-stack { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: center !important;
+            line-height: 1.15 !important;
+        }
+        .brand-sub-title { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
+            font-size: 0.72rem !important;
+            font-weight: 800 !important;
+            color: #c26908 !important;
+            letter-spacing: 0.5px !important;
+        }
+        .brand-main-title { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
+            font-size: 1.35rem !important;
+            font-weight: 800 !important;
+            color: #111827 !important;
+            letter-spacing: -0.5px !important;
+        }
+
+        /* 📱 모바일 (768px 이하): PC 메뉴바 숨김 */
+        @media (max-width: 768px) {
+            .desktop-header,
+            .clean-nav {
+                display: none !important;
+            }
+            .naver-mobile-top-bar {
+                display: flex !important;
+                position: sticky !important;
+                top: 0 !important;
+                left: 0 !important;
+                width: 100% !important;
+                height: 54px !important;
+                background: #ffffff !important;
+                border-bottom: 1px solid #f1f5f9 !important;
+                justify-content: space-between !important;
+                align-items: center !important;
+                padding: 0 16px !important;
+                z-index: 1000 !important;
+                box-sizing: border-box !important;
+            }
+        }
+
+        /* 💻 PC (769px 이상): 모바일 요소 숨김 */
+        @media (min-width: 769px) {
+            .naver-mobile-top-bar,
+            #naverMobileDrawer,
+            .drawer-overlay {
+                display: none !important;
+            }
+            .desktop-header {
+                display: block !important;
+            }
+        }
+    </style>
     <!-- 💰 Google AdSense 공식 인증 및 자동 광고 코드 -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4739687813221133" crossorigin="anonymous"></script>
-    <style>
-        .legal-box {
-            background: #ffffff;
-            border: 1px solid #e2e8f0;
-            border-radius: 16px;
-            padding: 36px 32px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-            margin-bottom: 30px;
-        }
-        .legal-toc {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-left: 4px solid #d97706;
-            border-radius: 12px;
-            padding: 20px 24px;
-            margin: 24px 0 32px 0;
-        }
-        .legal-toc-title {
-            font-size: 1.05rem;
-            font-weight: 800;
-            color: #0f172a;
-            margin-bottom: 12px;
-        }
-        .legal-toc-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 8px 16px;
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-        .legal-toc-list a {
-            font-size: 0.9rem;
-            color: #475569;
-            text-decoration: none;
-            transition: color 0.15s;
-        }
-        .legal-toc-list a:hover {
-            color: #d97706;
-            font-weight: 700;
-        }
-        .legal-section-title {
-            font-size: 1.22rem;
-            font-weight: 850;
-            color: #0f172a;
-            margin: 36px 0 16px 0;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #f1f5f9;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .legal-desc {
-            font-size: 0.98rem;
-            line-height: 1.85;
-            color: #334155;
-            margin-bottom: 16px;
-            word-break: keep-all;
-        }
-        .legal-sub-list {
-            list-style: disc;
-            padding-left: 20px;
-            margin-bottom: 18px;
-            color: #334155;
-            font-size: 0.95rem;
-            line-height: 1.8;
-        }
-        .legal-sub-list li { margin-bottom: 6px; }
-        .legal-highlight-card {
-            background: #fefce8;
-            border: 1px solid #fef08a;
-            border-radius: 12px;
-            padding: 20px 22px;
-            margin: 20px 0;
-            color: #713f12;
-            font-size: 0.94rem;
-            line-height: 1.75;
-        }
-        .clean-callout-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 16px;
-            margin-top: 24px;
-        }
-        .callout-item {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 10px;
-            padding: 16px;
-        }
-        .callout-item strong { color: #0f172a; display: block; margin-bottom: 4px; font-size: 0.92rem; }
-        .callout-item span { color: #475569; font-size: 0.88rem; }
-    </style>
-
-    <style>
-        .value-card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin: 28px 0;
-        }
-        .value-card {
-            background: #f8fafc;
-            border: 1px solid #e2e8f0;
-            border-radius: 14px;
-            padding: 24px 22px;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-        .value-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.06);
-            border-color: #fde68a;
-        }
-        .value-icon {
-            font-size: 2rem;
-            margin-bottom: 12px;
-            display: inline-block;
-        }
-        .value-title {
-            font-size: 1.12rem;
-            font-weight: 850;
-            color: #0f172a;
-            margin-bottom: 8px;
-        }
-        .value-desc {
-            font-size: 0.92rem;
-            color: #475569;
-            line-height: 1.7;
-            word-break: keep-all;
-        }
-    </style>
 </head>
 <body>
 
 <!-- 📱 모바일 상단 바 -->
 <div class="naver-mobile-top-bar">
     <a href="index.html" class="brand-title" style="gap: 8px;">
-        <img src="images/logo.png" alt="꿀단지 심볼" class="brand-logo-img" style="height: 30px;">
+        <img src="images/logo.png?v=11.0" alt="꿀단지 심볼" class="brand-logo-img" style="height: 30px;">
         <div class="brand-text-stack">
             <span class="brand-sub-title">혀니의</span>
             <span class="brand-main-title" style="font-size: 1.2rem;">꿀단지</span>
@@ -181,7 +107,7 @@
 <header class="clean-header desktop-header">
     <div class="header-container">
         <a href="index.html" class="brand-title">
-            <img src="images/logo.png" alt="꿀단지 심볼" class="brand-logo-img">
+            <img src="images/logo.png?v=11.0" alt="꿀단지 심볼" class="brand-logo-img">
             <div class="brand-text-stack">
                 <span class="brand-sub-title">혀니의</span>
                 <span class="brand-main-title">꿀단지</span>
@@ -190,15 +116,17 @@
         <nav class="clean-nav">
             <ul>
                 <li><a href="index.html">홈</a></li>
-                <li><a href="index.html?cat=식단%20%26%20영양">식단·영양</a></li>
-                <li><a href="index.html?cat=홈트레이닝">홈트레이닝</a></li>
-                <li><a href="index.html?cat=라이프%20웰니스">라이프 웰니스</a></li>
-                <li><a href="calculator.html">건강 계산기</a></li>
+                <li><a href="index.html?cat=%EC%8B%9D%EB%8B%A8%20%26%20%EC%98%81%EC%96%91">식단·영양</a></li>
+                <li><a href="index.html?cat=%ED%99%88%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%8B%9D">홈트레이닝</a></li>
+                <li><a href="index.html?cat=%EB%9D%BC%EC%9D%B4%ED%94%84%20%EC%9B%B0%EB%8B%88%EC%8A%A4">라이프 웰니스</a></li>
+                
+                
             </ul>
         </nav>
     </div>
 </header>
 
+<!-- 📱 모바일 드로어 메뉴 (이모지 제외 미니멀 표준) -->
 <div class="drawer-overlay" id="drawerOverlay"></div>
 <aside class="naver-mobile-drawer" id="naverMobileDrawer">
     <div class="drawer-header">
@@ -211,122 +139,116 @@
         </a>
         <button type="button" class="btn-drawer-close" id="btnCloseMobileDrawer" aria-label="메뉴 닫기" style="background:transparent; border:none; font-size:1.5rem; color:#64748b; cursor:pointer;">&times;</button>
     </div>
-    <nav class="drawer-nav">
-        <ul>
-            <li><a href="index.html">홈</a></li>
-            <li><a href="index.html?cat=식단%20%26%20영양">식단·영양</a></li>
-            <li><a href="index.html?cat=홈트레이닝">홈트레이닝</a></li>
-            <li><a href="index.html?cat=라이프%20웰니스">라이프 웰니스</a></li>
-            <li><a href="calculator.html">건강 계산기</a></li>
+    <div class="drawer-body">
+        <ul class="drawer-menu-list">
+            <li><a href="about.html" class="drawer-nav-item">소개</a></li>
+            <li><a href="privacy.html" class="drawer-nav-item">개인정보처리방침</a></li>
+            <li><a href="terms.html" class="drawer-nav-item">이용약관</a></li>
+            <li><a href="contact.html" class="drawer-nav-item">문의하기</a></li>
         </ul>
-    </nav>
+    </div>
 </aside>
 
-<div class="article-layout-grid">
-    <main class="article-main-col">
-        <div class="legal-box">
-            <header class="article-header" style="margin-bottom:28px; padding-bottom:20px; border-bottom:1px solid #e2e8f0;">
-                <span style="font-size:0.85rem; font-weight:800; color:#d97706; display:inline-block; margin-bottom:8px;">EDITORIAL PHILOSOPHY & E-E-A-T MISSION</span>
-                <h1 style="font-size:2rem; font-weight:900; color:#0f172a; line-height:1.3; margin-bottom:14px;">매거진 소개 (About 꿀단지)</h1>
-                <p style="font-size:1.05rem; color:#475569; line-height:1.6; margin:0;">
-                    "정보의 홍수 속에서 길을 잃은 현대인을 위해, 일상에 단비가 되는 순도 100% 웰니스 나침반을 선물합니다."
-                </p>
-            </header>
+<main class="container">
+    <div class="article-layout-grid">
 
-            <h2 class="legal-section-title">🍯 꿀단지 매거진의 창간 비전</h2>
-            <p class="legal-desc">
-                오늘날 인터넷에는 클릭 몇 번만으로 수많은 건강 정보가 쏟아져 나옵니다. 하지만 자극적인 가짜 건강 상식, 상업적 이익만을 노린 과장 광고, 그리고 난해한 의학 논문 용어들은 오히려 우리를 더 지치고 불안하게 만듭니다.
-            </p>
-            <p class="legal-desc">
-                <strong>「꿀단지(KKULDANJI)」</strong>는 바로 이러한 고민에서 출발했습니다. 
-                매일 마시는 커피 한 잔의 타이밍, 오늘 저녁 밥상에 올릴 잡곡의 황금 비율, 의자에 앉아 굳어진 목과 어깨를 풀어주는 3분의 스트레칭처럼 <strong>"우리의 오늘 하루를 실제로 가볍고 맑게 바꿔주는 실속 있는 건강 꿀팁"</strong>만을 엄선하여 전합니다.
-            </p>
+        <article class="article-main-col">
+            <div class="article-wrap">
+                <header class="article-header">
+                    <span class="article-cat-tag">소개 (ABOUT)</span>
+                    <h1 class="article-main-title">신뢰할 수 있는 건강과 라이프스타일 가이드, 꿀단지</h1>
+                    <div class="article-meta-bar">
+                        <span>운영자: 혀니 · 편집국: 대한민국 서울시 도봉구 해등로 231 · 최종 개정: 2026년 8월</span>
+                    </div>
+                </header>
 
-            <h2 class="legal-section-title">👩‍⚕️ 에디터 혀니(Hyuni)의 약속</h2>
-            <p class="legal-desc">
-                꿀단지의 모든 칼럼을 집필하는 <strong>에디터 혀니</strong>는 딱딱한 의학 교과서의 권위주의를 내려놓고, <strong>'내 가족의 건강을 진심으로 챙겨주는 다정한 이웃 건강 멘토'</strong>의 시선으로 독자 여러분과 소통합니다.
-            </p>
-            <p class="legal-desc">
-                수십만 원짜리 고통스러운 시술이나 비현실적인 극단적 절식을 강요하지 않습니다. 저녁 밥통에 렌틸콩 한 줌을 섞는 작은 변화, 식후 딱 10분을 걷는 소박한 루틴처럼 <strong>누구나 지금 당장 실천할 수 있는 '1도의 따뜻한 습관'</strong>을 선물합니다.
-            </p>
+                <div class="article-body">
+                    <p><strong>「꿀단지」</strong>는 바쁜 현대인들을 위해 일상에서 실천 가능한 건강 관리, 식단 영양 정보, 올바른 운동 루틴 및 웰니스 라이프스타일을 전문적이고 객관적인 시각으로 전달하는 독립 디지털 매거진입니다.</p>
 
-            <h2 class="legal-section-title">⚖️ 꿀단지 3대 편집 윤리 강령 (E-E-A-T 검증 체계)</h2>
-            <p class="legal-desc">꿀단지는 구글이 요구하는 최고 수준의 신뢰도(E-E-A-T: 경험, 전문성, 권위, 신뢰)를 달성하기 위해 아래 3대 원칙을 1%의 타협 없이 엄격히 고수합니다.</p>
+                    <h2>1. 우리의 미션 (Our Mission)</h2>
+                    <p>인터넷에는 수많은 건강 정보와 다이어트 루틴이 넘쳐나지만, 과장된 광고나 검증되지 않은 단편적 지식이 독자들에게 혼란을 주기도 합니다. 꿀단지는 <strong>'사실(Fact), 관찰(Observation), 균형(Balance)'</strong>의 3대 원칙을 바탕으로, 일상에 실질적인 도움이 되는 정직한 정보를 전달합니다.</p>
 
-            <div class="value-card-grid">
-                <div class="value-card">
-                    <span class="value-icon">🔬</span>
-                    <div class="value-title">1. 공인 연구기관 팩트체크 원칙</div>
-                    <p class="value-desc">
-                        풍문이나 검증되지 않은 민간요법은 일체 배제합니다. 농촌진흥청, 서울아산병원, 미국화학학회(ACS), 미국 국립보건원(NIH) 등 국내외 공인 연구기관의 실측 통계와 최신 학술 논문 데이터를 교차 검증하여 정밀 수록합니다.
-                    </p>
-                </div>
+                    <h2>2. 엄격한 콘텐츠 편집 기준 (E-E-A-T)</h2>
+                    <ul>
+                        <li><strong>전문성 및 사실 기반 서술</strong>: 공인된 영양학적 지식과 신뢰할 수 있는 학술/기관 데이터를 바탕으로 콘텐츠를 검증하고 작성합니다.</li>
+                        <li><strong>과장 및 비약 배제</strong>: 특정 식단이나 운동법이 만병통치약인 것처럼 과장하지 않으며, 개인의 체질과 환경에 따른 균형 잡힌 시각을 제공합니다.</li>
+                        <li><strong>투명한 정보 출처</strong>: 참고 문헌과 사실 관계를 명확히 분리하여 독자가 스스로 판단할 수 있는 신뢰성을 보장합니다.</li>
+                    </ul>
 
-                <div class="value-card">
-                    <span class="value-icon">🚫</span>
-                    <div class="value-title">2. 상업적 과장 및 사이비 배제</div>
-                    <p class="value-desc">
-                        특정 건강기능식품이나 약품의 무분별한 뒷광고, 협찬성 과대광고를 100% 배제합니다. 오직 독자의 건강 증진과 실생활 효익만을 최우선 가치로 두며, 부작용과 주의점까지 객관적으로 투명하게 밝힙니다.
-                    </p>
-                </div>
+                    <div class="clean-callout">
+                        <p><strong>🍯 꿀단지 주요 카테고리</strong></p>
+                        <ul style="margin: 8px 0 0 18px;">
+                            <li><strong>식단 & 영양</strong>: 극단적인 굶기가 아닌 지속 가능한 식단 및 제철 영양 관리</li>
+                            <li><strong>홈트레이닝</strong>: 부상 없이 기초 근력을 강화하는 생활 속 운동법</li>
+                            <li><strong>라이프 웰니스</strong>: 수면, 수분 섭취, 스트레스 관리 등 일상의 활력을 돕는 가이드</li>
+                        </ul>
+                    </div>
 
-                <div class="value-card">
-                    <span class="value-icon">🌱</span>
-                    <div class="value-title">3. 생활 밀착형 실천주의</div>
-                    <p class="value-desc">
-                        이론에만 그치는 지식은 지양합니다. 독자가 무릎을 탁 치며 쉽게 이해할 수 있는 직관적인 생활 비유와 단계별 인포그래픽 카드를 통해, 글을 읽은 직후 곧바로 삶에 적용할 수 있는 솔루션을 제안합니다.
-                    </p>
+                    <h2>3. 건강 및 의학 정보에 관한 면책 고지 (Medical Disclaimer)</h2>
+                    <div class="clean-callout" style="background:#f8fafc; border-left:4px solid #f59e0b; padding:16px 18px; border-radius:8px; font-size:0.92rem; color:#475569; line-height:1.7;">
+                        <p><strong>⚠️ 의학적 자문 배제 안내</strong></p>
+                        <p style="margin-top:6px;">본 사이트 「꿀단지」에서 제공하는 모든 식단, 영양, 운동, 수면 및 건강 관련 콘텐츠는 공인된 보건 기관 및 학술 연구 데이터를 바탕으로 한 일반 정보 제공을 목적으로 합니다. 본 콘텐츠는 의학적 진단, 처방, 또는 전문 의료진의 치료를 대신할 수 없습니다.</p>
+                        <p style="margin-top:6px;">개인의 기저질환, 알레르기, 복용 약물이나 신체 상태에 따라 적합성이 다를 수 있으므로, 구체적인 치료나 새로운 식단·운동 루틴을 시작하기 전에는 반드시 전문 의료인과 직접 상담하시기 바랍니다.</p>
+                    </div>
+
+                    <h2>4. 편집진 및 연락처 안내</h2>
+                    <p>콘텐츠에 대한 피드백, 정정 요청, 또는 제휴 문의는 언제든지 열려 있습니다. 자세한 문의는 <a href="contact.html" style="color: var(--primary); font-weight: 600;">문의하기(Contact Us)</a> 페이지 또는 공식 이메일(<code>hmapt01@gmail.com</code>)을 통해 연락해 주시기 바랍니다.</p>
                 </div>
             </div>
+        </article>
 
-            <h2 class="legal-section-title">🏢 편집국 운영 현황 및 독자 소통 창구</h2>
-            <p class="legal-desc">
-                꿀단지 편집국은 독자 여러분의 따뜻한 피드백과 건설적인 비판을 언제나 열린 마음으로 환영합니다. 칼럼에 대한 의문점이나 제휴 제안, 정정 요청이 있으실 경우 언제든 아래의 공식 소통 창구로 편안하게 연락 주시기 바랍니다.
-            </p>
-
-            <div class="clean-callout-grid">
-                <div class="callout-item">
-                    <strong>매거진 공식 명칭</strong>
-                    <span>혀니의 꿀단지 (KKULDANJI Magazine)</span>
-                </div>
-                <div class="callout-item">
-                    <strong>대표 집필진</strong>
-                    <span>에디터 혀니 (Wellness Columnist)</span>
-                </div>
-                <div class="callout-item">
-                    <strong>편집국 공식 이메일</strong>
-                    <span>hmapt01@gmail.com (24시간 접수)</span>
-                </div>
-                <div class="callout-item">
-                    <strong>소재지</strong>
-                    <span>대한민국 서울특별시 도봉구 해등로 231</span>
-                </div>
-            </div>
-        </div>
-    </main>
-
+        <!-- Right Sidebar Column (300px) -->
         <aside class="article-sidebar">
-            <div class="sidebar-widget" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; padding:22px 20px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.03);">
-                <div style="text-align:center; padding-bottom:14px; border-bottom:1px solid #f1f5f9;">
-                    <img src="images/logo.png" alt="에디터 혀니" style="width:68px; height:68px; border-radius:50%; object-fit:contain; background:#fffbeb; padding:6px; border:1px solid #fef3c7; margin-bottom:10px;">
-                    <div style="font-size:1.05rem; font-weight:850; color:#0f172a;">에디터 혀니</div>
-                    <p style="font-size:0.86rem; color:#64748b; margin:6px 0 10px 0; line-height:1.5;">정직하고 유익한 라이프 & 웰니스 꿀팁을 전하는 꿀단지 공식 에디터입니다.</p>
-                    <span style="display:inline-block; background:#fef3c7; color:#b45309; font-size:0.75rem; font-weight:800; padding:3px 10px; border-radius:999px;">✓ 웰니스 칼럼니스트</span>
+
+            <!-- 1. Editor Profile Widget -->
+            <div class="sidebar-widget">
+                <div class="profile-card-content">
+                    <img src="images/logo.png" alt="에디터 혀니" class="profile-avatar-img">
+                    <div class="profile-name">에디터 혀니</div>
+                    <p class="profile-desc">
+                        정직하고 유익한 라이프 & 웰니스 꿀팁을 전하는 꿀단지 공식 에디터입니다.
+                    </p>
+                    <span class="profile-badge">✓ 웰니스 칼럼니스트</span>
                 </div>
             </div>
 
-            <div class="sidebar-widget" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; padding:22px 20px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.03);">
-                <h3 style="font-size:1.02rem; font-weight:800; color:#111827; margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid #f1f5f9;">인기글 TOP 10</h3>
-                <ul class="popular-list" id="popularPostsWidgetList">
-                    <!-- JS 자동 주입 -->
+            <!-- 2. Popular Posts TOP 10 Widget -->
+            <div class="sidebar-widget">
+                <div class="widget-title">
+                    <span>인기글 TOP 10</span>
+                </div>
+                <ul class="popular-list">
+                    <li class="popular-item">
+                        <span class="popular-rank">1</span>
+                        <a href="posts/ohnara-diet.html" class="popular-link">오나라 51세 식단과 50대 근력 운동법</a>
+                    </li>
+                    <li class="popular-item">
+                        <span class="popular-rank">2</span>
+                        <a href="posts/august-seasonal-foods.html" class="popular-link">8월 제철 음식 5가지 영양 가이드</a>
+                    </li>
+                    <li class="popular-item">
+                        <span class="popular-rank">3</span>
+                        <a href="posts/intermittent-fasting-guide.html" class="popular-link">간헐적 단식 16:8 성공 식사 시간표</a>
+                    </li>
+                    <li class="popular-item">
+                        <span class="popular-rank">4</span>
+                        <a href="posts/posture-stretching-office.html" class="popular-link">직장인 거북목 교정 5분 스트레칭</a>
+                    </li>
+                    <li class="popular-item">
+                        <span class="popular-rank">5</span>
+                        <a href="posts/water-intake-guide.html" class="popular-link">하루 물 2리터 권장량의 진실</a>
+                    </li>
                 </ul>
             </div>
-        </aside>
 
-</div>
+            </aside>
 
-    <footer class="clean-footer">
+    </div>
+</main>
+
+<footer class="clean-footer">
         <div class="footer-inner">
+            <!-- 🏥 구글 YMYL 공식 건강 및 의학 정보 면책 고지 -->
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; width:100%;">
                 <div class="footer-info-group">
                     <p class="footer-copy">&copy; 2026 <strong>꿀단지</strong>. All rights reserved.</p>
@@ -342,21 +264,55 @@
                     <li><a href="privacy.html">개인정보처리방침</a></li>
                     <li><a href="terms.html">이용약관</a></li>
                     <li><a href="contact.html">문의하기</a></li>
+                    <li><a href="admin.html" class="footer-admin-link">관리자</a></li>
                 </ul>
             </div>
         </div>
     </footer>
-    <script defer src="js/features.js?v=20260903_v2"></script>
-    <script>
+
+<script>
+    // 📱 모바일 드로어 메뉴 완벽 제어
+    document.addEventListener('DOMContentLoaded', () => {
         const btnOpen = document.getElementById('btnOpenMobileDrawer');
         const btnClose = document.getElementById('btnCloseMobileDrawer');
-        const drawer = document.getElementById('naverMobileDrawer');
         const overlay = document.getElementById('drawerOverlay');
-        if(btnOpen && drawer && overlay) {
-            btnOpen.addEventListener('click', () => { drawer.classList.add('active'); overlay.classList.add('active'); });
-            btnClose.addEventListener('click', () => { drawer.classList.remove('active'); overlay.classList.remove('active'); });
-            overlay.addEventListener('click', () => { drawer.classList.remove('active'); overlay.classList.remove('active'); });
+        const drawer = document.getElementById('naverMobileDrawer');
+
+        function openDrawer() {
+            if (drawer) {
+                drawer.classList.add('active', 'open');
+                drawer.style.setProperty('right', '0', 'important');
+            }
+            if (overlay) {
+                overlay.classList.add('active', 'open');
+                overlay.style.setProperty('display', 'block', 'important');
+            }
+            document.body.style.overflow = 'hidden';
         }
-    </script>
+
+        function closeDrawer() {
+            if (drawer) {
+                drawer.classList.remove('active', 'open');
+                drawer.style.setProperty('right', '-280px', 'important');
+            }
+            if (overlay) {
+                overlay.classList.remove('active', 'open');
+                overlay.style.setProperty('display', 'none', 'important');
+            }
+            document.body.style.overflow = '';
+        }
+
+        if (btnOpen) btnOpen.addEventListener('click', openDrawer);
+        if (btnClose) btnClose.addEventListener('click', closeDrawer);
+        if (overlay) overlay.addEventListener('click', closeDrawer);
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeDrawer();
+        });
+    });
+</script>
+    <script defer src="js/features.js"></script>
 </body>
 </html>
+
+
