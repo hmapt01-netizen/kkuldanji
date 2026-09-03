@@ -1,7 +1,11 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿<!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-<!-- 📊 Google Analytics 4 (GA4 공식 초광속 비동기 태그) -->
+    <title>이용약관 (Terms of Service) | 꿀단지</title>
+    <meta name="description" content="꿀단지 웰니스 매거진 서비스 이용약관, 저작권 보호 규정 및 의학 정보에 대한 정밀 면책조항 전문입니다.">
+
+    <!-- 📊 Google Analytics 4 (GA4 공식 초광속 비동기 태그) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-V2RMP3SCRQ"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -11,84 +15,116 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-                                                                                                    <!-- 🍯 꿀단지 공식 파비콘 풀세트 (무결점 가디언 자동 동기화) -->
+    <!-- 🍯 꿀단지 공식 파비콘 풀세트 (무결점 가디언 자동 동기화) -->
     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
-<title>이용약관 및 면책조항 (Terms of Service) | 꿀단지</title>
-    <meta name="description" content="꿀단지 매거진의 서비스 이용약관, 저작권 규정 및 의학·건강 정보 면책조항입니다.">
-    
-    
-    
     <link rel="stylesheet" href="css/style.css?v=20260903_v2">
-    <style id="guaranteedMobileNavStyle">
-        
-        
-        .brand-text-stack { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: center !important;
-            line-height: 1.15 !important;
-        }
-        .brand-sub-title { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
-            font-size: 0.72rem !important;
-            font-weight: 800 !important;
-            color: #c26908 !important;
-            letter-spacing: 0.5px !important;
-        }
-        .brand-main-title { font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard Variable", Pretendard, "Malgun Gothic", "맑은 고딕", "Noto Sans KR", sans-serif !important;
-            font-size: 1.35rem !important;
-            font-weight: 800 !important;
-            color: #111827 !important;
-            letter-spacing: -0.5px !important;
-        }
-
-        /* 📱 모바일 (768px 이하): PC 메뉴바 숨김 */
-        @media (max-width: 768px) {
-            .desktop-header,
-            .clean-nav {
-                display: none !important;
-            }
-            .naver-mobile-top-bar {
-                display: flex !important;
-                position: sticky !important;
-                top: 0 !important;
-                left: 0 !important;
-                width: 100% !important;
-                height: 54px !important;
-                background: #ffffff !important;
-                border-bottom: 1px solid #f1f5f9 !important;
-                justify-content: space-between !important;
-                align-items: center !important;
-                padding: 0 16px !important;
-                z-index: 1000 !important;
-                box-sizing: border-box !important;
-            }
-        }
-
-        /* 💻 PC (769px 이상): 모바일 요소 숨김 */
-        @media (min-width: 769px) {
-            .naver-mobile-top-bar,
-            #naverMobileDrawer,
-            .drawer-overlay {
-                display: none !important;
-            }
-            .desktop-header {
-                display: block !important;
-            }
-        }
-    </style>
     <!-- 💰 Google AdSense 공식 인증 및 자동 광고 코드 -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4739687813221133" crossorigin="anonymous"></script>
+    <style>
+        .legal-box {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            padding: 36px 32px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            margin-bottom: 30px;
+        }
+        .legal-toc {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-left: 4px solid #d97706;
+            border-radius: 12px;
+            padding: 20px 24px;
+            margin: 24px 0 32px 0;
+        }
+        .legal-toc-title {
+            font-size: 1.05rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 12px;
+        }
+        .legal-toc-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 8px 16px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .legal-toc-list a {
+            font-size: 0.9rem;
+            color: #475569;
+            text-decoration: none;
+            transition: color 0.15s;
+        }
+        .legal-toc-list a:hover {
+            color: #d97706;
+            font-weight: 700;
+        }
+        .legal-section-title {
+            font-size: 1.22rem;
+            font-weight: 850;
+            color: #0f172a;
+            margin: 36px 0 16px 0;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #f1f5f9;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .legal-desc {
+            font-size: 0.98rem;
+            line-height: 1.85;
+            color: #334155;
+            margin-bottom: 16px;
+            word-break: keep-all;
+        }
+        .legal-sub-list {
+            list-style: disc;
+            padding-left: 20px;
+            margin-bottom: 18px;
+            color: #334155;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+        .legal-sub-list li { margin-bottom: 6px; }
+        .legal-highlight-card {
+            background: #fefce8;
+            border: 1px solid #fef08a;
+            border-radius: 12px;
+            padding: 20px 22px;
+            margin: 20px 0;
+            color: #713f12;
+            font-size: 0.94rem;
+            line-height: 1.75;
+        }
+        .clean-callout-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-top: 24px;
+        }
+        .callout-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 16px;
+        }
+        .callout-item strong { color: #0f172a; display: block; margin-bottom: 4px; font-size: 0.92rem; }
+        .callout-item span { color: #475569; font-size: 0.88rem; }
+    </style>
+
 </head>
 <body>
 
 <!-- 📱 모바일 상단 바 -->
 <div class="naver-mobile-top-bar">
     <a href="index.html" class="brand-title" style="gap: 8px;">
-        <img src="images/logo.png?v=11.0" alt="꿀단지 심볼" class="brand-logo-img" style="height: 30px;">
+        <img src="images/logo.png" alt="꿀단지 심볼" class="brand-logo-img" style="height: 30px;">
         <div class="brand-text-stack">
             <span class="brand-sub-title">혀니의</span>
             <span class="brand-main-title" style="font-size: 1.2rem;">꿀단지</span>
@@ -107,7 +143,7 @@
 <header class="clean-header desktop-header">
     <div class="header-container">
         <a href="index.html" class="brand-title">
-            <img src="images/logo.png?v=11.0" alt="꿀단지 심볼" class="brand-logo-img">
+            <img src="images/logo.png" alt="꿀단지 심볼" class="brand-logo-img">
             <div class="brand-text-stack">
                 <span class="brand-sub-title">혀니의</span>
                 <span class="brand-main-title">꿀단지</span>
@@ -116,17 +152,15 @@
         <nav class="clean-nav">
             <ul>
                 <li><a href="index.html">홈</a></li>
-                <li><a href="index.html?cat=%EC%8B%9D%EB%8B%A8%20%26%20%EC%98%81%EC%96%91">식단·영양</a></li>
-                <li><a href="index.html?cat=%ED%99%88%ED%8A%B8%EB%A0%88%EC%9D%B4%EB%8B%9D">홈트레이닝</a></li>
-                <li><a href="index.html?cat=%EB%9D%BC%EC%9D%B4%ED%94%84%20%EC%9B%B0%EB%8B%88%EC%8A%A4">라이프 웰니스</a></li>
-                
-                
+                <li><a href="index.html?cat=식단%20%26%20영양">식단·영양</a></li>
+                <li><a href="index.html?cat=홈트레이닝">홈트레이닝</a></li>
+                <li><a href="index.html?cat=라이프%20웰니스">라이프 웰니스</a></li>
+                <li><a href="calculator.html">건강 계산기</a></li>
             </ul>
         </nav>
     </div>
 </header>
 
-<!-- 📱 모바일 드로어 메뉴 (이모지 제외 미니멀 표준) -->
 <div class="drawer-overlay" id="drawerOverlay"></div>
 <aside class="naver-mobile-drawer" id="naverMobileDrawer">
     <div class="drawer-header">
@@ -139,109 +173,132 @@
         </a>
         <button type="button" class="btn-drawer-close" id="btnCloseMobileDrawer" aria-label="메뉴 닫기" style="background:transparent; border:none; font-size:1.5rem; color:#64748b; cursor:pointer;">&times;</button>
     </div>
-    <div class="drawer-body">
-        <ul class="drawer-menu-list">
-            <li><a href="about.html" class="drawer-nav-item">소개</a></li>
-            <li><a href="privacy.html" class="drawer-nav-item">개인정보처리방침</a></li>
-            <li><a href="terms.html" class="drawer-nav-item">이용약관</a></li>
-            <li><a href="contact.html" class="drawer-nav-item">문의하기</a></li>
+    <nav class="drawer-nav">
+        <ul>
+            <li><a href="index.html">홈</a></li>
+            <li><a href="index.html?cat=식단%20%26%20영양">식단·영양</a></li>
+            <li><a href="index.html?cat=홈트레이닝">홈트레이닝</a></li>
+            <li><a href="index.html?cat=라이프%20웰니스">라이프 웰니스</a></li>
+            <li><a href="calculator.html">건강 계산기</a></li>
         </ul>
-    </div>
+    </nav>
 </aside>
 
-<main class="container">
-    <div class="article-layout-grid">
+<div class="article-layout-grid">
+    <main class="article-main-col">
+        <div class="legal-box">
+            <header class="article-header" style="margin-bottom:24px; padding-bottom:16px; border-bottom:1px solid #e2e8f0;">
+                <span style="font-size:0.85rem; font-weight:800; color:#d97706; display:inline-block; margin-bottom:8px;">TERMS & CONDITIONS</span>
+                <h1 style="font-size:1.8rem; font-weight:900; color:#0f172a; line-height:1.3; margin-bottom:12px;">이용약관 (Terms of Service)</h1>
+                <p style="font-size:0.86rem; color:#64748b; margin:0;">시행일자: 2026년 8월 19일 | 최종 개정 및 적용일자: 2026년 9월 3일</p>
+            </header>
 
-        <article class="article-main-col">
-            <div class="article-wrap">
-                <header class="article-header">
-                    <span class="article-cat-tag">이용약관</span>
-                    <h1 class="article-main-title">이용약관 및 면책조항 (Terms of Service)</h1>
-                    <div class="article-meta-bar">
-                        <span>적용 일자: 2026년 8월 19일 · 최종 개정: 2026년 8월</span>
-                    </div>
-                </header>
-
-                <div class="article-body">
-                    <p>본 약관은 <strong>「꿀단지」</strong>(이하 '본 사이트')가 제공하는 웹진 콘텐츠 및 제반 서비스의 이용 조건과 절차, 저작권 규정 및 의학적 면책조항을 규정함을 목적으로 합니다.</p>
-
-                    <h2>1. 콘텐츠의 저작권 및 이용 제한</h2>
-                    <ul>
-                        <li>본 사이트에 게시된 모든 칼럼, 가이드, 이미지, 텍스트 및 UI 디자인의 저작권은 운영자 혀니 및 본 사이트에 귀속됩니다.</li>
-                        <li>본 사이트의 콘텐츠는 개인적인 열람 및 비영리적 목적의 공유(출처 표기 필수)에 한해 허용되며, 사전 서면 동의 없는 무단 전재, 재배포, 상업적 이용 및 크롤링은 엄격히 금지됩니다.</li>
-                    </ul>
-
-                    <h2>2. 의학 및 건강 정보에 대한 면책조항 (Medical Disclaimer)</h2>
-                    <div class="clean-callout">
-                        <p><strong>⚠️ 필독 면책 고지</strong></p>
-                        <p style="margin-top: 6px;">본 사이트에서 제공하는 식단, 영양, 운동, 수면 및 건강 관련 콘텐츠는 일반적인 건강 상식과 참고용 정보로만 제공됩니다. 본 콘텐츠는 의학적 진단, 처방, 또는 전문 의료진의 치료를 대신할 수 없습니다.</p>
-                        <p style="margin-top: 6px;">개인의 기저질환, 알레르기, 복용 약물에 따라 효과나 부작용이 다를 수 있으므로, 새로운 식단이나 강도 높은 운동 루틴을 시작하기 전에는 반드시 전문의나 전문가와 상담하시기 바랍니다.</p>
-                    </div>
-
-                    <h2>3. 외부 링크에 대한 책임의 한계</h2>
-                    <p>본 사이트는 독자의 편의를 위해 제3자의 웹사이트 링크를 포함할 수 있습니다. 본 사이트는 해당 외부 사이트의 콘텐츠나 개인정보 보호 관행에 대해 책임을 지지 않습니다.</p>
-
-                    <h2>4. 약관의 개정</h2>
-                    <p>본 약관은 관련 법령이나 사이트 운영 방침의 변경에 따라 수정될 수 있으며, 개정 시 사이트 내 공지를 통해 효력이 발생합니다.</p>
-
-                    <h2>5. 건강 및 의학 정보에 관한 면책 조항 (Medical Disclaimer)</h2>
-                    <p>본 사이트에 게재된 모든 건강, 영양, 식단, 운동 등에 관한 콘텐츠는 일반적인 건강 교양 및 정보 제공만을 목적으로 하며, 의사, 약사 등 전문 의료인의 의학적 진단, 소견, 처방, 치료를 대신하지 않습니다. 이용자가 본 사이트의 정보를 참고하여 행한 결정이나 행동에 대한 최종 책임은 이용자 본인에게 있으며, 질환의 예방이나 치료와 관련된 구체적인 사안은 반드시 공인된 의료기관의 전문의와 상담하여야 합니다.</p>
-                </div>
-            </div>
-        </article>
-
-        <!-- Right Sidebar Column (300px) -->
-        <aside class="article-sidebar">
-
-            <!-- 1. Editor Profile Widget -->
-            <div class="sidebar-widget">
-                <div class="profile-card-content">
-                    <img src="images/logo.png" alt="에디터 혀니" class="profile-avatar-img">
-                    <div class="profile-name">에디터 혀니</div>
-                    <p class="profile-desc">
-                        정직하고 유익한 라이프 & 웰니스 꿀팁을 전하는 꿀단지 공식 에디터입니다.
-                    </p>
-                    <span class="profile-badge">✓ 웰니스 칼럼니스트</span>
-                </div>
-            </div>
-
-            <!-- 2. Popular Posts TOP 10 Widget -->
-            <div class="sidebar-widget">
-                <div class="widget-title">
-                    <span>인기글 TOP 10</span>
-                </div>
-                <ul class="popular-list">
-                    <li class="popular-item">
-                        <span class="popular-rank">1</span>
-                        <a href="posts/ohnara-diet.html" class="popular-link">오나라 51세 식단과 50대 근력 운동법</a>
-                    </li>
-                    <li class="popular-item">
-                        <span class="popular-rank">2</span>
-                        <a href="posts/august-seasonal-foods.html" class="popular-link">8월 제철 음식 5가지 영양 가이드</a>
-                    </li>
-                    <li class="popular-item">
-                        <span class="popular-rank">3</span>
-                        <a href="posts/intermittent-fasting-guide.html" class="popular-link">간헐적 단식 16:8 성공 식사 시간표</a>
-                    </li>
-                    <li class="popular-item">
-                        <span class="popular-rank">4</span>
-                        <a href="posts/posture-stretching-office.html" class="popular-link">직장인 거북목 교정 5분 스트레칭</a>
-                    </li>
-                    <li class="popular-item">
-                        <span class="popular-rank">5</span>
-                        <a href="posts/water-intake-guide.html" class="popular-link">하루 물 2리터 권장량의 진실</a>
-                    </li>
+            <div class="legal-toc">
+                <div class="legal-toc-title">목차 (Table of Contents)</div>
+                <ul class="legal-toc-list">
+                    <li><a href="#t_art1">제1조 (목적)</a></li>
+                    <li><a href="#t_art2">제2조 (용어의 정의)</a></li>
+                    <li><a href="#t_art3">제3조 (약관의 효력 및 변경)</a></li>
+                    <li><a href="#t_art4">제4조 (서비스의 제공 및 변경)</a></li>
+                    <li><a href="#t_art5">제5조 (서비스의 중단)</a></li>
+                    <li><a href="#t_art6">제6조 (이용자의 의무 및 준수사항)</a></li>
+                    <li><a href="#t_art7">제7조 (저작권의 귀속 및 이용제한)</a></li>
+                    <li><a href="#t_art8">제8조 (의학·건강 정보 면책 고지)</a></li>
+                    <li><a href="#t_art9">제9조 (제3자 광고 및 외부 링크)</a></li>
+                    <li><a href="#t_art10">제10조 (면책 조항)</a></li>
+                    <li><a href="#t_art11">제11조 (분쟁 해결 및 관할 법원)</a></li>
                 </ul>
             </div>
 
-            </aside>
+            <h2 id="t_art1" class="legal-section-title">제1조 (목적)</h2>
+            <p class="legal-desc">본 약관은 <strong>「꿀단지」</strong>(이하 '본 웹진' 또는 '회사')가 제공하는 디지털 건강·라이프스타일 매거진 및 관련 제반 서비스(이하 '서비스')의 이용과 관련하여, 회사와 이용자의 권리, 의무 및 책임사항, 기타 필요한 사항을 규정함을 목적으로 합니다.</p>
 
-    </div>
-</main>
+            <h2 id="t_art2" class="legal-section-title">제2조 (용어의 정의)</h2>
+            <p class="legal-desc">본 약관에서 사용하는 주요 용어의 정의는 다음과 같습니다.</p>
+            <ul class="legal-sub-list">
+                <li><strong>'서비스'</strong>란 회사가 독자에게 웹브라우저, 모바일 기기 등을 통해 제공하는 칼럼, 뉴스, 건강 데이터 분석표, 인포그래픽, 건강 계산기 등 모든 디지털 콘텐츠를 의미합니다.</li>
+                <li><strong>'이용자'</strong>란 본 웹진에 접속하여 본 약관에 따라 회사가 제공하는 서비스를 열람하거나 이용하는 모든 독자를 의미합니다.</li>
+                <li><strong>'콘텐츠'</strong>란 회사가 제작하여 서비스상에 게시한 모든 부호·문자·음성·음향·화상·영상·소프트웨어 등의 정보 또는 자료를 뜻합니다.</li>
+            </ul>
 
-<footer class="clean-footer">
+            <h2 id="t_art3" class="legal-section-title">제3조 (약관의 효력 및 개정)</h2>
+            <p class="legal-desc">1. 본 약관은 서비스 화면에 게시하거나 기타의 방법으로 이용자에게 공지함으로써 효력이 발생합니다.</p>
+            <p class="legal-desc">2. 회사는 관련 법령을 위배하지 않는 범위 내에서 본 약관을 개정할 수 있으며, 개정된 약관은 적용일자 최소 7일 전부터 웹사이트를 통해 공지합니다.</p>
+
+            <h2 id="t_art4" class="legal-section-title">제4조 (서비스의 제공 및 변경)</h2>
+            <p class="legal-desc">회사는 독자에게 다음과 같은 서비스를 무상으로 제공합니다.</p>
+            <ul class="legal-sub-list">
+                <li>식단, 영양, 노화 방지 및 저속노화 레시피 가이드 콘텐츠 제공</li>
+                <li>체형 교정, 스트레칭, 홈트레이닝 및 신체 밸런스 운동 정보 제공</li>
+                <li>수면 위생, 시간생물학 및 일상 웰니스 생활 습관 분석 칼럼</li>
+                <li>기초대사량, 적정 수분 섭취량 등 건강 시뮬레이션 계산기 도구</li>
+                <li>기타 회사가 독창적으로 기획하여 제공하는 일체의 웰니스 서비스</li>
+            </ul>
+
+            <h2 id="t_art5" class="legal-section-title">제5조 (서비스의 중단 및 보수)</h2>
+            <p class="legal-desc">회사는 정보통신설비의 보수점검, 교체, 고장, 통신두절, 또는 천재지변 등 불가항력적 사유가 발생한 경우에는 서비스의 제공을 일시적으로 중단할 수 있으며, 이로 인한 이용자의 손해에 대해 책임을 지지 않습니다.</p>
+
+            <h2 id="t_art6" class="legal-section-title">제6조 (이용자의 의무 및 금지행위)</h2>
+            <p class="legal-desc">이용자는 본 서비스를 이용할 때 다음 각 호의 행위를 하여서는 아니 됩니다.</p>
+            <ul class="legal-sub-list">
+                <li>회사의 명시적 서면 승인 없이 자동화된 프로그램, 로봇(Robot), 크롤러(Crawler), 스크래퍼(Scraper)를 동원하여 콘텐츠를 무단 수집하거나 시스템에 비정상적인 부하를 야기하는 행위</li>
+                <li>회사가 게시한 정보의 무단 변경, 소스 코드 역컴파일, 서비스 방해 행위</li>
+                <li>회사 또는 제3자의 저작권, 상표권, 영업비밀 등 지식재산권을 침해하는 행위</li>
+                <li>댓글창에 타인을 모욕, 비방하거나 허위 사실을 유포하는 행위</li>
+            </ul>
+
+            <h2 id="t_art7" class="legal-section-title">제7조 (저작권의 귀속 및 지식재산권 보호)</h2>
+            <p class="legal-desc">1. 회사가 독자적으로 창작·작성한 모든 기사, 칼럼, 텍스트, 화보 이미지, 3D/HD 렌더링 사진, 일러스트, 비교표, 인포그래픽 디자인 및 웹사이트 UI 구조에 대한 저작권 및 기타 지식재산권은 회사(운영자 혀니)에 전속합니다.</p>
+            <p class="legal-desc">2. 이용자는 서비스를 이용함으로써 얻은 정보를 회사의 사전 서면 승낙 없이 복제, 송신, 출판, 배포, 방송, 2차적 저작물 작성, 상업적 판매 또는 인공지능(AI) 모델의 학습 데이터셋으로 무단 활용할 수 없습니다.</p>
+            <p class="legal-desc">3. 비영리 목적의 개인 블로그 인용의 경우, 반드시 <strong>출처(꿀단지 및 원문 URL 링크)를 명확히 표기</strong>한 경우에 한하여 일부분의 발췌 인용이 허용됩니다.</p>
+
+            <h2 id="t_art8" class="legal-section-title">제8조 (의학 및 건강 정보에 대한 면책 고지 - Medical Disclaimer)</h2>
+            <div class="legal-highlight-card">
+                <strong>⚠️ 필독 의료 면책 고지 (Medical Disclaimer):</strong><br>
+                본 웹진에 수록된 식단, 영양소, 운동 동작, 영양제, 수면 및 건강 관련 모든 콘텐츠는 신뢰할 수 있는 학술 논문 및 공인 연구기관(농촌진흥청, 하버드 의대, 질병관리청 등)의 자료를 바탕으로 작성된 <strong>'일반적인 건강 상식 및 라이프스타일 가이드'</strong>입니다.<br><br>
+                1. 본 콘텐츠는 <strong>의료 전문가의 전문적인 진단, 처방, 또는 치료를 대신할 수 없습니다.</strong><br>
+                2. 개인의 유전적 요인, 기저질환, 알레르기 유무, 현재 복용 중인 의약품과의 상호작용에 따라 동일한 식단이나 운동이라도 효과와 부작용이 크게 다를 수 있습니다.<br>
+                3. 새로운 식단, 고강도 운동 프로그램, 영양 보충제 섭취를 시작하기 전에는 <strong>반드시 주치의, 임상영양사 등 공인된 전문 의료진과 충분히 상담</strong>하시기 바랍니다.<br>
+                4. 이용자가 본 웹진의 콘텐츠를 참고하여 자의적으로 행한 판단이나 실천으로 발생한 건강상의 직·간접적 손해에 대해 회사는 법적 책임을 부담하지 않습니다.
+            </div>
+
+            <h2 id="t_art9" class="legal-section-title">제9조 (제3자 광고 및 외부 링크에 관한 고지)</h2>
+            <p class="legal-desc">1. 본 웹진은 구글 애드센스(Google AdSense) 등 제3자 광고 사업자가 송출하는 배너 및 텍스트 광고를 포함할 수 있습니다.</p>
+            <p class="legal-desc">2. 광고 배너를 클릭하여 이동한 외부 웹사이트는 회사와 무관한 독립된 제3자의 사이트이며, 회사는 해당 외부 사이트가 제공하는 상품, 서비스의 품질, 정확성 및 개인정보 보호 관행에 대해 어떠한 보증도 하지 않으며 책임을 지지 않습니다.</p>
+
+            <h2 id="t_art10" class="legal-section-title">제10조 (면책 조항)</h2>
+            <p class="legal-desc">1. 회사는 천재지변, 전쟁, 기간통신사업자의 회선 장애 등 불가항력으로 인하여 서비스를 제공할 수 없는 경우에는 서비스 제공에 관한 책임이 면제됩니다.</p>
+            <p class="legal-desc">2. 회사는 이용자의 귀책사유로 인한 서비스 이용의 장애에 대하여는 책임을 지지 않습니다.</p>
+            <p class="legal-desc">3. 회사는 무료로 제공되는 본 웹진의 정보 및 서비스 이용과 관련하여 관련 법령에 특별한 규정이 없는 한 어떠한 손해배상 책임도 지지 않습니다.</p>
+
+            <h2 id="t_art11" class="legal-section-title">제11조 (분쟁의 해결 및 관할 법원)</h2>
+            <p class="legal-desc">1. 회사와 이용자 간에 발생한 전자상거래 및 서비스 이용에 관한 분쟁은 상호 원만한 합의를 위해 성실히 협의합니다.</p>
+            <p class="legal-desc">2. 본 약관의 해석 및 회사와 이용자 간의 분쟁에 대하여는 대한민국 법률을 준거법으로 적용하며, 분쟁으로 인한 소송이 제기될 경우 민사소송법상의 관할 법원 또는 회사의 본점 소재지를 관할하는 법원을 전속 관할 법원으로 합니다.</p>
+        </div>
+    </main>
+
+        <aside class="article-sidebar">
+            <div class="sidebar-widget" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; padding:22px 20px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.03);">
+                <div style="text-align:center; padding-bottom:14px; border-bottom:1px solid #f1f5f9;">
+                    <img src="images/logo.png" alt="에디터 혀니" style="width:68px; height:68px; border-radius:50%; object-fit:contain; background:#fffbeb; padding:6px; border:1px solid #fef3c7; margin-bottom:10px;">
+                    <div style="font-size:1.05rem; font-weight:850; color:#0f172a;">에디터 혀니</div>
+                    <p style="font-size:0.86rem; color:#64748b; margin:6px 0 10px 0; line-height:1.5;">정직하고 유익한 라이프 & 웰니스 꿀팁을 전하는 꿀단지 공식 에디터입니다.</p>
+                    <span style="display:inline-block; background:#fef3c7; color:#b45309; font-size:0.75rem; font-weight:800; padding:3px 10px; border-radius:999px;">✓ 웰니스 칼럼니스트</span>
+                </div>
+            </div>
+
+            <div class="sidebar-widget" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; padding:22px 20px; margin-bottom:20px; box-shadow:0 2px 8px rgba(0,0,0,0.03);">
+                <h3 style="font-size:1.02rem; font-weight:800; color:#111827; margin-bottom:14px; padding-bottom:8px; border-bottom:1px solid #f1f5f9;">인기글 TOP 10</h3>
+                <ul class="popular-list" id="popularPostsWidgetList">
+                    <!-- JS 자동 주입 -->
+                </ul>
+            </div>
+        </aside>
+
+</div>
+
+    <footer class="clean-footer">
         <div class="footer-inner">
-            <!-- 🏥 구글 YMYL 공식 건강 및 의학 정보 면책 고지 -->
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px; width:100%;">
                 <div class="footer-info-group">
                     <p class="footer-copy">&copy; 2026 <strong>꿀단지</strong>. All rights reserved.</p>
@@ -257,53 +314,21 @@
                     <li><a href="privacy.html">개인정보처리방침</a></li>
                     <li><a href="terms.html">이용약관</a></li>
                     <li><a href="contact.html">문의하기</a></li>
-                    <li><a href="admin.html" class="footer-admin-link">관리자</a></li>
                 </ul>
             </div>
         </div>
     </footer>
-
-<script>
-    // 📱 모바일 드로어 메뉴 완벽 제어
-    document.addEventListener('DOMContentLoaded', () => {
+    <script defer src="js/features.js?v=20260903_v2"></script>
+    <script>
         const btnOpen = document.getElementById('btnOpenMobileDrawer');
         const btnClose = document.getElementById('btnCloseMobileDrawer');
-        const overlay = document.getElementById('drawerOverlay');
         const drawer = document.getElementById('naverMobileDrawer');
-
-        function openDrawer() {
-            if (drawer) {
-                drawer.classList.add('active', 'open');
-                drawer.style.setProperty('right', '0', 'important');
-            }
-            if (overlay) {
-                overlay.classList.add('active', 'open');
-                overlay.style.setProperty('display', 'block', 'important');
-            }
-            document.body.style.overflow = 'hidden';
+        const overlay = document.getElementById('drawerOverlay');
+        if(btnOpen && drawer && overlay) {
+            btnOpen.addEventListener('click', () => { drawer.classList.add('active'); overlay.classList.add('active'); });
+            btnClose.addEventListener('click', () => { drawer.classList.remove('active'); overlay.classList.remove('active'); });
+            overlay.addEventListener('click', () => { drawer.classList.remove('active'); overlay.classList.remove('active'); });
         }
-
-        function closeDrawer() {
-            if (drawer) {
-                drawer.classList.remove('active', 'open');
-                drawer.style.setProperty('right', '-280px', 'important');
-            }
-            if (overlay) {
-                overlay.classList.remove('active', 'open');
-                overlay.style.setProperty('display', 'none', 'important');
-            }
-            document.body.style.overflow = '';
-        }
-
-        if (btnOpen) btnOpen.addEventListener('click', openDrawer);
-        if (btnClose) btnClose.addEventListener('click', closeDrawer);
-        if (overlay) overlay.addEventListener('click', closeDrawer);
-        
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeDrawer();
-        });
-    });
-</script>
-    <script defer src="js/features.js"></script>
+    </script>
 </body>
 </html>
