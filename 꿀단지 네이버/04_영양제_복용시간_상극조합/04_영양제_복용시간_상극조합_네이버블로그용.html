@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 🍯 꿀단지 공식 임베디드 파비콘 -->
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,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">
+    <title>영양제 복용시간 총정리, 유산균 공복 섭취와 오메가3 마그네슘 골든타임</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Pretendard", Roboto, "Noto Sans KR", sans-serif;
+            line-height: 1.85;
+            color: #334155;
+            background-color: #f8fafc;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 780px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px 30px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid #e2e8f0;
+        }
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #0f172a;
+            padding-bottom: 16px;
+            margin-bottom: 24px;
+        }
+        .copy-btn {
+            background: #03c75a;
+            color: #ffffff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .copy-btn:hover { background: #02b350; }
+        .hook-box {
+            background-color: #f1f5f9;
+            border-left: 4px solid #03c75a;
+            padding: 16px 20px;
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #0f172a;
+            margin: 24px 0 32px 0;
+            line-height: 1.6;
+        }
+        .post-img {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+            margin: 28px 0 8px 0;
+        }
+        .img-caption {
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: center;
+            margin-bottom: 24px;
+            line-height: 1.4;
+        }
+        h2 {
+            font-size: 1.35rem;
+            color: #0f172a;
+            border-left: 4px solid #03c75a;
+            padding-left: 12px;
+            margin: 40px 0 16px 0;
+            line-height: 1.4;
+        }
+        p {
+            font-size: 1.02rem;
+            color: #334155;
+            margin-bottom: 20px;
+            line-height: 1.9;
+        }
+        .custom-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.92rem;
+            text-align: center;
+        }
+        .custom-table th {
+            background: #f1f5f9;
+            color: #0f172a;
+            padding: 12px 10px;
+            border: 1px solid #cbd5e1;
+            font-weight: 700;
+        }
+        .custom-table td {
+            padding: 12px 10px;
+            border: 1px solid #e2e8f0;
+        }
+        .source-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px 14px;
+            font-size: 0.82rem;
+            color: #64748b;
+            margin: -10px 0 24px 0;
+        }
+        .summary-box {
+            background: #f8fafc;
+            border: 1px solid #cbd5e1;
+            border-radius: 12px;
+            padding: 24px;
+            margin: 36px 0;
+        }
+        .summary-title {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 12px;
+        }
+        .summary-list {
+            margin: 0;
+            padding-left: 20px;
+            line-height: 1.8;
+            font-size: 0.95rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-bar">
+        <div>
+            <span style="font-size:0.85rem; color:#64748b; font-weight:700;">네이버 C-Rank & DIA+ 고품질 전문 발행 규격</span>
+            <h2 style="margin: 8px 0 0 0; font-size: 1.25rem; color: #0f172a; border-left:none; padding-left:0;">영양제 복용시간 총정리, 유산균 공복 섭취와 오메가3 마그네슘 골든타임</h2>
+        </div>
+        <button class="copy-btn" onclick="copyNaverContent()">📋 본문 전체 복사하기</button>
+    </div>
+
+    <div id="naverContent">
+        <div class="hook-box">
+            ┌ 한 번에 털어 넣는 습관 대신 영양소별 흡수 경로에 맞춰 복용 순서를 정렬하면, 속 쓰림 없이 생체 이용률을 극대화할 수 있습니다. ┘
+        </div>
+
+        <p>
+            건강 관리를 위해 식탁 위에 영양제 통을 여러 개 구비해 두고, 아침마다 손바닥에 한꺼번에 쏟아붓듯 삼키는 분들이 적지 않습니다.<br>
+            바쁜 일상 속에서 빠짐없이 챙겨 먹으려는 실천이지만, 성질이 서로 다른 영양소를 무작정 동시에 섭취하는 방식은 기대한 만큼의 효용을 거두기 어렵습니다.
+        </p>
+        <p>
+            영양소마다 체내에서 흡수되는 소화 장소와 분해 경로가 확연히 다르며, 서로의 흡수를 방해하는 상충 관계가 존재하기 때문입니다.<br>
+            아침 공복부터 점심 식후, 그리고 저녁 취침 전까지 시간대별로 섭취 타이밍을 체계적으로 분리하는 생리학적 기준을 면밀히 살펴볼 필요가 있습니다.
+        </p>
+
+        <img src="images/thumb.jpg" alt="정갈한 원목 식탁 위에 가지런히 놓인 영양제 병들과 맑은 물잔" class="post-img">
+        <div class="img-caption">정갈한 원목 식탁 위에 가지런히 놓인 영양제 병들과 맑은 물잔</div>
+
+        <h2>눈뜨자마자 삼킨 영양제가 온전한 활력이 되지 못하는 배경</h2>
+        <p>
+            잠에서 깬 직후의 인체는 장시간 공복 상태를 유지하여 위장 내부의 산도가 매우 높은 환경에 놓여 있습니다.<br>
+            이러한 상태에서 특정 영양 성분을 빈속에 곧바로 들이부으면 위 점막 표면이 자극을 받아 찌르르한 불편함이나 메스꺼움을 겪을 수 있습니다.
+        </p>
+        <p>
+            반대로 어떤 영양소는 음식물이 전혀 없는 산성 환경에서 오히려 장까지 안전하게 도달하거나 흡수 효율이 극대화되기도 합니다.<br>
+            결국 영양제의 가치는 몇 알을 먹느냐보다, 신체의 소화 효소와 담즙산 분비 흐름에 얼마나 부합하게 배치하느냐에 달려 있습니다.
+        </p>
+
+        <img src="images/supplement01.jpg" alt="아침 기상 후 맑은 미온수와 함께 섭취를 준비하는 캡슐 유산균" class="post-img">
+        <div class="img-caption">아침 기상 후 맑은 미온수와 함께 섭취를 준비하는 캡슐 유산균</div>
+
+        <h2>기상 직후 미온수와 함께 비워진 위장을 통과하는 유산균과 비타민B군</h2>
+        <p>
+            유산균으로 대표되는 프로바이오틱스는 살아있는 생균 상태로 대장까지 안착해야 온전한 장내 유익 작용을 수행합니다.<br>
+            식사 후에는 섭취한 음식물을 소화하기 위해 강한 위산이 쏟아져 나오므로, 생균의 생존율이 급격히 저하되는 문제가 나타납니다.
+        </p>
+        <p>
+            따라서 기상 직후 미온수를 1~2컵 천천히 마셔 밤새 분비된 위산을 씻어내고 산도를 희석한 직후 유산균을 섭취하는 순서가 적합합니다.<br>
+            아울러 탄수화물과 단백질 대사를 돕는 수용성 비타민 B군 역시 오전에 섭취해야 낮 동안의 활력 증진에 효율적으로 기여합니다.
+        </p>
+
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>섭취 구분</th>
+                    <th>해당 영양소</th>
+                    <th>생리학적 흡수 원리</th>
+                    <th>권장 타이밍</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight:700;">공복 권장</td>
+                    <td>유산균 (프로바이오틱스)</td>
+                    <td>위산 희석 후 장 도달률 극대화</td>
+                    <td style="color:#15803d; font-weight:700; background:#f0f7ff;">기상 직후 미온수 음용 후</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:700;">공복 권장</td>
+                    <td>비타민 B군 (복합체)</td>
+                    <td>수용성 활력 대사 효소 지원</td>
+                    <td style="color:#15803d; font-weight:700; background:#f0f7ff;">아침 식전 (위장 약할 시 식후)</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:700;">식후 권장</td>
+                    <td>오메가3 (불포화지방산)</td>
+                    <td>담즙산 분비 결합 및 비린내 완화</td>
+                    <td style="color:#1e40af; font-weight:700; background:#eff6ff;">점심 또는 저녁 식사 직후</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:700;">식후 권장</td>
+                    <td>비타민 C (아스코르브산)</td>
+                    <td>위 점막 산도 자극 완충 작용</td>
+                    <td style="color:#1e40af; font-weight:700; background:#eff6ff;">식사 중 또는 식후 즉시</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="source-box">
+            출처: 식품의약품안전처 건강기능식품 영양소별 섭취 가이드라인
+        </div>
+
+        <img src="images/supplement02.jpg" alt="정갈한 한식 식사 후 담즙산 분비에 맞춰 섭취하는 오메가3 연질캡슐" class="post-img">
+        <div class="img-caption">정갈한 한식 식사 후 담즙산 분비에 맞춰 섭취하는 오메가3 연질캡슐</div>
+
+        <h2>식사 지방과 결합하여 담즙산으로 흡수되는 오메가3와 지용성 비타민</h2>
+        <p>
+            오메가3와 비타민 A, D, E, K, 그리고 루테인은 물에 녹지 않는 전형적인 지용성 성분들입니다.<br>
+            이들 성분은 췌장에서 분비되는 지방 분해 효소와 간에서 공급되는 담즙산이 함께 섞여 유화 과정을 거쳐야만 소장 점막을 통해 체내로 흡수됩니다.
+        </p>
+        <p>
+            만약 빈속에 오메가3 캡슐을 삼키면 유화 과정이 원활하지 않아 대부분이 흡수되지 못하고 배출되며, 특유의 비린 어취가 역류하여 불쾌감을 부릅니다.<br>
+            따라서 균형 잡힌 지방질이 포함된 점심이나 저녁 식사를 마친 직후에 섭취해야 생체 이용 효율이 50% 이상 상승합니다.
+        </p>
+
+        <img src="images/supplement03.jpg" alt="시간대별로 분리된 요일별 영양제 트레이와 일정 메모" class="post-img">
+        <div class="img-caption">시간대별로 분리된 요일별 영양제 트레이와 일정 메모</div>
+
+        <h2>같은 흡수 통로를 두고 충돌하는 칼슘과 철분의 3시간 격리 원칙</h2>
+        <p>
+            서로 다른 영양소라 일지라도 소장 세포막에 위치한 동일한 수용체(DMT-1)를 통해 흡수되는 관계라면 치열한 경쟁이 발생합니다.<br>
+            칼슘과 철분이 대표적인 사례로, 두 영양소를 동시에 복용할 경우 칼슘이 철분의 흡수 통로를 선점하여 철분 흡수율이 바닥 수준으로 억제됩니다.
+        </p>
+        <p>
+            이러한 미네랄 간섭 현상을 피하기 위해서는 철분을 아침 공복에 비타민 C와 함께 섭취하고, 칼슘은 저녁 식사 후로 분리하는 3시간 시차 규칙이 필수적입니다.<br>
+            또한 녹차나 커피에 함유된 탄닌 성분 역시 미네랄과 결합해 불용성 침전물을 생성하므로 섭취 전후 1시간 동안은 카페인 음용을 삼가야 합니다.
+        </p>
+
+        <table class="custom-table">
+            <thead>
+                <tr>
+                    <th>상충 영양소 조합</th>
+                    <th>상호 간섭 기전</th>
+                    <th>동시 섭취 시 발생하는 현상</th>
+                    <th>권장 분리 섭취법</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="font-weight:700;">칼슘 ↔ 철분</td>
+                    <td>동일 2가 양이온 흡수 통로 경쟁</td>
+                    <td>철분 생체 이용률 최대 80% 저하</td>
+                    <td style="color:#15803d; font-weight:700; background:#f0f7ff;">철분(아침) / 칼슘(저녁) 3시간 분리</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:700;">유산균 ↔ 고산도 비타민C</td>
+                    <td>강한 산성 환경에 의한 생균 사멸</td>
+                    <td>장내 생존 도달률 급감</td>
+                    <td style="color:#15803d; font-weight:700; background:#f0f7ff;">유산균(기상 직후) / 비타민C(식후) 분리</td>
+                </tr>
+                <tr>
+                    <td style="font-weight:700;">마그네슘 ↔ 고용량 칼슘</td>
+                    <td>미네랄 흡수 통로 포화 경쟁</td>
+                    <td>흡수 지연 및 묽은 변 가능성</td>
+                    <td style="color:#15803d; font-weight:700; background:#f0f7ff;">2:1 균형 복합제 선택 또는 시간 분할</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="source-box">
+            출처: 미국국립보건원 (NIH) 식이보충제 사무국 영양소 상호작용 보고서
+        </div>
+
+        <img src="images/supplement04.jpg" alt="아늑한 저녁 조명 아래 숙면을 돕는 따뜻한 물과 마그네슘" class="post-img">
+        <div class="img-caption">아늑한 저녁 조명 아래 숙면을 돕는 따뜻한 물과 마그네슘</div>
+
+        <h2>하루 일과를 마무리하며 신경계를 이완시키는 마그네슘 저녁 섭취법</h2>
+        <p>
+            마그네슘은 근육의 불필요한 수축을 완화하고 중추 신경계의 긴장을 진정시키는 천연 이완 미네랄로 평가받습니다.<br>
+            특히 뇌 속 신경전달물질의 균형을 안정화하고 수면 호르몬 대사를 보조하므로, 낮 시간대보다는 저녁 식후나 취침 1시간 전에 섭취하는 것이 유익합니다.
+        </p>
+        <p>
+            낮 동안 쌓인 정신적 피로와 다리의 뻐근함을 풀어주는 데 기여하여 야간 시간대의 편안한 휴식을 돕는 든든한 역할을 수행합니다.<br>
+            따뜻한 물 한 잔과 함께 복용하면 흡수가 순조로워지며 위장에 전해지는 부담도 줄어들어 평온한 밤을 맞이할 수 있습니다.
+        </p>
+
+        <div class="summary-box">
+            <div class="summary-title">📌 오늘 확인한 영양제 시간대별 안심 복용 3원칙</div>
+            <ul class="summary-list">
+                <li><strong>기상 직후 아침 공복:</strong> 미온수 한 컵으로 위산을 희석한 뒤 유산균과 비타민 B군을 섭취해 장 도달률과 활력을 높입니다.</li>
+                <li><strong>점심 또는 저녁 식후:</strong> 담즙산 분비가 활발한 식사 직후 오메가3와 비타민 C, 지용성 비타민을 섭취해 흡수율을 끌어올립니다.</li>
+                <li><strong>상충 미네랄 3시간 분리:</strong> 흡수 통로를 다투는 칼슘과 철분은 아침과 저녁으로 나누고, 마그네슘은 편안한 수면을 위해 저녁에 복용합니다.</li>
+            </ul>
+        </div>
+
+        <p>
+            소중한 몸을 위해 영양제를 선택했다면, 성분이 온전히 제 역할을 다할 수 있도록 시간을 나누는 지혜가 뒷받침되어야 합니다.<br>
+            매일 아침 한 웅큼씩 털어 넣던 습관에서 벗어나 아침, 점심, 저녁의 골든타임을 맞춰가는 작은 배려가 일상에 맑은 에너지를 선사할 것입니다.
+        </p>
+    </div>
+</div>
+
+<script>
+function copyNaverContent() {
+    const content = document.getElementById('naverContent');
+    const range = document.createRange();
+    range.selectNode(content);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    try {
+        document.execCommand('copy');
+        alert('네이버 원고 본문이 복사되었습니다! 네이버 글쓰기 창에서 Ctrl+V 하세요.');
+    } catch (err) {
+        alert('복사 실패: 직접 드래그하여 복사해 주세요.');
+    }
+    window.getSelection().removeAllRanges();
+}
+</script>
+
+</body>
+</html>
