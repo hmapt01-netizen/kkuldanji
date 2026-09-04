@@ -104,6 +104,10 @@ def audit_cross_duplicates(naver_path, google_path):
         return False
 
 if __name__ == '__main__':
-    n_path = r'd:\작업\꿀단지\꿀단지 네이버\04_영양제_복용시간_상극조합\04_영양제_복용시간_상극조합_네이버블로그용.html'
-    g_path = r'd:\작업\꿀단지\kkuldanji_web\posts\supplement-timing-interactions.html'
+    if len(sys.argv) >= 3:
+        n_path = sys.argv[1]
+        g_path = sys.argv[2]
+    else:
+        n_path = r'd:\작업\꿀단지\꿀단지 네이버\05_허리통증_골반교정_스트레칭\05_허리통증_골반교정_스트레칭_네이버블로그용.html'
+        g_path = r'd:\작업\꿀단지\kkuldanji_web\posts\pelvic-stretching-back-pain-relief.html'
     audit_cross_duplicates(n_path, g_path)
