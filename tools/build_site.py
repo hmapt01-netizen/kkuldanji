@@ -43,40 +43,21 @@ def deduplicate_body_first_image(body_html, thumb_url):
     if not body_html or not thumb_url:
         return body_html
     
-    thumb_keys = set()
-    for m in re.findall(r'dJM[a-zA-Z0-9]+', thumb_url):
-        thumb_keys.add(m)
-    for m in re.findall(r'[\w\-]+\.(?:jpg|png|webp|jpeg)', thumb_url):
-        if m.lower() not in ['img.jpg', 'thumb.jpg', 'logo.png', 'favicon.png']:
-            thumb_keys.add(m)
-    
-    if not thumb_keys:
-        return body_html
+    thumb_normalized = thumb_url.replace('\\', '/').strip('/')
+    thumb_filename = thumb_normalized.split('/')[-1]
+    folder_and_thumb = '/'.join(thumb_normalized.split('/')[-2:]) if '/' in thumb_normalized else thumb_filename
 
-    split_pos = body_html.find('목차')
-    if split_pos == -1:
-        split_pos = body_html.find('Table of Contents')
-    if split_pos == -1:
-        split_pos = body_html.find('<h3')
-    if split_pos == -1:
-        split_pos = len(body_html) // 2
+    def remove_thumb_block(match):
+        block = match.group(0)
+        if folder_and_thumb in block.replace('\\', '/') or (thumb_filename != 'thumb.jpg' and thumb_filename in block):
+            return ""
+        return block
 
-    intro_part = body_html[:split_pos]
-    rest_part = body_html[split_pos:]
-
-    if any(k in intro_part for k in thumb_keys):
-        def remove_if_match(m):
-            block = m.group(0)
-            if any(k in block for k in thumb_keys):
-                return ""
-            return block
-
-        intro_part = re.sub(r'<div class="img-box"[^>]*>[\s\S]*?</div>\s*(?:</div>)?', remove_if_match, intro_part)
-        intro_part = re.sub(r'(?:<p>\s*)?<figure class="post-photo-figure"[^>]*>[\s\S]*?</figure>(?:\s*</p>)?', remove_if_match, intro_part)
-        intro_part = re.sub(r'<p>\s*<img[^>]+>\s*</p>', remove_if_match, intro_part)
-        intro_part = re.sub(r'<p[^>]*>\s*(?:&nbsp;)?\s*</p>', '', intro_part)
-
-    return intro_part + rest_part
+    body_html = re.sub(r'<div class="(?:post-img-wrap|img-box)"[^>]*>[\s\S]*?</div>', remove_thumb_block, body_html)
+    body_html = re.sub(r'(?:<p>\s*)?<figure class="post-photo-figure"[^>]*>[\s\S]*?</figure>(?:\s*</p>)?', remove_thumb_block, body_html)
+    body_html = re.sub(r'<p>\s*<img[^>]+>\s*</p>', remove_thumb_block, body_html)
+    body_html = re.sub(r'<p[^>]*>\s*(?:&nbsp;)?\s*</p>', '', body_html)
+    return body_html
 
 def sanitize_academic_refs(refs_html):
     if not refs_html:
@@ -189,12 +170,12 @@ for idx, p in enumerate(posts):
 
     # Featured Image HTML
     entry_featured_img = get_entry_img_src(p.get('thumb', ''))
-    featured_caption = p.get('featuredCaption', p['title'])
+    featured_caption = p.get('featuredCaption') or p['title']
     featured_img_html = f'''<div class="article-featured-img-box" style="margin:26px 0 20px 0; text-align:center;">
     <div style="position:relative; width:100%; aspect-ratio:16/9; border-radius:12px; overflow:hidden; background:#f1f5f9;">
         <img src="{entry_featured_img}" alt="{p['title']}" style="width:100%; height:100%; object-fit:cover; display:block;" fetchpriority="high" decoding="async">
     </div>
-    <div style="font-size:0.83rem; color:#64748b; margin-top:8px; line-height:1.4;">{featured_caption}</div>
+    <div class="img-caption" style="font-size:0.83rem !important; color:#64748b !important; margin-top:8px !important; line-height:1.4 !important; text-align:center !important;">{featured_caption}</div>
 </div>'''
 
     out = post_tpl
@@ -213,6 +194,11 @@ for idx, p in enumerate(posts):
     out = out.replace("{{ACADEMIC_SOURCE}}", p.get("academicSource", "임상영양학·보건학 연구 데이터 기반"))
     out = out.replace("{{FEATURED_IMAGE_HTML}}", featured_img_html)
     cleaned_body_html = sanitize_body_faq(deduplicate_body_first_image(p["bodyHtml"], p.get("thumb", "")))
+    cleaned_body_html = re.sub(
+        r'<div class="post-img-wrap"([^>]*)>\s*(<img[^>]+>)\s*<p[^>]*>([\s\S]*?)</p>\s*</div>',
+        r'<div class="post-img-wrap"\1>\n    \2\n    <div class="img-caption" style="font-size:0.83rem !important; color:#64748b !important; margin-top:8px !important; line-height:1.4 !important; text-align:center !important;">\3</div>\n</div>',
+        cleaned_body_html
+    )
     out = out.replace("{{BODY_CONTENT_HTML}}", cleaned_body_html)
     sanitized_refs = sanitize_academic_refs(p.get("academicRefs", ""))
     if sanitized_refs:

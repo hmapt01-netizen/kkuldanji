@@ -16,12 +16,14 @@ def get_h2_tags(html):
 
 def get_captions(html):
     caps = []
-    # naver captions: .img-caption
-    for c in re.findall(r'class=["\']img-caption["\']>([\s\S]*?)</div>', html):
+    # naver & web .img-caption
+    for c in re.findall(r'class=["\'][^"\']*img-caption[^"\']*["\'][^>]*>([\s\S]*?)</div>', html):
         caps.append(re.sub(r'<[^>]+>', '', c).strip())
-    # web captions: .post-img-wrap p
-    for p in re.findall(r'<div class=["\']post-img-wrap["\'][^>]*>[\s\S]*?<p[^>]*>([\s\S]*?)</p>', html):
-        caps.append(re.sub(r'<[^>]+>', '', p).strip())
+    # web captions: .post-img-wrap (p or div)
+    for p in re.findall(r'<div class=["\']post-img-wrap["\'][^>]*>[\s\S]*?<(?:p|div)[^>]*>([\s\S]*?)</(?:p|div)>', html):
+        text = re.sub(r'<[^>]+>', '', p).strip()
+        if text and text not in caps:
+            caps.append(text)
     return caps
 
 def get_ngrams(text, n=4):

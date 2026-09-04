@@ -3475,12 +3475,12 @@ img {
         }
         figure.article-featured-img-box figcaption,
         .article-featured-img-box figcaption {
-            font-size: 0.82rem !important;
+            font-size: 0.83rem !important;
             font-weight: 400 !important;
-            color: #94a3b8 !important;
+            color: #64748b !important;
             text-align: center !important;
             margin-top: 8px !important;
-            line-height: 1.5 !important;
+            line-height: 1.4 !important;
             letter-spacing: -0.2px !important;
             display: block !important;
         }
@@ -3526,13 +3526,21 @@ img {
         figure.article-featured-img-box figcaption,
         .article-featured-img-box figcaption,
         figure.post-photo-figure figcaption,
-        .post-photo-figure figcaption {
-            font-size: 0.82rem !important;
+        .post-photo-figure figcaption,
+        .article-featured-img-box div,
+        .article-featured-img-box .img-caption,
+        .post-img-wrap div,
+        .post-img-wrap p,
+        .post-img-wrap .img-caption,
+        .article-body-content .post-img-wrap p,
+        .article-body-content .post-img-wrap div,
+        .article-body-content .post-img-wrap .img-caption {
+            font-size: 0.83rem !important;
             font-weight: 400 !important;
-            color: #94a3b8 !important;
+            color: #64748b !important;
             text-align: center !important;
-            margin-top: 8px !important;
-            line-height: 1.5 !important;
+            margin: 8px auto 0 auto !important;
+            line-height: 1.4 !important;
             letter-spacing: -0.2px !important;
             display: block !important;
         }
