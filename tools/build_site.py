@@ -200,21 +200,25 @@ for idx, p in enumerate(posts):
         cleaned_body_html
     )
     out = out.replace("{{BODY_CONTENT_HTML}}", cleaned_body_html)
-    sanitized_refs = sanitize_academic_refs(p.get("academicRefs", ""))
-    if sanitized_refs:
-        academic_refs_html = f'''<div class="ref-box" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:18px 20px; margin:32px 0; font-size:0.85rem; color:#64748b; line-height:1.7;">
-                        <strong style="color: #0f172a; font-size:0.92rem; font-weight:800; display: block; margin-bottom: 8px;">공인 연구 데이터 및 참고 문헌</strong>
-                        {sanitized_refs}
-                    </div>'''
+    raw_refs = p.get("academicRefs") or p.get("references")
+    if not raw_refs:
+        raise ValueError(f"🚨 [CRITICAL E-E-A-T ERROR] 포스트 '{slug}'에 공인 학술 참고문헌(references/academicRefs)이 누락되었습니다! 단순 기본값 사용은 엄격히 금지됩니다.")
+    if isinstance(raw_refs, list):
+        if len(raw_refs) < 3:
+            raise ValueError(f"🚨 [CRITICAL E-E-A-T ERROR] 포스트 '{slug}'의 참고문헌이 3개 미만({len(raw_refs)}개)입니다! 최소 3선 이상 필수입니다.")
+        for ref in raw_refs:
+            if len(ref.strip()) < 25:
+                raise ValueError(f"🚨 [CRITICAL E-E-A-T ERROR] 포스트 '{slug}'의 참고문헌 항목이 너무 짧습니다 ('{ref}'). 기관명과 함께 논문 실명/가이드라인 및 연구 결과가 포함되어야 합니다.")
+        items_html = "\n".join([f'                            <li style="margin-bottom:6px;">{i+1}. {ref}</li>' for i, ref in enumerate(raw_refs)])
+        sanitized_refs = f'<ul style="list-style:none; padding:0; margin:0; font-size:0.85rem; color:#64748b; line-height:1.75;">\n{items_html}\n                        </ul>'
     else:
-        academic_refs_html = f'''<div class="ref-box" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:18px 20px; margin:32px 0; font-size:0.85rem; color:#64748b; line-height:1.7;">
-                        <strong style="color: #0f172a; font-size:0.92rem; font-weight:800; display: block; margin-bottom: 8px;">공인 연구 데이터 및 참고 문헌</strong>
-                        <ul style="list-style:none; padding:0; margin:0; font-size:0.85rem; color:#64748b; line-height:1.75;">
-                            <li style="margin-bottom:4px;">1. 질병관리청 국가건강정보포털 만성질환 예방 및 식이 가이드라인</li>
-                            <li style="margin-bottom:4px;">2. 식품의약품안전처 영양성분 데이터베이스 및 건강기능식품 기능성 연구</li>
-                            <li>3. 한국임상영양학회 및 대한당뇨병학회 임상 진료 지침</li>
-                        </ul>
-                    </div>'''
+        sanitized_refs = sanitize_academic_refs(raw_refs or "")
+        if len(sanitized_refs.strip()) < 50:
+            raise ValueError(f"🚨 [CRITICAL E-E-A-T ERROR] 포스트 '{slug}'의 academicRefs 내용이 부실합니다 (최소 50자 이상 필수).")
+    academic_refs_html = f'''<div class="ref-box" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:18px 20px; margin:32px 0; font-size:0.85rem; color:#64748b; line-height:1.7;">
+                    <strong style="color: #0f172a; font-size:0.92rem; font-weight:800; display: block; margin-bottom: 8px;">공인 연구 데이터 및 참고 문헌</strong>
+                    {sanitized_refs}
+                </div>'''
     out = out.replace("{{ACADEMIC_REFERENCES_HTML}}", academic_refs_html)
     out = out.replace("{{RELATED_ARTICLES_HTML}}", related_html)
     out = out.replace("{{FAQ_CARDS_HTML}}", faq_html)

@@ -40,7 +40,21 @@ def add_post(post_data, image_dir=None):
             shutil.copy2(os.path.join(image_dir, img), os.path.join(target_img_dir, img))
         print(f"  ✓ 이미지 복사 완료")
 
-    # 3. posts_db.json 최상단(1번) 자동 삽입
+    # 3. [마스터 표준 23] E-E-A-T 공인 학술 참고문헌 엄격 검증
+    raw_refs = post_data.get("academicRefs") or post_data.get("references")
+    if not raw_refs:
+        raise AssertionError(f"🚨 [마스터 표준 23 위반] 신규 포스트에 'references' 또는 'academicRefs'가 누락되었습니다! 공인 연구 논문 실명 3선 이상 필수입니다.")
+    if isinstance(raw_refs, list):
+        if len(raw_refs) < 3:
+            raise AssertionError(f"🚨 [마스터 표준 23 위반] 참고문헌은 최소 3선 이상이어야 합니다. (현재: {len(raw_refs)}개)")
+        for ref in raw_refs:
+            if len(ref.strip()) < 25:
+                raise AssertionError(f"🚨 [마스터 표준 23 위반] 참고문헌 항목이 너무 짧습니다 ('{ref}'). 단순 기관명 나열을 금지하며, 공식 논문 실명/보고서명과 연구 수치를 포함해야 합니다.")
+    elif isinstance(raw_refs, str):
+        if len(raw_refs.strip()) < 50:
+            raise AssertionError(f"🚨 [마스터 표준 23 위반] academicRefs 내용이 부실합니다 (최소 50자 이상).")
+
+    # 4. posts_db.json 최상단(1번) 자동 삽입
     db_path = r"d:\작업\꿀단지\data\posts_db.json"
     with open(db_path, "r", encoding="utf-8-sig") as f:
         posts = json.load(f)
