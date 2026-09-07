@@ -40,6 +40,9 @@
 
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
 
+    <!-- 🌐 구글 SEO 공식 표준 대표 URL (URL 파편화 및 중복 색인 방지) -->
+    <link rel="canonical" href="https://honeyjar.co.kr/">
+
 <title>꿀단지 | 건강한 일상을 위한 라이프 & 웰니스 저널</title>
 
     <meta name="description" content="식단과 제철 영양, 10분 홈트레이닝 및 실생활 웰니스 꿀팁을 전하는 혀니의 꿀단지.">
@@ -3376,11 +3379,29 @@
 
         if (catParam) {
 
-            const targetBtn = Array.from(document.querySelectorAll('.clean-nav .nav-cat-btn')).find(b => b.textContent.includes(catParam) || b.getAttribute('href').includes(encodeURIComponent(catParam)));
+            let label = catParam;
+
+            if (catParam.includes('식단') || catParam.includes('영양')) label = '식단·영양';
+
+            else if (catParam.includes('홈트')) label = '홈트레이닝';
+
+            else if (catParam.includes('웰니스') || catParam.includes('라이프')) label = '라이프 웰니스';
+
+
+
+            const targetBtn = Array.from(document.querySelectorAll('.clean-nav .nav-cat-btn')).find(b => {
+
+                const txt = b.textContent || '';
+
+                const h = b.getAttribute('href') || '';
+
+                return txt.includes(catParam) || txt.includes(label) || h.includes(encodeURIComponent(catParam));
+
+            });
 
             filterDesktopCategory(catParam, targetBtn);
 
-            filterTistoryFeed(catParam, catParam);
+            filterTistoryFeed(catParam, label);
 
         } else {
 

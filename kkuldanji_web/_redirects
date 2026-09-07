@@ -1,4 +1,5 @@
 # Cloudflare Pages Redirect Rules
+/index.html / 301
 /posts / 301
 /posts/ / 301
 /feed /feed.xml 301

@@ -409,7 +409,7 @@ root_favicon_block = """    <!-- 🍯 꿀단지 공식 파비콘 풀세트 (무�
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">"""
 
-static_pages = ['about.html', 'privacy.html', 'terms.html', 'contact.html', 'calculator.html', 'admin.html', 'index.html']
+static_pages = ['about.html', 'privacy.html', 'terms.html', 'contact.html', 'calculator.html', 'admin.html', 'index.html', 'youth-protection.html', 'copyright.html', 'email-rejection.html']
 fav_updated = 0
 for sp in static_pages:
     sp_path = os.path.join(web_root, sp)
@@ -429,6 +429,56 @@ if fav_updated > 0:
     print(f"  ✓ 5. 전 페이지 파비콘 5종 세트 무결성 가디언 자동 복구 완료 ({fav_updated}건)!")
 else:
     print(f"  ✓ 5. 전 페이지 파비콘 5종 세트 무결성 가디언 100% 정상 확인 완료 (최신 유지)!")
+
+# 5-1. 전 페이지 Canonical(표준 대표 URL) 무결성 가디언 (Googlebot URL 파편화 & 중복 색인 영구 방지)
+canonical_map = {
+    'index.html': 'https://honeyjar.co.kr/',
+    'about.html': 'https://honeyjar.co.kr/about.html',
+    'privacy.html': 'https://honeyjar.co.kr/privacy.html',
+    'terms.html': 'https://honeyjar.co.kr/terms.html',
+    'contact.html': 'https://honeyjar.co.kr/contact.html',
+    'calculator.html': 'https://honeyjar.co.kr/calculator.html',
+    'youth-protection.html': 'https://honeyjar.co.kr/youth-protection.html',
+    'copyright.html': 'https://honeyjar.co.kr/copyright.html',
+    'email-rejection.html': 'https://honeyjar.co.kr/email-rejection.html'
+}
+
+canonical_updated = 0
+for sp, can_url in canonical_map.items():
+    sp_path = os.path.join(web_root, sp)
+    if os.path.exists(sp_path):
+        with open(sp_path, 'r', encoding='utf-8') as f:
+            sp_c = f.read()
+        
+        canonical_tag = f'    <link rel="canonical" href="{can_url}">'
+        sp_c_new = sp_c
+        
+        # 1) 기존 canonical 태그가 있으면 정확한 URL로 교체
+        if '<link rel="canonical"' in sp_c_new:
+            sp_c_new = re.sub(r'<link\s+rel=["\']canonical["\']\s+href=["\'][^"\']*["\'][^>]*>', canonical_tag.strip(), sp_c_new)
+        else:
+            # 2) 없으면 <title> 태그 바로 위에 삽입
+            if '<title>' in sp_c_new:
+                sp_c_new = sp_c_new.replace('<title>', f'<!-- 🌐 구글 SEO 공식 표준 대표 URL -->\n{canonical_tag}\n<title>', 1)
+            elif '</head>' in sp_c_new:
+                sp_c_new = sp_c_new.replace('</head>', f'{canonical_tag}\n</head>', 1)
+
+        # 3) 정적 페이지 상단 네비게이션 링크 정돈 (index.html?cat=... -> ./?cat=... 및 index.html -> ./)
+        if sp != 'index.html':
+            sp_c_new = re.sub(r'href=["\']index\.html\?cat=[^"\']*(?:식단|%EC%8B%9D%EB%8B%A8)[^"\']*["\']', 'href="./?cat=식단"', sp_c_new)
+            sp_c_new = re.sub(r'href=["\']index\.html\?cat=[^"\']*(?:홈트|%ED%99%88%ED%8A%B8)[^"\']*["\']', 'href="./?cat=홈트레이닝"', sp_c_new)
+            sp_c_new = re.sub(r'href=["\']index\.html\?cat=[^"\']*(?:웰니스|라이프|%EB%9D%BC%EC%9D%B4%ED%94%84|%EC%9B%B0%EB%8B%88%EC%8A%A4)[^"\']*["\']', 'href="./?cat=라이프웰니스"', sp_c_new)
+            sp_c_new = re.sub(r'href=["\']index\.html["\']', 'href="./"', sp_c_new)
+
+        if sp_c_new != sp_c:
+            with open(sp_path, 'w', encoding='utf-8') as f:
+                f.write(sp_c_new)
+            canonical_updated += 1
+
+if canonical_updated > 0:
+    print(f"  ✓ 5-1. 전 페이지 Canonical 대표 URL 및 네비게이션 가디언 자동 복구/동기화 완료 ({canonical_updated}건)!")
+else:
+    print(f"  ✓ 5-1. 전 페이지 Canonical 대표 URL 무결성 가디언 100% 정상 확인 완료 (최신 유지)!")
 
 # 6. feed.xml (RSS 2.0 표준 피드) 및 sitemap.xml 영구 자동 컴파일러 (Googlebot SEO 최적화)
 def parse_korean_date_to_rfc822(date_str):
