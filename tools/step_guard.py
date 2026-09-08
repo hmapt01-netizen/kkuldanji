@@ -169,6 +169,19 @@ def verify_research_facts(work_dir):
         print(f"   👉 조치: 'python tools/suggest_topics.py' 실행 결과인 사전 검토 6대 실사 브리핑 표를 리서치.md 상단에 기록하세요.")
         sys.exit(1)
 
+    # 5) [마스터 표준 26호] 실시간 SERP 실사 및 4단계 실제 경쟁도(레드/블루오션) 성적표 검증
+    serp_keywords = ["경쟁도", "경쟁 강도", "레드오션", "블루오션", "SERP"]
+    has_serp_section = any(kw in content for kw in serp_keywords)
+    has_serp_badges = any(b in content for b in ["🔴", "🟡", "🟢", "💎"])
+    has_serp_table = has_serp_section and has_serp_badges
+
+    print(f"   - [Step 0 SERP 경쟁도 표]: {'✅ 확인됨 (4단계 팩트체크 성적표)' if has_serp_table else '❌ 누락'}")
+    if not has_serp_table:
+        print(f"\n🚨 [HARD STOP 0 물리적 차단] '리서치.md'에 [마스터 표준 26호] '실시간 SERP 실사 및 4단계 실제 경쟁도(레드/블루오션) 성적표'가 누락되었습니다!")
+        print(f"   🛑 사유: AI가 실시간 포털 검색 결과를 실사하지 않고 짐작으로 작성하거나 보고서 표를 누락하는 것을 방지합니다.")
+        print(f"   👉 조치: 'search_web'으로 상위 포털 결과를 실사하고 [🔴 초극심 레드오션 / 🟡 중간 경쟁 / 🟢 알짜 틈새 / 💎 진짜 블루오션 빈집] 성적표를 리서치.md에 반드시 기록하세요.")
+        sys.exit(1)
+
     # 기존 글 내부링크 2편 미만 시 즉각 물리 차단
     if len(matched_links) < 2:
         print(f"\n🚨 [HARD STOP 0 물리적 차단] '리서치.md'에 [마스터 표준 25호] 기존 글 내부링크 연계망(최소 2편 이상)이 누락되었습니다!")
