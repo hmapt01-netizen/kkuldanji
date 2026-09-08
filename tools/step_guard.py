@@ -189,6 +189,16 @@ def verify_research_facts(work_dir):
         print(f"   👉 조치: data/posts_db.json의 기존 글 중 연계할 2편 이상의 링크(.html 또는 슬러그)를 리서치.md에 기재하세요.")
         sys.exit(1)
 
+    # 6) [마스터 표준 23-1호] FAQ 사전 실사 및 공인 근거 검증
+    faq_keywords = ["FAQ", "자주 묻는 질문", "질의응답", "Q&A", "핵심 질문", "질문 1", "질문 2", "질문 3"]
+    has_faq_research = any(kw in content for kw in faq_keywords)
+    print(f"   - [Step 0 FAQ 사전 실사 기록]: {'✅ 확인됨 (공인 근거 실사)' if has_faq_research else '❌ 누락'}")
+    if not has_faq_research:
+        print(f"\n🚨 [HARD STOP 0 물리적 차단] '리서치.md'에 [마스터 표준 23-1호] 'FAQ 사전 실사 (자주 묻는 질문 2~3선 공인 근거)' 기록이 누락되었습니다!")
+        print(f"   🛑 사유: AI가 본문 FAQ를 공인 학회 검색 없이 임의로 지어내어 잘못된 의학/건강 정보를 기재하는 것을 원천 방지합니다.")
+        print(f"   👉 조치: FAQ에 수록할 질문 2~3선과 각각의 공인 학회/논문 팩트 근거를 리서치.md에 반드시 기재하세요.")
+        sys.exit(1)
+
     return True
 
 def check_step(required_step):
