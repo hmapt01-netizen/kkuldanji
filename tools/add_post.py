@@ -15,6 +15,14 @@ def add_post(post_data, image_dir=None):
     """
     print(f"🚀 [꿀단지 신규 글 자동 등록 엔진 가동] '{post_data.get('title', '')}'")
 
+    # 0. [마스터 표준 0/23호] Step Guard & Fact Guard 물리적 프리플라이트 검증
+    try:
+        import step_guard
+        step_guard.check_step(4)
+    except Exception as e:
+        print(f"🚨 [물리적 차단] Step Guard 검증 실패: {e}")
+        raise AssertionError(f"Step Guard 검증 실패로 포스트 등록이 물리적으로 중단되었습니다: {e}")
+
     # 1. 카테고리 엄격 검증
     cat = post_data.get("category", "")
     if cat not in VALID_CATEGORIES:
