@@ -140,6 +140,42 @@ def verify_research_facts(work_dir):
         sys.exit(1)
 
     print("   - [Step 0 안전성 및 과장표현]: ✅ 100% 무결성 확인 (위험 표현 0개)")
+
+    # 4) [마스터 표준 25호] 신규 주제 사전 검토 6대 실사 및 내부링크 연계망 검증
+    audit_keywords = ["사전 검토", "실사 브리핑", "6대 실사", "4대 실사", "토픽 클러스터", "로드맵", "CONTENT_ROADMAP"]
+    has_audit_section = any(kw in content for kw in audit_keywords)
+
+    db_path = os.path.join(r"d:\작업\꿀단지", "data", "posts_db.json")
+    matched_links = []
+    if os.path.exists(db_path):
+        try:
+            with open(db_path, "r", encoding="utf-8-sig") as df:
+                posts_data = json.load(df)
+            for p in posts_data:
+                slug = p.get("slug", "")
+                if slug and (slug in content or f"{slug}.html" in content):
+                    matched_links.append(slug)
+        except Exception:
+            pass
+
+    print(f"   - [Step 0 사전 실사 기록]: {'✅ 확인됨' if has_audit_section else '❌ 누락'}")
+    link_status = f"✅ 기존 글 {len(matched_links)}편 연계 확인 ({', '.join(matched_links[:2])}...)" if len(matched_links) >= 2 else f"❌ 내부링크 연계 부족 (현재 {len(matched_links)}편, 최소 2편 필수)"
+    print(f"   - [Step 0 기존 글 연계망]: {link_status}")
+
+    # 실사 기록 누락 시 즉각 물리 차단
+    if not has_audit_section:
+        print(f"\n🚨 [HARD STOP 0 물리적 차단] '리서치.md'에 [마스터 표준 25호] '사전 검토 6대 실사 브리핑' 기록이 누락되었습니다!")
+        print(f"   🛑 사유: AI가 기발행 글 DB 전수 대조와 콘텐츠 로드맵 실사를 거치지 않고 임의로 글을 작성하는 것을 방지합니다.")
+        print(f"   👉 조치: 'python tools/suggest_topics.py' 실행 결과인 사전 검토 6대 실사 브리핑 표를 리서치.md 상단에 기록하세요.")
+        sys.exit(1)
+
+    # 기존 글 내부링크 2편 미만 시 즉각 물리 차단
+    if len(matched_links) < 2:
+        print(f"\n🚨 [HARD STOP 0 물리적 차단] '리서치.md'에 [마스터 표준 25호] 기존 글 내부링크 연계망(최소 2편 이상)이 누락되었습니다!")
+        print(f"   🛑 사유: 기존 발행 자산과의 연계 없이 단독 글을 발행하는 행위는 고립 페이지(Orphan Page)를 발생시키고 주제 추천 실사를 건너뛴 증거입니다.")
+        print(f"   👉 조치: data/posts_db.json의 기존 글 중 연계할 2편 이상의 링크(.html 또는 슬러그)를 리서치.md에 기재하세요.")
+        sys.exit(1)
+
     return True
 
 def check_step(required_step):
