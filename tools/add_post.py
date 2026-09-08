@@ -39,17 +39,41 @@ def add_post(post_data, image_dir=None):
         print(f"  ➔ '{cat}' 카테고리로 자동 보정되었습니다.")
         post_data["category"] = cat
 
-    # 2. 이미지 자동 복사 (지정된 경우)
+    # 2. [마스터 표준 28] 이미지 검증 및 복사: thumb.jpg와 본문 섹션 이미지 중복 원천 차단
     slug_key = post_data.get("slugKey", post_data.get("slug", "").replace(".html", ""))
     target_img_dir = os.path.join(r"d:\작업\꿀단지\kkuldanji_web\images\posts", slug_key)
     
     if image_dir and os.path.exists(image_dir):
-        os.makedirs(target_img_dir, exist_ok=True)
+        import hashlib
         img_files = [f for f in os.listdir(image_dir) if f.lower().endswith(('.jpg', '.jpeg', '.png', '.webp'))]
-        print(f"  📁 {len(img_files)}개 이미지를 {target_img_dir}로 복사 중...")
+        
+        thumb_path = os.path.join(image_dir, "thumb.jpg")
+        if not os.path.exists(thumb_path):
+            raise AssertionError(f"🚨 [마스터 표준 28 위반] 이미지 폴더에 대표 히어로 이미지 'thumb.jpg'가 누락되었습니다!")
+        
+        # thumb.jpg의 MD5 해시 계산
+        with open(thumb_path, 'rb') as f:
+            thumb_hash = hashlib.md5(f.read()).hexdigest()
+        
+        # 본문 섹션 이미지(01~05)와 thumb.jpg의 해시 일치(복제 파일) 전수 검사
+        section_imgs = [f for f in img_files if f != "thumb.jpg"]
+        for s_img in section_imgs:
+            s_path = os.path.join(image_dir, s_img)
+            with open(s_path, 'rb') as sf:
+                s_hash = hashlib.md5(sf.read()).hexdigest()
+            if thumb_hash == s_hash:
+                raise AssertionError(f"🚨 [마스터 표준 28 위반: 대표 이미지 중복 적발] 'thumb.jpg'가 본문 이미지 '{s_img}'와 동일한 파일(해시 일치)로 감지되었습니다!\n"
+                                     f"   🛑 대표 썸네일(thumb.jpg)은 글 상단 및 홈 카드를 위한 독립된 히어로 화보여야 합니다.\n"
+                                     f"   👉 해결 조치: 1번 이미지를 복사하지 말고, 별도의 고유한 대표 히어로 이미지를 생성하여 thumb.jpg로 지정하세요.")
+
+        if len(section_imgs) < 5:
+            raise AssertionError(f"🚨 [마스터 표준 28 위반] 본문 섹션 화보가 부족합니다 (현재 {len(section_imgs)}개, 최소 5개 필수 + 독립 thumb.jpg 1개 = 총 6개 고유 이미지 필수)!")
+
+        os.makedirs(target_img_dir, exist_ok=True)
+        print(f"  📁 총 {len(img_files)}개 고유 이미지(중복 0건 전수 검증 완료)를 {target_img_dir}로 복사 중...")
         for img in img_files:
             shutil.copy2(os.path.join(image_dir, img), os.path.join(target_img_dir, img))
-        print(f"  ✓ 이미지 복사 완료")
+        print(f"  ✓ 이미지 무결성 검증 및 복사 완료")
 
     # 3. [마스터 표준 23] E-E-A-T 공인 학술 참고문헌 엄격 검증
     raw_refs = post_data.get("academicRefs") or post_data.get("references")
