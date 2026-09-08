@@ -237,6 +237,14 @@ def check_step(required_step):
         print("\n🚨 [HARD STOP 2 위반] 네이버 또는 다음 제목이 확정되지 않았습니다! 구글 제목 단계 진행이 물리적으로 차단됩니다.")
         sys.exit(1)
     elif required_step == 4:
+        # [마스터 표준 26호] 구글 제목 10선 SERP 경쟁도 표 감사 로그 검증
+        google_audit_path = os.path.join(r"d:\작업\꿀단지", "data", "last_google_titles_audit.json")
+        if not os.path.exists(google_audit_path):
+            print("\n🚨 [HARD STOP 3 물리적 차단] 구글 제목 10선에 대한 [마스터 표준 26호] 실시간 SERP 경쟁도 표 감사 로그('data/last_google_titles_audit.json')가 존재하지 않습니다!")
+            print("   🛑 사유: 구글 제목 제안 시 SERP 경쟁도 표 출력을 건너뛰는 행위를 원천 방지합니다.")
+            print("   👉 조치: 'python tools/validate_titles.py google <파일>'을 실행하여 구글 제목 10선 검증 및 SERP 경쟁도 표를 생성·보고하세요.")
+            sys.exit(1)
+
         if is_2track and not (naver and google):
             print("\n🚨 [HARD STOP 3 위반] 네이버 및 구글 제목이 titles.json에 확정되지 않았습니다! 본문 파일 작성이 물리적으로 차단됩니다.")
             sys.exit(1)
