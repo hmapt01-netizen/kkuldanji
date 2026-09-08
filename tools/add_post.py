@@ -17,6 +17,9 @@ def add_post(post_data, image_dir=None):
 
     # 0. [마스터 표준 0/23호] Step Guard & Fact Guard 물리적 프리플라이트 검증
     try:
+        tools_dir = os.path.dirname(os.path.abspath(__file__))
+        if tools_dir not in sys.path:
+            sys.path.insert(0, tools_dir)
         import step_guard
         step_guard.check_step(4)
     except Exception as e:
