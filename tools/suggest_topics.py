@@ -117,15 +117,25 @@ def build_candidates_for_keyword(seed_keyword, g_suggs, n_suggs, published_posts
     mechanism_terms = [t for t in all_suggs if any(w in t for w in ["효능", "부작용", "차이", "종류", "원인", "성분", "라벨", "vs", "비교", "단점"])]
     commercial_terms = [t for t in all_suggs if any(w in t for w in ["비용", "가격", "추천", "순위", "구매", "실비", "약국", "브랜드"])]
 
+    def make_kw(seed, term):
+        term = term.strip()
+        if term.startswith(seed):
+            return term
+        return f"{seed} {term}"
+
     best_action = action_terms[0] if action_terms else f"{seed_keyword} 복용 골든타임과 주의점"
     best_mech = mechanism_terms[0] if mechanism_terms else f"{seed_keyword} 성분 비교와 부작용"
     best_comm = commercial_terms[0] if commercial_terms else f"{seed_keyword} 가격 및 추천 순위"
 
+    title_action = best_action if any(w in best_action for w in ["가이드", "수칙", "방법"]) else f"{best_action} 팩트체크와 실패 없는 실천 가이드"
+    title_mech = best_mech if any(w in best_mech for w in ["판별법", "비결", "비교"]) else f"{best_mech} 라벨 판별법과 흡수율 극대화 비결"
+    title_comm = best_comm if any(w in best_comm for w in ["총정리", "체크리스트", "비교"]) else f"{best_comm} 최저가 비교와 구매 전 체크리스트"
+
     return [
         {
             "id": 1,
-            "title": f"{best_action} 팩트체크와 실패 없는 실천 가이드",
-            "keyword": f"{seed_keyword} {best_action}",
+            "title": title_action,
+            "keyword": make_kw(seed_keyword, best_action),
             "tier": "💎 진짜 블루오션 빈집",
             "serp_note": f"[실사 근거] '{best_action}' 관련 검색 수요는 높으나 상위권 문서 대부분이 단편적 정보에 그침. 실생활 행동 수칙과 구체적 타이밍을 롱테일로 파고들면 상위 노출 및 스마트블록 선점 최적.",
             "reason": f"실제 포털 이용자가 행동 직전에 가장 절실하게 찾아보는 결핍 의문 해소.",
@@ -134,8 +144,8 @@ def build_candidates_for_keyword(seed_keyword, g_suggs, n_suggs, published_posts
         },
         {
             "id": 2,
-            "title": f"{best_mech} 라벨 판별법과 흡수율 극대화 비결",
-            "keyword": f"{seed_keyword} {best_mech}",
+            "title": title_mech,
+            "keyword": make_kw(seed_keyword, best_mech),
             "tier": "🟢 알짜 틈새",
             "serp_note": f"[실사 근거] 단순 효능 글은 많으나, 성분표 라벨 3초 판별법과 과학적 기전 분석은 상업 광고가 적은 고품질 알짜 틈새.",
             "reason": f"합리적인 건강 소비자를 위한 팩트 중심 성분 분석으로 높은 체류시간 확보.",
@@ -144,8 +154,8 @@ def build_candidates_for_keyword(seed_keyword, g_suggs, n_suggs, published_posts
         },
         {
             "id": 3,
-            "title": f"{best_comm} 최저가 비교와 구매 전 체크리스트",
-            "keyword": f"{seed_keyword} {best_comm}",
+            "title": title_comm,
+            "keyword": make_kw(seed_keyword, best_comm),
             "tier": "🔴 초극심 레드오션",
             "serp_note": f"[실사 근거] 제휴 마케팅, 협찬 블로거, 쇼핑 커머스 문서가 1페이지 전체를 장악한 극심한 레드오션. 저지수 블로그 진입 비권장.",
             "reason": f"상업성 광고 키워드로 경쟁 강도가 지나치게 치열함.",
