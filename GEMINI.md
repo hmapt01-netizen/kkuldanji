@@ -614,6 +614,24 @@ AI가 단순히 머릿속 상상이나 짐작(뇌피셜)으로 "스마트블록 
 
 ---
 
+### 🚨 [마스터 표준 27-1] 화보 생성 사전 계획(image_plan.json) 및 Step 3.5 하드 게이트 물리적 락 (Image Plan Lock)
+
+AI가 화보 생성 규칙([마스터 표준 27/28호])을 망각하고 임의의 프롬프트로 이미지를 즉흥 생성하는 행위를 원천 차단하기 위해, 시스템에 물리적 차단 스크립트(`tools/image_guard.py`) 및 하드 게이트를 영구 장착합니다.
+
+1. **[Step 3.5 이미지 계획 락]**:
+   - 제목 승인(Step 3) 완료 직후, AI는 **이미지 생성 도구(`generate_image`)를 절대로 바로 호출할 수 없으며**, 반드시 작업 폴더에 `image_plan.json`을 먼저 생성하고 사용자에게 스토리보드를 보고해야 함.
+   - `image_plan.json` 필수 기재 규격:
+     - `character_anchor`: 단 1명의 주인공 페르소나 (성별, 연령, 헤어, **100% 동일 의상(색상/종류)**, 기준 앵커 이미지 지정)
+     - `visual_ratio`: 인물 3컷 : 정물/의료 2컷의 **3:2 황금 비율**
+     - `storyboard`: 6대 화보(thumb.jpg, post01.jpg~post05.jpg) 각각의 슬롯별 프롬프트 및 `ImagePaths` 상속 계획
+     - `is_user_approved`: 사용자 승인 완료 플래그 (기본 false)
+2. **[물리적 강제 차단 (Physical Hard Gate)]**:
+   - `image_plan.json`이 누락되었거나 `is_user_approved`가 false인 상태에서 이미지 생성 또는 본문 작성(Step 4)을 시도하면, `tools/step_guard.py`와 `tools/add_post.py`가 `Exit Code 1` / `AssertionError`로 실행을 **물리적으로 강제 차단**함.
+3. **[생성 후 무결성 검증 (Physical Image Audit)]**:
+   - 이미지를 생성한 후 `tools/image_guard.py`가 6대 고유 화보의 MD5 해시 중복 여부(thumb와 본문 컷 일치 0건), 파일 크기(150~350KB), 16:9 가로세로 비율을 기계적으로 전수 검증함.
+
+---
+
 ## 📌 [마스터 표준 28] 대표 썸네일(thumb.jpg)과 본문 화보 분리 독립 및 6대 고유 화보 풀세트 영구 철칙 (Zero-Duplicate Hero Rule)
 
 구글 웹사이트 상단 대표 히어로 영역(`.article-featured-img-box`)에 노출되는 `thumb.jpg`와 본문 1번 섹션 화보가 동일한 사진으로 중복 노출되어 독자에게 연속으로 똑같은 사진이 보이는 현상을 100% 영구 금지하며, 아래 4대 규칙을 의무적으로 준수합니다.

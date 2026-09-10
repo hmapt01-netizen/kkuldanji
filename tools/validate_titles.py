@@ -269,7 +269,8 @@ if __name__ == "__main__":
             all_ok = True
             if mode == "google":
                 titles = data if isinstance(data, list) else data.get("google", data.get("google_candidates", []))
-                all_ok = validate_google_titles(titles)
+                serp_analysis = data.get("serp_analysis", None) if isinstance(data, dict) else None
+                all_ok = validate_google_titles(titles, serp_analysis=serp_analysis)
             elif mode == "daum":
                 titles = data if isinstance(data, list) else data.get("daum", data.get("daum_candidates", []))
                 all_ok = validate_daum_titles(titles)

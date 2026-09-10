@@ -44,6 +44,12 @@ def add_post(post_data, image_dir=None):
     target_img_dir = os.path.join(r"d:\작업\꿀단지\kkuldanji_web\images\posts", slug_key)
     
     if image_dir and os.path.exists(image_dir):
+        try:
+            import image_guard
+            if not image_guard.validate_images(image_dir):
+                raise AssertionError("🚨 [마스터 표준 27/28 위반] 생성된 화보가 규격을 통과하지 못했습니다!")
+        except ImportError:
+            pass
         import hashlib
         img_files = [f for f in os.listdir(image_dir) if f.lower().endswith(('.jpg', '.jpeg', '.png', '.webp'))]
         

@@ -246,6 +246,17 @@ def check_step(required_step):
     elif required_step == 3 and not is_2track and not (naver and daum):
         print("\n🚨 [HARD STOP 2 위반] 네이버 또는 다음 제목이 확정되지 않았습니다! 구글 제목 단계 진행이 물리적으로 차단됩니다.")
         sys.exit(1)
+    elif str(required_step) in ["3.5", "35"]:
+        if is_2track and not (naver and google):
+            print("\n🚨 [HARD STOP 3 위반] 제목이 확정되지 않았습니다! 이미지 계획 작성이 차단됩니다.")
+            sys.exit(1)
+        try:
+            import image_guard
+            if not image_guard.validate_image_plan(work_dir, require_approval=False):
+                sys.exit(1)
+        except Exception as e:
+            print(f"🚨 [Image Guard 연동 실패]: {e}")
+            sys.exit(1)
     elif required_step == 4:
         # [마스터 표준 26호] 구글 제목 10선 SERP 경쟁도 표 감사 로그 검증
         google_audit_path = os.path.join(r"d:\작업\꿀단지", "data", "last_google_titles_audit.json")
@@ -260,6 +271,17 @@ def check_step(required_step):
             sys.exit(1)
         elif not is_2track and not (naver and daum and google):
             print("\n🚨 [HARD STOP 3 위반] 3대 제목(네이버/다음/구글)이 모두 titles.json에 확정되지 않았습니다! 본문 파일 작성이 물리적으로 차단됩니다.")
+            sys.exit(1)
+
+        # [마스터 표준 27-1호] 화보 생성 사전 계획(image_plan.json) 및 사용자 승인 검증
+        try:
+            import image_guard
+            if not image_guard.validate_image_plan(work_dir, require_approval=True):
+                print("\n🚨 [HARD STOP 3.5 위반] image_plan.json이 누락되었거나 사용자 승인(is_user_approved=True)이 완료되지 않았습니다!")
+                print("   🛑 사유: AI가 단일 주인공/동일 의상 앵커 사전 승인 없이 본문 또는 이미지를 즉흥 작성하는 행위를 원천 차단합니다.")
+                sys.exit(1)
+        except Exception as e:
+            print(f"🚨 [Image Guard 검증 오류]: {e}")
             sys.exit(1)
 
     print(f"\n🔒 [게이트 통과] Step {required_step} 진입 조건이 물리적으로 100% 충족되었습니다.")
