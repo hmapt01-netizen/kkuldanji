@@ -115,7 +115,18 @@
 
 <div class="container">
 
-    <button type="button" class="copy-btn" onclick="copyEntireArticle()">📋 본문 전체 복사하기</button>
+    <div style="display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:20px;">
+        <button type="button" class="copy-btn" onclick="copyEntireArticle()" style="margin-bottom:0;">📋 본문 전체 복사하기</button>
+        <button type="button" class="copy-btn" onclick="copyHashtags()" style="margin-bottom:0; background:#059669;">🏷️ 해시태그 복사하기</button>
+    </div>
+
+    <!-- 네이버 스마트에디터 태그란 복사용 해시태그 -->
+    <div style="background:#f8fafc; border:1px dashed #0284c7; border-radius:12px; padding:14px 18px; margin-bottom:28px; text-align:center;">
+        <div style="font-size:0.88rem; font-weight:800; color:#0369a1; margin-bottom:8px;">🏷️ 네이버 스마트에디터 태그란 복사용 해시태그 (12종)</div>
+        <div id="hashtagText" style="font-size:0.92rem; color:#0284c7; font-weight:700; line-height:1.8; word-break:keep-all;">
+            #수면내시경운전 #수면내시경후운전 #수면내시경당일운전 #수면내시경운전시간 #수면내시경보호자 #수면내시경혼자귀가 #수면내시경자가운전 #수면내시경대중교통 #건강검진운전 #위내시경운전 #수면내시경주의사항 #에디터혀니
+        </div>
+    </div>
 
     <div id="naverContent">
 
@@ -298,6 +309,11 @@
             </ul>
         </div>
 
+        <!-- 9. 해시태그 (스마트에디터 본문 하단 노출) -->
+        <p style="font-size:0.92rem; color:#0284c7; font-weight:700; line-height:1.8; margin-top:28px; word-break:keep-all;">
+            #수면내시경운전 #수면내시경후운전 #수면내시경당일운전 #수면내시경운전시간 #수면내시경보호자 #수면내시경혼자귀가 #수면내시경자가운전 #수면내시경대중교통 #건강검진운전 #위내시경운전 #수면내시경주의사항 #에디터혀니
+        </p>
+
     </div>
 
 </div>
@@ -316,6 +332,27 @@ function copyEntireArticle() {
         alert('복사에 실패했습니다. 마우스로 직접 드래그하여 복사해 주세요.');
     }
     window.getSelection().removeAllRanges();
+}
+
+function copyHashtags() {
+    const text = document.getElementById('hashtagText').innerText.trim();
+    if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(text).then(() => {
+            alert('🎉 해시태그가 복사되었습니다!\n네이버 스마트에디터 하단 [태그 입력]란에 [Ctrl + V]로 붙여넣으세요.');
+        }).catch(() => fallbackCopy(text));
+    } else {
+        fallbackCopy(text);
+    }
+}
+
+function fallbackCopy(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert('🎉 해시태그가 복사되었습니다!\n네이버 스마트에디터 하단 [태그 입력]란에 [Ctrl + V]로 붙여넣으세요.');
 }
 </script>
 
