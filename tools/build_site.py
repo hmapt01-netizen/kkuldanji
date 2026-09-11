@@ -150,8 +150,16 @@ for idx, p in enumerate(posts):
     }, ensure_ascii=False)
 
     # Related Article Box
-    rel_slug = p.get("relatedSlug", "post-meal-walk-blood-sugar.html")
-    rel_post = next((item for item in posts if item["slug"] == rel_slug), posts[1] if len(posts)>1 else posts[0])
+    rel_slug = p.get("relatedSlug")
+    rel_post = None
+    if rel_slug:
+        rel_post = next((item for item in posts if item["slug"] == rel_slug), None)
+    if not rel_post:
+        # Smart fallback: same category post (not self)
+        rel_post = next((item for item in posts if item["slug"] != slug and item.get("category") == p.get("category")), None)
+    if not rel_post:
+        # Secondary fallback: next post (not self)
+        rel_post = next((item for item in posts if item["slug"] != slug), posts[0])
     rel_img_src = get_entry_img_src(rel_post.get('thumb', ''))
     related_html = f'''<div class="related-articles-section" style="background:#fffdf7; border:1.5px solid #fde68a; border-radius:14px; padding:18px 20px; margin:32px 0; box-sizing:border-box;">
     <div style="margin-bottom:12px;">

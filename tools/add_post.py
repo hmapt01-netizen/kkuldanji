@@ -135,6 +135,7 @@ if __name__ == "__main__":
     if len(sys.argv) > 1 and os.path.exists(sys.argv[1]):
         with open(sys.argv[1], "r", encoding="utf-8-sig") as f:
             data = json.load(f)
-        add_post(data)
+        img_dir = sys.argv[2] if len(sys.argv) > 2 and os.path.exists(sys.argv[2]) else None
+        add_post(data, image_dir=img_dir)
     else:
-        print("사용법: python add_post.py [post_data.json]")
+        print("사용법: python add_post.py [post_data.json] [image_dir (선택)]")

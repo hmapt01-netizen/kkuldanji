@@ -182,6 +182,51 @@ def verify_research_facts(work_dir):
         print(f"   👉 조치: 'search_web'으로 상위 포털 결과를 실사하고 [🔴 초극심 레드오션 / 🟡 중간 경쟁 / 🟢 알짜 틈새 / 💎 진짜 블루오션 빈집] 성적표를 리서치.md에 반드시 기록하세요.")
         sys.exit(1)
 
+    # [마스터 표준 27호 물리적 게이트 잠금] data/last_serp_audit.json 파일 실존 및 유효성 검증
+    audit_file = os.path.join(r"d:\작업\꿀단지", "data", "last_serp_audit.json")
+    if not os.path.exists(audit_file):
+        print(f"\n🚨 [HARD STOP 0 물리적 차단] 실시간 SERP 실사 감사 로그('data/last_serp_audit.json')가 존재하지 않습니다!")
+        print(f"   🛑 사유: AI가 실시간 포털 검색 결과를 실제로 크롤링·실사하지 않고 임의로 레드/블루오션을 지어내는 것을 원천 차단합니다.")
+        print(f"   👉 조치: 'python tools/audit_serp_live.py'를 실행하여 실제 네이버 1페이지 문서를 크롤링·실사하세요.")
+        sys.exit(1)
+
+    try:
+        with open(audit_file, "r", encoding="utf-8") as af:
+            audit_data = json.load(af)
+        records = audit_data.get("records", audit_data.get("results", []))
+        if not records or len(records) == 0:
+            print(f"\n🚨 [HARD STOP 0 물리적 차단] 'data/last_serp_audit.json'에 실사된 검색 쿼리 기록이 0건입니다!")
+            print(f"   👉 조치: 'python tools/audit_serp_live.py <후보_키워드들>'을 실행하여 실제 문서를 크롤링하세요.")
+            sys.exit(1)
+
+        ts_str = audit_data.get("timestamp", "")
+        if ts_str:
+            audit_dt = datetime.fromisoformat(ts_str)
+            diff_hours = (datetime.now() - audit_dt).total_seconds() / 3600
+            if diff_hours > 24:
+                print(f"\n🚨 [HARD STOP 0 물리적 차단] 실시간 SERP 감사 로그가 24시간 이상 경과하여 만료되었습니다 ({diff_hours:.1f}시간 경과)!")
+                print(f"   👉 조치: 'python tools/audit_serp_live.py'를 재실행하여 최신 SERP를 다시 실사하세요.")
+                sys.exit(1)
+
+        # [사각지대 4 방어: 주제 일치성 검증 - 캐시 구멍 원천 차단]
+        first_line = content.splitlines()[0] if content else ""
+        topic_tokens = [w for w in re.findall(r'[가-힣a-zA-Z0-9]+', first_line) if len(w) >= 2 and w not in ["리서치", "온라인", "신청법과", "절차", "기준", "정리", "안내", "가이드"]]
+        audited_texts = [r.get("title", "") + " " + r.get("clean_query", "") for r in records]
+        topic_matched = any(any(tok in at for tok in topic_tokens) for at in audited_texts)
+        if not topic_matched:
+            print(f"\n🚨 [HARD STOP 0 물리적 차단] 실시간 SERP 감사 로그의 주제가 현재 작업 폴더 주제와 일치하지 않습니다!")
+            print(f"   - 현재 작업 주제: {first_line[:40]}...")
+            print(f"   - 감사 로그 주제: {records[0].get('clean_query', '')}...")
+            print(f"   👉 조치: 'python tools/audit_serp_live.py'를 현재 주제로 재실행하세요.")
+            sys.exit(1)
+
+        print(f"   - [Step 0 SERP 크롤링 증거]: ✅ 100% 무결성 확인 (실사 {len(records)}건, 주제일치: 확인됨, 채널: {audit_data.get('channel', 'naver')})")
+    except Exception as e:
+        print(f"\n🚨 [HARD STOP 0 물리적 차단] 'data/last_serp_audit.json' 파싱 오류: {e}")
+        sys.exit(1)
+
+
+
     # 기존 글 내부링크 2편 미만 시 즉각 물리 차단
     if len(matched_links) < 2:
         print(f"\n🚨 [HARD STOP 0 물리적 차단] '리서치.md'에 [마스터 표준 25호] 기존 글 내부링크 연계망(최소 2편 이상)이 누락되었습니다!")
@@ -288,5 +333,13 @@ def check_step(required_step):
     return True
 
 if __name__ == "__main__":
-    step = int(sys.argv[1]) if len(sys.argv) > 1 else 1
+    raw_step = sys.argv[1] if len(sys.argv) > 1 else "1"
+    try:
+        step = int(raw_step)
+    except ValueError:
+        try:
+            step = float(raw_step)
+        except ValueError:
+            step = raw_step
     check_step(step)
+

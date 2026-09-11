@@ -44,7 +44,7 @@ def audit_topics(keywords):
         print(f"❌ [오류] DB 파일이 존재하지 않습니다: {DB_PATH}")
         sys.exit(1)
 
-    with open(DB_PATH, "r", encoding="utf-8") as f:
+    with open(DB_PATH, "r", encoding="utf-8-sig") as f:
         posts = json.load(f)
 
     # 1. 최신 날짜순 정렬
