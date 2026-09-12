@@ -45,26 +45,14 @@ def extract_clean_query_and_seed(title):
     
     words = [w for w in cleaned_no_hook.split() if len(w) >= 2]
     
-    # 핵심 주제어 우선 탐색 풀
-    core_subjects = [
-        "족저근막염", "발뒤꿈치", "발바닥", "혈당", "혈압", "중성지방", "콜레스테롤",
-        "골반", "거북목", "스쿼트", "영양제", "유산균", "오메가3", "마그네슘", "비타민",
-        "지방간", "인슐린", "스트레칭", "마사지", "아킬레스건", "종아리"
-    ]
-    
-    matched_subj = [w for w in words if w in core_subjects]
-    
-    if len(matched_subj) >= 2:
-        seed = f"{matched_subj[0]} {matched_subj[1]}"
-    elif len(matched_subj) == 1:
-        # 주제어 + 다음으로 중요한 명사 결합
-        other_words = [w for w in words if w != matched_subj[0]]
-        if other_words:
-            seed = f"{matched_subj[0]} {other_words[0]}"
-        else:
-            seed = matched_subj[0]
+    # 동적 시드(Seed) 추출 (특정 주제/질환 하드코딩 영구 배제)
+    # 2글자 이상의 핵심 실질 명사 상위 1~2개를 조합하여 시드로 활용
+    if len(words) >= 2:
+        seed = f"{words[0]} {words[1]}"
+    elif len(words) == 1:
+        seed = words[0]
     else:
-        seed = " ".join(words[:2]) if len(words) >= 2 else (words[0] if words else title[:15])
+        seed = title[:15].strip()
 
     full_query = " ".join(words[:4]) if words else title[:20]
     return full_query, seed
@@ -95,7 +83,12 @@ def check_google_autocomplete(seed):
     try:
         req = urllib.request.Request(url, headers=headers)
         with urllib.request.urlopen(req, timeout=5) as resp:
-            data = json.loads(resp.read().decode('utf-8'))
+            raw = resp.read()
+            try:
+                content = raw.decode('utf-8')
+            except UnicodeDecodeError:
+                content = raw.decode('euc-kr', errors='replace')
+            data = json.loads(content)
             return data[1] if len(data) > 1 else []
     except Exception:
         return []

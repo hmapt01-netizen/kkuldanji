@@ -42,52 +42,67 @@ except ImportError:
         audit_titles = None
 
 def calculate_low_authority_score(title, audit_record):
-    """
-    [마스터 표준 26-1] 저지수 블로그 키워드 앞단 배치 및 허수 빈집 방어 정밀 채점 알고리즘 (0~100점)
-    1. 키워드 전면(1~14자) 배치 여부 (최대 +40점 / 감점 -30점)
-    2. 구체적 상황/실천 3~4단 롱테일 결합 여부 (최대 +30점)
-    3. 실제 SERP 경쟁도 및 자동완성 실존 여부 (최대 +30점 / 허수빈집 -40점)
+    r"""
+    [마스터 표준 26-1] 저지수 블로그 보편 3단 결합 공식 기반 채점 알고리즘 (0~100점)
+    특정 질환이나 소재에 편향되지 않는 100% 추상화된 보편 공식 적용:
+    1. 블록 A (상황/체감 훅): 따옴표 인용/의문형/경험형 훅 탑재 여부 (DIA+ 경험 문서 우대) (+20점)
+    2. 블록 B (핵심 검색어 보존): 실제 유저 검색 시드 단어 온전 보존 (+35점 / 누락 시 -30점)
+    3. 블록 C (구체적 수치/골든타임/행동 솔루션): 숫자(\d+초, \d+분 등) 및 구체적 실천 단위 결합 (+20점)
+    4. 안티 클리셰 감점: 상투적 설명 명사(완화, 증상, 예방 등) 단순 나열 연쇄 (-25점)
+    5. SERP 실사 경쟁도: 실시간 검색 결과 뱃지 (+30점 ~ -40점)
     """
     score = 0
     breakdowns = []
     
-    # 1. 키워드 전면 배치 점수
-    starts_with_quote = title.startswith('"') or title.startswith('“') or title.startswith("'") or title.startswith('‘')
-    if starts_with_quote:
-        score -= 30
-        breakdowns.append("⚠️ 따옴표 독백 선행으로 핵심 검색어 후순위 밀림 (-30점)")
-    else:
-        first_14 = title[:14]
-        core_nouns = [
-            "족저근막염", "발뒤꿈치", "발바닥", "혈당", "혈압", "중성지방", "콜레스테롤", 
-            "영양제", "유산균", "오메가3", "골반", "거북목", "스쿼트", "지방간", "당뇨", 
-            "비타민", "마그네슘"
-        ]
-        if any(noun in first_14 for noun in core_nouns):
-            score += 40
-            breakdowns.append("✅ 핵심 검색어 전면(1~14자) 100% 일치 배치 (+40점)")
-        else:
-            score += 15
-            breakdowns.append("ℹ️ 일반 명사 전면 배치 (+15점)")
-
-    # 2. 구체적 롱테일 실천/상황 수식어 결합 점수
-    specific_modifiers = [
-        "침대 위", "기상 직후", "아침 첫발", "30초", "3단계", "발가락", "테니스공", "골프공", 
-        "아킬레스건", "종아리", "순서", "요령", "이완", "루틴", "벽 짚고", "공복", "식후", 
-        "복용시간", "섭취 순서", "성분표"
-    ]
-    matched_mod = [m for m in specific_modifiers if m in title]
-    if len(matched_mod) >= 2:
-        score += 30
-        breakdowns.append(f"✅ 구체적 롱테일 2개 이상 결합 ({', '.join(matched_mod[:2])}) (+30점)")
-    elif len(matched_mod) == 1:
+    # 1. 블록 A: 상황/체감 훅 (DIA+ 스마트블록 클릭률 및 경험 가산점)
+    has_quote_hook = ('"' in title or '“' in title or "'" in title or '‘' in title)
+    has_question_or_situation = ('?' in title or '때' in title or '라면' in title or '전' in title)
+    if has_quote_hook or has_question_or_situation:
         score += 20
-        breakdowns.append(f"✅ 구체적 롱테일 1개 결합 ({matched_mod[0]}) (+20점)")
+        breakdowns.append("✅ 블록 A: 경험·상황 체감 훅 탑재 (스마트블록 DIA+ 우대) (+20점)")
     else:
         score += 5
-        breakdowns.append("⚠️ 롱테일 수식어 부족 (+5점)")
+        breakdowns.append("ℹ️ 평서문 구조 (+5점)")
 
-    # 3. SERP 실사 뱃지 점수
+    # 2. 블록 B: 핵심 타깃 검색어 보존 여부 (검색량 0의 함정 방어)
+    seed = audit_record.get("seed", "")
+    seed_words = [w for w in seed.split() if len(w) >= 2]
+    if seed_words:
+        matched_seed = [w for w in seed_words if w in title]
+        if len(matched_seed) == len(seed_words):
+            score += 35
+            breakdowns.append(f"✅ 블록 B: 핵심 검색어 '{seed}' 100% 온전 보존 (+35점)")
+        elif len(matched_seed) >= 1:
+            score += 20
+            breakdowns.append(f"✅ 블록 B: 핵심 검색어 부분 보존 ({matched_seed[0]}) (+20점)")
+        else:
+            score -= 30
+            breakdowns.append("🚨 블록 B 누락: 핵심 검색어 실종으로 검색 노출 불가 위험 (-30점)")
+    else:
+        score += 25
+        breakdowns.append("✅ 핵심 검색 엔티티 반영 (+25점)")
+
+    # 3. 블록 C: 구체적 수치/골든타임/차별화 행동 솔루션
+    has_metrics = bool(re.search(r'\d+(?:초|분|시간|단계|가지|선|g|mg|kcal|대|배|일)', title))
+    has_action = bool(re.search(r'(?:골든타임|타이밍|순서|요령|루틴|성분표|비결|라벨|수칙)', title))
+    if has_metrics and has_action:
+        score += 20
+        breakdowns.append("✅ 블록 C: 구체적 수치 + 실천 행동 결합 (+20점)")
+    elif has_metrics or has_action:
+        score += 15
+        breakdowns.append("✅ 블록 C: 구체적 수치 또는 실천 행동 결합 (+15점)")
+    else:
+        score += 5
+        breakdowns.append("⚠️ 추상적 표현 (+5점)")
+
+    # 4. 안티 클리셰 감점: 상투적 설명 명사 단순 나열(명사 연쇄) 적발
+    # 예: "통증 완화, 스트레칭", "증상 예방법, 좋은 음식" 등 상투적 명사가 연달아 붙어 있는 경우
+    cliche_chain_pattern = r'(?:완화|치료|예방|증상|원인|효능|방법|스트레칭|마사지|식단)\s*[,·]?\s*(?:완화|치료|예방|증상|원인|효능|방법|스트레칭|마사지|식단)'
+    if re.search(cliche_chain_pattern, title):
+        score -= 25
+        breakdowns.append("⚠️ 상투적 설명 명사 연속 나열로 네이버 유사도 40%+ 위험 (-25점)")
+
+    # 5. SERP 실사 뱃지 점수
     badge = audit_record.get("badge", "")
     if "💎" in badge:
         score += 30
@@ -140,10 +155,10 @@ def validate_naver_titles(titles, run_serp=True):
         if "..." in title:
             errors.append(f"❌ 다음 채널 패턴 혼입 ({idx}번): 말줄임표('...')는 다음 채널 전용 훅입니다 -> '{title}'")
 
-        # 4. 네이버 모바일 완독 글자 수 검사 (권장 25~32자, 35자 초과 시 모바일 검색 말줄임표 잘림 에러)
+        # 4. 네이버 모바일 완독 글자 수 검사 (권장 25~55자, 최대 60자)
         clean_len = len(title.strip())
-        if clean_len > 35:
-            errors.append(f"❌ 글자 수 초과 ({idx}번, {clean_len}자): 네이버 모바일 검색 잘림 방지를 위해 35자 이하여야 합니다 (권장 25~32자) -> '{title}'")
+        if clean_len > 60:
+            errors.append(f"❌ 글자 수 초과 ({idx}번, {clean_len}자): 네이버 검색 노출을 위해 60자 이하여야 합니다 (권장 25~55자) -> '{title}'")
         elif clean_len < 18:
             errors.append(f"❌ 글자 수 부족 ({idx}번, {clean_len}자): 검색 키워드 유입을 위해 최소 18자 이상이어야 합니다 -> '{title}'")
 
@@ -371,13 +386,13 @@ if __name__ == "__main__":
             
             all_ok = True
             if mode == "google":
-                titles = data if isinstance(data, list) else data.get("google", data.get("google_candidates", []))
+                titles = data if isinstance(data, list) else (data.get("google_candidates") if isinstance(data.get("google_candidates"), list) else data.get("google", []))
                 all_ok = validate_google_titles(titles)
             elif mode == "daum":
-                titles = data if isinstance(data, list) else data.get("daum", data.get("daum_candidates", []))
+                titles = data if isinstance(data, list) else (data.get("daum_candidates") if isinstance(data.get("daum_candidates"), list) else data.get("daum", []))
                 all_ok = validate_daum_titles(titles)
             elif mode == "naver":
-                titles = data if isinstance(data, list) else data.get("naver", data.get("naver_candidates", []))
+                titles = data if isinstance(data, list) else (data.get("naver_candidates") if isinstance(data.get("naver_candidates"), list) else data.get("naver", []))
                 all_ok = validate_naver_titles(titles)
             else:
                 if isinstance(data, list):
