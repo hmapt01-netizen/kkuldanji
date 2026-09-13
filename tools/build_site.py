@@ -80,6 +80,8 @@ def sanitize_body_faq(body_html):
     pattern = r'<h2[^>]*>(?:(?!<h2)[\s\S])*?(?:자주\s*묻는\s*질문|FAQ)(?:(?!<h2)[\s\S])*?</h2>[\s\S]*$'
     clean = re.sub(pattern, '', body_html, flags=re.I)
     clean = re.sub(r'<li><a\s+href=["\']#(?:faq|sec\d+)["\'][^>]*>[\s\S]*?(?:자주\s*묻는\s*질문|FAQ)[\s\S]*?</li>', '', clean, flags=re.I)
+    # [영구 가디언] data-ke-* 카카오/티스토리 찌꺼기 속성 원천 영구 소각
+    clean = re.sub(r'\s*data-ke-[a-zA-Z0-9_-]+(?:=(?:["\'][^"\']*["\']|[^\s>]+))?', '', clean)
     return clean.strip()
 
 # Build Registry Data
