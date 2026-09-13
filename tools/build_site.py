@@ -545,7 +545,7 @@ for p in posts:
       <link>{post_url}</link>
       <description><![CDATA[{desc}]]></description>
       <category><![CDATA[{cat}]]></category>
-      <author>hmapt01@gmail.com (에디터 혀니)</author>
+      <author>contact@honeyjar.co.kr (에디터 혀니)</author>
       <guid isPermaLink="true">{post_url}</guid>
       <pubDate>{pub_date_rfc}</pubDate>
     </item>""")

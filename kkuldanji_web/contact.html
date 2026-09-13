@@ -446,7 +446,7 @@
 
                         <p><strong>• 수석에디터:</strong> 혀니 (Chief Wellness Columnist)</p>
 
-                        <p><strong>• 공식 이메일:</strong> <code>hmapt01@gmail.com</code></p>
+                        <p><strong>• 공식 이메일:</strong> <code>contact@honeyjar.co.kr</code></p>
 
                         <p><strong>• 편집국 주소:</strong> 대한민국 서울시 도봉구 해등로 231</p>
 
@@ -594,7 +594,7 @@
 
                     <p class="footer-meta-desktop" style="font-size:0.83rem; color:#64748b; line-height:1.6; margin-bottom:5px;">
 
-                        제호: 혀니의 꿀단지 | 발행인: 임진현 | 수석에디터: 혀니 | 이메일: hmapt01@gmail.com | 주소: 대한민국 서울시 도봉구 해등로 231
+                        제호: 혀니의 꿀단지 | 발행인: 임진현 | 수석에디터: 혀니 | 이메일: contact@honeyjar.co.kr | 주소: 대한민국 서울시 도봉구 해등로 231
 
                     </p>
 
@@ -602,7 +602,7 @@
 
                         <p>제호: 혀니의 꿀단지 | 발행인: 임진현 | 수석에디터: 혀니</p>
 
-                        <p>이메일: hmapt01@gmail.com | 주소: 대한민국 서울시 도봉구 해등로 231</p>
+                        <p>이메일: contact@honeyjar.co.kr | 주소: 대한민국 서울시 도봉구 해등로 231</p>
 
                     </div>
 
@@ -734,7 +734,7 @@
 
         try {
 
-            const response = await fetch('https://formsubmit.co/ajax/hmapt01@gmail.com', {
+            const response = await fetch('https://formsubmit.co/ajax/contact@honeyjar.co.kr', {
 
                 method: 'POST',
 
@@ -780,7 +780,7 @@
 
             alertBox.style.display = 'block';
 
-            alertBox.innerHTML = '✓ 소중한 문의 메시지가 꿀단지 편집국(hmapt01@gmail.com)에 성공적으로 발송되었습니다. 신속히 검토 후 회신드리겠습니다.';
+            alertBox.innerHTML = '✓ 소중한 문의 메시지가 꿀단지 편집국(contact@honeyjar.co.kr)에 성공적으로 발송되었습니다. 신속히 검토 후 회신드리겠습니다.';
 
             window.scrollTo({ top: 200, behavior: 'smooth' });
 
@@ -788,7 +788,7 @@
 
             console.error('Mail sending error:', err);
 
-            const mailtoUrl = 'mailto:hmapt01@gmail.com?subject=' + encodeURIComponent('[꿀단지 문의] ' + typeText + ' - ' + name) + '&body=' + encodeURIComponent('성함: ' + name + '\n회신 이메일: ' + email + '\n\n문의 내용:\n' + message);
+            const mailtoUrl = 'mailto:contact@honeyjar.co.kr?subject=' + encodeURIComponent('[꿀단지 문의] ' + typeText + ' - ' + name) + '&body=' + encodeURIComponent('성함: ' + name + '\n회신 이메일: ' + email + '\n\n문의 내용:\n' + message);
 
             window.location.href = mailtoUrl;
 
