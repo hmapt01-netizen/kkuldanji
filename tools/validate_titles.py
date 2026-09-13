@@ -95,7 +95,7 @@ def calculate_low_authority_score(title, audit_record):
         breakdowns.append("⚠️ 추상적 표현 (+5점)")
 
     # 4. 안티 클리셰 감점: 상투적 설명 명사 단순 나열(명사 연쇄) 적발
-    # 예: "통증 완화, 스트레칭", "증상 예방법, 좋은 음식" 등 상투적 명사가 연달아 붙어 있는 경우
+    # 상투적 설명 명사가 연속으로 붙어 형태소 유사도가 급증하는 패턴 적발
     cliche_chain_pattern = r'(?:완화|치료|예방|증상|원인|효능|방법|스트레칭|마사지|식단)\s*[,·]?\s*(?:완화|치료|예방|증상|원인|효능|방법|스트레칭|마사지|식단)'
     if re.search(cliche_chain_pattern, title):
         score -= 25
