@@ -1,8 +1,8 @@
-﻿/**
+/**
  * 🍯 꿀단지 공식 실시간 글로벌 클라우드 독자 댓글 시스템 (Cloudflare KV Native Engine)
  * - Cloudflare Pages Serverless & Workers KV 100% 네이티브 연동
  * - 0.001초 광속 렌더링 (로컬 캐시 즉시 표시 + 클라우드 백그라운드 동기화)
- * - 닉네임 / 비밀번호 / 작성일시 / 자동 이니셜 아바타 / 본인 및 관리자(8809) 삭제 지원
+ * - 닉네임 / 비밀번호 / 작성일시 / 자동 이니셜 아바타 / 본인 및 관리자 삭제 지원
  */
 
 const API_ENDPOINT = "/api/comments";
@@ -199,7 +199,7 @@ async function handleCommentSubmit(e) {
 
 // 6. 댓글 삭제 핸들러 (비밀번호 확인 후 Cloudflare KV 및 캐시에서 삭제)
 async function handleDeleteComment(id) {
-    const inputPw = prompt("댓글 작성 시 입력한 비밀번호를 입력해 주세요 (관리자는 8809):");
+    const inputPw = prompt("댓글 작성 시 입력한 비밀번호를 입력해 주세요:");
     if (!inputPw) return;
 
     const slug = getPostSlug();
