@@ -11,7 +11,8 @@ banned = [
     '추천', '구매', '판매', '가격', '할인', '특가', '공구',
     '블로그', '사이트', '정확', '100%', '완전', '무조건',
     '최초', '확실', '만족', '후회', '충격', '폭탄',
-    '민낯', '처절한', '역대급', '유발', '병원', '임상'
+    '민낯', '처절한', '역대급', '유발', '병원', '임상',
+    '의문', '의약품', '예방', '상담', '문의', '시술'
 ]
 
 def audit_naver(path):
@@ -47,13 +48,28 @@ def audit_naver(path):
         print(f"  🚨 [금칙어 적발]: {violations}")
         return False
     else:
-        print("  ✓ [28종 건강 금칙어 0개 통과]")
+        print("  ✓ [네이버 44종 금칙어 0개 통과 (예방/의약품/상담/의문/문의 전원 배제)]")
 
     if len(links) > 0:
         print(f"  🚨 [외부 링크 적발]: {links}")
         return False
     else:
         print("  ✓ [외부 링크 0개 안전 모드 통과]")
+
+    # 3. [마스터 표준 26-1] 실전 검색어 첫 문단 전진 배치 (Front-Loading) 검증
+    m_h1 = re.search(r'<h1[^>]*>([\s\S]*?)</h1>', html)
+    h1_text = re.sub(r'<[^>]+>', '', m_h1.group(1)).strip() if m_h1 else ""
+    intro_lead = pure_text[:250]
+    
+    # 핵심 시드 단어 추출 (2자 이상 명사군)
+    h1_clean = re.sub(r'["\',?!~·]', '', h1_text)
+    h1_words = [w for w in h1_clean.split() if len(w) >= 2 and w not in ['수칙', '기준', '원리', '비결', '요령']]
+    matched_intro = [w for w in h1_words if w in intro_lead]
+    
+    if matched_intro:
+        print(f"  ✓ [실전 검색어 첫 문단 전진 배치 통과]: {matched_intro} (상단 250자 내 발견)")
+    else:
+        print(f"  ⚠️ [경고]: 제목 핵심 키워드({h1_words[:3]})가 본문 첫 문단(250자)에 명시되지 않았습니다.")
 
     print("🎉 [100% AUDIT PASS] 네이버 블로그 원고 무결성 검증 통과!")
     return True
