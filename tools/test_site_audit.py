@@ -31,12 +31,21 @@ class AuditTests(unittest.TestCase):
         (self.root / 'posts').mkdir()
         (self.root / 'posts/한글.html').write_text(
             '<link rel="icon" href="../favicon.ico"><main id="section"></main>', encoding='utf-8')
-        registry = [{'slug': '한글.html', 'thumb': 'favicon.ico'}]
+        registry = [{'slug': '한글.html', 'thumb': 'favicon.ico', 'title': '검증 글',
+                     'date': '2026.09.14'}]
         (self.root / 'js/features.js').write_text(
             'window.HONEYJAR_POSTS_REGISTRY = window.HONEYJAR_POSTS_REGISTRY || '
             + json.dumps(registry) + ';', encoding='utf-8')
         (self.root.parent / 'data').mkdir()
         (self.root.parent / 'data/posts_db.json').write_text(json.dumps(registry), encoding='utf-8')
+        for name in ('feed.xml', 'rss.xml'):
+            (self.root / name).write_text(f'''<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+              <channel><lastBuildDate>Mon, 14 Sep 2026 09:00:00 +0900</lastBuildDate>
+              <atom:link href="https://honeyjar.co.kr/{name}" rel="self"/>
+              <item><title>검증 글</title><description>검증 글</description>
+              <category>라이프 웰니스</category><link>https://honeyjar.co.kr/posts/한글.html</link>
+              <guid>https://honeyjar.co.kr/posts/한글.html</guid>
+              <pubDate>Mon, 14 Sep 2026 09:00:00 +0900</pubDate></item></channel></rss>''', encoding='utf-8')
 
     def append(self, value):
         with (self.root / 'index.html').open('a', encoding='utf-8') as f:

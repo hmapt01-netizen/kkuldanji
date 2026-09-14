@@ -8,6 +8,8 @@ from pathlib import Path
 import sys
 from urllib.parse import unquote, urlsplit
 import urllib.request
+import xml.etree.ElementTree as ET
+from email.utils import parsedate_to_datetime
 
 WEB_ROOT = Path(__file__).resolve().parents[1] / "kkuldanji_web"
 LIVE_URL = "https://honeyjar.co.kr"
@@ -15,7 +17,7 @@ STRUCTURE = {"div", "section", "article", "main", "aside"}
 REQUIRED = (
     "index.html", "404.html", "about.html", "terms.html", "privacy.html",
     "contact.html", "calculator.html", "admin.html", "youth-protection.html",
-    "copyright.html", "email-rejection.html", "feed.xml", "sitemap.xml", "robots.txt",
+    "copyright.html", "email-rejection.html", "feed.xml", "rss.xml", "sitemap.xml", "robots.txt",
     "js/features.js", "js/comments.js", "js/admin-comments.js",
     "favicon.ico", "favicon-192x192.png", "favicon-32x32.png",
     "favicon.svg", "apple-touch-icon.png",
@@ -92,6 +94,41 @@ def resolve_reference(root, page, value):
     if not target.is_relative_to(root.resolve()):
         raise ValueError("사이트 폴더 밖으로 향하는 경로")
     return target, unquote(parts.fragment)
+
+
+def audit_feeds(root, posts):
+    """Reject missing, stale or malformed feeds before deployment, against the DB."""
+    errors = []
+    for name in ('feed.xml', 'rss.xml'):
+        try:
+            document = ET.parse(Path(root) / name).getroot()
+            if document.tag != 'rss' or document.get('version') != '2.0':
+                raise ValueError('RSS 2.0 형식 아님')
+            channel = document.find('channel')
+            if channel is None:
+                raise ValueError('channel 누락')
+            items = channel.findall('item')
+            expected_urls = [LIVE_URL + '/posts/' + p['slug'] for p in posts]
+            if [i.findtext('link') for i in items] != expected_urls:
+                raise ValueError('DB와 글 목록/순서 불일치 (최신 글 누락 또는 중복)')
+            self_link = channel.find('{http://www.w3.org/2005/Atom}link')
+            if self_link is None or self_link.get('href') != LIVE_URL + '/' + name:
+                raise ValueError('피드 자체 주소 불일치')
+            for item, post, url in zip(items, posts, expected_urls):
+                for tag, expected in [('title', post['title']),
+                                      ('description', post.get('desc', post.get('summary', post['title']))),
+                                      ('category', post.get('category', '라이프 웰니스')),
+                                      ('guid', url)]:
+                    if item.findtext(tag) != expected:
+                        raise ValueError(post['slug'] + ': ' + tag + ' 최신 DB와 불일치')
+                date = parsedate_to_datetime(item.findtext('pubDate', ''))
+                parts = [int(n) for n in re.findall(r'\d+', post['date'])[:3]]
+                if date.tzinfo is None or [date.year, date.month, date.day] != parts:
+                    raise ValueError(post['slug'] + ': 발행일 불일치')
+            parsedate_to_datetime(channel.findtext('lastBuildDate', ''))
+        except (OSError, ET.ParseError, ValueError, TypeError, KeyError) as exc:
+            errors.append(('rss', name, str(exc)))
+    return errors
 
 
 def audit_local(root=WEB_ROOT):
@@ -191,6 +228,12 @@ def audit_local(root=WEB_ROOT):
             stats['registry_posts'] = len(registry)
         except (ValueError, KeyError, TypeError, OSError) as exc:
             fail('required', 'js/features.js', '레지스트리 검사 실패: ' + str(exc))
+    try:
+        posts = json.loads((root.parent / 'data/posts_db.json').read_text(encoding='utf-8-sig'))
+        errors.extend(audit_feeds(root, posts))
+        stats['feed_posts'] = len(posts)
+    except (OSError, ValueError) as exc:
+        fail('rss', 'data/posts_db.json', str(exc))
     return errors, stats
 
 
@@ -198,7 +241,7 @@ def audit_live(root=WEB_ROOT):
     # Explicit opt-in, GET only, one request per page. No comments API/KV calls.
     paths = ["/", "/about.html", "/terms.html", "/privacy.html",
              "/youth-protection.html", "/copyright.html", "/email-rejection.html",
-             "/contact.html", "/calculator.html", "/admin.html", "/feed.xml", "/sitemap.xml"]
+             "/contact.html", "/calculator.html", "/admin.html", "/feed.xml", "/rss.xml", "/sitemap.xml"]
     paths += ["/" + p.relative_to(root).as_posix()
               for p in html_files(root) if p.parent == root / "posts"]
     errors = []
@@ -209,6 +252,11 @@ def audit_live(root=WEB_ROOT):
             with urllib.request.urlopen(req, timeout=10) as response:
                 if response.status != 200:
                     errors.append(("live", path, "HTTP " + str(response.status)))
+                elif path in ('/feed.xml', '/rss.xml'):
+                    live_xml = ET.fromstring(response.read())
+                    local_xml = ET.parse(Path(root) / path.lstrip('/')).getroot()
+                    if ET.tostring(live_xml) != ET.tostring(local_xml):
+                        errors.append(('live', path, '실서버 RSS가 현재 빌드 결과와 불일치'))
         except Exception as exc:
             errors.append(("live", path, str(exc)))
     return errors, len(paths)
@@ -231,10 +279,11 @@ def main(argv=None):
     print("[꿀단지 로컬 검수]")
     print(f"HTML {stats['pages']}개 / 내부 링크 {stats['links']}개 / 에셋 {stats['assets']}개")
     counts = Counter(kind for kind, _, _ in errors)
-    for kind in ("required", "link", "asset", "html", "favicon", "encoding", "pagination"):
+    for kind in ("required", "link", "asset", "html", "favicon", "encoding", "pagination", "rss"):
         print(f"  {kind}: {counts[kind]}건")
     print(f"정상 선두 BOM: {stats['single_bom']}개 (원본 유지)")
     print(f"레지스트리: {stats['registry_posts']}개 글 / features.js {stats['features_bytes']}바이트")
+    print(f"RSS: feed.xml · rss.xml 각각 DB {stats['feed_posts']}개 글과 대조")
     if stats['features_bytes'] < 50000:
         print('[참고] 기존 문서의 50KB 기준 미달. 실제 DB·레지스트리·대상 파일 대조 결과를 별도 판정합니다.')
     if args.live and not errors:

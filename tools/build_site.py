@@ -584,19 +584,22 @@ feed_xml_content = f"""<?xml version="1.0" encoding="UTF-8"?>
 </rss>
 """
 
-feed_path = os.path.join(web_root, "feed.xml")
-needs_feed_write = True
-if os.path.exists(feed_path) and not force_full_build:
-    try:
-        with open(feed_path, "r", encoding="utf-8") as f_ex:
-            if f_ex.read() == feed_xml_content:
-                needs_feed_write = False
-    except Exception:
+# 예전 rss.xml 구독자도 같은 최신 DB를 받는다. feed.xml이 변경되지
+# 않은 증분 빌드에서도 두 파일을 각각 검사해 누락/오래된 피드를 복구한다.
+needs_feed_write = False
+for feed_name in ("feed.xml", "rss.xml"):
+    feed_path = os.path.join(web_root, feed_name)
+    content = feed_xml_content.replace(
+        'href="https://honeyjar.co.kr/feed.xml" rel="self"',
+        f'href="https://honeyjar.co.kr/{feed_name}" rel="self"')
+    existing = None
+    if os.path.exists(feed_path) and not force_full_build:
+        with open(feed_path, "r", encoding="utf-8-sig") as f_ex:
+            existing = f_ex.read()
+    if existing != content:
+        with open(feed_path, "w", encoding="utf-8") as f:
+            f.write(content)
         needs_feed_write = True
-
-if needs_feed_write:
-    with open(feed_path, "w", encoding="utf-8") as f:
-        f.write(feed_xml_content)
 
 # 2) sitemap.xml 생성 (동일 시 스킵)
 sitemap_xml_content = f"""<?xml version="1.0" encoding="UTF-8"?>
@@ -620,9 +623,9 @@ if needs_sitemap_write:
         f.write(sitemap_xml_content)
 
 if needs_feed_write or needs_sitemap_write or force_full_build:
-    print(f"  ✓ 6. feed.xml (RSS 2.0) 및 sitemap.xml {len(posts)}개 포스트 갱신 완료!")
+    print(f"  ✓ 6. feed.xml · rss.xml (RSS 2.0) 및 sitemap.xml {len(posts)}개 포스트 갱신 완료!")
 else:
-    print(f"  ✓ 6. feed.xml 및 sitemap.xml 최신 상태 유지 (스킵)!")
+    print(f"  ✓ 6. feed.xml · rss.xml 및 sitemap.xml 최신 상태 유지 (스킵)!")
 
 import subprocess
 audit_script = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'audit_site.py')
