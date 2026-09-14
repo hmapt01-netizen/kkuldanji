@@ -7,10 +7,31 @@
 
 const API_ENDPOINT = "/api/comments";
 
+const COMMENT_PASSWORD_VERSION = 'pbkdf2-sha256-client-v2';
+function commentHex(bytes) {
+    return Array.from(new Uint8Array(bytes), b => b.toString(16).padStart(2, '0')).join('');
+}
+function commentCrypto() {
+    if (!globalThis.crypto?.subtle) throw new Error('안전한 HTTPS 주소에서 최신 브라우저로 접속해 주세요.');
+    return globalThis.crypto;
+}
+function newCommentSalt() {
+    return commentHex(commentCrypto().getRandomValues(new Uint8Array(16)));
+}
+async function deriveCommentProof(password, salt) {
+    if (password.length < 8 || password.length > 128) throw new Error('비밀번호는 8~128자로 입력해 주세요.');
+    if (typeof salt !== 'string' || !/^[0-9a-f]{32}$/.test(salt)) throw new Error('댓글 보안 정보를 확인할 수 없습니다.');
+    const subtle = commentCrypto().subtle;
+    const key = await subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveBits']);
+    const bytes = Uint8Array.from(salt.match(/../g), h => parseInt(h, 16));
+    return commentHex(await subtle.deriveBits({ name: 'PBKDF2', hash: 'SHA-256', salt: bytes, iterations: 600000 }, key, 256));
+}
+
 function getPostSlug() {
     const path = window.location.pathname;
     const parts = path.split('/');
     let s = parts[parts.length - 1] || "index.html";
+    try { s = decodeURIComponent(s); } catch {}
     if (!s.endsWith(".html")) s += ".html";
     return s;
 }
@@ -20,34 +41,52 @@ function getPostTitle() {
     return h1 ? h1.innerText.trim() : document.title.replace(' | 꿀단지', '').trim();
 }
 
-// 1. 로컬 캐시에서 즉시 불러오기 (0.001초 체감)
-function getCachedComments(slug) {
-    try {
-        const saved = localStorage.getItem("honeyjar_comments_" + slug);
-        return saved ? JSON.parse(saved) : [];
-    } catch(e) {
-        return [];
-    }
+// Store display fields only, including when reading caches made by older versions.
+function publicComments(value) {
+    if (!Array.isArray(value)) return [];
+    const keys = ['id', 'timestamp', 'author', 'content', 'date', 'slug', 'postTitle'];
+    return value.filter(c => c && typeof c === 'object' && typeof c.id === 'string').map(c =>
+        Object.fromEntries(keys.filter(key => Object.hasOwn(c, key)).map(key => [key, c[key]])));
 }
 
-// 2. Cloudflare KV 클라우드 서버에서 전 세계 최신 댓글 실시간 동기화
-async function fetchCloudComments(slug) {
+function cacheComments(slug, comments) {
+    const clean = publicComments(comments);
+    try { localStorage.setItem('honeyjar_comments_' + slug, JSON.stringify(clean)); } catch {}
+    return clean;
+}
+
+function cleanOldCommentCaches() {
     try {
-        const response = await fetch(`${API_ENDPOINT}?slug=${encodeURIComponent(slug)}&_t=${Date.now()}`, { cache: 'no-cache' });
-        if (response.ok) {
-            const list = await response.json();
-            if (Array.isArray(list)) {
-                list.sort((a, b) => (b.timestamp || b.id || 0) - (a.timestamp || a.id || 0));
-                try {
-                    localStorage.setItem("honeyjar_comments_" + slug, JSON.stringify(list));
-                } catch(e) {}
-                return list;
+        const keys = [];
+        for (let i = 0; i < localStorage.length; i++) keys.push(localStorage.key(i));
+        for (const key of keys) {
+            if (key === 'honeyjar_all_comments' || key?.startsWith('honeyjar_comments_')) {
+                try { localStorage.setItem(key, JSON.stringify(publicComments(JSON.parse(localStorage.getItem(key))))); }
+                catch { localStorage.removeItem(key); }
             }
         }
-    } catch(e) {
-        console.warn("Cloudflare KV 댓글 동기화 대기 중 (캐시 데이터 사용):", e);
-    }
-    return getCachedComments(slug);
+    } catch {}
+}
+
+function getCachedComments(slug) {
+    try { return cacheComments(slug, JSON.parse(localStorage.getItem('honeyjar_comments_' + slug) || '[]')); }
+    catch { return []; }
+}
+
+async function commentsRequest(url, options = {}) {
+    const response = await fetch(url, { cache: 'no-store', ...options });
+    const data = await response.json();
+    if (!response.ok) throw new Error(data?.error || '댓글 요청에 실패했습니다.');
+    return data;
+}
+
+async function fetchCloudComments(slug) {
+    try {
+        const list = await commentsRequest(`${API_ENDPOINT}?slug=${encodeURIComponent(slug)}`);
+        if (!Array.isArray(list)) throw new Error('Invalid comments response');
+        list.sort((a, b) => (b.timestamp || Number(b.id) || 0) - (a.timestamp || Number(a.id) || 0));
+        return cacheComments(slug, list);
+    } catch { return getCachedComments(slug); }
 }
 
 // 3. 댓글 화면 렌더링 함수
@@ -69,7 +108,7 @@ function renderCommentsList(comments) {
 
     let html = '';
     comments.forEach(c => {
-        const authorName = c.author || '방문자';
+        const authorName = String(c.author || '방문자');
         const initial = authorName.charAt(0).toUpperCase();
         const commentContent = escapeHtml(c.content || '').replace(/\n/g, '<br>');
         const commentDate = c.date || '최근';
@@ -84,7 +123,7 @@ function renderCommentsList(comments) {
                             <span style="font-size:0.75rem; color:#94a3b8; margin-left:6px;">${escapeHtml(commentDate)}</span>
                         </div>
                     </div>
-                    <button type="button" onclick="handleDeleteComment('${c.id}')" style="background:transparent !important; border:none !important; outline:none !important; box-shadow:none !important; color:#94a3b8 !important; font-size:0.78rem !important; cursor:pointer !important; padding:4px 6px !important; text-decoration:underline !important; text-underline-offset:2px !important; transition:color 0.15s ease;">삭제</button>
+                    <button type="button" data-comment-id="${escapeHtml(c.id)}" style="background:transparent !important; border:none !important; outline:none !important; box-shadow:none !important; color:#94a3b8 !important; font-size:0.78rem !important; cursor:pointer !important; padding:4px 6px !important; text-decoration:underline !important; text-underline-offset:2px !important; transition:color 0.15s ease;">삭제</button>
                 </div>
                 <div style="font-size:0.90rem; color:#334155; line-height:1.65; word-break:break-word; padding-left:42px;">
                     ${commentContent}
@@ -94,10 +133,21 @@ function renderCommentsList(comments) {
     });
 
     listContainer.innerHTML = html;
+    listContainer.onclick = event => {
+        const button = event.target.closest('button[data-comment-id]');
+        if (button && listContainer.contains(button)) handleDeleteComment(button.dataset.commentId);
+    };
 }
 
 // 4. 초기 실행 (로컬 캐시 즉시 렌더링 ➔ Cloudflare KV 실시간 동기화)
 async function initCommentSection() {
+    cleanOldCommentCaches();
+    const passwordInput = document.getElementById('commentPassword') || document.getElementById('commentPwInput');
+    if (passwordInput) {
+        passwordInput.minLength = 8;
+        passwordInput.maxLength = 128;
+        passwordInput.placeholder = '비밀번호 (8자 이상)';
+    }
     const slug = getPostSlug();
     
     // 1단계: 캐시 데이터로 즉시 표시 (화면 깜빡임 제로)
@@ -121,6 +171,7 @@ async function handleCommentSubmit(e) {
     const submitBtn = e ? e.target.querySelector('button[type="submit"]') : null;
 
     if (!authorInput || !pwInput || !contentInput) return;
+    if (submitBtn?.disabled) return;
 
     const author = authorInput.value.trim();
     const pw = pwInput.value.trim();
@@ -138,104 +189,49 @@ async function handleCommentSubmit(e) {
 
     const slug = getPostSlug();
     const postTitle = getPostTitle();
-    const now = new Date();
-    const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}`;
-    const timestamp = Date.now();
-
-    const newComment = {
-        id: timestamp.toString(),
-        timestamp: timestamp,
-        author: author,
-        pw: pw,
-        content: content,
-        date: dateStr,
-        slug: slug,
-        postTitle: postTitle
-    };
-
-    // 1) Cloudflare KV 서버에 실시간 영구 전송 (/api/comments)
     try {
-        const res = await fetch(API_ENDPOINT, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newComment)
+        if (pw.length < 8 || pw.length > 128) throw new Error('비밀번호는 8~128자로 입력해 주세요.');
+        const passwordSalt = newCommentSalt();
+        const passwordProof = await deriveCommentProof(pw, passwordSalt);
+        const saved = await commentsRequest(API_ENDPOINT, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ author, passwordProof, passwordSalt, content, slug, postTitle })
         });
-
-        if (res.ok) {
-            const savedData = await res.json();
-            if (savedData && savedData.id) {
-                newComment.id = savedData.id;
-            }
-        }
-    } catch(err) {
-        console.warn("Cloudflare KV 전송 실패 (로컬 우선 저장):", err);
+        const clean = publicComments([saved]);
+        if (!clean.length) throw new Error('댓글 저장 결과를 확인하지 못했습니다. 새로고침 후 확인해 주세요.');
+        const list = cacheComments(slug, [...clean, ...getCachedComments(slug).filter(c => c.id !== saved.id)]);
+        renderCommentsList(list);
+        authorInput.value = '';
+        pwInput.value = '';
+        contentInput.value = '';
+        alert('댓글이 성공적으로 등록되었습니다! 💬');
+    } catch (error) {
+        alert(error.message || '댓글을 등록하지 못했습니다. 잠시 후 다시 시도해 주세요.');
+    } finally {
+        if (submitBtn) { submitBtn.disabled = false; submitBtn.innerText = '등록하기'; }
     }
-
-    // 2) 로컬 캐시 즉시 업데이트
-    const currentList = getCachedComments(slug);
-    currentList.unshift(newComment);
-    try {
-        localStorage.setItem("honeyjar_comments_" + slug, JSON.stringify(currentList));
-    } catch(e) {}
-
-    // 3) 화면 즉시 렌더링
-    renderCommentsList(currentList);
-
-    // 4) 입력 폼 초기화
-    authorInput.value = '';
-    pwInput.value = '';
-    contentInput.value = '';
-
-    if (submitBtn) {
-        submitBtn.disabled = false;
-        submitBtn.innerText = "등록하기";
-    }
-
-    // 5) 백그라운드 재동기화
-    fetchCloudComments(slug).then(renderCommentsList);
-
-    alert("댓글이 성공적으로 등록되었습니다! 💬");
 }
 
-// 6. 댓글 삭제 핸들러 (비밀번호 확인 후 Cloudflare KV 및 캐시에서 삭제)
+// Password verification and authorization are exclusively performed by the server.
 async function handleDeleteComment(id) {
-    const inputPw = prompt("댓글 작성 시 입력한 비밀번호를 입력해 주세요:");
-    if (!inputPw) return;
-
+    const pw = prompt('댓글 작성 시 입력한 비밀번호를 입력해 주세요:');
+    if (!pw) return;
     const slug = getPostSlug();
-    const comments = await fetchCloudComments(slug);
-    const target = comments.find(c => String(c.id) === String(id));
-
-    if (!target) {
-        alert("해당 댓글을 찾을 수 없습니다.");
-        return;
-    }
-
-    if (target.pw !== inputPw && inputPw !== "8809" && inputPw !== "admin") {
-        alert("비밀번호가 일치하지 않습니다.");
-        return;
-    }
-
-    // 1) Cloudflare KV 서버에서 영구 삭제
     try {
-        await fetch(API_ENDPOINT, {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ slug: slug, id: id, pw: inputPw })
+        const challenge = await commentsRequest(`${API_ENDPOINT}?slug=${encodeURIComponent(slug)}&challenge=1&id=${encodeURIComponent(String(id))}`);
+        if (challenge?.version !== COMMENT_PASSWORD_VERSION) throw new Error('이전 방식으로 작성된 댓글은 관리자에게 삭제를 요청해 주세요.');
+        const passwordProof = await deriveCommentProof(pw.trim(), challenge.salt);
+        const result = await commentsRequest(API_ENDPOINT, {
+            method: 'DELETE', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ slug, id: String(id), passwordProof })
         });
-    } catch(err) {
-        console.warn("Cloudflare KV 삭제 통신 실패:", err);
+        if (result?.success !== true) throw new Error('댓글 삭제 결과를 확인하지 못했습니다.');
+        const updated = cacheComments(slug, getCachedComments(slug).filter(c => String(c.id) !== String(id)));
+        renderCommentsList(updated);
+        alert('댓글이 정상적으로 삭제되었습니다. 🗑️');
+    } catch (error) {
+        alert(error.message || '댓글을 삭제하지 못했습니다. 잠시 후 다시 시도해 주세요.');
     }
-
-    // 2) 로컬 캐시에서도 삭제
-    const updated = comments.filter(c => String(c.id) !== String(id));
-    try {
-        localStorage.setItem("honeyjar_comments_" + slug, JSON.stringify(updated));
-    } catch(e) {}
-
-    // 3) 화면 렌더링
-    renderCommentsList(updated);
-    alert("댓글이 정상적으로 삭제되었습니다. 🗑️");
 }
 
 function escapeHtml(str) {

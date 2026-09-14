@@ -1,130 +1,167 @@
-﻿/**
- * 🍯 꿀단지 공식 Cloudflare Workers KV 실시간 댓글 서버리스 API (/api/comments)
- * - Cloudflare Pages Functions & KV Database 100% 네이티브 연동
- * - 전 세계 어디서나 0.001초 광속 실시간 동기화
- */
-
-export async function onRequest(context) {
-    const { request, env } = context;
-    const url = new URL(request.url);
-    const method = request.method;
-
-    const corsHeaders = {
-        "Content-Type": "application/json; charset=utf-8",
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "Content-Type"
-    };
-
-    if (method === "OPTIONS") {
-        return new Response(null, { headers: corsHeaders });
+﻿// Both Pages deployment entry points must contain the same implementation.
+const VERSION = 'pbkdf2-sha256-client-v2';
+const encoder = new TextEncoder();
+const PUBLIC_FIELDS = ['id', 'timestamp', 'author', 'content', 'date', 'slug', 'postTitle'];
+class HttpError extends Error {
+    constructor(status, message) { super(message); this.status = status; }
+}
+function publicComment(c) {
+    return Object.fromEntries(PUBLIC_FIELDS.filter(k => Object.hasOwn(c, k)).map(k => [k, c[k]]));
+}
+function hex(buffer) {
+    return Array.from(new Uint8Array(buffer), b => b.toString(16).padStart(2, '0')).join('');
+}
+function equal(a, b) {
+    if (typeof a !== 'string' || typeof b !== 'string' || a.length !== b.length) return false;
+    let diff = 0;
+    for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+    return diff === 0;
+}
+// Password work is performed with browser Web Crypto (600,000 PBKDF2 rounds).
+// The proof is a password-equivalent: accept it only over HTTPS, never return/log it.
+// Store a separate digest so a leaked KV verifier cannot be replayed as the proof.
+async function proofHash(proof, salt) {
+    return hex(await crypto.subtle.digest('SHA-256', encoder.encode(VERSION + ':' + salt + ':' + proof)));
+}
+function hexField(value, length) {
+    if (typeof value !== 'string' || !new RegExp('^[0-9a-f]{' + length + '}$').test(value)) {
+        throw new HttpError(400, '보안 정보를 확인할 수 없습니다. 페이지를 새로고침해 주세요.');
     }
-
-    // KV 네임스페이스 바인딩 확인
-    const kv = env.HONEYJAR_COMMENTS_KV || env.COMMENTS_KV;
-
+    return value;
+}
+async function isAdmin(request, env) {
+    const auth = request.headers.get('Authorization');
+    if (!auth) return false;
+    const expected = env.COMMENTS_ADMIN_PASSWORD;
+    if (typeof expected !== 'string' || expected.trim().length < 9 || expected.length > 128) {
+        throw new HttpError(503, '관리자 비밀번호 설정이 필요합니다.');
+    }
+    if (!auth.startsWith('Bearer ') || auth.length > 2048) return false;
+    let supplied;
+    try { supplied = decodeURIComponent(auth.slice(7)); } catch { return false; }
+    const a = hex(await crypto.subtle.digest('SHA-256', encoder.encode(supplied)));
+    const b = hex(await crypto.subtle.digest('SHA-256', encoder.encode(expected.trim())));
+    return equal(a, b);
+}
+// Best-effort, per-isolate burst guard; it is not a distributed rate limiter.
+const bursts = new Map();
+function checkBurst(request) {
+    const now = Date.now();
+    const key = request.headers.get('CF-Connecting-IP') || 'unknown';
+    const old = bursts.get(key);
+    const entry = old && old.until > now ? old : { count: 0, until: now + 60000 };
+    if (++entry.count > 20) throw new HttpError(429, '요청이 많습니다. 1분 뒤 다시 시도해 주세요.');
+    if (!old && bursts.size >= 4096) bursts.delete(bursts.keys().next().value);
+    bursts.set(key, entry);
+}
+function field(value, name, max, min = 1) {
+    if (typeof value !== 'string' || value.trim().length < min || value.trim().length > max) {
+        throw new HttpError(400, `${name} 입력을 확인해 주세요 (${min}~${max}자).`);
+    }
+    return value.trim();
+}
+function postSlug(value) {
+    const slug = field(value, '게시글', 200);
+    if (!/^[\p{L}\p{N}_-]+(?:\.html)?$/u.test(slug)) throw new HttpError(400, '게시글 주소를 확인해 주세요.');
+    return slug;
+}
+async function readBody(request) {
+    if (!/^application\/json(?:\s*;|$)/i.test(request.headers.get('Content-Type') || '')) throw new HttpError(415, 'JSON 요청이 필요합니다.');
+    const reader = request.body?.getReader();
+    if (!reader) throw new HttpError(400, '입력 내용이 없습니다.');
+    const chunks = [];
+    let size = 0;
+    while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        size += value.byteLength;
+        if (size > 32768) { await reader.cancel(); throw new HttpError(413, '입력 내용이 너무 깁니다.'); }
+        chunks.push(value);
+    }
+    const bytes = new Uint8Array(size);
+    let offset = 0;
+    for (const chunk of chunks) { bytes.set(chunk, offset); offset += chunk.byteLength; }
     try {
-        // 1. [GET] 댓글 목록 조회
-        if (method === "GET") {
-            const slug = url.searchParams.get("slug");
-
-            if (!kv) {
-                // KV 바인딩 전 임시 안내
-                return new Response(JSON.stringify([]), { headers: corsHeaders });
-            }
-
-            if (slug) {
-                // 특정 포스트의 댓글 목록
-                const raw = await kv.get("post_" + slug);
-                const comments = raw ? JSON.parse(raw) : [];
-                return new Response(JSON.stringify(comments), { headers: corsHeaders });
-            } else {
-                // 관리자용: 전체 댓글 목록 조회
-                const listRes = await kv.list({ prefix: "post_" });
-                let allComments = [];
-                for (const key of listRes.keys) {
-                    const raw = await kv.get(key.name);
-                    if (raw) {
-                        const arr = JSON.parse(raw);
-                        allComments = allComments.concat(arr);
-                    }
+        const body = JSON.parse(new TextDecoder().decode(bytes));
+        if (!body || typeof body !== 'object' || Array.isArray(body)) throw new Error();
+        return body;
+    } catch { throw new HttpError(400, '입력 형식이 올바르지 않습니다.'); }
+}
+async function readComments(kv, key) {
+    const raw = await kv.get(key);
+    const comments = raw ? JSON.parse(raw) : [];
+    if (!Array.isArray(comments)) throw new Error('Invalid stored comments');
+    return comments;
+}
+export async function onRequest({ request, env }) {
+    const url = new URL(request.url);
+    const headers = { 'Content-Type': 'application/json; charset=utf-8', 'Cache-Control': 'no-store', 'X-Content-Type-Options': 'nosniff' };
+    const respond = (value, status = 200) => new Response(JSON.stringify(value), { status, headers });
+    try {
+        const origin = request.headers.get('Origin');
+        if (origin && origin !== url.origin) throw new HttpError(403, '이 사이트에서만 요청할 수 있습니다.');
+        if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers });
+        if (!['GET', 'POST', 'DELETE'].includes(request.method)) throw new HttpError(405, '지원하지 않는 요청입니다.');
+        if (request.method !== 'GET' || !url.searchParams.has('slug')) checkBurst(request);
+        const kv = env.HONEYJAR_COMMENTS_KV || env.COMMENTS_KV;
+        if (!kv) throw new HttpError(503, '댓글 저장소를 사용할 수 없습니다. 잠시 후 다시 시도해 주세요.');
+        if (request.method === 'GET') {
+            if (url.searchParams.has('slug')) {
+                const comments = await readComments(kv, 'post_' + postSlug(url.searchParams.get('slug')));
+                if (url.searchParams.has('challenge')) {
+                    const id = field(url.searchParams.get('id'), '댓글 ID', 100);
+                    const target = comments.find(c => String(c.id) === id);
+                    if (!target) throw new HttpError(404, '해당 댓글을 찾을 수 없습니다.');
+                    if (target.passwordVersion !== VERSION) throw new HttpError(403, '이전 방식으로 작성된 댓글은 관리자에게 삭제를 요청해 주세요.');
+                    return respond({ version: VERSION, salt: hexField(target.passwordSalt, 32) });
                 }
-                allComments.sort((a, b) => (b.timestamp || b.id || 0) - (a.timestamp || a.id || 0));
-                return new Response(JSON.stringify(allComments), { headers: corsHeaders });
+                return respond(comments.map(publicComment));
             }
+            if (!await isAdmin(request, env)) throw new HttpError(403, '관리자 비밀번호가 올바르지 않거나 로그인이 필요합니다.');
+            if (url.searchParams.get('admin') === '1') return respond({ authenticated: true });
+            let all = [], cursor;
+            do {
+                const page = await kv.list({ prefix: 'post_', ...(cursor ? { cursor } : {}) });
+                for (const key of page.keys) all.push(...(await readComments(kv, key.name)).map(publicComment));
+                if (page.list_complete !== false) break;
+                if (!page.cursor || page.cursor === cursor) throw new Error('Invalid KV pagination');
+                cursor = page.cursor;
+            } while (cursor);
+            all.sort((a, b) => (b.timestamp || Number(b.id) || 0) - (a.timestamp || Number(a.id) || 0));
+            return respond(all);
         }
-
-        // 2. [POST] 새 댓글 등록
-        if (method === "POST") {
-            const body = await request.json();
-            const { author, pw, content, slug, postTitle } = body;
-
-            if (!author || !pw || !content || !slug) {
-                return new Response(JSON.stringify({ error: "필수 입력 항목이 누락되었습니다." }), { status: 400, headers: corsHeaders });
-            }
-
-            const now = new Date();
-            // 한국 시간대 (KST) 계산
-            const kstOffset = 9 * 60;
-            const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-            const kst = new Date(utc + (kstOffset * 60000));
-            
-            const dateStr = `${kst.getFullYear()}.${String(kst.getMonth() + 1).padStart(2, '0')}.${String(kst.getDate()).padStart(2, '0')} ${String(kst.getHours()).padStart(2, '0')}:${String(kst.getMinutes()).padStart(2, '0')}`;
+        const body = await readBody(request);
+        const slug = postSlug(body.slug);
+        if (request.method === 'POST') {
+            const author = field(body.author, '닉네임', 80);
+            const proof = hexField(body.passwordProof, 64);
+            const content = field(body.content, '댓글', 5000);
+            const postTitle = body.postTitle == null ? slug : field(body.postTitle, '게시글 제목', 300);
+            const salt = hexField(body.passwordSalt, 32);
             const timestamp = Date.now();
-
-            const newComment = {
-                id: timestamp.toString(),
-                timestamp: timestamp,
-                author: author.trim(),
-                pw: pw.trim(),
-                content: content.trim(),
-                date: dateStr,
-                slug: slug,
-                postTitle: postTitle || slug
-            };
-
-            if (kv) {
-                const key = "post_" + slug;
-                const raw = await kv.get(key);
-                const comments = raw ? JSON.parse(raw) : [];
-                comments.unshift(newComment);
-                await kv.put(key, JSON.stringify(comments));
-            }
-
-            return new Response(JSON.stringify(newComment), { status: 200, headers: corsHeaders });
+            const date = new Date(timestamp + 9 * 3600000).toISOString().slice(0, 16).replace('T', ' ').replaceAll('-', '.');
+            const comment = { id: crypto.randomUUID(), timestamp, author, content, date, slug, postTitle,
+                passwordVersion: VERSION, passwordSalt: salt, passwordHash: await proofHash(proof, salt) };
+            // KV read/modify/write remains non-transactional; see the deployment notes.
+            const comments = await readComments(kv, 'post_' + slug);
+            comments.unshift(comment);
+            await kv.put('post_' + slug, JSON.stringify(comments));
+            return respond(publicComment(comment));
         }
-
-        // 3. [DELETE] 댓글 삭제 (비밀번호 확인 or 관리자 8809)
-        if (method === "DELETE") {
-            const body = await request.json();
-            const { slug, id, pw } = body;
-
-            if (!slug || !id) {
-                return new Response(JSON.stringify({ error: "삭제할 댓글 정보가 부족합니다." }), { status: 400, headers: corsHeaders });
-            }
-
-            if (kv) {
-                const key = "post_" + slug;
-                const raw = await kv.get(key);
-                if (raw) {
-                    let comments = JSON.parse(raw);
-                    const target = comments.find(c => String(c.id) === String(id));
-                    
-                    if (target) {
-                        if (target.pw !== pw && pw !== "8809" && pw !== "admin") {
-                            return new Response(JSON.stringify({ error: "비밀번호가 일치하지 않습니다." }), { status: 403, headers: corsHeaders });
-                        }
-                        comments = comments.filter(c => String(c.id) !== String(id));
-                        await kv.put(key, JSON.stringify(comments));
-                    }
-                }
-            }
-
-            return new Response(JSON.stringify({ success: true }), { status: 200, headers: corsHeaders });
+        const id = field(body.id, '댓글 ID', 100);
+        const comments = await readComments(kv, 'post_' + slug);
+        const target = comments.find(c => String(c.id) === id);
+        if (!target) throw new HttpError(404, '해당 댓글을 찾을 수 없습니다.');
+        if (!await isAdmin(request, env)) {
+            if (request.headers.has('Authorization')) throw new HttpError(403, '댓글 관리자 인증에 실패했습니다.');
+            // Old plaintext passwords were exposed publicly: do not accept them again.
+            if (target.passwordVersion !== VERSION) throw new HttpError(403, '이전 방식으로 작성된 댓글은 관리자에게 삭제를 요청해 주세요.');
+            const proof = hexField(body.passwordProof, 64);
+            if (!equal(await proofHash(proof, hexField(target.passwordSalt, 32)), target.passwordHash)) throw new HttpError(403, '비밀번호가 일치하지 않습니다.');
         }
-
-        return new Response(JSON.stringify({ error: "Method not allowed" }), { status: 405, headers: corsHeaders });
-    } catch (err) {
-        return new Response(JSON.stringify({ error: err.message }), { status: 500, headers: corsHeaders });
+        await kv.put('post_' + slug, JSON.stringify(comments.filter(c => String(c.id) !== id)));
+        return respond({ success: true });
+    } catch (error) {
+        return respond({ error: error instanceof HttpError ? error.message : '댓글 처리 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.' }, error instanceof HttpError ? error.status : 500);
     }
 }

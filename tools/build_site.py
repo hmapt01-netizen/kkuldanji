@@ -473,12 +473,12 @@ for sp, can_url in canonical_map.items():
             elif '</head>' in sp_c_new:
                 sp_c_new = sp_c_new.replace('</head>', f'{canonical_tag}\n</head>', 1)
 
-        # 3) 정적 페이지 상단 네비게이션 링크 정돈 (index.html?cat=... -> ./?cat=... 및 index.html -> ./)
+        # 3) 로컬 파일에서도 홈/카테고리가 열리도록 index.html을 명시한다.
         if sp != 'index.html':
-            sp_c_new = re.sub(r'href=["\']index\.html\?cat=[^"\']*(?:식단|%EC%8B%9D%EB%8B%A8)[^"\']*["\']', 'href="./?cat=식단"', sp_c_new)
-            sp_c_new = re.sub(r'href=["\']index\.html\?cat=[^"\']*(?:홈트|%ED%99%88%ED%8A%B8)[^"\']*["\']', 'href="./?cat=홈트레이닝"', sp_c_new)
-            sp_c_new = re.sub(r'href=["\']index\.html\?cat=[^"\']*(?:웰니스|라이프|%EB%9D%BC%EC%9D%B4%ED%94%84|%EC%9B%B0%EB%8B%88%EC%8A%A4)[^"\']*["\']', 'href="./?cat=라이프웰니스"', sp_c_new)
-            sp_c_new = re.sub(r'href=["\']index\.html["\']', 'href="./"', sp_c_new)
+            sp_c_new = re.sub(r'href=(["\'])\./(?=[?\x23"\'])', r'href=\1./index.html', sp_c_new)
+            sp_c_new = re.sub(r'href=["\'](?:\./)?index\.html\?cat=[^"\']*(?:식단|%EC%8B%9D%EB%8B%A8)[^"\']*["\']', 'href="./index.html?cat=식단"', sp_c_new)
+            sp_c_new = re.sub(r'href=["\'](?:\./)?index\.html\?cat=[^"\']*(?:홈트|%ED%99%88%ED%8A%B8)[^"\']*["\']', 'href="./index.html?cat=홈트레이닝"', sp_c_new)
+            sp_c_new = re.sub(r'href=["\'](?:\./)?index\.html\?cat=[^"\']*(?:웰니스|라이프|%EB%9D%BC%EC%9D%B4%ED%94%84|%EC%9B%B0%EB%8B%88%EC%8A%A4)[^"\']*["\']', 'href="./index.html?cat=라이프웰니스"', sp_c_new)
 
         if sp_c_new != sp_c:
             with open(sp_path, 'w', encoding='utf-8') as f:
@@ -616,4 +616,7 @@ if needs_feed_write or needs_sitemap_write or force_full_build:
 else:
     print(f"  ✓ 6. feed.xml 및 sitemap.xml 최신 상태 유지 (스킵)!")
 
-print(f"\n🎉 [100% PERFECT SSG COMPILATION SUCCESS] 총 {len(posts)}개 전체 포스트 및 사이트 빌드가 0.02초 만에 완벽 완료되었습니다!")
+import subprocess
+audit_script = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'audit_site.py')
+subprocess.run([sys.executable, audit_script, '--local'], check=True)
+print(f"\n[BUILD PASS] {len(posts)}개 포스트 생성 및 로컬 사이트 검수 통과. 화면/실서버 기능 검증은 별도입니다.")

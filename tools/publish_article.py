@@ -286,5 +286,5 @@ def validate_all_cards(features_path, index_path, reg_var='HONEYJAR_POSTS_REGIST
         if not sum_m or len(sum_m.group(1).strip()) < 10:
             raise ValueError(f"Compiled Card #{idx}: EMPTY SUMMARY TEXT IN HTML!")
 
-    print(f"[QUALITY GATE PASSED] All {len(posts)} cards verified: 100% complete summaries, valid dates, single badge!")
+    print(f"[CARD CHECK PASS] {len(posts)} cards: summary length, thumbnail field, and rendered card count checked.")
     return True
