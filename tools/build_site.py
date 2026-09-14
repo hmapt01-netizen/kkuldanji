@@ -15,6 +15,14 @@ post_tpl_path = os.path.join(web_root, "templates", "master_template.html")
 index_tpl_path = os.path.join(web_root, "templates", "index_template.html")
 target_index_path = os.path.join(web_root, "index.html")
 
+# 템플릿에 광고 로더가 누락되거나 중복되면 파일 생성 전에 중단한다.
+from site_ads_guard import validate as validate_ads, AdsLoaderError
+try:
+    validate_ads(web_root, include_generated=False)
+except AdsLoaderError as exc:
+    print("[BUILD BLOCKED] " + str(exc))
+    sys.exit(1)
+
 # 글/홈페이지 파일을 쓰기 전에 목록 동작을 검사한다. 검사 실패/누락은 빌드 중단.
 from site_pagination_guard import validate as validate_pagination, PaginationError
 try:
@@ -628,6 +636,7 @@ else:
     print(f"  ✓ 6. feed.xml · rss.xml 및 sitemap.xml 최신 상태 유지 (스킵)!")
 
 import subprocess
+validate_ads(web_root)
 audit_script = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'audit_site.py')
 subprocess.run([sys.executable, audit_script, '--local'], check=True)
 print(f"\n[BUILD PASS] {len(posts)}개 포스트 생성 및 로컬 사이트 검수 통과. 화면/실서버 기능 검증은 별도입니다.")

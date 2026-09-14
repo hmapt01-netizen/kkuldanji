@@ -24,6 +24,21 @@ def node_executable():
     found = shutil.which('node')
     if found:
         return found
+    # 일반 Python으로 실행해도 Codex의 설치된 공용 런타임을 찾는다.
+    # sys.executable 옆에만 Node가 있다고 가정하면 일반 터미널에서 실패한다.
+    cached = Path.home() / '.cache' / 'codex-runtimes' / 'codex-primary-runtime' / 'dependencies' / 'node' / 'bin' / name
+    if cached.is_file():
+        return str(cached)
+    local_app_data = os.environ.get('LOCALAPPDATA', '')
+    if local_app_data:
+        codex_nodes = list(Path(local_app_data).glob('OpenAI/Codex/runtimes/cua_node/*/bin/node.exe'))
+        if codex_nodes and codex_nodes[0].is_file():
+            return str(codex_nodes[0])
+    for pf in (os.environ.get('ProgramFiles', ''), os.environ.get('ProgramFiles(x86)', '')):
+        if pf:
+            cand = Path(pf) / 'nodejs' / name
+            if cand.is_file():
+                return str(cand)
     raise PaginationError('목록 검사에 필요한 Node.js를 찾지 못했습니다. Node.js 경로를 복구한 뒤 다시 실행하세요. 검사를 생략하지 않습니다.')
 
 def validate(web_root=WEB_ROOT, *, include_generated=True):

@@ -314,7 +314,7 @@
 
                     <div class="article-meta-bar">
 
-                        <span>적용 일자: 2026년 8월 19일 · 최종 개정: 2026년 8월</span>
+                        <span>최초 적용: 2026년 8월 19일 · 최종 개정 및 적용: 2026년 9월 14일</span>
 
                     </div>
 
@@ -350,7 +350,7 @@
 
                     <ul>
 
-                        <li><strong>문의하기(Contact Us) 폼 이용 시 수집 항목</strong>: 성명(또는 닉네임), 이메일 주소, 문의 제목 및 본문 기재 내용</li>
+                        <li><strong>문의하기(Contact Us) 폼 이용 시 수집 항목</strong>: 성명(또는 닉네임), 회신 이메일 주소, 문의 분류, 문의 내용, 접수 시각. 문의 제목은 입력한 분류와 이름으로 자동 구성됩니다. 전송 버튼을 누르면 이 정보가 FormSubmit을 거쳐 운영자 이메일로 전달됩니다.</li>
 
                         <li><strong>댓글(Comment) 등록 시 수집 항목</strong>: 작성자 닉네임, 비밀번호(본인 확인 및 삭제용 암호화 저장), 댓글 본문</li>
 
@@ -366,9 +366,10 @@
 
                     <ul>
 
-                        <li><strong>독자 문의 및 상담 기록</strong>: 전자상거래 등에서의 소비자보호에 관한 법률 제6조에 근거하여 소비자 불만 또는 분쟁 처리에 관한 기록으로 <strong>3년간 보관</strong> 후 안전하게 파기</li>
+                        <li><strong>운영자 이메일에 수신된 문의 기록</strong>: 문의 접수·답변 및 후속 확인을 위해 보관하며, <strong>문의 처리 완료 후 30일 이내 삭제</strong>합니다. 진행 중인 문의는 처리가 완료될 때까지 보관합니다. 별도의 법령에 따른 보존 의무가 있는 경우에는 해당 근거와 기간에 따라 필요한 기록만 보관합니다.</li>
 
-                        <li><strong>웹 서버 접속 로그 및 보안 데이터</strong>: 통신비밀보호법 제15조의2에 근거하여 시스템 보안 및 부정 이용 방지 목적으로 <strong>3개월간 보관</strong> 후 자동 파기</li>
+                        <li><strong>FormSubmit의 문의 제출 기록</strong>: 업체 공식 문서에 따르면 <strong>제출 후 30일간 보관</strong>됩니다. 이는 운영자 메일함에 도착한 문의의 보관 기간과 별개입니다.</li>
+                        <li><strong>웹 접속 및 보안 데이터</strong>: Cloudflare 서비스에서 처리되는 데이터의 보유 기간은 서비스 종류와 설정 및 업체 정책에 따라 달라집니다. 서비스별 처리 안내는 제5조의 Cloudflare 개인정보 안내에서 확인할 수 있습니다.</li>
 
                     </ul>
 
@@ -380,21 +381,30 @@
 
 
 
-                    <h2>제5조 (개인정보처리의 위탁)</h2>
+                    <h2 id="external-services">제5조 (개인정보처리의 위탁 및 외부 서비스)</h2>
 
-                    <p>본 사이트는 안정적인 글로벌 웹 인프라 운영 및 사이버 DDoS 공격 방어를 위하여 다음과 같이 개인정보 처리 업무를 전문 업체에 위탁하고 있습니다.</p>
+                    <p>본 사이트는 웹사이트 운영과 문의 전달을 위해 다음 서비스를 이용합니다. 문의 폼의 내용은 Cloudflare에만 전달되는 것이 아니라 FormSubmit으로 전송되어 이메일로 수신됩니다.</p>
 
                     <ul>
 
                         <li><strong>수탁업체</strong>: Cloudflare, Inc.</li>
 
-                        <li><strong>위탁 업무 내용</strong>: 글로벌 콘텐츠 전송 네트워크(CDN) 캐싱, 웹 호스팅 및 보안 트래픽 방어</li>
+                        <li><strong>처리 업무</strong>: 웹 호스팅, 콘텐츠 전송(CDN), 보안 트래픽 처리. 접속 과정에서 IP 주소, 요청 정보 등 기술 정보가 처리될 수 있습니다.</li>
 
-                        <li><strong>보유 및 이용 기간</strong>: 서비스 제공 기간 종료 시 또는 위탁 계약 해지 시까지</li>
+                        <li><strong>처리 안내</strong>: 서비스별 설정 및 <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer">Cloudflare 개인정보 안내</a>에 따릅니다.</li>
 
                     </ul>
 
 
+
+                    <ul>
+                        <li><strong>문의 전달 서비스</strong>: FormSubmit (공식 사이트 표기: Devro LABS)</li>
+                        <li><strong>처리 목적</strong>: 문의 내용을 접수하여 운영자 이메일 <code>contact@honeyjar.co.kr</code>로 전달</li>
+                        <li><strong>전송 항목과 시점</strong>: 이용자가 문의 폼을 제출할 때 성명 또는 닉네임, 회신 이메일, 문의 분류·내용, 자동 구성된 제목 및 접수 시각을 HTTPS로 전송</li>
+                        <li><strong>보관 기간</strong>: FormSubmit 공식 문서상 문의 제출 기록 30일</li>
+                        <li><strong>업체 안내 및 연락처</strong>: <a href="https://formsubmit.co/privacy.pdf" target="_blank" rel="noopener noreferrer">개인정보 안내</a> · <a href="https://formsubmit.co/documentation" target="_blank" rel="noopener noreferrer">보관 기간 안내</a> · <code>support@formsubmit.co</code></li>
+                    </ul>
+                    <p>문의 폼 대신 <a href="mailto:contact@honeyjar.co.kr">직접 이메일</a>을 보내면 FormSubmit을 거치지 않습니다. 이메일 발송·수신 과정에는 이용하는 메일 서비스의 처리방침이 적용됩니다.</p>
 
                     <h2>제6조 (정보주체의 권리·의무 및 행사 방법)</h2>
 
