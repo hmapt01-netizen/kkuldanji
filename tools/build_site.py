@@ -15,6 +15,14 @@ post_tpl_path = os.path.join(web_root, "templates", "master_template.html")
 index_tpl_path = os.path.join(web_root, "templates", "index_template.html")
 target_index_path = os.path.join(web_root, "index.html")
 
+# 글/홈페이지 파일을 쓰기 전에 목록 동작을 검사한다. 검사 실패/누락은 빌드 중단.
+from site_pagination_guard import validate as validate_pagination, PaginationError
+try:
+    validate_pagination(web_root, include_generated=False)
+except PaginationError as exc:
+    print("[BUILD BLOCKED] " + str(exc))
+    sys.exit(1)
+
 with open(data_path, "r", encoding="utf-8-sig") as f:
     posts = json.load(f)
 

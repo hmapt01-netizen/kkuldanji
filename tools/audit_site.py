@@ -223,10 +223,15 @@ def main(argv=None):
     modes.add_argument("--live", action="store_true", help="로컬 통과 후 실서버 HTTP도 검사")
     args = cli.parse_args(argv)
     errors, stats = audit_local()
+    from site_pagination_guard import validate as validate_pagination, PaginationError
+    try:
+        validate_pagination(WEB_ROOT)
+    except PaginationError as exc:
+        errors.append(("pagination", "index.html / index_template.html", str(exc)))
     print("[꿀단지 로컬 검수]")
     print(f"HTML {stats['pages']}개 / 내부 링크 {stats['links']}개 / 에셋 {stats['assets']}개")
     counts = Counter(kind for kind, _, _ in errors)
-    for kind in ("required", "link", "asset", "html", "favicon", "encoding"):
+    for kind in ("required", "link", "asset", "html", "favicon", "encoding", "pagination"):
         print(f"  {kind}: {counts[kind]}건")
     print(f"정상 선두 BOM: {stats['single_bom']}개 (원본 유지)")
     print(f"레지스트리: {stats['registry_posts']}개 글 / features.js {stats['features_bytes']}바이트")

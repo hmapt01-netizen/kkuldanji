@@ -26,6 +26,13 @@ def add_post(post_data, image_dir=None):
         print(f"🚨 [물리적 차단] Step Guard 검증 실패: {e}")
         raise AssertionError(f"Step Guard 검증 실패로 포스트 등록이 물리적으로 중단되었습니다: {e}")
 
+    # DB와 이미지를 변경하기 전에 홈페이지 원본의 페이지 나누기 규칙을 검사한다.
+    from site_pagination_guard import validate as validate_pagination, PaginationError
+    try:
+        validate_pagination(include_generated=False)
+    except PaginationError as exc:
+        raise AssertionError("목록 동작 검사 실패로 등록 중단: " + str(exc)) from exc
+
     # 1. 카테고리 엄격 검증
     cat = post_data.get("category", "")
     if cat not in VALID_CATEGORIES:
