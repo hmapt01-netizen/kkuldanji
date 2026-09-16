@@ -1,0 +1,77 @@
+--- a/kkuldanji_web/templates/index_template.html
++++ b/kkuldanji_web/templates/index_template.html
+@@ -101,7 +101,7 @@
+ 
+     
+ 
+-    <link rel="stylesheet" href="css/style.css?v=20260904_1788478998">
++    <link rel="stylesheet" href="css/style.css?v=20260914-pagination1">
+ 
+     <style id="ironcladLayoutIsolation">
+ 
+@@ -2459,7 +2459,9 @@
+ 
+         currentSelectedCategory = cat;
+ 
+-        pcShown = 999; // 카테고리 탭 선택 시 해당 카테고리 글 시원하게 전체 표시
++        pcShown = 6; // 새 카테고리는 첫 페이지부터 표시
++
++        mobileShown = 4;
+ 
+ 
+ 
+@@ -2497,7 +2499,9 @@
+ 
+         currentSelectedCategory = cat;
+ 
+-        mobileShown = 999;
++        pcShown = 6;
++
++        mobileShown = 4;
+ 
+         
+ 
+--- a/kkuldanji_web/index.html
++++ b/kkuldanji_web/index.html
+@@ -101,7 +101,7 @@
+ 
+     
+ 
+-    <link rel="stylesheet" href="css/style.css?v=20260904_1788478998">
++    <link rel="stylesheet" href="css/style.css?v=20260914-pagination1">
+ 
+     <style id="ironcladLayoutIsolation">
+ 
+@@ -3429,7 +3429,9 @@
+ 
+         currentSelectedCategory = cat;
+ 
+-        pcShown = 999; // 카테고리 탭 선택 시 해당 카테고리 글 시원하게 전체 표시
++        pcShown = 6; // 새 카테고리는 첫 페이지부터 표시
++
++        mobileShown = 4;
+ 
+ 
+ 
+@@ -3467,7 +3469,9 @@
+ 
+         currentSelectedCategory = cat;
+ 
+-        mobileShown = 999;
++        pcShown = 6;
++
++        mobileShown = 4;
+ 
+         
+ 
+--- a/kkuldanji_web/css/style.css
++++ b/kkuldanji_web/css/style.css
+@@ -2547,7 +2547,7 @@
+ }
+ 
+ .btn-load-more {
+-    display: inline-flex !important;
++    display: inline-flex;
+     align-items: center !important;
+     justify-content: center !important;
+     gap: 4px !important;

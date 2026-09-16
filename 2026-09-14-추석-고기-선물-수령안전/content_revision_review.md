@@ -1,0 +1,1 @@
+2026-09-14 사용자 보완 요청 처리. 고기 Google 본문 반복 축소, 관련 글 추가. 네이버 내용과 기존 이미지·이미지 계획은 유지하며 검토 완료. 새 수치와 검사는 content_revision_review.json, 프로젝트 codex_tools/content_revision_20260914/content_audit.log 및 build.log 참조. 이전 assembled_validation.json/readability_regression.json은 이전 버전 검수 기록이며 현재 완료 증거로 재사용하지 않음. 수정 후 브라우저 확인과 배포는 미실행.

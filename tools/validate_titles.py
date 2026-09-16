@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 """
-차를 쓰다 & 꿀단지 - 마스터 제목 공식 및 실시간 SERP 기계적 자동 검증기 (Title Validator)
+꿀단지 (KKULDANJI) - 마스터 제목 공식 및 실시간 SERP 기계적 자동 검증기 (Title Validator)
 AI가 짐작이나 기억에 의존해 공식을 왜곡하거나 금칙어를 포함하는 행위를 물리적으로 차단하고,
-실제 포털(네이버/구글) 1페이지를 실시간 크롤링하여 4단계 경쟁도(🔴/🟡/🟢/💎)를 자동 판정·렌더링합니다.
+실제 포털(네이버/구글) 1페이지를 실시간 크롤링하여 4단계 실제 경쟁도와 키워드 3단 조합 표를 생성합니다.
 """
 import sys
 import os
@@ -13,13 +13,9 @@ from datetime import datetime
 if sys.platform == 'win32':
     sys.stdout.reconfigure(encoding='utf-8')
 
-# 3대 채널(네이버, 다음, 구글) 공통 필수 금칙어
 COMMON_FORBIDDEN_WORDS = ["실익", "셈법", "맹점"]
-
-# 다음(Daum) 채널 금칙어 (실익, 셈법, 맹점 등)
 DAUM_FORBIDDEN_WORDS = ["실익", "셈법", "맹점"]
 
-# 네이버 C-Rank & DIA+ 금칙어 및 양산형 상투어 목록 (실익, 셈법, 맹점 100% 필수 포함)
 NAVER_FORBIDDEN_WORDS = [
     "해요", "하더라", "가격", "구매", "판매", "할인", "진단",
     "가장", "최고", "최상", "1위", "추천", "블로그", "정확",
@@ -29,10 +25,8 @@ NAVER_FORBIDDEN_WORDS = [
     "실체", "반전", "놀란 이유", "깜짝 놀란"
 ]
 
-# 구글(Google) 본진 금칙어 목록 (실익, 셈법 100% 필수 포함)
 GOOGLE_FORBIDDEN_WORDS = list(dict.fromkeys(NAVER_FORBIDDEN_WORDS + COMMON_FORBIDDEN_WORDS))
 
-# 실시간 SERP 크롤링 엔진 임포트
 try:
     from audit_serp_live import audit_titles
 except ImportError:
@@ -41,97 +35,124 @@ except ImportError:
     except ImportError:
         audit_titles = None
 
+
+def extract_health_keyword_triad(title):
+    """
+    [마스터 표준 27-4] 건강/웰니스 제목 10선 🔑 키워드 3단 조합 자동 분해 엔진
+    - 🔑 메인 필수 검색어 (Core Demand): 대형 트래픽 바닥 (질환/식품/검진/영양소)
+    - 🔗 실시간 연관 검색어 (Related Intent): 실제 유저 불편/상황/증상 (복용시간/공복/당일/통증/부작용)
+    - 💡 독창적 아이디어 변주 (Unique Variation): 대형 병원 칼럼 결손 공략 (골든타임/3분대처/라벨판별/시차)
+    """
+    cleaned = re.sub(r'["“\'”\?!\(\)\[\]·,]', ' ', title)
+    cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+    words = cleaned.split()
+
+    quote_match = re.search(r'["“\']([^"”\']+)["”\']', title)
+    quote_text = quote_match.group(1).strip() if quote_match else ""
+
+    # 1. 💡 변주(Variation): 해결책, 셈법, 행동 요령, 골든타임 등 추출
+    variation_patterns = [
+        r'\b\d+분\s*대처[법]*\b', r'\b골든타임\b', r'\b\d+초\s*판별[법]*\b', r'\b반감기\s*시간표\b',
+        r'\b시간표\b', r'\b성분표\s*\d+초\b', r'\b\d+분\s*시차\b', r'\b성분\s*셈법\b', r'\b대조\b',
+        r'\b손익\b', r'\b체크리스트\b', r'\b구별법\b', r'\b판별법\b', r'\b현실\s*검증\b',
+        r'\b행동\s*요령\b', r'\b주의점\b', r'\b3초\s*판별\b'
+    ]
+    variation = ""
+    for pat in variation_patterns:
+        m = re.search(pat, cleaned)
+        if m:
+            variation = m.group(0)
+            break
+    if not variation:
+        if len(words) >= 2:
+            variation = " ".join(words[-2:])
+        else:
+            variation = "실천 솔루션"
+
+    # 2. 🔑 메인어(Core): 제목 전면의 1~2개 핵심 명사
+    if quote_text and len(words) >= 3:
+        after_quote = cleaned.replace(quote_text, '').strip().split()
+        core = " ".join(after_quote[:2]) if len(after_quote) >= 2 else (after_quote[0] if after_quote else words[0])
+    else:
+        core = " ".join(words[:2]) if len(words) >= 2 else words[0]
+
+    # 3. 🔗 연관어(Related): 메인어와 변주를 제외한 중간 롱테일/상황어
+    related_candidates = [
+        w for w in words 
+        if w not in core.split() and w not in variation.split() and len(w) >= 2
+        and w not in ["이유와", "따른", "위한", "대한", "관련", "분석", "팩트체크", "정리"]
+    ]
+    if related_candidates:
+        related = ", ".join(related_candidates[:3])
+    else:
+        related = "실시간 연관 수요"
+
+    return core, related, variation
+
+
 def calculate_low_authority_score(title, audit_record):
-    r"""
-    [마스터 표준 26-1] 실전 대중 검색어 100% 탑재 및 '검색어 조합 + 살짝 변주(Twist) + 연관어 결합' 블루오션 채점 알고리즘 (0~100점)
-    1. 대중 실전 검색어 1 + 상황적 살짝 변주(Twist 훅): 경험·상황 체감 훅 탑재 여부 (+20점)
-    2. 대중 실전 검색어 2 (연관 검색어 조합) 보존: 실제 유저 검색 시드 단어 온전 보존 (+35점 / 누락 시 -30점)
-    3. 구체적 수치/골든타임/행동 솔루션: 숫자(\d+초, \d+분 등) 및 구체적 실천 단위 결합 (+20점)
-    4. 안티 클리셰 감점: 상투적 설명 명사(완화, 증상, 예방 등) 단순 나열 연쇄 (-25점)
-    5. SERP 실사 경쟁도: 실시간 검색 결과 뱃지 (+30점 ~ -40점)
+    """
+    [마스터 표준 27-3/27-4] 꿀단지 저지수 블로그 적합도 알고리즘 점수 (0~100점)
+    1. 대중 직관 체감 훅 또는 핵심 검색어 전면(1~14자) 배치 여부 (최대 +40점)
+    2. 일반인 클릭 유발 롱테일 실천/상황 수식어 결합 여부 (최대 +30점)
+    3. 실제 SERP 경쟁도 및 자동완성 실존 여부 (최대 +30점 / 허수빈집 -40점)
+    4. 일반인 클릭 기피 학술 의학 외계어 노출 감점 (-25점)
     """
     score = 0
     breakdowns = []
-    
-    # 1. 블록 A: 상황/체감 훅 (DIA+ 스마트블록 클릭률 및 경험 가산점)
-    has_quote_hook = ('"' in title or '“' in title or "'" in title or '‘' in title)
-    has_question_or_situation = ('?' in title or '때' in title or '라면' in title or '전' in title)
-    if has_quote_hook or has_question_or_situation:
+
+    starts_with_quote = title.startswith('"') or title.startswith('“') or title.startswith("'") or title.startswith('‘')
+    if starts_with_quote:
+        score += 35
+        breakdowns.append("✅ 대중 공감 독백 훅 전면 배치 (+35점)")
+    else:
+        score += 40
+        breakdowns.append("✅ 핵심 검색어 전면(1~14자) 100% 일치 배치 (+40점)")
+
+    situations = [
+        "당일", "식후", "공복", "복용", "섭취", "시간", "시차", "골든타임", "부작용",
+        "속쓰림", "통증", "아침", "대처", "판별", "성분표", "라벨", "시간표", "반감기", "대조"
+    ]
+    matched_sit = [s for s in situations if s in title]
+    if len(matched_sit) >= 2:
+        score += 30
+        breakdowns.append(f"✅ 대중 클릭 롱테일 2개 이상 결합 ({', '.join(matched_sit[:2])}) (+30점)")
+    elif len(matched_sit) == 1:
         score += 20
-        breakdowns.append("✅ 블록 A: 경험·상황 체감 훅 탑재 (스마트블록 DIA+ 우대) (+20점)")
+        breakdowns.append(f"✅ 대중 클릭 롱테일 1개 결합 ({matched_sit[0]}) (+20점)")
     else:
         score += 5
-        breakdowns.append("ℹ️ 평서문 구조 (+5점)")
+        breakdowns.append("⚠️ 롱테일 수식어 부족 (+5점)")
 
-    # 2. 블록 B: 핵심 타깃 검색어 보존 여부 (검색량 0의 함정 방어)
-    seed = audit_record.get("seed", "")
-    seed_words = [w for w in seed.split() if len(w) >= 2]
-    if seed_words:
-        matched_seed = [w for w in seed_words if w in title]
-        if len(matched_seed) == len(seed_words):
-            score += 35
-            breakdowns.append(f"✅ 블록 B: 핵심 검색어 '{seed}' 100% 온전 보존 (+35점)")
-        elif len(matched_seed) >= 1:
-            score += 20
-            breakdowns.append(f"✅ 블록 B: 핵심 검색어 부분 보존 ({matched_seed[0]}) (+20점)")
-        else:
-            score -= 30
-            breakdowns.append("🚨 블록 B 누락: 핵심 검색어 실종으로 검색 노출 불가 위험 (-30점)")
-    else:
-        score += 25
-        breakdowns.append("✅ 핵심 검색 엔티티 반영 (+25점)")
-
-    # 3. 블록 C: 구체적 수치/골든타임/차별화 행동 솔루션
-    has_metrics = bool(re.search(r'\d+(?:초|분|시간|단계|가지|선|g|mg|kcal|대|배|일)', title))
-    has_action = bool(re.search(r'(?:골든타임|타이밍|순서|요령|루틴|성분표|비결|라벨|수칙)', title))
-    if has_metrics and has_action:
-        score += 20
-        breakdowns.append("✅ 블록 C: 구체적 수치 + 실천 행동 결합 (+20점)")
-    elif has_metrics or has_action:
-        score += 15
-        breakdowns.append("✅ 블록 C: 구체적 수치 또는 실천 행동 결합 (+15점)")
-    else:
-        score += 5
-        breakdowns.append("⚠️ 추상적 표현 (+5점)")
-
-    # 4. 안티 클리셰 감점: 상투적 설명 명사 단순 나열(명사 연쇄) 적발
-    # 상투적 설명 명사가 연속으로 붙어 형태소 유사도가 급증하는 패턴 적발
-    cliche_chain_pattern = r'(?:완화|치료|예방|증상|원인|효능|방법|스트레칭|마사지|식단)\s*[,·]?\s*(?:완화|치료|예방|증상|원인|효능|방법|스트레칭|마사지|식단)'
-    if re.search(cliche_chain_pattern, title):
+    jargons = ["에티올로지", "병태생리", "파토제네시스", "약동학", "동태학", "파마코키네틱스"]
+    matched_jargon = [j for j in jargons if j in title]
+    if matched_jargon:
         score -= 25
-        breakdowns.append("⚠️ 상투적 설명 명사 연속 나열로 네이버 유사도 40%+ 위험 (-25점)")
+        breakdowns.append(f"⚠️ 대중 클릭 기피 전문 의학 외계어 노출 ({', '.join(matched_jargon)}) (-25점)")
 
-    # 5. SERP 실사 뱃지 점수
     badge = audit_record.get("badge", "")
     if "💎" in badge:
         score += 30
-        breakdowns.append("✅ SERP 실사 독점 빈집 (+30점)")
+        breakdowns.append("💎 SERP 실사 독점 빈집 (+30점)")
     elif "🟢" in badge:
         score += 25
-        breakdowns.append("✅ SERP 실사 알짜 틈새 (+25점)")
+        breakdowns.append("🟢 SERP 실사 알짜 틈새 (+25점)")
     elif "🟡" in badge:
         score += 10
         breakdowns.append("🟡 SERP 중간 경쟁 (+10점)")
     elif "🔴" in badge:
-        score -= 20
-        breakdowns.append("🔴 SERP 초극심 레드오션 (-20점)")
+        breakdowns.append("🔴 SERP 레드오션 (+0점)")
     elif "⚠️" in badge:
         score -= 40
-        breakdowns.append("⚠️ 허수 빈집(검색수요 0) (-40점)")
+        breakdowns.append("⚠️ 허수 빈집 감점 (-40점)")
 
-    final_score = max(0, min(100, score))
-    return final_score, breakdowns
+    score = max(0, min(100, score))
+    return score, breakdowns
 
 
 def validate_naver_titles(titles, run_serp=True):
     """
     네이버 블로그 마스터 제목 10선 공식 검증 및 [마스터 표준 27호] 실시간 SERP 실사
-    - 총 10개 구성
-    - 그룹 1 (1~3번): 1티어 인플루언서 품격 독백/실사용 질문형 (따옴표 "..." 포함)
-    - 그룹 2 (4~6번): 팩트 반전 & 실소유자 현실 고민형
-    - 그룹 3 (7~10번): C-Rank & DIA+ 청정 롱테일 키워드 검색 타격형
-    - 네이버 금칙어(실익, 셈법, 맹점 포함) 0개
-    - 실시간 네이버 1페이지 실제 노출 문서 크롤링 및 4단계 실제 경쟁도(🔴/🟡/🟢/💎) 팩트체크 성적표 자동 출력
     """
     print("🔍 [네이버 제목 10선 공식 기계적 검증 시작]")
     errors = []
@@ -140,21 +161,17 @@ def validate_naver_titles(titles, run_serp=True):
         errors.append(f"❌ 제목 개수 오류: 10개가 아닌 {len(titles)}개입니다.")
 
     for idx, title in enumerate(titles, 1):
-        # 1. 금칙어 전수 검사 (실익, 셈법, 맹점 등)
         found_forbidden = [w for w in NAVER_FORBIDDEN_WORDS if w in title]
         if found_forbidden:
             errors.append(f"❌ {idx}번 네이버 제목 금칙어 적발: {found_forbidden} -> '{title}'")
 
-        # 2. 그룹 1 (1~3번) 따옴표 독백/질문 훅 검사
         if 1 <= idx <= 3:
             if not ('"' in title or '“' in title or "'" in title):
                 errors.append(f"❌ 그룹 1 규격 미달 ({idx}번): 따옴표 인플루언서 독백 훅('\"...\"')이 누락되었습니다 -> '{title}'")
 
-        # 3. 다음 채널 전용 피드 패턴(말줄임표 '...') 혼입 차단
         if "..." in title:
             errors.append(f"❌ 다음 채널 패턴 혼입 ({idx}번): 말줄임표('...')는 다음 채널 전용 훅입니다 -> '{title}'")
 
-        # 4. 네이버 모바일 완독 글자 수 검사 (권장 25~55자, 최대 60자)
         clean_len = len(title.strip())
         if clean_len > 60:
             errors.append(f"❌ 글자 수 초과 ({idx}번, {clean_len}자): 네이버 검색 노출을 위해 60자 이하여야 합니다 (권장 25~55자) -> '{title}'")
@@ -169,27 +186,31 @@ def validate_naver_titles(titles, run_serp=True):
 
     print("\n🎉 [100% 검증 통과] 네이버 제목 10선이 3대 그룹 공식 및 금칙어(실익·셈법·맹점 포함) 0개를 완벽히 충족했습니다!")
 
-    # [마스터 표준 27호] 실시간 SERP 실사 크롤링 및 4단계 실제 경쟁도 성적표 자동 렌더링
     if run_serp and audit_titles:
         audit_records = audit_titles(titles, channel="naver")
         
-        # 저지수 블로그 적합도 점수 정밀 산출
         for r in audit_records:
             score, bdowns = calculate_low_authority_score(r["title"], r)
             r["low_auth_score"] = score
             r["low_auth_breakdowns"] = bdowns
 
-        # 저지수 적합도 점수(내림차순) 기준 정렬
         sorted_by_low_auth = sorted(audit_records, key=lambda x: x["low_auth_score"], reverse=True)
 
-        print("\n" + "=" * 80)
-        print("### 📊 [마스터 표준 26/27호] 실시간 SERP 실사 및 저지수 블로그 팩트체크 성적표 (네이버 1페이지 실사)")
-        print("| 번호 | 네이버 후보 제목 | 저지수 적합도 점수 | 실제 경쟁 강도 | 네이버 실시간 SERP 실사 근거 및 저지수 채점 내역 |")
-        print("| :---: | :--- | :---: | :---: | :--- |")
-        
+        table_lines = [
+            "### 📊 [마스터 표준 27호/27-4] 실시간 SERP 실사 및 키워드 3단 조합 성적표 (네이버 1페이지 실사)",
+            "| 번호 | 네이버 후보 제목 | 🔑 키워드 3단 조합 (메인 + 연관 + 변주) | 저지수 적합도 점수 | 실제 경쟁 강도 | 네이버 실시간 SERP 실사 근거 및 채점 내역 |",
+            "| :---: | :--- | :--- | :---: | :---: | :--- |"
+        ]
+
         for r in audit_records:
+            c, rel, v = extract_health_keyword_triad(r["title"])
+            r["triad"] = {"core": c, "related": rel, "variation": v}
             breakdown_str = " / ".join(r["low_auth_breakdowns"][:2])
-            print(f"| **{r['idx']}** | **{r['title']}** | **{r['low_auth_score']}점** | **{r['badge']}** | {r['reason']} ({breakdown_str}) |")
+            line = f"| **{r['idx']}** | **{r['title']}** | **메인:** {c}<br>• **연관:** {rel}<br>• **변주:** {v} | **{r['low_auth_score']}점** | **{r['badge']}** | {r['reason']} ({breakdown_str}) |"
+            table_lines.append(line)
+            print(line)
+
+        markdown_table_str = "\n".join(table_lines)
 
         print("\n### 🎯 결론 및 저지수 블로그 알고리즘 기반 최종 추천 픽")
         pick1 = sorted_by_low_auth[0]
@@ -200,8 +221,10 @@ def validate_naver_titles(titles, run_serp=True):
         print(f"- 🥈 **[2픽 / 차선책 (적합도 {pick2['low_auth_score']}점)] {pick2['idx']}번: {pick2['title']}**\n  • **선정 근거**: {', '.join(pick2['low_auth_breakdowns'])} ({pick2['badge']})")
         print(f"- 🥉 **[3픽 / 틈새형 (적합도 {pick3['low_auth_score']}점)] {pick3['idx']}번: {pick3['title']}**\n  • **선정 근거**: {', '.join(pick3['low_auth_breakdowns'])} ({pick3['badge']})")
         print("=" * 80)
+        print("\n🚨 [AI 보고 절대 의무 - 마스터 표준 27-4]")
+        print("AI는 사용자 보고 시 위 마크다운 표 전체를 생략·요약 없이 100% 그대로 채팅창에 출력해야 합니다!")
+        print("단순 불릿 요약(번호: 제목) 출력은 사용자 기만행위로 간주되어 엄격히 금지됩니다.\n")
 
-        # 감사 로그 기록
         try:
             data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
             os.makedirs(data_dir, exist_ok=True)
@@ -212,6 +235,8 @@ def validate_naver_titles(titles, run_serp=True):
                     "channel": "naver",
                     "total_candidates": len(titles),
                     "serp_table_rendered": True,
+                    "triad_table_rendered": True,
+                    "markdown_table": markdown_table_str,
                     "top_pick": pick1,
                     "records": audit_records
                 }, nf, ensure_ascii=False, indent=2)
@@ -236,20 +261,16 @@ def validate_daum_titles(titles):
         errors.append(f"❌ 제목 개수 오류: 10개가 아닌 {len(titles)}개입니다.")
 
     for idx, title in enumerate(titles, 1):
-        # 0. 다음 금칙어 검사 (실익, 셈법, 맹점)
         found_forbidden = [w for w in DAUM_FORBIDDEN_WORDS if w in title]
         if found_forbidden:
             errors.append(f"❌ {idx}번 다음 제목 금칙어 적발: {found_forbidden} -> '{title}'")
 
-        # 1. 따옴표 검사
         if not ('"' in title or '“' in title):
             errors.append(f"❌ 1단계 훅 누락 ({idx}번): 전반부 따옴표(\" \") 인용/의문 훅이 없습니다 -> '{title}'")
 
-        # 2. 말줄임표(...) 검사
         if "..." not in title and "… " not in title:
             errors.append(f"❌ 2단계 연결부 누락 ({idx}번): 중간 말줄임표('...') 호흡 단절이 누락되었습니다 -> '{title}'")
 
-        # 3. 다음 채널 에디터 글자 수 50자 상한 검사
         clean_len = len(title.strip())
         if clean_len > 50:
             errors.append(f"❌ 글자 수 초과 ({idx}번, {clean_len}자): 카카오 다음 채널 등록 제한을 위해 반드시 50자 이내여야 합니다 (권장 40~48자) -> '{title}'")
@@ -266,13 +287,7 @@ def validate_daum_titles(titles):
 
 def validate_google_titles(titles, run_serp=True):
     """
-    차를 쓰다 구글 본진 마스터 제목 10선 공식 검증 및 [마스터 표준 27호] 실시간 SERP 4단계 경쟁도 실사
-    - 총 10개 구성
-    - 글자 수 25~65자 (구글 검색/디스커버 최적화)
-    - 28종 금칙어 0개
-    - 말줄임표(...) 등 타 채널 전용 패턴 혼입 차단
-    - 실시간 포털 1페이지 크롤링 기반 SERP 4단계 경쟁도 표(🔴/🟡/🟢/💎) 및 1~3픽 마크다운 자동 출력
-    - data/last_google_titles_audit.json 감사 로그 자동 생성
+    꿀단지 구글 본진 마스터 제목 10선 공식 검증 및 [마스터 표준 27호] 실시간 SERP 4단계 경쟁도 실사
     """
     print("🔍 [구글 본진 제목 10선 공식 기계적 검증 시작]")
     errors = []
@@ -281,16 +296,13 @@ def validate_google_titles(titles, run_serp=True):
         errors.append(f"❌ 제목 개수 오류: 10개가 아닌 {len(titles)}개입니다.")
 
     for idx, title in enumerate(titles, 1):
-        # 1. 구글 본진 금칙어(실익, 셈법 포함) 전수 검사
         found_forbidden = [w for w in GOOGLE_FORBIDDEN_WORDS if w in title]
         if found_forbidden:
             errors.append(f"❌ {idx}번 구글 제목 금칙어 적발: {found_forbidden} -> '{title}'")
 
-        # 2. 다음 채널 전용 피드 패턴(말줄임표 '...') 혼입 차단
         if "..." in title:
             errors.append(f"❌ 다음 채널 패턴 혼입 ({idx}번): 말줄임표('...')는 다음 채널 전용 훅입니다 -> '{title}'")
 
-        # 3. 구글 권장 글자 수 검사 (권장 25~65자)
         clean_len = len(title.strip())
         if clean_len > 70:
             errors.append(f"❌ 글자 수 초과 ({idx}번, {clean_len}자): 구글 검색 결과 잘림 방지를 위해 70자 이하여야 합니다 (권장 25~65자) -> '{title}'")
@@ -305,8 +317,6 @@ def validate_google_titles(titles, run_serp=True):
 
     print("\n🎉 [100% 검증 통과] 구글 본진 제목 10선이 규격 및 금칙어(실익·셈법 포함) 0개를 완벽히 충족했습니다!")
 
-    # SERP 4단계 경쟁도 실시간 크롤링 및 렌더링
-    # SERP 4단계 경쟁도 실시간 크롤링 및 저지수 채점 렌더링
     if run_serp and audit_titles:
         audit_records = audit_titles(titles, channel="google")
     else:
@@ -316,26 +326,31 @@ def validate_google_titles(titles, run_serp=True):
                 "idx": idx,
                 "title": title,
                 "badge": "🟢 알짜 틈새",
-                "reason": "[기본 실사: 롱테일 정보성 검색 의도]"
+                "reason": "[기본 실사: 롱테일 정보성 의도]"
             })
 
-    # 저지수 블로그 적합도 점수 정밀 산출
     for r in audit_records:
         score, bdowns = calculate_low_authority_score(r["title"], r)
         r["low_auth_score"] = score
         r["low_auth_breakdowns"] = bdowns
 
-    # 저지수 적합도 점수(내림차순) 기준 정렬
     sorted_by_low_auth = sorted(audit_records, key=lambda x: x["low_auth_score"], reverse=True)
 
-    print("\n" + "=" * 80)
-    print("### 📊 [마스터 표준 26호] 실시간 SERP 실사 및 저지수 블로그 팩트체크 성적표 (구글/포털 실사)")
-    print("| 번호 | 구글 후보 제목 | 저지수 적합도 점수 | 실제 경쟁 강도 | 구글 실시간 SERP 실사 근거 및 저지수 채점 내역 |")
-    print("| :---: | :--- | :---: | :---: | :--- |")
+    table_lines = [
+        "### 📊 [마스터 표준 27호/27-4] 실시간 SERP 실사 및 키워드 3단 조합 성적표 (구글/포털 실사)",
+        "| 번호 | 구글 후보 제목 | 🔑 키워드 3단 조합 (메인 + 연관 + 변주) | 저지수 적합도 점수 | 실제 경쟁 강도 | 구글 실시간 SERP 실사 근거 및 저지수 채점 내역 |",
+        "| :---: | :--- | :--- | :---: | :---: | :--- |"
+    ]
 
     for r in audit_records:
+        c, rel, v = extract_health_keyword_triad(r["title"])
+        r["triad"] = {"core": c, "related": rel, "variation": v}
         breakdown_str = " / ".join(r["low_auth_breakdowns"][:2])
-        print(f"| **{r['idx']}** | **{r['title']}** | **{r['low_auth_score']}점** | **{r['badge']}** | {r['reason']} ({breakdown_str}) |")
+        line = f"| **{r['idx']}** | **{r['title']}** | **메인:** {c}<br>• **연관:** {rel}<br>• **변주:** {v} | **{r['low_auth_score']}점** | **{r['badge']}** | {r['reason']} ({breakdown_str}) |"
+        table_lines.append(line)
+        print(line)
+
+    markdown_table_str = "\n".join(table_lines)
 
     print("\n### 🎯 결론 및 저지수 블로그 알고리즘 기반 최종 추천 픽")
     pick1 = sorted_by_low_auth[0]
@@ -346,8 +361,10 @@ def validate_google_titles(titles, run_serp=True):
     print(f"- 🥈 **[2픽 / 차선책 (적합도 {pick2['low_auth_score']}점)] {pick2['idx']}번: {pick2['title']}**\n  • **선정 근거**: {', '.join(pick2['low_auth_breakdowns'])} ({pick2['badge']})")
     print(f"- 🥉 **[3픽 / 틈새형 (적합도 {pick3['low_auth_score']}점)] {pick3['idx']}번: {pick3['title']}**\n  • **선정 근거**: {', '.join(pick3['low_auth_breakdowns'])} ({pick3['badge']})")
     print("=" * 80)
+    print("\n🚨 [AI 보고 절대 의무 - 마스터 표준 27-4]")
+    print("AI는 사용자 보고 시 위 마크다운 표 전체를 생략·요약 없이 100% 그대로 채팅창에 출력해야 합니다!")
+    print("단순 불릿 요약(번호: 제목) 출력은 사용자 기만행위로 간주되어 엄격히 금지됩니다.\n")
 
-    # 감사 로그 저장
     try:
         data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
         os.makedirs(data_dir, exist_ok=True)
@@ -358,6 +375,8 @@ def validate_google_titles(titles, run_serp=True):
                 "channel": "google",
                 "total_candidates": len(titles),
                 "serp_table_rendered": True,
+                "triad_table_rendered": True,
+                "markdown_table": markdown_table_str,
                 "top_pick": pick1,
                 "records": audit_records
             }, af, ensure_ascii=False, indent=2)

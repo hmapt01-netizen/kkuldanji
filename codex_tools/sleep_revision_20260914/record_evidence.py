@@ -1,0 +1,41 @@
+"""Record this session's actual source review; not an automated medical verifier."""
+from pathlib import Path
+import json, hashlib
+from urllib.parse import quote
+W=Path(__file__).resolve().parent
+rows=[
+ ('aasm','AASM — Behavioral and psychological treatments for chronic insomnia disorder in adults','https://pmc.ncbi.nlm.nih.gov/articles/PMC7853203/','2021-02-01','Collection date 2021 Feb 1','2021 지침은 CBT-I를 강하게 권고하고 자극조절을 조건부 권고한다. 수면위생만으로 만성 불면증을 관리하는 것은 권고하지 않는다. 현재 AASM 지침 목록에서 동일 원문을 연결한다.'),
+ ('bath','Haghayegh et al. — Before-bedtime passive body heating by warm shower or bath to improve sleep','https://pubmed.ncbi.nlm.nih.gov/31102877/',None,'2019 Aug:46:124-135; Epub 2019 Apr 19','2019 체계적 문헌고찰은 취침 1~2시간 전 약 10분 이상 따뜻한 물 목욕과 입면 시간 단축의 연관을 보고했다. 정확히 90분, 효과 2배, 10분 안에 깊은 수면이라는 보장은 없다. 이후 족욕 연구는 대상과 처치가 달라 일반 샤워의 확정 효과로 전용하지 않는다.'),
+ ('light','Phillips et al. — High sensitivity and interindividual variability in the response of the human circadian system to evening light','https://pubmed.ncbi.nlm.nih.gov/31138694/','2019-06-11','2019 Jun 11;116(24):12019-12024','55명의 젊은 성인을 대상으로 저녁 5시간 노출한 연구에서 빛에 대한 반응의 개인차가 컸다. 스마트폰이나 5 lux가 모든 사람의 멜라토닌을 50% 줄인다는 근거로 사용할 수 없다.'),
+ ('nhs','NHS — Fall asleep faster and sleep better','https://www.nhs.uk/every-mind-matters/mental-wellbeing-tips/how-to-fall-asleep-faster-and-sleep-better/',None,'페이지 자체 발행·개정일 확인 불가','편안하게 쉬는 동안 자연스럽게 잠들 수 있다. 약 20분 뒤에도 깨어 있다면 편안한 곳에서 조용한 활동을 하고 졸리면 침대로 돌아온다. 휴식 무용론이나 초 단위 강제 기상 지침이 아니다.'),
+ ('habits','NHLBI — Healthy Sleep Habits','https://www.nhlbi.nih.gov/health/sleep-deprivation/healthy-sleep-habits',None,'Last updated on March 24, 2022','침실은 조용하고 서늘하고 어둡게 유지하되 필요하면 약한 야간등을 허용한다. 카페인 영향은 최대 8시간 이어질 수 있고 취침 전 큰 식사와 술은 피한다. 주말과 평일 수면 일정 차이는 약 1시간 이내를 제안한다.'),
+ ('treatment','NHLBI — Insomnia Treatment','https://www.nhlbi.nih.gov/health/insomnia/treatment',None,'Last updated on March 24, 2022','장기 불면증에는 CBT-I가 우선 선택이며 침대와 잠의 연결을 회복하는 자극조절을 포함한다. 생활습관을 고치면 반드시 낫는다는 보장은 없다.'),
+ ('magnesium','NCCIH — Sleep Disorders and Complementary Health Approaches','https://www.nccih.nih.gov/health/sleep-disorders-and-complementary-health-approaches',None,'Last Updated: May 2024','마그네슘 수면 연구는 적고 결과가 일관되지 않다. 일률적인 취침 1시간 전 복용 권고를 뒷받침하지 않는다. 보충제 고용량은 설사와 복부 불편을 일으킬 수 있다. 페이지 공통 2026 날짜는 본문 개정일이 아니다.'),
+ ('melatonin','NCCIH — Melatonin: What You Need To Know','https://www.nccih.nih.gov/health/melatonin-what-you-need-to-know',None,'Last Updated: May 2024','멜라토닌은 어둠에 반응해 분비되어 수면과 생체리듬에 관여한다. 장기 보충 안전성은 충분히 밝혀지지 않았다. 자체 분비 능력이 반드시 저하된다는 주장으로 바꾸지 않는다.'),
+ ('stages','NHLBI — Sleep Phases and Stages','https://www.nhlbi.nih.gov/health/sleep/stages-of-sleep',None,'Last updated on March 24, 2022','비렘 수면은 세 단계이며 렘 수면과 반복된다. 눈을 감았다는 사실만으로 수면 단계나 회복량을 판정할 수 없다. 단계별 독소 세척률 0/20/100%는 이 안내의 내용이 아니다.'),
+ ('diary','NHLBI — Insomnia Diagnosis','https://www.nhlbi.nih.gov/health/insomnia/diagnosis',None,'Last updated on March 24, 2022','일상생활에 영향을 받으면 진료를 받는다. 진료 전 1~2주 수면일지에 취침·기상·낮잠·카페인 등을 기록할 수 있다.'),
+ ('wearable','AASM — Staying current with actigraphy devices for sleep-wake monitoring','https://aasm.org/staying-current-with-actigraphy-devices-for-sleep-wake-monitoring/',None,'게시일의 일자 확인을 생략하여 unknown으로 유지','소비자 웨어러블의 수면 단계 정확도는 기기와 소프트웨어 버전에 따라 다르며 실험실 밖 검증이 제한적이다. 깊은 잠 비율 하나로 건강을 단정하지 않는다.'),
+ ('va','VA/DoD — Management of Chronic Insomnia Disorder and Obstructive Sleep Apnea','https://healthquality.va.gov/HEALTHQUALITY/guidelines/CD/insomnia/I-OSA-CPG_2025-Guideline_final_20250915.pdf',None,'Version 3.0 – 2025; January 2025; evidence through March 31, 2024','2025 지침은 마그네슘 사용을 찬성하거나 반대할 근거가 부족하다고 한다. PDF 파일명의 9월 날짜와 문서 기준 시점을 구분한다.')
+]
+queries=[
+ ('recent','recent_discovery','site.aasm.org insomnia guideline after:2026-07-01 before:2026-09-15','7~9월 검색에서 이번 주장을 직접 대체할 새 지침은 확인하지 못했다.'),
+ ('recent_mg','recent_discovery','"magnesium" "sleep" site.nccih.nih.gov after:2026-07-01 before:2026-09-15','최근 자료 우선 탐색 후 현재 NCCIH 안내 및 2025 VA/DoD 원문을 채택했다.'),
+ ('valid','validity_check','site.nhlbi.nih.gov site.nhs.uk sleep hygiene insomnia guidance 2026 update','현재 제공 중인 공공기관 안내와 AASM 지침 목록을 대조했다. 새 자료가 없다는 보장은 하지 않는다.'),
+ ('valid_bath','validity_check','site.pubmed.ncbi.nlm.nih.gov warm bath sleep 2019 2025 2026 review correction','더 최근 족욕 연구를 확인했으나 일반 샤워 효과·90분 확정 법칙으로 대체할 수 없다.'),
+ ('valid_mg','validity_check','site.nccih.nih.gov melatonin magnesium sleep evidence updated 2026','현재 NCCIH와 2025 VA/DoD 안내에서 근거 부족과 장기 안전성 한계를 확인했다.')
+]
+lines=['# 수면 글 사실 확인 — 2026-09-14 조회','대상: sleep-hygiene-guide.html 및 sleep-lying-down-eyes-closed-20min-rule.html, 대응 네이버 13번. 기존 글 수정으로 신규 주제·제목 선택 절차는 적용하지 않는다.','최근 자료를 먼저 찾았으나 날짜만 맞추는 자료를 끼워 넣지 않는다. 검색 도구 결과와 공식 원문을 확인한 수동 검토 기록이다.']
+for sid,purpose,q,result in queries: lines.append(f'## 검색 {sid}\n{q}\n{result}')
+for sid,title,url,date,marker,note in rows: lines.append(f'## {sid}\n{title}\n{url}\n날짜: {marker}\n확인: {note}')
+lines.append('## FAQ 사전 확인\n눈만 감은 휴식/20분 후 행동은 NHS, 스마트폰·카페인은 NHLBI, 마그네슘은 NCCIH·VA/DoD, 멜라토닌 장기 사용은 NCCIH, 수면 단계 수치는 NHLBI·AASM 기기 안내로 대조했다. 의학적 사실 확인이 없는 새 복용량이나 진단 기준은 만들지 않는다.')
+text='\n\n'.join(lines)+'\n'; (W/'리서치.md').write_text(text,encoding='utf-8')
+sha=hashlib.sha256((W/'리서치.md').read_bytes()).hexdigest()
+def proof(s): return dict(evidence_file='리서치.md',evidence_sha256=sha,evidence_excerpt=s)
+searches=[]
+for sid,purpose,q,result in queries:
+ r=dict(id=sid,purpose=purpose,query=q,url='https://www.google.com/search?q='+quote(q),searched_on='2026-09-14',result=result,**proof(q))
+ if purpose=='recent_discovery': r.update(channel='google',**{'from':'2026-07-01','to':'2026-09-14'})
+ searches.append(r)
+sources=[dict(id=sid,title=title,url=url,role='fact',accessed_on='2026-09-14',published_on=date,date_status='known' if date else 'unknown',date_evidence=marker,exception_reason='기존 수면 주장 교정에 직접 필요한 원문. 원래 발표·개정 시점과 조회일을 분리한다.',validity_search_id='valid_bath' if sid=='bath' else 'valid_mg' if sid in ('magnesium','melatonin','va') else 'valid',validity_note=note,**proof(note)) for sid,title,url,date,marker,note in rows]
+(W/'freshness_review.json').write_text(json.dumps(dict(schema_version=1,checked_on='2026-09-14',searches=searches,sources=sources,claims=[dict(text=r[5],source_ids=[r[0]]) for r in rows]),ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
+print('Recorded',len(rows),'source reviews')

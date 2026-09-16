@@ -1,0 +1,191 @@
+# -*- coding: utf-8 -*-
+"""
+단위 테스트: Evidence Guard 정밀 검증 스위트 (순수 추상 검증 모드)
+- [마스터 표준 23-2호, 23-3호, 23-4호]
+- 수학적 수치 집합 대조: S_article ⊆ S_source
+- 양대 채널 수치 동등성: S_naver == S_google
+- 동적 기관 명의 직접성(Direct Grounding) 검증
+- 동적 식별자(PMID) 정합성 검증
+- 괄호 예시 및 단어 하드코딩 0개 원칙 검증
+"""
+import unittest
+import copy
+import json
+import os
+import sys
+
+TOOLS_DIR = os.path.dirname(os.path.abspath(__file__))
+if TOOLS_DIR not in sys.path:
+    sys.path.insert(0, TOOLS_DIR)
+
+import evidence_guard as eg
+
+
+class TestEvidenceGuard(unittest.TestCase):
+    def setUp(self):
+        self.valid_references = [
+            '<a href="https://www.nhs.uk/conditions/sore-throat/">UK NHS 《Sore throat home care》</a> — 따뜻한 소금물 가글의 인후통 완화 요령, 소아 가글 금기 및 즉시 응급 진료 적신호 안내.',
+            '<a href="https://pubmed.ncbi.nlm.nih.gov/30705369/">Scientific Reports (Nature / PMID: 30705369, PMC6355924)</a> — 상기도 감염 시 고장성 식염수 비강 세척 및 가글 병행 파일럿 무작위 대조시험(Ramalingam et al., 2019).',
+            '<a href="https://www.nhs.uk/live-well/healthy-teeth-and-gums/how-to-keep-your-teeth-clean/">UK NHS 《How to keep your teeth clean》</a> — 양치 후 불소 보호막 보존을 위해 물로 헹구지 않는 Spit, don\'t rinse 지침.'
+        ]
+
+        self.valid_sources = [
+            {
+                "id": "src_nhs_throat",
+                "title": "Sore throat",
+                "institution": "UK NHS",
+                "url": "https://www.nhs.uk/conditions/sore-throat/",
+                "evidence_quote": "Gargle with warm, salty water to reduce swelling and pain (children should not try this). Dissolve half a teaspoon of salt in a glass of warm water."
+            },
+            {
+                "id": "src_ramalingam",
+                "pmid": "30705369",
+                "pmcid": "PMC6355924",
+                "doi": "10.1038/s41598-018-37703-3",
+                "authors": ["Ramalingam S", "Graham C"],
+                "title": "A pilot, open labelled, randomised controlled trial of hypertonic saline nasal irrigation and gargling for the common cold",
+                "evidence_quote": "A pilot randomised controlled trial... hypertonic saline nasal irrigation and gargling."
+            },
+            {
+                "id": "src_nhs_teeth",
+                "title": "How to keep your teeth clean",
+                "institution": "UK NHS",
+                "url": "https://www.nhs.uk/live-well/healthy-teeth-and-gums/how-to-keep-your-teeth-clean/",
+                "evidence_quote": "Spit, don't rinse. Don't rinse your mouth immediately after brushing."
+            }
+        ]
+
+        stmt1 = "영국 국민보건서비스(NHS) 지침에 따르면 따뜻한 물 한 컵에 소금 반 티스푼을 녹여 가글하는 생활 요법을 안내한다."
+        stmt2 = "소금물 가글 임상 연구(Ramalingam et al., 2019)는 코 세척과 가글을 병행한 소규모 파일럿 시험으로 가글 단독 효과로 단정할 수 없으며 대증요법에 한정된다."
+        stmt3 = "양치 직후에는 치약의 불소 보호막이 씻겨나가는 것을 막기 위해 물이나 가글로 바로 헹구지 말고(NHS 지침), 소금물 가글은 양치와 분리된 별도 시간대에 하는 것이 안전하다."
+
+        self.valid_claims = [
+            {
+                "id": "claim_01",
+                "statement": stmt1,
+                "statement_hash": eg.compute_statement_hash(stmt1),
+                "source_id": "src_nhs_throat",
+                "category": "guideline",
+                "limits": "가정용 대증요법에 한정"
+            },
+            {
+                "id": "claim_02",
+                "statement": stmt2,
+                "statement_hash": eg.compute_statement_hash(stmt2),
+                "source_id": "src_ramalingam",
+                "category": "academic",
+                "limits": "코 세척 병행 소규모 파일럿 시험에 한정"
+            },
+            {
+                "id": "claim_03",
+                "statement": stmt3,
+                "statement_hash": eg.compute_statement_hash(stmt3),
+                "source_id": "src_nhs_teeth",
+                "category": "oral_hygiene",
+                "limits": "불소 잔류 보호막 유지 원칙"
+            }
+        ]
+
+        self.manifest_data = {
+            "sources": self.valid_sources,
+            "claims": self.valid_claims
+        }
+
+        self.valid_post_data = {
+            "title": "환절기 목 통증 소금물 가글 방법과 주의사항, 따뜻한 물 비율과 소아 금기",
+            "shortTitle": "환절기 소금물 가글 방법과 주의사항",
+            "desc": "환절기 목 칼칼할 때 영국 NHS가 안내하는 따뜻한 물 한 컵에 소금 반 티스푼 비율과 소아 금기 수칙, 불소 보호막 보존 요령을 알아봅니다.",
+            "references": self.valid_references,
+            "bodyHtml": (
+                '<p>환절기 목 통증 시 영국 국민보건서비스(NHS) 지침에 따르면 따뜻한 물 한 컵에 소금 반 티스푼을 녹여 가글하는 생활 요법을 안내합니다.</p>\n'
+                '<p>소금물 가글 임상 연구(Ramalingam et al., 2019)는 코 세척과 가글을 병행한 소규모 파일럿 시험으로 가글 단독 효과로 단정할 수 없으며 대증요법에 한정됩니다.</p>\n'
+                '<p>양치 직후에는 치약의 불소 보호막이 씻겨나가는 것을 막기 위해 물이나 가글로 바로 헹구지 말고(NHS 지침), 소금물 가글은 양치와 분리된 별도 시간대에 하는 것이 안전합니다.</p>\n'
+                '<p>어린이는 기도 흡인과 고나트륨 위험으로 소금물 가글을 피해야 하며, 숨쉬기 어렵거나 침을 삼키지 못하는 경우 지체 없이 즉시 응급 진료를 받아야 합니다.</p>\n'
+                '<figure class="post-img-wrap"><img src="post01.jpg" alt="소금물 가글 준비 모습"><figcaption>따뜻한 물에 소금을 완전히 녹여 준비하는 모습</figcaption></figure>'
+            ),
+            "faqs": [
+                {
+                    "q": "물과 소금의 비율은 어떻게 맞추나요?",
+                    "a": "영국 NHS 지침에서는 따뜻한 물 한 컵에 소금 반 티스푼을 완전히 녹여 사용할 것을 안내합니다."
+                }
+            ]
+        }
+
+    def test_pmid_mismatch_detection(self):
+        """1. 엉뚱한 논문 연결 적발 검증"""
+        bad_sources = copy.deepcopy(self.valid_sources)
+        bad_sources[1]["pmid"] = "30705360"
+        bad_sources[1]["pmcid"] = "PMC6355609"
+
+        with self.assertRaises(eg.IdentifierMismatchError):
+            bad_manifest = {"sources": bad_sources, "claims": self.valid_claims}
+            naver_bad = '<p>Scientific Reports (Nature / PMID: 30705360)</p>'
+            eg.verify_cross_channel_consistency(self.valid_post_data, naver_bad, manifest_data=self.manifest_data)
+
+    def test_institutional_false_attribution(self):
+        """2. 공인 출처 원문에 대상 주제 언급이 없는 허위 권위 사칭 적발 검증"""
+        bad_sources = [
+            {
+                "id": "src_fake_inst",
+                "institution": "대한특정학회",
+                "evidence_quote": "실내 습도를 유지하고 충분한 휴식을 취한다."  # 가글/소금 관련 언급 없음
+            }
+        ]
+        bad_text = "대한특정학회 지침에 따르면 소금물 가글을 적극 권고한다."
+        with self.assertRaises(eg.ClaimGroundingError):
+            eg.verify_institutional_grounding(bad_sources, bad_text, topic_keywords=["소금물", "가글"])
+
+    def test_mathematical_quantity_grounding(self):
+        """3. 출처 원문에 없는 자의적 수치(S_article - S_source != empty) 적발 검증"""
+        # 출처(half a teaspoon in a glass)에 없는 임의 중량(1.8g)
+        bad_text_g = "물 1컵에 1.8g을 녹여야 안전합니다."
+        with self.assertRaises(eg.SpuriousPrecisionError):
+            eg.check_numeric_grounding(bad_text_g, self.manifest_data)
+
+        # 출처에 없는 임의 백분율(3%)
+        bad_text_pct = "농도가 3%를 초과하면 자극이 발생합니다."
+        with self.assertRaises(eg.SpuriousPrecisionError):
+            eg.check_numeric_grounding(bad_text_pct, self.manifest_data)
+
+        # 출처에 없는 임의 온도(38.5도)
+        bad_text_temp = "38.5도 이상 고열 발생 시..."
+        with self.assertRaises(eg.SpuriousPrecisionError):
+            eg.check_numeric_grounding(bad_text_temp, self.manifest_data)
+
+    def test_blocked_root_domain(self):
+        """4. 루트 도메인 차단 검증"""
+        with self.assertRaises(eg.InvalidReferenceError):
+            eg.verify_reference_url("https://health.kdca.go.kr/")
+
+    def test_clean_valid_post_pass(self):
+        """5. 모든 검증을 완벽히 통과하는 클린 원고 검증"""
+        self.assertTrue(eg.validate_post_evidence(self.valid_post_data))
+
+    def test_cross_channel_quantity_equality(self):
+        """6. 네이버 원고에만 독자적 수치가 기재된 경우(S_naver != S_google) 적발 검증"""
+        clean_naver = (
+            '<h1>"목이 따끔거려요" 환절기 소금물 가글 방법과 따뜻한 물 비율</h1>'
+            '<p>영국 NHS 지침에 따르면 따뜻한 물 한 컵에 소금 반 티스푼을 완전히 녹여 가글하는 생활 요법을 안내합니다.</p>'
+            '<p>소금물 가글 임상 연구(Ramalingam et al., 2019)는 코 세척과 가글 병행 파일럿 시험으로 대증요법에 한정됩니다.</p>'
+            '<p>양치 직후에는 치약의 불소 보호막이 씻겨나가는 것을 막기 위해 물로 바로 헹구지 말고 분리 사용합니다.</p>'
+            '<p>소아 및 어린이는 기도 흡인 위험으로 가글을 피해야 하며 호흡곤란이나 연하곤란, 고열 시 즉시 응급 진료를 받습니다.</p>'
+            '<footer><p>Scientific Reports (PMID: 30705369, PMC6355924)</p></footer>'
+        )
+        # 정상 네이버 원고 통과
+        eg.verify_cross_channel_consistency(self.valid_post_data, clean_naver, manifest_data=self.manifest_data)
+
+        # 네이버에만 구글에 없는 독자적 수치 추가 시 차단
+        with self.assertRaises(eg.CrossChannelMismatchError):
+            eg.verify_cross_channel_consistency(self.valid_post_data, clean_naver + '<p>소금 5g 배합</p>', manifest_data=self.manifest_data)
+
+        # 네이버에 중복 문단 연속 배치 시 차단
+        dup_naver = clean_naver + (
+            '<p>가정용 종이컵에 티스푼 반 스푼을 녹이면 순한 식염수가 만들어지며 멸균 생리식염수와는 구별됩니다.</p>'
+            '<p>가정용 종이컵에 티스푼 반 스푼을 녹이면 순한 식염수가 만들어지며 멸균 생리식염수와는 구별됩니다.</p>'
+        )
+        with self.assertRaises(eg.CrossChannelMismatchError):
+            eg.verify_cross_channel_consistency(self.valid_post_data, dup_naver, manifest_data=self.manifest_data)
+
+
+if __name__ == "__main__":
+    unittest.main()

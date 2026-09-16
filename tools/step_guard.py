@@ -12,6 +12,27 @@ from datetime import datetime
 if sys.platform == 'win32':
     sys.stdout.reconfigure(encoding='utf-8')
 
+def trigger_governance_block(source_rule, issue_desc, diff_old="", diff_new=""):
+    """
+    [마스터 표준 0-8] 시스템 하드락 발동 및 AI 보고 강제 표준 양식 출력
+    """
+    print("\n" + "=" * 80)
+    print("🚨 [가디언 시스템 하드락 발동 / AI 행동 강제 지침]")
+    print("AI는 절대로 억지로 작업을 강행하거나, 가짜 출처/수치를 날조하여 넘어가려 하지 마십시오!")
+    print("지금 즉시 대표님께 아래 표준 양식으로 상황을 보고하고 규칙/코드 수정을 건의하십시오:\n")
+    print("--------------------------------------------------------------------------------")
+    print("🚨 [에이전트 규칙/팩트 불일치 감지 보고]")
+    print(f"1. 원인 조항: {source_rule}")
+    print(f"2. 발생 문제: {issue_desc}")
+    if diff_old and diff_new:
+        print("3. 해결 제안 (Diff):")
+        print(f"   [기존]: {diff_old}")
+        print(f"   [수정안]: {diff_new}")
+    print("4. 조치 요청: 대표님의 승인 후 규칙/코드를 패치하고 작업을 재개하겠습니다.")
+    print("--------------------------------------------------------------------------------")
+    print("=" * 80 + "\n")
+    sys.exit(1)
+
 def get_latest_work_dir():
     """
     d:\작업\꿀단지 루트에서 'YYYY-MM-DD-주제명' 형식의 가장 최신 작업 폴더를 자동 탐색합니다.
@@ -61,18 +82,40 @@ def get_target_months():
     ]
     return cur_patterns, prev_patterns, year_patterns, validity_patterns, (cur_year, cur_month), (prev_year, prev_month)
 
-def verify_research_facts(work_dir):
+def verify_research_facts(work_dir, required_step=1):
     """
-    [마스터 표준 23] 건강·영양 최신 데이터 팩트체크 리서치 검증기
-    리서치.md에 당월/전월/당해연도 기준 시점 또는 당월 유효성 재확인 및 공인 출처 2건 이상이 기재되어 있는지 기계적으로 검사합니다.
+    [마스터 표준 0 / 23] 건강·영양 최신 데이터 팩트체크 리서치 2단계 검증기
+    - Step 1~3 (제목 단계): 1차 사전 팩트 탐색 (최신성, 공인기관 2건+URL, 과장표현 0개, SERP 실사, 내부링크)
+    - Step 4 (본문 단계): 2차 제목 맞춤형 심층 리서치 (확정 제목 맞춤 FAQ 2~3선 및 공인 근거 필수)
     """
+    # 0-1. Zero-Example 안티-앵커링 규칙 검사 선행 (규칙/스킬 문서 내 예시 박제 차단)
+    try:
+        from lint_rules_zero_example import run_linter
+        if run_linter() != 0:
+            print("\n🚨 [HARD STOP 물리적 차단] 규칙 또는 스킬 문서에 안티-앵커링 위반(성분명/약물명/식품명 예시 박제)이 발견되었습니다!")
+            print("   👉 조치: 'python tools/lint_rules_zero_example.py'의 위반 사항을 먼저 해결하세요.")
+            sys.exit(1)
+    except ImportError:
+        pass
+
+    # 0-2. 규칙-코드 정합성 및 런타임 충돌 자가 진단 선행
+    try:
+        from audit_rule_integrity import run_audit
+        if run_audit() != 0:
+            print("\n🚨 [HARD STOP 물리적 차단] 규칙 문서와 파이썬 가디언 코드 간의 충돌·모순이 발견되었습니다!")
+            print("   👉 AI 행동 강령: 억지로 작업을 진행하지 말고, 즉시 대표님께 [원인 조항 / 발생 문제 / 규칙 수정안(Diff)]을 보고하고 승인을 요청하세요.")
+            sys.exit(1)
+    except ImportError:
+        pass
+
     research_path = os.path.join(work_dir, "리서치.md")
     if not os.path.exists(research_path):
-        print(f"\n🚨 [HARD STOP 0 물리적 차단] 작업 폴더에 '리서치.md' 파일이 존재하지 않습니다!")
-        print(f"   📂 대상 폴더: {work_dir}")
-        print(f"   🛑 차단 사유: AI가 웹 검색(search_web)과 최신 팩트 리서치를 건너뛰고 작업을 시도했습니다.")
-        print(f"   👉 해결 조치: Step 0 웹 검색을 먼저 실행하고 '리서치.md'에 최신 임상/공인기관 팩트를 정리하세요.")
-        sys.exit(1)
+        trigger_governance_block(
+            "마스터 표준 0호 (Step 0-A 사전 팩트 탐색)",
+            f"작업 폴더에 '리서치.md'가 없습니다. AI가 웹 검색(search_web) 및 사전 팩트 확인을 건너뛰고 작업을 시도했습니다.",
+            "리서치.md 없이 작업 진행",
+            "search_web으로 공인 1차 기관 기준선 및 최신 팩트를 확인하여 '리서치.md' 생성 후 재개"
+        )
 
     try:
         with open(research_path, "r", encoding="utf-8") as f:
@@ -128,6 +171,14 @@ def verify_research_facts(work_dir):
         print(f"\n🚨 [HARD STOP 0 물리적 차단] '리서치.md'에 공인 출처(식약처, 질병청, 하버드, 란셋 등)가 2건 이상 기재되지 않았습니다!")
         print(f"   🛑 블로그 찌라시나 미검증 민간요법 방지를 위해 공인 연구기관/정부 통계 출처 2건 이상이 필수입니다.")
         print(f"   👉 조치: 신뢰할 수 있는 공인 기관의 최신 발표자료를 search_web하여 리서치.md에 기재하세요.")
+        sys.exit(1)
+
+    # 2-1) [마스터 표준 0-5] 실제 클릭 가능한 공인 출처 URL (https://...) 필수 검증
+    urls_found = re.findall(r'https?://[^\s\)\"\'\>]+', content)
+    if not urls_found:
+        print(f"\n🚨 [HARD STOP 0 물리적 차단 / 마스터 표준 0-5] '리서치.md'에 실제 클릭 가능한 공인기관/학술 원문 웹사이트 URL(https://...)이 단 1개도 기재되지 않았습니다!")
+        print(f"   🛑 2차 블로그 인용 및 가짜 텍스트 출처 표기를 원천 방어하기 위해 실제 원문 공식 URL 기재가 100% 필수입니다.")
+        print(f"   👉 조치: 식약처, 질병청, 공인 논문 등 실제 1차 출처 URL을 리서치.md에 등록하세요.")
         sys.exit(1)
 
     # 3) 위험한 만병통치약 과장 금칙어 검출 (금칙어 소각/교체 계획 섹션 제외)
@@ -202,7 +253,13 @@ def verify_research_facts(work_dir):
         ts_str = audit_data.get("timestamp", "")
         if ts_str:
             audit_dt = datetime.fromisoformat(ts_str)
-            diff_hours = (datetime.now() - audit_dt).total_seconds() / 3600
+            if audit_dt.tzinfo is not None:
+                from datetime import timezone
+                now_dt = datetime.now(timezone.utc)
+                audit_dt_utc = audit_dt.astimezone(timezone.utc)
+                diff_hours = (now_dt - audit_dt_utc).total_seconds() / 3600
+            else:
+                diff_hours = (datetime.now() - audit_dt).total_seconds() / 3600
             if diff_hours > 24:
                 print(f"\n🚨 [HARD STOP 0 물리적 차단] 실시간 SERP 감사 로그가 24시간 이상 경과하여 만료되었습니다 ({diff_hours:.1f}시간 경과)!")
                 print(f"   👉 조치: 'python tools/audit_serp_live.py'를 재실행하여 최신 SERP를 다시 실사하세요.")
@@ -234,26 +291,117 @@ def verify_research_facts(work_dir):
         print(f"   👉 조치: data/posts_db.json의 기존 글 중 연계할 2편 이상의 링크(.html 또는 슬러그)를 리서치.md에 기재하세요.")
         sys.exit(1)
 
-    # 6) [마스터 표준 23-1호] FAQ 사전 실사 및 공인 근거 검증
+    # 6) [마스터 표준 23-1호] FAQ 및 심층 데이터 검증 (2단계 리서치 분리)
     faq_keywords = ["FAQ", "자주 묻는 질문", "질의응답", "Q&A", "핵심 질문", "질문 1", "질문 2", "질문 3"]
     has_faq_research = any(kw in content for kw in faq_keywords)
-    print(f"   - [Step 0 FAQ 사전 실사 기록]: {'✅ 확인됨 (공인 근거 실사)' if has_faq_research else '❌ 누락'}")
-    if not has_faq_research:
-        print(f"\n🚨 [HARD STOP 0 물리적 차단] '리서치.md'에 [마스터 표준 23-1호] 'FAQ 사전 실사 (자주 묻는 질문 2~3선 공인 근거)' 기록이 누락되었습니다!")
-        print(f"   🛑 사유: AI가 본문 FAQ를 공인 학회 검색 없이 임의로 지어내어 잘못된 의학/건강 정보를 기재하는 것을 원천 방지합니다.")
-        print(f"   👉 조치: FAQ에 수록할 질문 2~3선과 각각의 공인 학회/논문 팩트 근거를 리서치.md에 반드시 기재하세요.")
+
+    if required_step == 4:
+        # Step 4(본문 작성 단계)에서만 확정 제목 맞춤 FAQ 및 심층 데이터 필수 검증
+        print(f"   - [Step 0-B 확정 제목 맞춤 FAQ 실사]: {'✅ 확인됨 (공인 근거 실사)' if has_faq_research else '❌ 누락'}")
+        if not has_faq_research:
+            trigger_governance_block(
+                "마스터 표준 23-1호 (Step 0-B 확정 제목 맞춤 FAQ 실사)",
+                "확정된 제목의 분석 스코프에 맞춘 FAQ 2~3선 및 공인 근거가 '리서치.md'에 누락되었습니다.",
+                "FAQ 사전 실사 없이 본문 작성 강행 시도",
+                "확정된 제목이 약속한 쟁점/의문에 직결된 질문 2~3선과 공인 출처를 '리서치.md'에 보강 후 재개"
+            )
+    else:
+        # Step 1~3 (제목 단계)에서는 사전 팩트 안전선만 검증하고 FAQ는 요구하지 않음
+        faq_note = "✅ 사전 팩트 안전선 확보 완료 (맞춤 FAQ는 제목 확정 후 Step 0-B 심층 리서치에서 진행)"
+        print(f"   - [Step 0-A 사전 팩트 검증]: {faq_note}")
+
+    return True
+
+def verify_titles_audit(channel, selected_title):
+    """
+    [마스터 표준 27-4] 제목 10선 키워드 3단 조합(메인+연관+변주) 및 실시간 SERP 감사 로그 물리적 검증기
+    AI가 표 생성을 건너뛰거나, 3단 조합 분해 없이 제목을 날조하여 선택하는 행위를 물리적으로 차단합니다.
+    """
+    audit_filename = f"last_{channel}_titles_audit.json"
+    audit_path = os.path.join(r"d:\작업\꿀단지", "data", audit_filename)
+    if not os.path.exists(audit_path):
+        print(f"\n🚨 [HARD STOP 물리적 차단 / 마스터 표준 27-4] {channel.upper()} 제목 10선 감사 로그('{audit_filename}')가 존재하지 않습니다!")
+        print(f"   🛑 사유: AI가 키워드 3단 조합 표 생성 및 실시간 SERP 실사를 거치지 않고 임의로 진행하는 것을 방지합니다.")
+        print(f"   👉 조치: 'python tools/validate_titles.py {channel} <제목파일>'을 먼저 실행하여 성적표를 생성·보고하세요.")
         sys.exit(1)
 
+    try:
+        with open(audit_path, "r", encoding="utf-8") as f:
+            audit_data = json.load(f)
+    except Exception as e:
+        print(f"\n🚨 [HARD STOP 물리적 차단] {audit_filename} 파싱 오류: {e}")
+        sys.exit(1)
+
+    # 1. 24시간 이내 유효성
+    ts_str = audit_data.get("timestamp", "")
+    if ts_str:
+        audit_dt = datetime.fromisoformat(ts_str)
+        if audit_dt.tzinfo is not None:
+            from datetime import timezone
+            now_dt = datetime.now(timezone.utc)
+            audit_dt_utc = audit_dt.astimezone(timezone.utc)
+            diff_hours = (now_dt - audit_dt_utc).total_seconds() / 3600
+        else:
+            diff_hours = (datetime.now() - audit_dt).total_seconds() / 3600
+        if diff_hours > 24:
+            print(f"\n🚨 [HARD STOP 물리적 차단] {channel.upper()} 제목 감사 로그가 24시간 이상 경과했습니다 ({diff_hours:.1f}시간).")
+            print(f"   👉 조치: 'python tools/validate_titles.py {channel}'로 최신 실사를 재실행하세요.")
+            sys.exit(1)
+
+    # 2. triad_table_rendered 검증
+    if not audit_data.get("triad_table_rendered") and not audit_data.get("serp_table_rendered"):
+        print(f"\n🚨 [HARD STOP 물리적 차단] {audit_filename}에 키워드 3단 조합 표 생성(triad_table_rendered) 플래그가 없습니다!")
+        sys.exit(1)
+
+    # 3. 10개 후보 전수 키워드 3단 조합(core, related, variation) 실존 검증
+    records = audit_data.get("records", [])
+    if len(records) < 10:
+        print(f"\n🚨 [HARD STOP 물리적 차단] {audit_filename}의 후보 개수가 {len(records)}개로 10개 미만입니다!")
+        sys.exit(1)
+
+    for r in records:
+        triad = r.get("triad", {})
+        if not triad.get("core") or not triad.get("variation"):
+            print(f"\n🚨 [HARD STOP 물리적 차단] {channel.upper()} 후보 {r.get('idx')}번에 키워드 3단 조합 분해가 누락되었습니다!")
+            print(f"   제목: {r.get('title')}")
+            sys.exit(1)
+
+    # 4. 확정된 제목이 감사 로그 10선 내 실존하는지 대조 검증
+    if selected_title:
+        audited_titles = [r.get("title", "").strip() for r in records]
+        norm_sel = re.sub(r'[\s\"\'“”‘’]', '', selected_title)
+        tokens_sel = set(re.findall(r'[a-zA-Z0-9가-힣]+', selected_title))
+        matched = False
+        for at in audited_titles:
+            norm_at = re.sub(r'[\s\"\'“”‘’]', '', at)
+            if norm_sel == norm_at or norm_sel in norm_at or norm_at in norm_sel:
+                matched = True
+                break
+            tokens_at = set(re.findall(r'[a-zA-Z0-9가-힣]+', at))
+            if tokens_sel and tokens_at:
+                overlap = len(tokens_sel & tokens_at) / max(len(tokens_sel), len(tokens_at))
+                if overlap >= 0.65:
+                    matched = True
+                    break
+
+        if not matched:
+            print(f"\n🚨 [HARD STOP 물리적 차단 / 마스터 표준 27-4] 확정된 {channel.upper()} 제목이 감사 로그의 10선 후보 목록과 일치하지 않습니다!")
+            print(f"   - 확정 제목: '{selected_title}'")
+            print(f"   - 감사 로그 후보 10선: {[at[:25] for at in audited_titles[:3]]}...")
+            print(f"   🛑 사유: 키워드 3단 조합 및 SERP 실사를 통과하지 않은 미검증 제목의 임의 채택을 원천 차단합니다.")
+            sys.exit(1)
+
+    print(f"   - [{channel.upper()} 키워드 3단 조합 및 SERP 감사]: ✅ 100% 무결성 확인 (10선 전수 분해 및 확정 일치 확인됨)")
     return True
 
 def check_step(required_step):
     """
     required_step:
       0 -> Step 0 (리서치 검증 단계)
-      1 -> Step 1 (네이버 제목 보고 단계: Step 0 리서치 통과 필수)
+      1 -> Step 1 (네이버 제목 보고 단계: Step 0-A 사전 팩트 통과 필수)
       2 -> Step 2 (다음 제목 보고 단계: 네이버 제목 승인 필수)
       3 -> Step 3 (구글 제목 보고 단계: 네이버 & 다음 제목 승인 필수)
-      4 -> Step 4 (본문 작성 단계: Step 0 리서치 & 3대 제목 100% 승인 필수)
+      4 -> Step 4 (본문 작성 단계: Step 0-B 심층 리서치 & 3대 제목 100% 승인 필수)
     """
     work_dir = get_latest_work_dir()
     if not work_dir:
@@ -262,8 +410,8 @@ def check_step(required_step):
 
     print(f"🔍 [꿀단지 단계별 게이트 검사] 대상 폴더: {os.path.basename(work_dir)}")
 
-    # 1. Step 0 리서치 최신 팩트체크 검증 (모든 단계 진입 시 필수 통과)
-    verify_research_facts(work_dir)
+    # 1. 최신 팩트체크 검증 (required_step에 따라 Step 0-A 또는 Step 0-B 자동 분리)
+    verify_research_facts(work_dir, required_step=required_step)
 
     tj_path = os.path.join(work_dir, "titles.json")
     titles = {}
@@ -285,16 +433,22 @@ def check_step(required_step):
         print(f"   - [Step 2] 다음 채널 제목: ℹ️ 꿀단지 2-Track 모드 (구글+네이버 집중)")
     print(f"   - [Step 3] 구글 본진 제목: {'✅ ' + google if google else '❌ 미승인'}")
 
-    if required_step == 2 and not naver:
-        print("\n🚨 [HARD STOP 1 위반] 네이버 제목이 승인·확정되지 않았습니다! 다음 단계 진행이 물리적으로 차단됩니다.")
-        sys.exit(1)
-    elif required_step == 3 and not is_2track and not (naver and daum):
-        print("\n🚨 [HARD STOP 2 위반] 네이버 또는 다음 제목이 확정되지 않았습니다! 구글 제목 단계 진행이 물리적으로 차단됩니다.")
-        sys.exit(1)
+    if required_step == 2:
+        if not naver:
+            print("\n🚨 [HARD STOP 1 위반] 네이버 제목이 승인·확정되지 않았습니다! 다음 단계 진행이 물리적으로 차단됩니다.")
+            sys.exit(1)
+        verify_titles_audit("naver", naver)
+    elif required_step == 3:
+        if not is_2track and not (naver and daum):
+            print("\n🚨 [HARD STOP 2 위반] 네이버 또는 다음 제목이 확정되지 않았습니다! 구글 제목 단계 진행이 물리적으로 차단됩니다.")
+            sys.exit(1)
+        verify_titles_audit("naver", naver)
     elif str(required_step) in ["3.5", "35"]:
         if is_2track and not (naver and google):
             print("\n🚨 [HARD STOP 3 위반] 제목이 확정되지 않았습니다! 이미지 계획 작성이 차단됩니다.")
             sys.exit(1)
+        verify_titles_audit("naver", naver)
+        verify_titles_audit("google", google)
         try:
             import image_guard
             if not image_guard.validate_image_plan(work_dir, require_approval=False):
@@ -303,20 +457,16 @@ def check_step(required_step):
             print(f"🚨 [Image Guard 연동 실패]: {e}")
             sys.exit(1)
     elif required_step == 4:
-        # [마스터 표준 26호] 구글 제목 10선 SERP 경쟁도 표 감사 로그 검증
-        google_audit_path = os.path.join(r"d:\작업\꿀단지", "data", "last_google_titles_audit.json")
-        if not os.path.exists(google_audit_path):
-            print("\n🚨 [HARD STOP 3 물리적 차단] 구글 제목 10선에 대한 [마스터 표준 26호] 실시간 SERP 경쟁도 표 감사 로그('data/last_google_titles_audit.json')가 존재하지 않습니다!")
-            print("   🛑 사유: 구글 제목 제안 시 SERP 경쟁도 표 출력을 건너뛰는 행위를 원천 방지합니다.")
-            print("   👉 조치: 'python tools/validate_titles.py google <파일>'을 실행하여 구글 제목 10선 검증 및 SERP 경쟁도 표를 생성·보고하세요.")
-            sys.exit(1)
-
         if is_2track and not (naver and google):
             print("\n🚨 [HARD STOP 3 위반] 네이버 및 구글 제목이 titles.json에 확정되지 않았습니다! 본문 파일 작성이 물리적으로 차단됩니다.")
             sys.exit(1)
         elif not is_2track and not (naver and daum and google):
             print("\n🚨 [HARD STOP 3 위반] 3대 제목(네이버/다음/구글)이 모두 titles.json에 확정되지 않았습니다! 본문 파일 작성이 물리적으로 차단됩니다.")
             sys.exit(1)
+
+        # [마스터 표준 27-4] 네이버 및 구글 제목 키워드 3단 조합 및 SERP 감사 로그 전수 검증
+        verify_titles_audit("naver", naver)
+        verify_titles_audit("google", google)
 
         # [마스터 표준 27-1호] 화보 생성 사전 계획(image_plan.json) 및 사용자 승인 검증
         try:
@@ -328,6 +478,22 @@ def check_step(required_step):
         except Exception as e:
             print(f"🚨 [Image Guard 검증 오류]: {e}")
             sys.exit(1)
+
+        # [마스터 표준 23-2호] Evidence Guard 공인 근거 및 팩트 무결성 검증
+        try:
+            import evidence_guard
+            pj_path = os.path.join(work_dir, "post_data.json")
+            if os.path.exists(pj_path):
+                with open(pj_path, "r", encoding="utf-8-sig") as f:
+                    p_data = json.load(f)
+                evidence_guard.validate_post_evidence(p_data, work_dir=work_dir)
+        except Exception as e:
+            trigger_governance_block(
+                "마스터 표준 23-2호 (Evidence Guard 공인 근거 및 팩트 무결성)",
+                f"Evidence Guard 검증 실패: {e}",
+                "미검증/오류 출처 및 수치 불일치 원고 등록 시도",
+                "evidence_manifest.json 및 원고의 수치·출처·금칙어를 검증 규격에 맞춰 정정 후 재개"
+            )
 
     print(f"\n🔒 [게이트 통과] Step {required_step} 진입 조건이 물리적으로 100% 충족되었습니다.")
     return True

@@ -3,11 +3,45 @@ import sys
 import json
 import shutil
 import subprocess
+import re
 
 if sys.platform == 'win32':
     sys.stdout.reconfigure(encoding='utf-8')
 
 VALID_CATEGORIES = ["식단 & 영양", "홈트레이닝", "라이프 웰니스"]
+
+def validate_lead_quote_card(body_html):
+    """
+    [마스터 표준 1 & 23] 상단 핵심 요약 카드(lead-quote-card) 기계적 무결성 검증기
+    - lead-quote-card 클래스를 가진 태그 필수
+    - 공인 기관/문서 출처 라벨('—' 등) 필수 (출처 누락 차단)
+    - AI 환각성 가공 연구팀('임상영양연구팀', '생체이용률연구팀' 등) 차단
+    - 비인증 큰따옴표 가짜 명언 차단
+    """
+    from bs4 import BeautifulSoup
+    soup = BeautifulSoup(body_html, 'html.parser')
+    card = soup.find(class_=re.compile(r'\blead-quote-card\b'))
+    if not card:
+        raise AssertionError("🚨 [마스터 표준 1 위반] 본문 상단에 'lead-quote-card' 핵심 요약 카드가 누락되었습니다!")
+    
+    card_content = card.get_text(separator=' ').strip()
+    
+    # 1. 출처 표기 확인: '—', '–', '<small>' 태그, 또는 '출처:' 명시 필수
+    has_source = ('—' in card_content or '–' in card_content or 
+                  card.find('small') is not None or 
+                  bool(re.search(r'출처\s*[:：]', card_content)))
+    if not has_source:
+        raise AssertionError("🚨 [마스터 표준 23 위반] lead-quote-card에 공인 기관/문서 출처 라벨('— ...')이 누락되었습니다! 단순 문장만 넣는 것은 금지됩니다.")
+        
+    # 2. AI 가공 조직명(임의 조합 연구팀/추진단) 날조 차단
+    if re.search(r'[가-힣A-Za-z0-9]+\s*(?:연구팀|추진단|태스크포스|TF팀)', card_content):
+        raise AssertionError("🚨 [마스터 표준 23 위반] lead-quote-card에 임의 조합 하위 조직명('...연구팀/추진단')이 감지되었습니다! 실제 공식 기관명 및 문서명으로 기재하세요.")
+
+    # 3. 큰따옴표 가짜 명언 차단 (원문 직역/취지 번역 표기 없이 “...”로 감싼 것 차단)
+    if '“' in card_content or '”' in card_content:
+        if not any(k in card_content for k in ['직역', '원문', '취지 번역', '공식 발표']):
+            raise AssertionError("🚨 [마스터 표준 23 위반] lead-quote-card에 가상 따옴표(“...”) 인용문이 감지되었습니다! 공인 기관이 직접 발언하지 않은 내용을 따옴표로 감싸는 것은 금지되며, 《문서명》 취지 요약으로 기재하세요.")
+
 
 def add_post(post_data, image_dir=None):
     """
@@ -25,6 +59,15 @@ def add_post(post_data, image_dir=None):
     except Exception as e:
         print(f"🚨 [물리적 차단] Step Guard 검증 실패: {e}")
         raise AssertionError(f"Step Guard 검증 실패로 포스트 등록이 물리적으로 중단되었습니다: {e}")
+
+    # 0-1. [마스터 표준 23-2호] Evidence Guard 직접 검증
+    try:
+        import evidence_guard
+        work_dir = step_guard.get_latest_work_dir()
+        evidence_guard.validate_post_evidence(post_data, work_dir=work_dir)
+    except Exception as e:
+        print(f"🚨 [물리적 차단] Evidence Guard 검증 실패: {e}")
+        raise AssertionError(f"Evidence Guard 검증 실패로 포스트 등록이 물리적으로 중단되었습니다: {e}")
 
     # DB와 이미지를 변경하기 전에 홈페이지 원본의 페이지 나누기 규칙을 검사한다.
     from site_pagination_guard import validate as validate_pagination, PaginationError
@@ -102,7 +145,11 @@ def add_post(post_data, image_dir=None):
         if len(raw_refs.strip()) < 50:
             raise AssertionError(f"🚨 [마스터 표준 23 위반] academicRefs 내용이 부실합니다 (최소 50자 이상).")
 
-    # 4. posts_db.json 최상단(1번) 자동 삽입
+    # 4. [마스터 표준 1 & 23] 상단 핵심 요약 카드(lead-quote-card) 기계적 무결성 검증
+    validate_lead_quote_card(post_data.get("bodyHtml", ""))
+    print("  ✓ 상단 핵심 요약 카드(lead-quote-card) 출처 투명성 무결성 검증 통과")
+
+    # 5. posts_db.json 최상단(1번) 자동 삽입
     db_path = r"d:\작업\꿀단지\data\posts_db.json"
     with open(db_path, "r", encoding="utf-8-sig") as f:
         posts = json.load(f)

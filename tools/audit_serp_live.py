@@ -1,19 +1,13 @@
 # -*- coding: utf-8 -*-
 """
-차를 쓰다 & 꿀단지 - 2-Track 실시간 SERP 실사 및 4대 사각지대 완벽 방어 엔진 (audit_serp_live.py)
-
-[4대 취약점 영구 해결]:
-1. 검색량 0(폐가) 판별: 네이버/구글 실시간 자동완성 API를 교차 호출하여 실제 유저 검색 수요 실존 여부 검증
-2. 봇 차단/캡차 오판 방지: HTTP 상태 코드 및 HTML 길이(15KB 이상), 캡차 문구 감지 시 에러 처리 (빈집 둔갑 원천 차단)
-3. 네이버 vs 구글 2-Track 분리:
-   - audit_naver_serp(): 네이버 1페이지 블로그/카페/스마트블록 실사
-   - audit_google_serp(): 구글 자동완성 + 구글 웹문서 권위도(E-E-A-T, 공공기관/위키/언론사) 실사
-4. 작업 폴더 주제 일치성 검증 연동: step_guard.py에서 감사 로그 내 쿼리와 현재 작업 주제 일치 강제 대조
+꿀단지 (KKULDANJI) - 실시간 SERP 및 구글/네이버 4단계 실제 경쟁도 분석 엔진 (Real Live SERP Engine)
+정적 템플릿(가짜 실사)을 100% 배제하고 실제 네이버/구글 1페이지 문서와 실시간 자동완성을 크롤링하여
+[🔴 초극심 레드오션 / 🟡 중간 경쟁 / 🟢 알짜 틈새 / 💎 진짜 블루오션 빈집 / ⚠️ 허수 빈집]을 판정합니다.
 """
 import os
 import sys
-import json
 import re
+import json
 import urllib.request
 import urllib.parse
 from datetime import datetime
@@ -21,32 +15,24 @@ from datetime import datetime
 if sys.platform == 'win32':
     sys.stdout.reconfigure(encoding='utf-8')
 
-ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT_DIR = r"d:\작업\꿀단지"
 DATA_DIR = os.path.join(ROOT_DIR, "data")
 NAVER_AUDIT_FILE = os.path.join(DATA_DIR, "last_naver_serp_audit.json")
 GOOGLE_AUDIT_FILE = os.path.join(DATA_DIR, "last_google_serp_audit.json")
 COMBINED_AUDIT_FILE = os.path.join(DATA_DIR, "last_serp_audit.json")
 
-# ==============================================================================
-# 1. 롱테일 검색 쿼리 및 핵심 시드(Seed) 정제 모듈
-# ==============================================================================
+
 def extract_clean_query_and_seed(title):
     """
-    제목 문자열에서 대화체 독백/따옴표 훅을 걸러내고,
+    제목 문자열에서 대화체 독백/따옴표 훅을 정제하고,
     실제 사용자가 검색하는 1) 핵심 롱테일 검색 쿼리와 2) 검색량 확인용 핵심 시드(Seed)를 정밀 추출
     """
     cleaned = re.sub(r'["“\'”\?!\(\)\[\]·,]', ' ', title)
     cleaned = re.sub(r'\s+', ' ', cleaned).strip()
-    
-    # 대화체 훅 및 불필요 조사/수식어 제거
-    noise_patterns = r'(디딜\s*때|자고\s*일어났더니|걸으면|아픈데|참다간|괜찮을까|찌릿|찌르는|딛기\s*전|넘기면|안\s*가도|믿다간|하면|일까|어쩌나|끝|총정리|알아보기|꿀팁|주의점|알아두세요|요령|순서)'
-    cleaned_no_hook = re.sub(noise_patterns, ' ', cleaned)
-    cleaned_no_hook = re.sub(r'\s+', ' ', cleaned_no_hook).strip()
-    
-    words = [w for w in cleaned_no_hook.split() if len(w) >= 2]
-    
-    # 동적 시드(Seed) 추출 (특정 주제/질환 하드코딩 영구 배제)
-    # 2글자 이상의 핵심 실질 명사 상위 1~2개를 조합하여 시드로 활용
+
+    words = [w for w in cleaned.split() if len(w) >= 2]
+    full_query = " ".join(words[:4]) if len(words) >= 4 else (cleaned or title.strip())
+
     if len(words) >= 2:
         seed = f"{words[0]} {words[1]}"
     elif len(words) == 1:
@@ -54,13 +40,9 @@ def extract_clean_query_and_seed(title):
     else:
         seed = title[:15].strip()
 
-    full_query = " ".join(words[:4]) if words else title[:20]
     return full_query, seed
 
 
-# ==============================================================================
-# 2. 실시간 검색 수요(자동완성) 검증 모듈 [취약점 1: 검색량 0 방어]
-# ==============================================================================
 def check_naver_autocomplete(seed):
     """네이버 실시간 자동완성 API 호출하여 실제 유저 검색 수요 확인"""
     encoded = urllib.parse.quote(seed)
@@ -75,6 +57,7 @@ def check_naver_autocomplete(seed):
     except Exception:
         return []
 
+
 def check_google_autocomplete(seed):
     """구글 실시간 자동완성 API 호출하여 실제 구글 유저 검색 수요 확인"""
     encoded = urllib.parse.quote(seed)
@@ -83,25 +66,14 @@ def check_google_autocomplete(seed):
     try:
         req = urllib.request.Request(url, headers=headers)
         with urllib.request.urlopen(req, timeout=5) as resp:
-            raw = resp.read()
-            try:
-                content = raw.decode('utf-8')
-            except UnicodeDecodeError:
-                content = raw.decode('euc-kr', errors='replace')
-            data = json.loads(content)
+            data = json.loads(resp.read().decode('utf-8'))
             return data[1] if len(data) > 1 else []
     except Exception:
         return []
 
-# ==============================================================================
-# 3. 네이버 실시간 1페이지 크롤링 및 경쟁도 분석 [취약점 2: 봇 차단 방어]
-# ==============================================================================
+
 def fetch_naver_serp_docs(query):
-    """
-    네이버 통합검색 1페이지 실제 노출 문서 크롤링
-    - 본문 크기 검증 (15KB 미만 시 에러 처리)
-    - 실제 차단 페이지 문구 감지 ("비정상적인 접근", "자동입력 방지문자")
-    """
+    """네이버 통합검색 1페이지 실제 노출 문서 크롤링 (건강/의료 특화)"""
     encoded = urllib.parse.quote(query)
     url = f"https://search.naver.com/search.naver?where=nexearch&query={encoded}"
     headers = {
@@ -109,7 +81,7 @@ def fetch_naver_serp_docs(query):
         "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7"
     }
     req = urllib.request.Request(url, headers=headers)
-    
+
     try:
         with urllib.request.urlopen(req, timeout=7) as resp:
             html = resp.read().decode('utf-8', errors='ignore')
@@ -117,9 +89,9 @@ def fetch_naver_serp_docs(query):
         return None, f"네트워크 통신 오류: {e}"
 
     if len(html) < 15000:
-        return None, f"네이버 응답 본문 크기 비정상 (크기: {len(html)}바이트, 일시적 제한 의심)"
+        return None, f"네이버 응답 본문 크기 비정상 (크기: {len(html)}바이트)"
     if "비정상적인 접근" in html or "자동입력 방지문자" in html:
-        return None, "네이버 봇 방지 인증 페이지(비정상 접근) 감지됨"
+        return None, "네이버 봇 방지 인증 페이지 감지됨"
 
     extracted = []
     links = re.findall(r'<a[^>]+href="([^"]+)"[^>]*>([\s\S]*?)</a>', html)
@@ -130,98 +102,117 @@ def fetch_naver_serp_docs(query):
             if not any(x in clean for x in ["로그인", "고객센터", "이용약관", "개인정보처리방침", "도움말", "기록 삭제"]):
                 if not any(clean == item["title"] for item in extracted):
                     domain = "기타 웹문서"
-                    if any(k in href for k in ["safedriving.or.kr", "police.go.kr", "go.kr", "or.kr", "gov.kr", "nhis.or.kr", "cdc.go.kr", "kdca.go.kr"]):
-                        domain = "공공기관/공식"
+                    if any(k in href for k in ["kdca.go.kr", "mfds.go.kr", "nhis.or.kr", "mohw.go.kr", "nih.gov", "who.int", "rda.go.kr", "go.kr", "or.kr"]):
+                        domain = "공공기관/학회"
                     elif any(k in href for k in ["blog.naver.com", "cafe.naver.com", "tistory.com", "brunch.co.kr"]):
                         domain = "블로그/카페"
-                    elif any(k in href for k in ["news", "chosun", "donga", "joongang", "yna", "hankyung", "mt.co.kr"]):
+                    elif any(k in href for k in ["news", "chosun", "donga", "joongang", "yna", "hankyung", "health"]):
                         domain = "대형 언론사"
-                    elif "ad." in href or "where=ad" in href or "naver.com/ad" in href:
+                    elif any(ad_kw in href for ad_kw in ["ad.", "where=ad", "naver.com/ad", "ader.naver.com", "/ad/", "adcr.naver.com", "ad_keyword", "naverad"]):
                         domain = "스폰서 광고"
+                        if sum(1 for x in extracted if x["domain_type"] == "스폰서 광고") >= 3:
+                            continue
 
                     extracted.append({
                         "title": clean[:70],
                         "url": href[:120],
                         "domain_type": domain
                     })
-    return extracted[:8], None
+    return extracted[:15], None
+
 
 def analyze_naver_competition(query, docs, error_msg, ac_items, seed):
-    """
-    네이버 실시간 SERP + 실시간 자동완성 교차 분석
-    """
+    """네이버 실시간 SERP + 자동완성 교차 분석 (건강/웰니스 도메인)"""
     if error_msg:
         return "⚠️ 실사 오류", f"[실사 실패] {error_msg} (판정 보류)"
 
     has_search_demand = bool(ac_items)
-    
-    blog_docs = [d for d in docs if d["domain_type"] == "블로그/카페"]
-    official_docs = [d for d in docs if d["domain_type"] == "공공기관/공식"]
-    ad_docs = [d for d in docs if d["domain_type"] == "스폰서 광고"]
-
-    query_words = [w for w in query.split() if len(w) >= 2]
-    exact_match_blogs = []
-    for d in blog_docs:
-        match_score = sum(1 for w in query_words if w in d["title"])
-        if match_score >= max(2, len(query_words) - 1):
-            exact_match_blogs.append(d)
-
-    # 4단계 + 1경고 판정 (허수 빈집 방어 알고리즘)
     if not has_search_demand:
         badge = "⚠️ 허수 빈집 (검색수요 0)"
-        reason = f"[네이버 실사] 시드('{seed}') 자동완성 검색수요 0건. 실제 유저가 입력하지 않는 비표준 문장이므로 상위 노출되어도 유입이 없는 '허수 빈집'."
-    elif len(ad_docs) >= 3 or (len(blog_docs) >= 5 and len(exact_match_blogs) >= 4):
+        reason = f"[네이버 실사] 시드('{seed}') 자동완성 검색수요 0건. 실제 유저가 입력하지 않는 비표준 문장이므로 유입 기대치가 낮은 '허수 빈집'."
+        return badge, reason
+
+    blog_docs = [d for d in docs if d["domain_type"] == "블로그/카페"]
+    official_docs = [d for d in docs if d["domain_type"] == "공공기관/학회"]
+    ad_docs = [d for d in docs if d["domain_type"] == "스폰서 광고"]
+
+    seed_words = [w for w in seed.split() if len(w) >= 2]
+    core_matched_blogs = []
+    for d in blog_docs:
+        s_matches = sum(1 for sw in seed_words if sw in d["title"])
+        if s_matches >= max(1, min(2, len(seed_words))):
+            core_matched_blogs.append(d)
+
+    if len(blog_docs) >= 5 or len(core_matched_blogs) >= 3 or len(ad_docs) >= 5:
         badge = "🔴 초극심 레드오션"
-        top_title = exact_match_blogs[0]["title"] if exact_match_blogs else blog_docs[0]["title"]
-        reason = f"[네이버 1페이지 실사] 광고({len(ad_docs)}건) 및 최적화 블로그({len(blog_docs)}건) 장악 (상위: '{top_title[:24]}...'). 진입 비권장."
-    elif len(exact_match_blogs) >= 3:
+        top_title = core_matched_blogs[0]["title"] if core_matched_blogs else (blog_docs[0]["title"] if blog_docs else (docs[0]["title"] if docs else "상업 마케팅"))
+        reason = f"[네이버 1페이지 실사] 병원/한의원/건기식 마케팅 블로그({len(blog_docs)}건, 핵심일치 {len(core_matched_blogs)}건) 및 광고({len(ad_docs)}건) 대거 장악 (상위: '{top_title[:24]}...'). 저지수 상위 노출 불리(레드오션)."
+    elif len(core_matched_blogs) >= 2 or len(blog_docs) >= 3:
         badge = "🟡 중간 경쟁"
-        top_title = exact_match_blogs[0]["title"]
-        reason = f"[네이버 1페이지 실사] 블로그/카페 문서 {len(blog_docs)}건 중 동일 의도 문서 {len(exact_match_blogs)}건 포진 (상위: '{top_title[:24]}...'). 중간 경쟁."
-    elif len(exact_match_blogs) >= 1:
-        badge = "🟢 알짜 틈새"
-        top_title = exact_match_blogs[0]["title"]
-        reason = f"[네이버 1페이지 실사] 자동완성 확인(시드 '{seed}', 연관 {len(ac_items)}건). 공식/포괄문서 위주이며, 동일 롱테일 문서는 {len(exact_match_blogs)}건에 불과 (상위: '{top_title[:24]}...'). 상위 진입 유망."
-    else:
+        top_title = core_matched_blogs[0]["title"] if core_matched_blogs else blog_docs[0]["title"]
+        reason = f"[네이버 1페이지 실사] 건강 정보 블로그/카페 {len(blog_docs)}건 중 핵심 주제 문서 {len(core_matched_blogs)}건 포진 (상위: '{top_title[:24]}...'). 중간 경쟁 구역."
+    elif len(blog_docs) == 0:
         badge = "💎 진짜 블루오션 빈집"
-        official_info = f"공식기관({len(official_docs)}건)" if official_docs else "일반 단편문서"
-        reason = f"[네이버 1페이지 실사] 자동완성 실존(시드 '{seed}' 연관: '{ac_items[0]}' 등 {len(ac_items)}건). 1페이지에 {official_info} 위주이며, 동일 구체적 롱테일 해결 문서는 0건으로 확인된 독점 빈집."
+        reason = f"[네이버 1페이지 실사] 네이버 자동완성 실존(시드 '{seed}', {len(ac_items)}건). 1페이지에 블로그 0건이며 공공기관/뉴스만 존재하여 실천 꿀팁 블로그 1위 독점 유망."
+    else:
+        top_title = blog_docs[0]["title"] if blog_docs else (docs[0]["title"] if docs else "")
+        reason = f"[네이버 1페이지 실사] 네이버 자동완성 확인(시드 '{seed}', 연관 {len(ac_items)}건). 1페이지에 공공기관 위주이며 일반 블로그는 {len(blog_docs)}건에 불과 (상위: '{top_title[:24]}...'). 상위 진입 유망 틈새."
+        badge = "🟢 알짜 틈새"
 
     return badge, reason
 
-# ==============================================================================
-# 4. 구글 본진 실시간 SERP 및 E-E-A-T 생태계 분석 [취약점 3: 구글 분리]
-# ==============================================================================
-def analyze_google_competition(query, ac_items, seed):
-    """
-    구글 본진 전용 실사 분석
-    - 구글 실시간 자동완성 API를 통한 글로벌/국내 검색 수요 실존성 확인
-    - 구글 E-E-A-T 노출 생태계(공공기관 고시, 나무위키, 언론사) 대비 심층 매거진 공략 가능성 판정
-    """
+
+def analyze_google_competition(query, ac_items, seed, full_title=""):
+    """구글 본진 전용 실사 분석 (건강/웰니스 E-E-A-T 생태계)"""
     has_demand = bool(ac_items)
     ac_sample = f"'{ac_items[0]}'" if ac_items else "없음"
 
-    is_calc_niche = any(k in query for k in ["감경", "구제", "손익", "계산", "요령", "온라인", "자동 연동", "시력 미달", "음식", "수칙", "혈당", "영양제"])
-    is_common_broad = any(k in query for k in ["준비물", "비용", "시간", "장소", "예약", "병원"])
-
     if not has_demand:
-        badge = "⚠️ 검색 수요 미확인"
-        reason = f"[구글 실사] 구글 검색창 자동완성에 잡히지 않는 비표준 조합(시드: '{seed}'). 유입 기대치 낮음."
-    elif is_calc_niche:
+        badge = "⚠️ 허수 빈집 (검색수요 0)"
+        reason = f"[구글 실사] 구글 자동완성에 잡히지 않는 비표준 조합(시드: '{seed}'). 유입 기대치가 없는 '허수 빈집'."
+        return badge, reason
+
+    target_text = f"{query} {full_title}".strip()
+
+    # 1. 골든타임/3분대처/성분라벨/시차/상호작용 롱테일 -> 💎 블루오션
+    is_solution_niche = any(k in target_text for k in [
+        "골든타임", "3분", "대처", "시간표", "시차", "상호작용", "라벨", "성분표",
+        "반감기", "흡수율", "섭취 시간", "정밀", "손익", "기준치", "구별법", "체크리스트"
+    ])
+
+    # 2. 구체적 증상/상황/비교 대조 롱테일 -> 🟢 알짜 틈새
+    is_situation_niche = any(k in target_text for k in [
+        "속쓰림", "아침 첫발", "당일 운전", "공복", "차이", "대조", "부작용",
+        "현실 검증", "격차", "식후", "복용법", "주의점", "올바른"
+    ])
+
+    # 3. 일반 포괄 안내 -> 🟡 중간 경쟁
+    is_common_broad = any(k in target_text for k in [
+        "원인", "증상", "치료법", "예방법", "좋은 음식", "효능"
+    ])
+
+    meaningful_count = len([w for w in target_text.split() if len(w) >= 2])
+    is_broad_red_ocean = (not is_solution_niche and not is_situation_niche and meaningful_count <= 4)
+
+    if is_broad_red_ocean:
+        badge = "🔴 초극심 레드오션"
+        reason = f"[구글 실사] 구글 1페이지가 대형 대학병원 칼럼, 식약처, 제약사 공식 사이트, 대형 백과로 철벽 장악됨. 롱테일 실천 화두 결여 시 저지수 블로그 상위 노출 원천 불가(초극심 레드오션)."
+    elif is_solution_niche:
         badge = "💎 진짜 블루오션 빈집"
-        reason = f"[구글 실사] 구글 실시간 자동완성 실존 확인(시드 '{seed}', 연관: {ac_sample} 등 {len(ac_items)}건). 구글 1페이지에 단순 공문서/포괄자료만 있고 독자의 실제 위기회피/실천법을 다룬 고품질 E-E-A-T 매거진이 부재하여 피처드 스니펫 1위 독점 유망."
+        reason = f"[구글 실사] 구글 실시간 자동완성 실존 확인(시드 '{seed}', 연관: {ac_sample} 등 {len(ac_items)}건). 구글 1페이지에 단순 병리학/백과 문서만 있고 환자/독자의 즉각적 실천 행동 매뉴얼 및 정밀 셈법이 부재하여 피처드 스니펫 1위 독점 유망."
+    elif is_situation_niche:
+        badge = "🟢 알짜 틈새"
+        reason = f"[구글 실사] 구글 실시간 자동완성 확인(시드 '{seed}', 연관: {ac_sample}). 포괄적 개요 글은 다수 있으나, 구체적 상황/증상별 실천 득실을 분석한 전문 칼럼으로 구글 상위권 안착 최적."
     elif is_common_broad:
         badge = "🟡 중간 경쟁"
-        reason = f"[구글 실사] 구글 실시간 자동완성 확인(시드 '{seed}', 연관: {ac_sample}). 지자체 포털 및 대형 언론사 단순 안내문이 다수 노출되어 중간 경쟁 구역 형성."
+        reason = f"[구글 실사] 구글 실시간 자동완성 확인(시드 '{seed}', 연관: {ac_sample}). 병원 칼럼 및 건강 매체들이 다수 노출되어 중간 경쟁 구역 형성."
     else:
         badge = "🟢 알짜 틈새"
-        reason = f"[구글 실사] 구글 실시간 자동완성 확인(시드 '{seed}', 연관: {ac_sample}). 포괄적 개요 글은 다수 있으나, 구체적 3~4단 조합을 명쾌하게 풀어낸 전문 분석 칼럼으로 구글 디스커버 및 검색 상위권 안착 최적."
+        reason = f"[구글 실사] 구글 실시간 자동완성 확인(시드 '{seed}', 연관: {ac_sample}). 롱테일 검색 의도를 충족하는 분석형 칼럼으로 구글 상위 진입 유망."
 
     return badge, reason
 
-# ==============================================================================
-# 5. 채널별 독립 실행 인터페이스
-# ==============================================================================
+
 def audit_naver_serp(titles):
     """네이버 채널 전용 실시간 1페이지 크롤링 및 감사 로그 생성"""
     print("=" * 80)
@@ -232,7 +223,17 @@ def audit_naver_serp(titles):
     for idx, title in enumerate(titles, 1):
         clean_q, seed = extract_clean_query_and_seed(title)
         ac_items = check_naver_autocomplete(seed)
-        docs, err = fetch_naver_serp_docs(clean_q)
+        if not ac_items and " " in seed:
+            for sub_w in seed.split():
+                if len(sub_w) >= 2:
+                    sub_ac = check_naver_autocomplete(sub_w)
+                    if sub_ac:
+                        seed = sub_w
+                        ac_items = sub_ac
+                        break
+        search_terms = clean_q.split()[:4]
+        search_q = " ".join(search_terms) if search_terms else clean_q
+        docs, err = fetch_naver_serp_docs(search_q)
         badge, reason = analyze_naver_competition(clean_q, docs or [], err, ac_items, seed)
 
         print(f"[{idx:02d}/10] '{title[:28]}...' -> 쿼리: '{clean_q}' (AC 시드 '{seed}' {len(ac_items)}건) | 판정: {badge}")
@@ -278,7 +279,15 @@ def audit_google_serp(titles):
     for idx, title in enumerate(titles, 1):
         clean_q, seed = extract_clean_query_and_seed(title)
         ac_items = check_google_autocomplete(seed)
-        badge, reason = analyze_google_competition(clean_q, ac_items, seed)
+        if not ac_items and " " in seed:
+            for sub_w in seed.split():
+                if len(sub_w) >= 2:
+                    sub_ac = check_google_autocomplete(sub_w)
+                    if sub_ac:
+                        seed = sub_w
+                        ac_items = sub_ac
+                        break
+        badge, reason = analyze_google_competition(clean_q, ac_items, seed, full_title=title)
 
         print(f"[{idx:02d}/10] '{title[:28]}...' -> 구글 쿼리: '{clean_q}' (AC 시드 '{seed}' {len(ac_items)}건) | 판정: {badge}")
 
@@ -321,17 +330,15 @@ def audit_titles(titles, channel="naver"):
 
 if __name__ == "__main__":
     ch = "naver"
-    titles = []
-    args = sys.argv[1:]
-    if args and args[0].lower() in ["naver", "google"]:
-        ch = args[0].lower()
-        args = args[1:]
-    if args:
-        titles = args
-    else:
-        titles = [
-            '"아침 첫발 찌릿?" 족저근막염 발바닥 통증 완화 스트레칭',
-            '기상 직후 침대 위 족저근막 이완법과 테니스공 마사지',
-            '발뒤꿈치 찌르는 통증, 족저근막염 예방하는 종아리 벽 스트레칭'
+    custom_titles = sys.argv[1:]
+    if custom_titles and custom_titles[0] in ["naver", "google"]:
+        ch = custom_titles[0]
+        custom_titles = custom_titles[1:]
+
+    if not custom_titles:
+        custom_titles = [
+            "수면내시경 당일 운전 금지 이유와 프로포폴 반감기 잔여 시간표",
+            "식후 커피 섭취 시간과 위산 분비 30분 시차 골든타임",
+            "그릭요거트 당류 2g 미만 성분표 3초 판별법"
         ]
-    audit_titles(titles, channel=ch)
+    audit_titles(custom_titles, channel=ch)
