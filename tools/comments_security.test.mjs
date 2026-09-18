@@ -137,7 +137,7 @@ function browser(fetcher) {
     const submit = { disabled: false, innerText: '등록하기' };
     const context = vm.createContext({
         window: { location: { pathname: '/posts/sample.html' } },
-        document: { readyState: 'loading', title: '테스트 글 | 꿀단지', addEventListener() {},
+        document: { readyState: 'loading', title: '테스트 글 | 혀니의 꿀단지', addEventListener() {},
             querySelector: () => null, querySelectorAll: () => [],
             getElementById: id => fields[id] || (id === 'commentList' ? list : null) },
         crypto: webcrypto, TextEncoder, localStorage: storage, fetch: fetcher, alert: text => alerts.push(text), prompt: () => 'my-long-password', console
