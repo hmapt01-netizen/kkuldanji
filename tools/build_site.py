@@ -538,6 +538,18 @@ sitemap_urls = [
     <priority>0.8</priority>
   </url>""",
     f"""  <url>
+    <loc>https://honeyjar.co.kr/privacy.html</loc>
+    <lastmod>{latest_iso}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>""",
+    f"""  <url>
+    <loc>https://honeyjar.co.kr/terms.html</loc>
+    <lastmod>{latest_iso}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>""",
+    f"""  <url>
     <loc>https://honeyjar.co.kr/contact.html</loc>
     <lastmod>{latest_iso}</lastmod>
     <changefreq>monthly</changefreq>

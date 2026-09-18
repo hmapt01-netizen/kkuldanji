@@ -3,4 +3,7 @@ Disallow: /admin.html
 Disallow: /cdn-cgi/
 Allow: /
 
+User-agent: Mediapartners-Google
+Allow: /
+
 Sitemap: https://honeyjar.co.kr/sitemap.xml
