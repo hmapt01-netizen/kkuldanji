@@ -156,7 +156,7 @@ for idx, p in enumerate(posts):
         "datePublished": f"{p['date'].replace('.', '-')}T09:00:00+09:00",
         "dateModified": f"{p['date'].replace('.', '-')}T09:00:00+09:00",
         "author": {"@type": "Person", "name": "에디터 혀니"},
-        "publisher": {"@type": "Organization", "name": "꿀단지", "logo": {"@type": "ImageObject", "url": "https://honeyjar.co.kr/images/logo.png"}},
+        "publisher": {"@type": "Organization", "name": "혀니의 꿀단지", "logo": {"@type": "ImageObject", "url": "https://honeyjar.co.kr/images/logo.png"}},
         "description": p["desc"]
     }, ensure_ascii=False)
 
