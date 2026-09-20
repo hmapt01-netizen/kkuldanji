@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 290 90" width="100%" height="100%" fill="none">
+  <defs>
+    <!-- Golden Honey Drop Gradient -->
+    <linearGradient id="honeyDrip" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f59e0b" />
+      <stop offset="60%" stop-color="#eab308" />
+      <stop offset="100%" stop-color="#ca8a04" />
+    </linearGradient>
+  </defs>
+
+  <!-- Honey Surface & Golden Drop -->
+  <path d="M43 32 C41 37, 36 44, 36 53 C36 59.5, 39.5 64, 43.5 64 C47.5 64, 51 59.5, 51 53 C51 44, 46 37, 43 32 Z" fill="url(#honeyDrip)" />
+  <ellipse cx="41.5" cy="56" rx="1.5" ry="3" fill="#ffffff" opacity="0.5" transform="rotate(-20 41.5 56)" />
+
+  <!-- Honey Pot Outline (Warm Brown) -->
+  <path d="M30 28 C28 28, 27 29.5, 28 31 C30 34, 27 41, 22 48 C17 55, 18 67, 24 73 C30 79, 54 80, 61 73 C67 67, 68 55, 63 48 C58 41, 55 34, 57 31 C58 29.5, 57 28, 55 28 Z" 
+        stroke="#6d431d" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round" />
+  
+  <!-- Honey Pot Rim -->
+  <ellipse cx="42.5" cy="28" rx="13.5" ry="3.5" stroke="#6d431d" stroke-width="4.5" fill="none" />
+
+  <!-- Leaf on Lower Right -->
+  <path d="M58 72 C64 73, 73 69, 78 55" stroke="#6d431d" stroke-width="4" stroke-linecap="round" />
+  <path d="M70 63 C76 55, 84 52, 84 52 C84 52, 81 62, 73 67 C69 69, 68 66, 70 63 Z" fill="#6d431d" />
+
+  <!-- '혀니의' Text (Warm Honey Brown, Angled upwards ~ -25deg) -->
+  <g transform="translate(68, 38) rotate(-26)">
+    <text x="0" y="0" font-family="'Pretendard', sans-serif" font-size="25" font-weight="700" fill="#6d431d" letter-spacing="-0.5">혀니의</text>
+  </g>
+
+  <!-- '꿀단지' Text (Bold Deep Charcoal/Black, Solid Grounded) -->
+  <text x="126" y="65" font-family="'Pretendard', sans-serif" font-size="44" font-weight="800" fill="#111827" letter-spacing="-1.5">꿀단지</text>
+</svg>

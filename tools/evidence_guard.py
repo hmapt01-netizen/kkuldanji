@@ -236,7 +236,7 @@ def check_numeric_grounding(article_text: str, manifest_data: dict = None) -> No
         raise SpuriousPrecisionError(
             f"🚨 [출처 미검증 자의적 수치 날조 적발]\n"
             f"   🛑 원고에 등장하는 수치/범위 {unverified}는 등록된 공인 출처 원문(evidence_quote)에 존재하지 않습니다.\n"
-            f"   👉 원칙: 출처 원문에 없는 g수, %, 시간, 온도 범위를 임의 환산하지 말고, 원문의 표현 그대로 담백하게 환원하세요."
+            f"   👉 조치: 임의로 수치를 지어내지 말고, 'python tools/supplement_research.py add --claim \"...\" --source \"...\" --url \"...\" --quote \"...\"'를 실행하여 리서치.md에 공인 출처를 먼저 보강하거나 원문 그대로 담백하게 환원하세요."
         )
 
 

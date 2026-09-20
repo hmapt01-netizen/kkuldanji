@@ -1,0 +1,6 @@
+Tool: built-in image_gen
+Image 1 is the EDIT TARGET, woman writing at kitchen table. Image 2 is ONLY reference for warm golden cooked apple flesh and moist softened texture, NOT skin or spice or composition.
+Make TWO precise localized changes in Image 1, preserve all other pixels/content as closely as possible, exact face/clothing/hands/notebook/background/camera/light.
+A: On small plate, render thin peeled cooked apple crescent slices with naturally warm light golden-yellow flesh, more golden and less whitish than target, gently translucent and moist, soft organic edges, recognizably cooked apple as in flesh of reference. NO red peel, NO skin of any color, NO cinnamon, NO brown powder, NO sugar coating, NO dark caramelized crust, no excessive syrup. Do not reproduce reference plate.
+B: Rotate the existing fork 180 degrees IN THE TABLE PLANE. This is vital: its smooth rounded HANDLE end must now be at the TOP, nearer the seated WOMAN/back of table, and its FOUR TINES must point DOWN toward BOTTOM edge of IMAGE/camera/front of table. Fork remains beside plate on image right, entirely visible, flat on table with realistic shadow. Anatomically correct ordinary stainless steel fork, single straight handle, four straight even tines. It must NOT have tines at top like target. Preserve realistic perspective and size.
+16:9 landscape, no text, no extra objects.

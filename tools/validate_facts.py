@@ -89,19 +89,28 @@ def validate_facts(work_dir=None):
         if not (has_cur or has_prev or (has_year and has_validity)):
             errors.append(f"리서치.md에 당월({cur_ym[0]}년 {cur_ym[1]}월) 또는 전월, {cur_ym[0]}년 공인 표준 유효성 재확인 표기 누락")
 
-        source_keywords = [
+        korea_official_keywords = [
             "식약처", "식품의약품안전처", "질병관리청", "질병청", "농촌진흥청", "농진청", 
-            "보건복지부", "소비자원", "한국소비자원", "식품안전나라", "하버드", "Harvard", 
+            "보건복지부", "국민건강보험", "건강보험심사평가원", "심평원", "식품안전나라", 
+            "국가건강정보포털", "국립암센터", "대한의학회", "대한내과학회", "대한소화기학회",
+            "대한당뇨병학회", "국가표준식품성분표", "국민건강영양조사"
+        ]
+        source_keywords = korea_official_keywords + [
+            "소비자원", "한국소비자원", "하버드", "Harvard", 
             "란셋", "Lancet", "ADA", "미국당뇨병학회", "WHO", "세계보건기구", "ESC", "유럽심장학회", 
-            "AJCN", "임상영양", "국민건강영양조사", "학술지", "논문", "임상시험", "메타분석", 
-            "가이드라인", "코호트", "대한영양사협회", "대한당뇨병학회", "NEJM", "Nature", "BMJ",
+            "AJCN", "임상영양", "학술지", "논문", "임상시험", "메타분석", 
+            "가이드라인", "코호트", "대한영양사협회", "NEJM", "Nature", "BMJ",
             "http://", "https://"
         ]
         matched_sources = list(set([kw for kw in source_keywords if kw in r_content]))
-        if len(matched_sources) < 2:
+        matched_korea = list(set([kw for kw in korea_official_keywords if kw in r_content]))
+        
+        if not matched_korea:
+            errors.append("리서치.md에 [마스터 표준 0-5호] 한국 공인 1차 기관(질병관리청, 식약처, 농진청, 보건복지부 등) 출처 누락 (한국 공인 사이트 최우선 원칙 위반)")
+        elif len(matched_sources) < 2:
             errors.append(f"리서치.md에 공인 출처 키워드 부족 (현재 {len(matched_sources)}개, 최소 2개 필요)")
         else:
-            print(f"  ✓ 1. 리서치.md 검증 통과 ({len(matched_sources)}개 공인 출처 확인: {', '.join(matched_sources[:4])})")
+            print(f"  ✓ 1. 리서치.md 검증 통과 (한국 공인 기관: {', '.join(matched_korea[:3])} 포함 총 {len(matched_sources)}개 출처 확인)")
 
     # 2. post_data.json 또는 구글 본문 검증
     post_data_path = os.path.join(work_dir, "post_data.json")

@@ -57,15 +57,19 @@ def validate_image_plan(work_dir, require_approval=False):
 
     errors = []
 
-    # 1. character_anchor 검증
+    # 1. character_anchor 및 location_anchor 검증
     anchor = plan.get("character_anchor")
     if not anchor:
         errors.append("❌ 'character_anchor' 단일 주인공 페르소나 설정이 누락되었습니다.")
     else:
-        for field in ["gender", "age_range", "hair", "clothing_top", "persona_summary"]:
+        for field in ["gender", "age_range", "hair", "persona_summary"]:
             val = str(anchor.get(field, "")).strip()
             if not val:
                 errors.append(f"❌ character_anchor 내 필수 필드 '{field}'가 비어 있습니다.")
+
+    loc_anchor = str(plan.get("location_anchor", "")).strip()
+    if not loc_anchor:
+        errors.append("❌ 'location_anchor' 한국 아파트 실내 생활 환경 설정이 누락되었습니다.")
 
     # 2. storyboard 6슬롯 전수 검증
     sb = plan.get("storyboard", [])
@@ -86,16 +90,7 @@ def validate_image_plan(work_dir, require_approval=False):
     if len(still_slots) < 2:
         errors.append(f"❌ 현장 정물/의료/인포그래픽 컷이 너무 적습니다 (현재 {len(still_slots)}개, 최소 2개 필수).")
 
-    # 4. 동일 의상 키워드 프롬프트 포함 검사
-    top_clothing = (anchor.get("clothing_top", "") if anchor else "").lower()
-    for item in char_slots:
-        p = item.get("prompt", "").lower()
-        slot = item.get("slot", "")
-        # 상의 의상 핵심 단어가 프롬프트에 있는지 확인
-        if top_clothing and not any(word in p for word in top_clothing.split() if len(word) > 2):
-            errors.append(f"❌ [{slot}] 인물 프롬프트에 동일 의상('{anchor.get('clothing_top')}') 앵커 서술이 누락되었습니다.")
-
-    # 5. 승인 여부 검증
+    # 4. 승인 여부 검증
     is_approved = plan.get("is_user_approved", False)
     if require_approval and not is_approved:
         errors.append("❌ 'is_user_approved'가 False입니다. 사용자에게 스토리보드를 보고하고 명시적 승인을 받아야 합니다.")

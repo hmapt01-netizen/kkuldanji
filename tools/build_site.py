@@ -242,7 +242,7 @@ for idx, p in enumerate(posts):
         if len(sanitized_refs.strip()) < 50:
             raise ValueError(f"🚨 [CRITICAL E-E-A-T ERROR] 포스트 '{slug}'의 academicRefs 내용이 부실합니다 (최소 50자 이상 필수).")
     academic_refs_html = f'''<div class="ref-box" style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; padding:18px 20px; margin:32px 0; font-size:0.85rem; color:#64748b; line-height:1.7;">
-                    <strong style="color: #0f172a; font-size:0.92rem; font-weight:800; display: block; margin-bottom: 8px;">공인 연구 데이터 및 참고 문헌</strong>
+                    <strong style="color: #0f172a; font-size:0.92rem; font-weight:800; display: block; margin-bottom: 8px;">{p.get('referencesTitle', '공인 연구 데이터 및 참고 문헌')}</strong>
                     {sanitized_refs}
                 </div>'''
     out = out.replace("{{ACADEMIC_REFERENCES_HTML}}", academic_refs_html)

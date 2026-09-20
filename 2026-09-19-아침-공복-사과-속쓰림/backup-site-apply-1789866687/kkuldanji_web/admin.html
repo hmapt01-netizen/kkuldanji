@@ -1,0 +1,2675 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+
+    <!-- 📊 Google Analytics 4 (GA4 공식 초광속 비동기 태그) -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-V2RMP3SCRQ"></script>
+
+    <script>
+
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag(){dataLayer.push(arguments);}
+
+        gtag('js', new Date());
+
+        gtag('config', 'G-V2RMP3SCRQ');
+
+    </script>
+
+    <meta charset="UTF-8">
+
+        <meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+                                                                                                                                                                <!-- 🍯 꿀단지 공식 파비콘 풀세트 (무결점 가디언 자동 동기화) -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<title>관리자 대시보드 & 글 발행기 | 혀니의 꿀단지</title>
+
+    
+
+    <link rel="stylesheet" href="css/style.css?v=20260903_v2">
+
+    
+
+    <style>
+
+        /* 🔒 1. 관리자 비밀번호 잠금 화면 스타일 */
+
+        #authLockScreen {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100vw;
+
+            height: 100vh;
+
+            background: rgba(17, 24, 39, 0.95);
+
+            backdrop-filter: blur(8px);
+
+            z-index: 99999;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+        .auth-card {
+
+            background: #ffffff;
+
+            border-radius: 16px;
+
+            padding: 40px 32px;
+
+            width: 100%;
+
+            max-width: 380px;
+
+            text-align: center;
+
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+
+        }
+
+        .auth-icon { font-size: 2.5rem; margin-bottom: 12px; display: inline-block; }
+
+        .auth-title { font-size: 1.25rem; font-weight: 700; color: #111827; margin-bottom: 6px; }
+
+        .auth-desc { font-size: 0.88rem; color: #6b7280; margin-bottom: 24px; }
+
+        .auth-input {
+
+            width: 100%;
+
+            padding: 14px;
+
+            border: 2px solid #e5e7eb;
+
+            border-radius: 8px;
+
+            font-size: 1.2rem;
+
+            text-align: center;
+
+            letter-spacing: 8px;
+
+            font-weight: 800;
+
+            outline: none;
+
+            margin-bottom: 16px;
+
+            transition: border 0.2s;
+
+            box-sizing: border-box;
+
+        }
+
+        .auth-input:focus { border-color: #c26908; }
+
+        .auth-btn {
+
+            width: 100%;
+
+            padding: 14px;
+
+            background: #111827;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            font-size: 0.95rem;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+            transition: background 0.2s;
+
+        }
+
+        .auth-btn:hover { background: #c26908; }
+
+        .auth-err { display: none; color: #dc2626; font-size: 0.82rem; margin-top: 12px; font-weight: 600; }
+
+
+
+        /* 🎛️ 2. 관리자 메인 콘솔 네비바 & 레이아웃 */
+
+                .admin-nav-bar {
+
+            background: #111827;
+
+            color: #ffffff;
+
+            padding: 0;
+
+            width: 100%;
+
+            border-bottom: 1px solid #1f2937;
+
+        }
+
+        .admin-nav-inner {
+
+            max-width: 1040px;
+
+            margin: 0 auto;
+
+            padding: 14px 16px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            box-sizing: border-box;
+
+            width: 100%;
+
+        }
+
+        .admin-nav-inner h1 {
+
+            font-size: 1.15rem;
+
+            font-weight: 800;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin: 0;
+
+            color: #ffffff !important;
+
+        }
+
+        .analytics-banner-wrap h3,
+
+        .analytics-banner-title {
+
+            color: #ffffff !important;
+
+            font-size: 1.12rem !important;
+
+            font-weight: 850 !important;
+
+            margin: 0 0 6px 0 !important;
+
+            letter-spacing: -0.3px !important;
+
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6) !important;
+
+        }
+
+        .analytics-banner-wrap p,
+
+        .analytics-banner-desc {
+
+            color: #e2e8f0 !important;
+
+            font-size: 0.86rem !important;
+
+            margin: 0 0 14px 0 !important;
+
+            line-height: 1.5 !important;
+
+        }
+
+        .admin-nav-bar-old {
+
+            background: #111827;
+
+            color: #ffffff;
+
+            padding: 16px 24px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+        .admin-nav-bar h1 {
+
+            font-size: 1.15rem;
+
+            font-weight: 700;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin: 0;
+
+        }
+
+        .admin-status-badge {
+
+            background: #065f46;
+
+            color: #34d399;
+
+            font-size: 0.76rem;
+
+            padding: 3px 10px;
+
+            border-radius: 9999px;
+
+            font-weight: 600;
+
+        }
+
+        .admin-logout-btn {
+
+            background: transparent;
+
+            border: 1px solid rgba(255,255,255,0.2);
+
+            color: #d1d5db;
+
+            padding: 6px 14px;
+
+            font-size: 0.82rem;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            transition: all 0.2s;
+
+        }
+
+        .admin-logout-btn:hover { background: rgba(255,255,255,0.1); color: #ffffff; }
+
+
+
+        /* 📋 3. 카드 컨테이너 & 테이블 스타일 */
+
+        .post-table-container, .editor-box {
+
+            background: #ffffff;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 14px;
+
+            padding: 24px 28px;
+
+            margin-top: 24px;
+
+            margin-bottom: 32px;
+
+            box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+
+        }
+
+        .editor-header {
+
+            font-size: 1.12rem;
+
+            font-weight: 700;
+
+            margin-bottom: 18px;
+
+            padding-bottom: 12px;
+
+            border-bottom: 1px solid #f1f5f9;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+        .table-search-bar { display: flex; gap: 12px; margin-bottom: 16px; }
+
+        .table-search-input {
+
+            flex: 1;
+
+            padding: 10px 14px;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 6px;
+
+            font-size: 0.9rem;
+
+            outline: none;
+
+        }
+
+        .table-search-input:focus { border-color: #c26908; }
+
+        
+
+        .admin-table-scroll-wrap {
+
+            width: 100%;
+
+            overflow-x: auto;
+
+            border: 1px solid #e5e7eb;
+
+            border-radius: 8px;
+
+        }
+
+        .admin-table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            text-align: left;
+
+        }
+
+        .admin-table th {
+
+            background: #f8fafc;
+
+            color: #334155;
+
+            font-size: 0.82rem;
+
+            font-weight: 750;
+
+            padding: 10px 12px;
+
+            border-bottom: 1px solid #e2e8f0;
+
+            white-space: nowrap;
+
+        }
+
+        .admin-table td {
+
+            padding: 10px 12px;
+
+            border-bottom: 1px solid #f1f5f9;
+
+            font-size: 0.86rem;
+
+            color: #334155;
+
+            vertical-align: middle;
+
+        }
+
+        .admin-table tr:hover td { background: #fffbeb; }
+
+        .admin-table tr.row-hidden td { opacity: 0.6; background: #f9fafb; }
+
+        
+
+        .post-thumb-mini {
+
+            width: 54px;
+
+            height: 38px;
+
+            object-fit: cover;
+
+            border-radius: 4px;
+
+            background: #f1f5f9;
+
+            display: block;
+
+        }
+
+        .badge-cat {
+
+            display: inline-block;
+
+            padding: 3px 8px;
+
+            border-radius: 4px;
+
+            font-size: 0.76rem;
+
+            font-weight: 600;
+
+            background: #fef3c7;
+
+            color: #92400e;
+
+            white-space: nowrap;
+
+        }
+
+        .badge-status-live {
+
+            background: #ecfdf5;
+
+            color: #065f46;
+
+            border: 1px solid #a7f3d0;
+
+            font-size: 0.78rem;
+
+            padding: 3px 8px;
+
+            border-radius: 6px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+        }
+
+        .badge-status-hidden {
+
+            background: #f3f4f6;
+
+            color: #4b5563;
+
+            border: 1px solid #d1d5db;
+
+            font-size: 0.78rem;
+
+            padding: 3px 8px;
+
+            border-radius: 6px;
+
+            font-weight: 700;
+
+            white-space: nowrap;
+
+        }
+
+        .action-btns { display: flex; gap: 6px; }
+
+        .btn-sm-view {
+
+            background: #f3f4f6;
+
+            color: #1f2937;
+
+            padding: 4px 8px;
+
+            border-radius: 4px;
+
+            font-size: 0.78rem;
+
+            font-weight: 600;
+
+            text-decoration: none;
+
+        }
+
+        .btn-sm-edit {
+
+            background: #fef3c7;
+
+            color: #92400e;
+
+            border: 1px solid #fde68a;
+
+            padding: 4px 8px;
+
+            border-radius: 4px;
+
+            font-size: 0.78rem;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+        }
+
+        .btn-sm-hide {
+
+            background: #e5e7eb;
+
+            color: #374151;
+
+            border: 1px solid #d1d5db;
+
+            padding: 4px 8px;
+
+            border-radius: 4px;
+
+            font-size: 0.78rem;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+        }
+
+        .btn-sm-del {
+
+            background: #fee2e2;
+
+            color: #b91c1c;
+
+            border: 1px solid #fca5a5;
+
+            padding: 4px 8px;
+
+            border-radius: 4px;
+
+            font-size: 0.78rem;
+
+            font-weight: 600;
+
+            cursor: pointer;
+
+        }
+
+
+
+        /* 🔢 4. 페이지네이션 버튼 */
+
+        .admin-pagination-wrapper {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            gap: 6px;
+
+            margin-top: 18px;
+
+            padding-top: 14px;
+
+            border-top: 1px solid #f1f5f9;
+
+        }
+
+        .admin-page-btn {
+
+            min-width: 32px;
+
+            height: 32px;
+
+            padding: 0 8px;
+
+            border: 1px solid #e2e8f0;
+
+            background: #ffffff;
+
+            color: #334155;
+
+            font-size: 0.85rem;
+
+            font-weight: 700;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+
+            display: inline-flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+        .admin-page-btn.active {
+
+            background: #c26908;
+
+            color: #ffffff;
+
+            border-color: #c26908;
+
+        }
+
+        .admin-page-btn.disabled { opacity: 0.4; cursor: not-allowed; }
+
+
+
+        /* ✍️ 5. 에디터 폼 스타일 */
+
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 14px; }
+
+        .form-field { margin-bottom: 14px; }
+
+        .form-field label { display: block; font-size: 0.86rem; font-weight: 600; margin-bottom: 6px; color: #111827; }
+
+        .form-field input, .form-field select, .form-field textarea {
+
+            width: 100%;
+
+            padding: 10px 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 6px;
+
+            font-size: 0.9rem;
+
+            box-sizing: border-box;
+
+            outline: none;
+
+            font-family: inherit;
+
+        }
+
+        .form-field input:focus, .form-field textarea:focus { border-color: #c26908; }
+
+        .btn-action-group { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; }
+
+        .btn-download-html {
+
+            background: #059669; color: white; border: none; padding: 12px; font-size: 0.95rem; font-weight: 700; border-radius: 6px; cursor: pointer;
+
+        }
+
+        .btn-publish {
+
+            background: #c26908; color: white; border: none; padding: 12px; font-size: 0.95rem; font-weight: 700; border-radius: 6px; cursor: pointer;
+
+        }
+
+        .btn-cancel-edit {
+
+            background: #f3f4f6; color: #4b5563; border: 1px solid #d1d5db; padding: 10px; font-size: 0.88rem; font-weight: 600; border-radius: 6px; cursor: pointer; margin-top: 10px; width: 100%; display: none;
+
+        }
+
+            /* 📱 모바일 관리자 콘솔 전용 반응형 UI (칼각 미니멀 정돈) */
+
+        @media (max-width: 768px) {
+
+                    .admin-nav-bar {
+
+            background: #111827;
+
+            color: #ffffff;
+
+            padding: 0;
+
+            width: 100%;
+
+            border-bottom: 1px solid #1f2937;
+
+        }
+
+        .admin-nav-inner {
+
+            max-width: 1040px;
+
+            margin: 0 auto;
+
+            padding: 14px 16px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            box-sizing: border-box;
+
+            width: 100%;
+
+        }
+
+        .admin-nav-inner h1 {
+
+            font-size: 1.15rem;
+
+            font-weight: 800;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            margin: 0;
+
+            color: #ffffff !important;
+
+        }
+
+        .analytics-banner-wrap h3,
+
+        .analytics-banner-title {
+
+            color: #ffffff !important;
+
+            font-size: 1.12rem !important;
+
+            font-weight: 850 !important;
+
+            margin: 0 0 6px 0 !important;
+
+            letter-spacing: -0.3px !important;
+
+            text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6) !important;
+
+        }
+
+        .analytics-banner-wrap p,
+
+        .analytics-banner-desc {
+
+            color: #e2e8f0 !important;
+
+            font-size: 0.86rem !important;
+
+            margin: 0 0 14px 0 !important;
+
+            line-height: 1.5 !important;
+
+        }
+
+        .admin-nav-bar-old {
+
+                padding: 10px 14px !important;
+
+                flex-direction: row !important;
+
+                justify-content: space-between !important;
+
+                align-items: center !important;
+
+            }
+
+            .admin-nav-bar h1 {
+
+                font-size: 0.98rem !important;
+
+                gap: 6px !important;
+
+            }
+
+            .admin-status-badge {
+
+                display: none !important;
+
+            }
+
+            .admin-logout-btn {
+
+                padding: 4px 8px !important;
+
+                font-size: 0.76rem !important;
+
+            }
+
+            .clean-container {
+
+                padding: 0 10px !important;
+
+            }
+
+            .post-table-container, .editor-box {
+
+                padding: 14px 12px !important;
+
+                margin-top: 14px !important;
+
+                margin-bottom: 18px !important;
+
+                border-radius: 10px !important;
+
+            }
+
+            .editor-header {
+
+                flex-direction: column !important;
+
+                align-items: flex-start !important;
+
+                gap: 4px !important;
+
+                margin-bottom: 12px !important;
+
+                padding-bottom: 8px !important;
+
+            }
+
+            .editor-header > div:first-child {
+
+                font-size: 0.98rem !important;
+
+                font-weight: 800 !important;
+
+            }
+
+            .editor-header > div:last-child {
+
+                font-size: 0.74rem !important;
+
+            }
+
+            .analytics-banner-wrap {
+
+                padding: 14px 12px !important;
+
+                margin-top: 12px !important;
+
+                border-radius: 10px !important;
+
+            }
+
+            .analytics-banner-title {
+
+                font-size: 0.92rem !important;
+
+            }
+
+            .analytics-banner-desc {
+
+                font-size: 0.75rem !important;
+
+                margin-bottom: 10px !important;
+
+            }
+
+            .analytics-btn-grid {
+
+                display: grid !important;
+
+                grid-template-columns: repeat(3, 1fr) !important;
+
+                gap: 6px !important;
+
+                width: 100% !important;
+
+            }
+
+            .analytics-btn-grid a {
+
+                padding: 7px 4px !important;
+
+                font-size: 0.72rem !important;
+
+                text-align: center !important;
+
+                border-radius: 6px !important;
+
+                white-space: nowrap !important;
+
+                overflow: hidden !important;
+
+                text-overflow: ellipsis !important;
+
+                display: block !important;
+
+            }
+
+            .form-row {
+
+                grid-template-columns: 1fr !important;
+
+                gap: 0 !important;
+
+            }
+
+            .btn-action-group {
+
+                grid-template-columns: 1fr !important;
+
+                gap: 8px !important;
+
+            }
+
+        }
+
+    </style>
+
+    <script src="js/features.js?v=11"></script>
+
+</head>
+
+<body style="background: #f9fafb; margin: 0; padding-bottom: 40px;">
+
+
+
+<!-- 🔒 1단계: 관리자 비밀번호 잠금 화면 모달 -->
+
+<div id="authLockScreen">
+
+    <div class="auth-card">
+
+        <span class="auth-icon">🔒</span>
+
+        <h2 class="auth-title">꿀단지 관리자 인증</h2>
+
+        <p class="auth-desc">운영자 전용 보안 콘솔입니다.<br>비밀번호를 입력해 주세요.</p>
+
+        <form onsubmit="handleAuthLogin(event); return false;">
+
+            <input type="password" id="adminPasswordInput" class="auth-input" placeholder="••••" autofocus autocomplete="current-password" onkeydown="if(event.key==='Enter'){handleAuthLogin(event);}">
+
+            <button type="button" class="auth-btn" onclick="handleAuthLogin(event)">콘솔 접속하기</button>
+
+            <div id="authErrorMsg" class="auth-err">비밀번호가 올바르지 않습니다.</div>
+
+        </form>
+
+        <div style="margin-top: 20px;">
+
+            <a href="index.html" style="font-size: 0.82rem; color: #9ca3af; text-decoration: underline;">← 메인 홈으로 돌아가기</a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- 🎛️ 2단계: 인증 성공 시 열리는 관리자 메인 콘솔 -->
+
+<div id="adminContent" style="display: none;">
+
+    <div class="admin-nav-bar">
+
+        <div class="admin-nav-inner">
+
+            <h1>
+
+                <span>🍯 혀니의 꿀단지 운영 콘솔</span>
+
+                <span class="admin-status-badge">● 보안 세션 연결됨</span>
+
+            </h1>
+
+            <div style="display: flex; gap: 12px; align-items: center;">
+
+                <button id="btnGitHubSyncConfig" onclick="configureGitHubToken()" style="background:#1e293b; color:#ffffff; border:1px solid #475569; padding:7px 12px; border-radius:8px; font-size:0.82rem; font-weight:750; cursor:pointer; display:inline-flex; align-items:center; gap:6px; transition:all 0.15s;">
+
+                    <span style="color:#94a3b8;">○</span> ☁️ 깃허브 토큰 설정
+
+                </button>
+
+                <a href="index.html" target="_blank" style="color: #94a3b8; font-size: 0.86rem; text-decoration: none; transition: color 0.15s;" onmouseover="this.style.color='#ffffff'" onmouseout="this.style.color='#94a3b8'">내 블로그 바로가기 ↗</a>
+
+                <button onclick="handleAdminLogout()" class="admin-logout-btn">로그아웃</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <main class="clean-container" style="max-width: 1040px; margin: 0 auto; padding: 0 16px;">
+
+        <!-- 🔍 1. 구글 서치콘솔 & 애널리틱스(GA4) 검색어 연동 센터 -->
+
+        <!-- 🔍 1. 구글 서치콘솔 & 애널리틱스(GA4) 검색어 연동 센터 -->
+
+        <div class="analytics-banner-wrap" style="background: linear-gradient(135deg, #111827, #1f2937); color: #ffffff; border-radius: 14px; padding: 18px 22px; margin-top: 16px;">
+
+            <div>
+
+                <h3 class="analytics-banner-title" style="font-size: 1.02rem; font-weight: 800; margin: 0 0 4px 0; color:#ffffff;">🔍 구글 서치콘솔 & 애널리틱스(GA4) 검색어 연동 센터</h3>
+
+                <p class="analytics-banner-desc" style="font-size: 0.82rem; color: #9ca3af; margin: 0 0 12px 0;">네이버, 다음, 구글에서 어떤 키워드로 유입되었는지 공식 실시간 데이터를 즉시 확인합니다.</p>
+
+            </div>
+
+            <div class="analytics-btn-grid" style="display: flex; gap: 8px; flex-wrap: wrap;">
+
+                <a href="https://search.google.com/search-console" target="_blank" style="background:#ea4335; color:#ffffff; font-weight:700; font-size:0.80rem; padding:8px 14px; border-radius:8px; text-decoration:none;">구글 서치콘솔 ↗</a>
+
+                <a href="https://analytics.google.com/" target="_blank" style="background:#fbbc04; color:#111827; font-weight:700; font-size:0.80rem; padding:8px 14px; border-radius:8px; text-decoration:none;">구글 GA4 실시간 ↗</a>
+
+                <a href="https://searchadvisor.naver.com/" target="_blank" style="background:#03c75a; color:#ffffff; font-weight:700; font-size:0.80rem; padding:8px 14px; border-radius:8px; text-decoration:none;">네이버 서치 ↗</a>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- 📚 2. 발행된 칼럼 목록 관리 (32편) -->
+
+        <div class="post-table-container">
+
+            <div class="editor-header">
+
+                <div>📚 발행된 칼럼 목록 관리 (<span id="tableTotalCount" style="color: #c26908; font-weight: 800;">11</span>편)</div>
+
+                <div style="font-size: 0.82rem; color: #6b7280; font-weight: normal;">실시간 [수정] 및 [숨김/공개] 토글 기능</div>
+
+            </div>
+
+
+
+            <div class="table-search-bar">
+
+                <input type="text" id="postSearchInput" class="table-search-input" placeholder="🔍 칼럼 제목 또는 카테고리 검색..." oninput="filterPostsTable()">
+
+            </div>
+
+
+
+            <div class="admin-table-scroll-wrap">
+
+                <table class="admin-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th style="width: 45px; text-align: center;">No</th>
+
+                            <th style="width: 75px; text-align: center;">썸네일</th>
+
+                            <th style="width: 105px; text-align: center;">카테고리</th>
+
+                            <th style="width: 280px;">칼럼 제목</th>
+
+                            <th style="width: 105px; text-align: center;">상태</th>
+
+                            <th style="width: 95px; text-align: center;">발행일</th>
+
+                            <th style="width: 75px; text-align: center;">조회수</th>
+
+                            <th style="width: 150px; text-align: center;">관리</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="postsTableBody">
+
+                        <!-- 자바스크립트로 11편 글이 100% 렌더링됩니다 -->
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <!-- 🔢 페이지네이션 (1, 2...) -->
+
+            <div id="adminPostsPagination" class="admin-pagination-wrapper"></div>
+
+        </div>
+
+
+
+        <!-- 💬 3. 전체 독자 댓글 관리 -->
+
+        <div class="post-table-container">
+
+            <div class="editor-header">
+
+                <div>💬 전체 독자 댓글 관리 (<span id="totalCommentCount" style="color: #c26908; font-weight: 800;">0</span>개)</div>
+
+                <div style="font-size: 0.82rem; color: #6b7280; font-weight: normal;">악플/스팸 댓글 원클릭 즉시 삭제 관리</div>
+
+            </div>
+
+
+
+            <div class="table-search-bar">
+
+                <input type="text" id="commentSearchInput" class="table-search-input" placeholder="🔍 댓글 작성자 또는 내용 검색..." oninput="filterAdminComments()">
+
+            </div>
+
+
+
+            <div class="admin-table-scroll-wrap">
+
+                <table class="admin-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th style="width: 45px; text-align: center;">No</th>
+
+                            <th style="width: 160px;">해당 칼럼</th>
+
+                            <th style="width: 95px;">작성자</th>
+
+                            <th style="width: 220px;">댓글 내용</th>
+
+                            <th style="width: 120px; text-align: center;">작성일시</th>
+
+                            <th style="width: 60px; text-align: center;">공감</th>
+
+                            <th style="width: 95px; text-align: center;">관리</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="adminCommentsTableBody">
+
+                        <tr><td colspan="7" style="text-align:center; padding:24px; color:#9ca3af;">등록된 실시간 댓글이 없습니다.</td></tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- ✍️ 4. 칼럼 작성 & 실제 HTML 파일 생성기 -->
+
+        <div class="editor-box" id="articleEditorSection">
+
+            <div class="editor-header">
+
+                <div id="editorFormTitle">✍️ 칼럼 작성 & 실제 HTML 파일 생성기</div>
+
+                <div id="editorFormBadge" style="font-size: 0.82rem; color: #6b7280; font-weight: normal;">작성 후 [HTML 다운로드]로 실제 파일 생성</div>
+
+            </div>
+
+            
+
+            <form onsubmit="handleSaveOnly(event)">
+
+                <input type="hidden" id="editPostId" value="">
+
+                <input type="hidden" id="editPostSlug" value="">
+
+
+
+                <div class="form-row">
+
+                    <div class="form-field">
+
+                        <label>카테고리 분류</label>
+
+                        <select id="postCat" required>
+
+                            <option value="식단 & 영양">식단 & 영양</option>
+
+                            <option value="제철 음식">제철 음식</option>
+
+                            <option value="홈트레이닝">홈트레이닝</option>
+
+                            <option value="라이프 웰니스">라이프 웰니스</option>
+
+                            <option value="정부지원금 & 생활">정부지원금 & 생활</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="form-field">
+
+                        <label>작성자 (에디터명)</label>
+
+                        <input type="text" id="postAuthor" value="에디터 혀니" required>
+
+                    </div>
+
+                </div>
+
+
+
+                <div class="form-field">
+
+                    <label>칼럼 제목</label>
+
+                    <input type="text" id="postTitle" placeholder="예: 9월 환절기 면역력 높이는 5가지 슈퍼푸드 가이드" required>
+
+                </div>
+
+
+
+                <div class="form-field">
+
+                    <label>파일명 (영문 Slug - 예: autumn-immunity-guide.html)</label>
+
+                    <input type="text" id="postFileName" placeholder="예: autumn-superfood-guide.html" required>
+
+                </div>
+
+
+
+                <div class="form-field">
+
+                    <label>대표 썸네일 이미지 URL</label>
+
+                    <input type="text" id="postImgUrl" placeholder="images/posts/.../thumb.jpg" value="images/posts/nutrition/thumb.jpg?v=2.0" required>
+
+                </div>
+
+
+
+                <div class="form-field">
+
+                    <label>한 줄 요약 (서브타이틀 / 구글 검색 설명문)</label>
+
+                    <input type="text" id="postDesc" placeholder="독자의 클릭을 유도하는 핵심 요약 2~3줄을 작성하세요." required>
+
+                </div>
+
+
+
+                <div class="form-field">
+
+                    <label>칼럼 본문 내용 (엔터로 줄바꿈 시 실제 단락으로 변환됩니다)</label>
+
+                    <textarea id="postContent" rows="8" placeholder="칼럼 본문 내용을 자유롭게 작성해 주세요. 엔터로 문단을 구분하시면 자동으로 세련된 디자인으로 완성됩니다." required></textarea>
+
+                </div>
+
+
+
+                <div class="btn-action-group">
+
+                    <button type="button" class="btn-download-html" onclick="generateAndDownloadHTML()">
+
+                        📥 완성된 HTML 파일 다운로드
+
+                    </button>
+
+                    <button type="submit" id="btnSubmitPost" class="btn-publish">
+
+                        💾 대시보드 목록에 저장하기
+
+                    </button>
+
+                </div>
+
+
+
+                <button type="button" id="btnCancelEdit" class="btn-cancel-edit" onclick="cancelEditMode()">✕ 수정 취소하고 새 글 쓰기로 돌아가기</button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- ========================================== -->
+
+<!-- 🧠 JAVASCRIPT MASTER LOGIC WITH FULL KOREAN COMMENTS -->
+
+<!-- ========================================== -->
+
+<script>
+
+    // Authenticate against the server; a local page flag is never authorization.
+    let adminLoginPending = false;
+    async function handleAuthLogin(e) {
+        if (e && typeof e.preventDefault === 'function') e.preventDefault();
+        if (adminLoginPending) return;
+        const inputEl = document.getElementById('adminPasswordInput');
+        const err = document.getElementById('authErrorMsg');
+        adminLoginPending = true;
+        try {
+            await verifyAdminPassword(inputEl ? inputEl.value : '');
+            if (inputEl) inputEl.value = '';
+            if (err) err.style.display = 'none';
+            unlockAdmin();
+        } catch (error) {
+            if (err) { err.textContent = error.message || '로그인하지 못했습니다.'; err.style.display = 'block'; }
+            if (inputEl) inputEl.focus();
+        } finally {
+            adminLoginPending = false;
+        }
+    }
+
+
+
+    // 🔓 3. 콘솔 잠금 해제 및 대시보드 렌더링 호출
+
+    function unlockAdmin() {
+
+        const lock = document.getElementById('authLockScreen');
+
+        const content = document.getElementById('adminContent');
+
+        if (lock) lock.style.setProperty('display', 'none', 'important');
+
+        if (content) content.style.setProperty('display', 'block', 'important');
+
+
+
+        // 데이터 로딩 및 테이블 렌더링 즉시 실행
+
+        loadPostsData();
+
+        renderTable();
+
+        loadAllAdminComments();
+
+        updateGitHubBtnStatus();
+
+    }
+
+
+
+    // 🚪 4. 로그아웃 처리
+
+    function handleAdminLogout() {
+        clearAdminPassword();
+
+        sessionStorage.removeItem('honeyjar_admin_session');
+
+        window.location.href = "index.html";
+
+    }
+
+
+
+    // 📚 5. 11편 전체 포스트 기본 데이터베이스 (실제 로컬 고화질 화보 1:1 정확한 연동)
+
+    const defaultPosts = [
+        {
+            id: 32,
+            slug: "morning-apple-heartburn-gastritis-egg.html",
+            title: "\"사과 먹고 속 쓰린데 위염일까?\" 명치 통증과 산 역류 증상 구별법",
+            category: "식단 & 영양",
+            author: "에디터 혀니",
+            date: "2026.09.20",
+            views: "0",
+            thumb: "images/posts/morning-apple-heartburn-gastritis-egg/thumb.jpg",
+            link: "posts/morning-apple-heartburn-gastritis-egg.html",
+            desc: "아침 사과 먹고 속 쓰릴 때 위염인지 걱정되시나요? 명치 통증과 산 역류 증상의 차이점, 사과가 위염의 직접 원인이 아닌 이유와 안전한 조리·섭취 한계를 공인 의학 가이드라인을 바탕으로 명확히 짚어 드립니다.",
+            content: "\"사과 먹고 속 쓰린데 위염일까?\" 명치 통증과 산 역류 증상 구별법...",
+            isHidden: false
+        },
+        {
+            id: 31,
+            slug: "morning-apple-heartburn-peanut-butter.html",
+            title: "아침 공복 사과 속쓰림 대처법, 위산 자극 완화하는 땅콩버터 섭취 요령",
+            category: "식단 & 영양",
+            author: "에디터 혀니",
+            date: "2026.09.19",
+            views: "0",
+            thumb: "images/posts/morning-apple-heartburn-peanut-butter/thumb.jpg",
+            link: "posts/morning-apple-heartburn-peanut-butter.html",
+            desc: "아침 공복에 사과를 먹고 속이 쓰린 생리학적 이유와 위산 자극을 줄여주는 15분 미온수 시간표 및 무가당 땅콩버터 완충 섭취 요령을 알아봅니다.",
+            content: "아침 공복 사과 속쓰림 대처법, 위산 자극 완화하는 땅콩버터 섭취 요령...",
+            isHidden: false
+        },
+        {
+            id: 30,
+            slug: "salt-water-gargle-concentration-ratio.html",
+            title: "환절기 목 통증 소금물 가글 방법과 주의사항, 따뜻한 물 비율과 소아 금기",
+            category: "라이프 웰니스",
+            author: "에디터 혀니",
+            date: "2026.09.16",
+            views: "0",
+            thumb: "images/posts/salt-water-gargle-concentration-ratio/thumb.jpg",
+            link: "posts/salt-water-gargle-concentration-ratio.html",
+            desc: "환절기 목 칼칼할 때 따뜻한 물 한 컵에 소금 반 티스푼 배합 비율과 소아 사용 금기, 양치 후 올바른 가글 분리 수칙을 알아봅니다.",
+            content: "환절기 목 통증 소금물 가글 방법과 주의사항, 따뜻한 물 비율과 소아 금기...",
+            isHidden: false
+        },
+        {
+            id: 29,
+            slug: "triglycerides-retest-alcohol-preparation.html",
+            title: "중성지방 재검 전 알아둘 검사 조건과 결과표 읽기, 금주 후 변화 확인하는 순서",
+            category: "라이프 웰니스",
+            author: "에디터 혀니",
+            date: "2026.09.15",
+            views: "0",
+            thumb: "images/posts/triglycerides-retest-alcohol-preparation/thumb.jpg",
+            link: "posts/triglycerides-retest-alcohol-preparation.html",
+            desc: "중성지방 재검을 앞두고 검사 조건과 금주 후 생활 변화를 기록하는 방법, 이전 결과표와 비교할 항목 및 다음 상담 준비를 살펴봅니다.",
+            content: "중성지방 재검 전 알아둘 검사 조건과 결과표 읽기, 금주 후 변화 확인하는 순서...",
+            isHidden: false
+        },
+        {
+            id: 28,
+            slug: "chuseok-meat-delivery-thawing-safety.html",
+            title: "추석 고기 택배 상온에 하루, 냉장고에 넣으면 끝? 해동 후 보관 전 확인할 3가지",
+            category: "식단 & 영양",
+            author: "에디터 혀니",
+            date: "2026.09.14",
+            views: "0",
+            thumb: "images/posts/chuseok-meat-delivery-thawing-safety/thumb.jpg",
+            link: "posts/chuseok-meat-delivery-thawing-safety.html",
+            desc: "추석 고기 택배를 늦게 발견했다면 밖에 둔 시간, 고기의 온도, 표시와 포장을 확인하세요. 녹은 아이스팩만으로 판단하면 안 되는 이유와 해동 후 재냉동 주의사항을 살펴봅니다.",
+            content: "추석 고기 택배 상온에 하루, 냉장고에 넣으면 끝? 해동 후 보관 전 확인할 3가지...",
+            isHidden: false
+        },
+        {
+            id: 27,
+            slug: "nasal-spray-rebound-rhinitis-5day-rule.html",
+            title: "“스프레이 없으면 숨을 못 쉬어요” 환절기 코막힘, 비염 스프레이 끊기 전 확인할 3가지",
+            category: "라이프 웰니스",
+            author: "에디터 혀니",
+            date: "2026.09.13",
+            views: "0",
+            thumb: "images/posts/nasal-spray-rebound-rhinitis-5day-rule/thumb.jpg",
+            link: "posts/nasal-spray-rebound-rhinitis-5day-rule.html",
+            desc: "비염 스프레이를 뿌려도 코가 금방 다시 막힌다면 성분과 사용 기간부터 확인하세요. 국내 제품 안내와 영국의 5일 권고를 구분하고, 분사 방향과 중단 전 챙길 기록을 살펴봅니다.",
+            content: "“스프레이 없으면 숨을 못 쉬어요” 환절기 코막힘, 비염 스프레이 끊기 전 확인할 3가지...",
+            isHidden: false
+        },
+        {
+            id: 26,
+            slug: "sleep-lying-down-eyes-closed-20min-rule.html",
+            title: "잠 안 올 때 눈만 감고 누워 있어도 될까? 휴식과 수면의 차이·침대 20분 수칙",
+            category: "라이프 웰니스",
+            author: "에디터 혀니",
+            date: "2026.09.12",
+            views: "0",
+            thumb: "images/posts/sleep-lying-down-eyes-closed-20min-rule/thumb.jpg",
+            link: "posts/sleep-lying-down-eyes-closed-20min-rule.html",
+            desc: "눈을 감은 휴식과 수면의 차이, 잠이 오지 않을 때 자리를 옮기는 요령과 샤워·조명·보조제 근거를 확인합니다.",
+            content: "잠 안 올 때 눈만 감고 누워 있어도 될까? 휴식과 수면의 차이·침대 20분 수칙...",
+            isHidden: false
+        },
+        {
+            id: 25,
+            slug: "plantar-fasciitis-morning-heel-pain-stretching.html",
+            title: "족저근막염 아침 첫발 통증 완화, 침대 위 30초 발가락 스트레칭과 마사지법",
+            category: "홈트레이닝",
+            author: "에디터 혀니",
+            date: "2026.09.11",
+            views: "0",
+            thumb: "images/posts/plantar-fasciitis-morning-heel-pain-stretching/thumb.jpg",
+            link: "posts/plantar-fasciitis-morning-heel-pain-stretching.html",
+            desc: "아침에 눈떠 침대에서 첫발을 딛는 순간 뒤꿈치가 찢어지는 듯한 날카로운 통증에 비명을 지르셨나요? 밤사이 웅크려 굳은 족저근막이 급격한 체중에 찢어지는 원인 메커니즘을 밝히고, 바닥에 발을 딛기 전 침대 위에서 30초 만에 끝내는 발가락 젖히기 스트레칭, 테니스공 마사지 주의점, 종아리 아킬레스건 이완 루틴까지 에디터 혀니가 알기 쉽게 전해드립니다.",
+            content: "족저근막염 아침 첫발 통증 완화, 침대 위 30초 발가락 스트레칭과 마사지법...",
+            isHidden: false
+        },
+        {
+            id: 24,
+            slug: "fasting-blood-sugar-prediabetes-guide.html",
+            title: "건강검진 공복혈당 100~125라면? 당화혈색소와 함께 볼 기준·식사·운동·재검사",
+            category: "라이프 웰니스",
+            author: "에디터 혀니",
+            date: "2026.09.10",
+            views: "0",
+            thumb: "images/posts/fasting-blood-sugar-prediabetes-guide/thumb.jpg",
+            link: "posts/fasting-blood-sugar-prediabetes-guide.html",
+            desc: "공복혈당 100~125mg/dL의 의미와 당화혈색소를 함께 보는 이유를 정리했습니다. 개인별 식사·활동 계획, 확인 검사와 약물 상담이 필요한 경우를 구분합니다.",
+            content: "건강검진 공복혈당 100~125라면? 당화혈색소와 함께 볼 기준·식사·운동·재검사...",
+            isHidden: false
+        },
+        {
+            id: 23,
+            slug: "sedation-endoscopy-driving-safety.html",
+            title: "“잠 다 깼는데 운전대 잡아도 될까?” 수면내시경 후 운전 불가 시간과 혼자 귀가 시 대중교통 안전 수칙",
+            category: "라이프 웰니스",
+            author: "에디터 혀니",
+            date: "2026.09.10",
+            views: "0",
+            thumb: "images/posts/sedation-endoscopy-driving-safety/thumb.jpg",
+            link: "posts/sedation-endoscopy-driving-safety.html",
+            desc: "수면내시경 직후 잠에서 완전히 깬 것 같아 바로 차를 몰고 귀가해도 되는지 고민하셨나요? 겉으로는 멀쩡해 보여도 뇌 신경 반응 속도가 지체되는 의학적 착각 메커니즘, 24시간 자가운전 금지 지침, 도로교통법 제45조 약물 운전의 형사 책임, 그리고 보호자 없이 혼자 병원에 방문했을 때 안전하게 대중교통과 택시로 귀가하는 3단계 수칙까지 에디터 혀니가 명쾌하게 정리해 드립니다.",
+            content: "“잠 다 깼는데 운전대 잡아도 될까?” 수면내시경 후 운전 불가 시간과 혼자 귀가 시 대중교통 안전 수칙...",
+            isHidden: false
+        },
+        {
+            id: 22,
+            slug: "endoscopy-meal-coffee-timing.html",
+            title: "“검사 끝났으니 바로 일반식 먹어도 될까?” 위내시경 후 식사 시간과 커피 카페인이 붉어진 위벽에 미치는 영향",
+            category: "라이프 웰니스",
+            author: "에디터 혀니",
+            date: "2026.09.08",
+            views: "0",
+            thumb: "images/posts/endoscopy-meal-coffee-timing/thumb.jpg",
+            link: "posts/endoscopy-meal-coffee-timing.html",
+            desc: "위내시경 검사 직후 극심한 허기 속에서 바로 일반식이나 모닝커피를 마셔도 되는지 궁금하셨나요? 검사 직후 갈증 속 흡인성 폐렴을 막는 물 한 모금 테스트, 단순 검사·조직검사·용종 절제술별 3단계 식사 전환 시간표, 충혈된 위벽에 커피가 미치는 생리학적 위험, 그리고 일주일간 비행기 탑승 금기 팩트까지 에디터 혀니가 명쾌하게 정리해 드립니다.",
+            content: "“검사 끝났으니 바로 일반식 먹어도 될까?” 위내시경 후 식사 시간과 커피 카페인이 붉어진 위벽에 미치는 영향...",
+            isHidden: false
+        },
+        {
+            id: 21,
+            slug: "fasting-water-coffee-health-checkup.html",
+            title: "건강검진 당일 아침 물과 커피 한 모금 마셨다면? 위내시경 검사 가능 기준과 병원 도착 즉시 실전 대처법",
+            category: "라이프 웰니스",
+            author: "에디터 혀니",
+            date: "2026.09.08",
+            views: "0",
+            thumb: "images/posts/fasting-water-coffee-health-checkup/thumb.jpg",
+            link: "posts/fasting-water-coffee-health-checkup.html",
+            desc: "건강검진 당일 아침 무심코 마신 물 한 모금이나 모닝커피 한 잔 때문에 오늘 검사를 다 취소해야 하는지 발을 동동 구르셨나요? 물과 커피가 위장 내시경 시야와 수면마취 기도 흡인에 미치는 생리학적 위험성을 짚어보고, 혈압약 복용 기준과 병원 도착 즉시 검사 일정을 살려내는 3단계 실전 대처법을 에디터 혀니가 명쾌하게 정리해 드립니다.",
+            content: "건강검진 당일 아침 물과 커피 한 모금 마셨다면? 위내시경 검사 가능 기준과 병원 도착 즉시 실전 대처법...",
+            isHidden: false
+        },
+        {
+            id: 20,
+            slug: "coffee-after-meal-golden-time.html",
+            title: "식후 커피, 한 시간 뒤면 괜찮을까? 철분 흡수와 철분제 복용 간격·속쓰림 확인",
+            category: "라이프 웰니스",
+            author: "에디터 혀니",
+            date: "2026.09.07",
+            views: "0",
+            thumb: "images/posts/coffee-after-meal-golden-time/thumb.jpg",
+            link: "posts/coffee-after-meal-golden-time.html",
+            desc: "식후 커피가 점심 영양분을 모두 없애는 것은 아닙니다. 비헴철 흡수 연구의 실제 결과와 황산철 복용 시 커피 간격, 속쓰림이 있을 때 확인할 점을 구분했습니다.",
+            content: "식후 커피, 한 시간 뒤면 괜찮을까? 철분 흡수와 철분제 복용 간격·속쓰림 확인...",
+            isHidden: false
+        },
+        {
+            id: 19,
+            slug: "greek-yogurt-diet-trap.html",
+            title: "“건강 간식인 줄 알고 매일 퍼먹었다면?” 밥 두 공기 칼로리 폭탄 터뜨리는 그릭요거트의 배신과 3초 라벨 판별법",
+            category: "식단 & 영양",
+            author: "에디터 혀니",
+            date: "2026.09.04",
+            views: "0",
+            thumb: "images/posts/greek-yogurt-diet-trap/thumb.jpg",
+            link: "posts/greek-yogurt-diet-trap.html",
+            desc: "다이어트 건강 간식의 대명사 그릭요거트! 숟가락이 서는 꾸덕함에 속아 매일 챙겨 먹었다가 오히려 뱃살이 찌고 혈당이 치솟는 원인을 파헤칩니다. 정통 스트레인드 여과 방식과 첨가물 범벅 '무늬만 그릭'을 걸러내는 3초 라벨 판별 공식부터 밥 두 공기 칼로리를 부르는 토핑의 함정까지 에디터 혀니가 유쾌하게 정리해 드립니다.",
+            content: "“건강 간식인 줄 알고 매일 퍼먹었다면?” 밥 두 공기 칼로리 폭탄 터뜨리는 그릭요거트의 배신과 3초 라벨 판별법...",
+            isHidden: false
+        },
+        {
+            id: 18,
+            slug: "pelvic-stretching-back-pain-relief.html",
+            title: "“눈 뜨자마자 허리 부여잡고 끙끙 앓았다면?” 굳은 척추와 뒤틀린 골반을 5분 만에 깨우는 침대 위 무부하 스트레칭",
+            category: "홈트레이닝",
+            author: "에디터 혀니",
+            date: "2026.09.04",
+            views: "0",
+            thumb: "images/posts/pelvic-stretching-back-pain-relief/thumb.jpg",
+            link: "posts/pelvic-stretching-back-pain-relief.html",
+            desc: "기상 직후 허리가 뻣뻣하게 굳고 엉치가 쑤시던 원인부터, 요추 부담 0%로 골반 비대칭을 교정하고 척추 C자 곡선을 살려주는 침대 위 4단계 스트레칭 루틴을 에디터 혀니가 알기 쉽게 전해드립니다.",
+            content: "“눈 뜨자마자 허리 부여잡고 끙끙 앓았다면?” 굳은 척추와 뒤틀린 골반을 5분 만에 깨우는 침대 위 무부하 스트레칭...",
+            isHidden: false
+        },
+        {
+            id: 17,
+            slug: "supplement-timing-interactions.html",
+            title: "“몸 챙기려다 속만 쓰렸다면?” 한 번에 털어 넣던 영양제 복용 골든타임과 최악의 상극 조합",
+            category: "식단 & 영양",
+            author: "에디터 혀니",
+            date: "2026.09.04",
+            views: "0",
+            thumb: "images/posts/supplement-timing-interactions/thumb.jpg",
+            link: "posts/supplement-timing-interactions.html",
+            desc: "건강해지려고 챙겨 먹은 영양제가 오히려 속 쓰림을 부르고 흡수율이 바닥을 치는 이유! 유산균 공복 복용부터 오메가3 식후 섭취, 그리고 칼슘과 철분의 3시간 상극 분리까지 에디터 혀니가 알기 쉽게 정리한 영양제 복용 골든타임 가이드입니다.",
+            content: "“몸 챙기려다 속만 쓰렸다면?” 한 번에 털어 넣던 영양제 복용 골든타임과 최악의 상극 조합...",
+            isHidden: false
+        },
+        {
+            id: 16,
+            slug: "morning-coffee-cortisol-timing.html",
+            title: "“눈 뜨자마자 커피부터 찾았더니?” 공복 모닝커피가 위장과 피로를 부르는 진짜 이유",
+            category: "라이프 웰니스",
+            author: "에디터 혀니",
+            date: "2026.09.03",
+            views: "0",
+            thumb: "images/posts/morning-coffee-cortisol-timing/thumb.jpg",
+            link: "posts/morning-coffee-cortisol-timing.html",
+            desc: "기상 직후 빈속에 마시는 모닝커피가 코르티솔 호르몬과 충돌해 만성 피로와 위산 역류를 유발하는 과학적 원인과, 몸의 에너지를 200% 끌어올리는 기상 90분 후 커피 골든타임을 알기 쉽게 정리했습니다.",
+            content: "“눈 뜨자마자 커피부터 찾았더니?” 공복 모닝커피가 위장과 피로를 부르는 진짜 이유...",
+            isHidden: false
+        },
+        {
+            id: 15,
+            slug: "posture-wall-stretching.html",
+            title: "“벽에 딱 3분 섰을 뿐인데?” 돌덩이 어깨죽지와 뻐근한 목덜미 펴는 거북목 교정 루틴",
+            category: "홈트레이닝",
+            author: "에디터 혀니",
+            date: "2026.09.03",
+            views: "0",
+            thumb: "images/posts/posture-wall-stretching/thumb.jpg",
+            link: "posts/posture-wall-stretching.html",
+            desc: "하루 종일 컴퓨터와 스마트폰을 보느라 돌덩이처럼 딱딱하게 뭉친 어깨죽지와 뻐근한 뒷목! 집 안의 벽 하나만 활용해 3분 만에 굽은 등과 말린 어깨를 활짝 펴내는 과학적인 자세 교정 스트레칭을 에디터 혀니가 알기 쉽게 소개합니다.",
+            content: "“벽에 딱 3분 섰을 뿐인데?” 돌덩이 어깨죽지와 뻐근한 목덜미 펴는 거북목 교정 루틴...",
+            isHidden: false
+        },
+        {
+            id: 14,
+            slug: "slow-aging-rice-recipe.html",
+            title: "저속노화 잡곡밥, 렌틸콩·귀리 비율보다 먼저 볼 식사량과 냉장 보관·재가열 방법",
+            category: "식단 & 영양",
+            author: "에디터 혀니",
+            date: "2026.09.03",
+            views: "0",
+            thumb: "images/posts/slow-aging-rice-recipe/thumb.jpg",
+            link: "posts/slow-aging-rice-recipe.html",
+            desc: "렌틸콩·귀리를 섞은 잡곡밥을 먹을 때 살펴볼 식사량과 조리 방법을 정리했습니다. 냉각 연구의 한계, 남은 밥의 냉장 보관과 속까지 뜨겁게 재가열하는 기준도 확인하세요.",
+            content: "저속노화 잡곡밥, 렌틸콩·귀리 비율보다 먼저 볼 식사량과 냉장 보관·재가열 방법...",
+            isHidden: false
+        },
+        {
+            id: 13,
+            slug: "2026-national-health-screening-guide.html",
+            title: "“올해 내 차례일까?” 2026 국가건강검진 짝수년생 무료 항목과 놓치면 손해인 6대 암검진 팩트체크",
+            category: "라이프 웰니스",
+            author: "에디터 혀니",
+            date: "2026.09.01",
+            views: "0",
+            thumb: "images/posts/2026-health-screening-even-year/thumb.jpg",
+            link: "posts/2026-national-health-screening-guide.html",
+            desc: "2026년 짝수년도 출생자를 위한 국가건강검진 전액 무료 항목과 6대 암검진 본인부담금, 모바일 1분 조회법 및 작년 미수검자 추가 신청 꿀팁을 에디터 혀니가 알기 쉽게 전해드립니다.",
+            content: "“올해 내 차례일까?” 2026 국가건강검진 짝수년생 무료 항목과 놓치면 손해인 6대 암검진 팩트체크...",
+            isHidden: false
+        },
+        {
+            id: 12,
+            slug: "fruit-washing-liver-health.html",
+            title: "과일 세척, 식초물에 담그면 충분할까? 딸기·복숭아 씻는 법과 멍·곰팡이 구분",
+            category: "식단 & 영양",
+            author: "에디터 혀니",
+            date: "2026.08.30",
+            views: "0",
+            thumb: "images/posts/fruit-washing-liver-health/thumb.jpg",
+            link: "posts/fruit-washing-liver-health.html",
+            desc: "과일은 흐르는 물로 씻고, 단순한 멍과 부패·곰팡이는 구분해서 다뤄야 합니다. 딸기·복숭아 등 연한 과일 세척, 껍질을 벗길 때의 위생, 절단 과일 보관을 정리했습니다.",
+            content: "과일 세척, 식초물에 담그면 충분할까? 딸기·복숭아 씻는 법과 멍·곰팡이 구분...",
+            isHidden: false
+        },
+        {
+            id: 11,
+            slug: "post-meal-walk-blood-sugar.html",
+            title: "식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 골든타임 루틴",
+            category: "라이프 웰니스",
+            author: "에디터 혀니",
+            date: "2026.08.25",
+            views: "0",
+            thumb: "images/posts/walking/thumb.jpg",
+            link: "posts/post-meal-walk-blood-sugar.html",
+            desc: "식후 15분 이내 10분 걷기가 인슐린 분비를 30% 낮추고 혈당 스파이크와 내장지방을 막는 과학적 기전.",
+            content: "식후 10분 걷기의 기적: 혈당 스파이크 잡고 식곤증·내장지방 없애는 골든타임 루틴...",
+            isHidden: false
+        },
+        {
+            id: 10,
+            slug: "knee-safe-squat-workout.html",
+            title: "초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세",
+            category: "홈트레이닝",
+            author: "에디터 혀니",
+            date: "2026.08.23",
+            views: "0",
+            thumb: "images/posts/squat/thumb.jpg",
+            link: "posts/knee-safe-squat-workout.html",
+            desc: "관절에 무리 없이 대퇴사두근과 둔근을 강화하는 안전한 무릎 각도와 체중 지지 꿀팁.",
+            content: "초보자 무릎 통증 없는 하체 근력 운동법: 스쿼트·런지 올바른 자세...",
+            isHidden: false
+        },
+        {
+            id: 9,
+            slug: "ohnara-diet.html",
+            title: "“50대에도 47kg 유지 비결?” 배우 오나라 식단으로 본 중년 영양 밸런스와 필수 근력 운동법",
+            category: "식단 & 영양",
+            author: "에디터 혀니",
+            date: "2026.08.21",
+            views: "0",
+            thumb: "images/posts/ohnara/thumb.jpg",
+            link: "posts/ohnara-diet.html",
+            desc: "배우 오나라의 47kg 식단 사례를 통해 살펴본 50대 중년 여성의 영양 밀도 식사법, 기초대사량 극복을 위한 필수 단백질 섭취 요령, 4대 근력 운동 비교 가이드.",
+            content: "“50대에도 47kg 유지 비결?” 배우 오나라 식단으로 본 중년 영양 밸런스와 필수 근력 운동법...",
+            isHidden: false
+        },
+        {
+            id: 8,
+            slug: "august-seasonal-foods.html",
+            title: "8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드",
+            category: "식단 & 영양",
+            author: "에디터 혀니",
+            date: "2026.08.19",
+            views: "0",
+            thumb: "images/posts/august/thumb.jpg",
+            link: "posts/august-seasonal-foods.html",
+            desc: "늦여름 지친 몸을 깨우는 장어, 전복, 포도, 복숭아, 옥수수의 효능과 올바른 섭취법.",
+            content: "8월 제철 음식 5가지, 늦여름 기력 회복과 영양 성분 가이드...",
+            isHidden: false
+        },
+        {
+            id: 7,
+            slug: "mediterranean-diet.html",
+            title: "세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁",
+            category: "식단 & 영양",
+            author: "에디터 혀니",
+            date: "2026.08.19",
+            views: "0",
+            thumb: "images/posts/mediterranean/thumb.jpg",
+            link: "posts/mediterranean-diet.html",
+            desc: "지중해식 식단의 심혈관 보호 기전과 올리브유, 통곡물, 채소 중심의 한국형 맞춤 식단 구성법.",
+            content: "세계 1위 건강 식단 지중해식 식단 가이드와 한국형 장보기 팁...",
+            isHidden: false
+        },
+        {
+            id: 6,
+            slug: "intermittent-fasting-guide.html",
+            title: "간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표",
+            category: "식단 & 영양",
+            author: "에디터 혀니",
+            date: "2026.08.19",
+            views: "0",
+            thumb: "images/posts/fasting/thumb.jpg",
+            link: "posts/intermittent-fasting-guide.html",
+            desc: "자가포식(오토파지) 유도 원리와 16:8 시간표 구성, 근손실 없는 간헐적 단식 실천 꿀팁.",
+            content: "간헐적 단식 16:8 방법과 부작용 예방, 성공적인 식사 시간표...",
+            isHidden: false
+        },
+        {
+            id: 5,
+            slug: "morning-routine.html",
+            title: "활력 있는 하루를 만드는 아침 10분 모닝 루틴과 스트레칭",
+            category: "라이프 웰니스",
+            author: "에디터 혀니",
+            date: "2026.08.19",
+            views: "0",
+            thumb: "images/posts/morning/thumb.jpg",
+            link: "posts/morning-routine.html",
+            desc: "기상 직후 코르티솔 분비를 정상화하고 뇌를 깨우는 수분 섭취, 햇볕 쬐기, 가벼운 관절 가동성 루틴.",
+            content: "활력 있는 하루를 만드는 아침 10분 모닝 루틴과 스트레칭...",
+            isHidden: false
+        },
+        {
+            id: 4,
+            slug: "sleep-hygiene-guide.html",
+            title: "수면 위생, 멜라토닌만 챙기면 될까? 침실 조명·온도와 카페인·취침 습관 점검",
+            category: "라이프 웰니스",
+            author: "에디터 혀니",
+            date: "2026.08.19",
+            views: "0",
+            thumb: "images/posts/sleep/thumb.jpg",
+            link: "posts/sleep-hygiene-guide.html",
+            desc: "침실 조명과 온도, 늦은 카페인과 목욕 습관을 살펴보고 멜라토닌과 스마트워치 수면 기록의 한계를 구분합니다.",
+            content: "수면 위생, 멜라토닌만 챙기면 될까? 침실 조명·온도와 카페인·취침 습관 점검...",
+            isHidden: false
+        },
+        {
+            id: 3,
+            slug: "posture-stretching-office.html",
+            title: "직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭",
+            category: "홈트레이닝",
+            author: "에디터 혀니",
+            date: "2026.08.19",
+            views: "0",
+            thumb: "images/posts/posture/thumb.jpg",
+            link: "posts/posture-stretching-office.html",
+            desc: "의자에 앉아서 하는 흉추 신전 스트레칭과 견갑골 후인 하강 운동으로 목·어깨 통증 완화.",
+            content: "직장인을 위한 거북목·라운드숄더 교정 5분 오피스 스트레칭...",
+            isHidden: false
+        },
+        {
+            id: 2,
+            slug: "core-exercise-home.html",
+            title: "바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴",
+            category: "홈트레이닝",
+            author: "에디터 혀니",
+            date: "2026.08.19",
+            views: "0",
+            thumb: "images/posts/core/thumb.jpg",
+            link: "posts/core-exercise-home.html",
+            desc: "허리 부담 없는 플랭크 변형 동작과 버드독, 데드버그로 척추 기립근과 복횡근 강화.",
+            content: "바른 자세와 허리 건강을 위한 10분 홈트 코어 운동 루틴...",
+            isHidden: false
+        },
+        {
+            id: 1,
+            slug: "water-intake-guide.html",
+            title: "체중별 하루 적정 수분 섭취량과 올바른 물 마시는 시간대",
+            category: "식단 & 영양",
+            author: "에디터 혀니",
+            date: "2026.08.19",
+            views: "0",
+            thumb: "images/posts/water/thumb.jpg",
+            link: "posts/water-intake-guide.html",
+            desc: "신체 대사율을 높이는 시간대별 수분 섭취 타이밍과 물 마시기 습관 형성 가이드.",
+            content: "체중별 하루 적정 수분 섭취량과 올바른 물 마시는 시간대...",
+            isHidden: false
+        }
+    ];
+
+
+
+    let posts = [];
+
+    let currentAdminPage = 1;
+
+    const itemsPerPage = 10;
+
+
+
+    // 💾 6. 포스트 데이터 로드 및 신규 글 100% 자동 동기화 (Smart Merge)
+
+    function loadPostsData() {
+
+        const saved = localStorage.getItem('honeyjar_admin_posts') || localStorage.getItem('HONEYJAR_ADMIN_POSTS_V1');
+
+        let savedPostsMap = {};
+
+        if (saved) {
+
+            try {
+
+                const parsed = JSON.parse(saved);
+
+                if (Array.isArray(parsed)) {
+
+                    parsed.forEach(p => {
+
+                        const key = p.slug || p.id;
+
+                        savedPostsMap[key] = p;
+
+                    });
+
+                }
+
+            } catch (e) {}
+
+        }
+
+
+
+        const currentPickSlug = localStorage.getItem('honeyjar_editor_pick_slug') || 'post-meal-walk-blood-sugar.html';
+
+
+
+        // defaultPosts(12개)를 기준으로 최신 상태 구축 + 사용자의 isHidden / views / isEditorPick 설정값 승계
+
+        posts = defaultPosts.map(def => {
+
+            const key = def.slug || def.id;
+
+            const savedItem = savedPostsMap[key];
+
+            const isPick = (def.slug === currentPickSlug || def.slug.replace('.html','') === currentPickSlug.replace('.html',''));
+
+            return {
+
+                ...def,
+
+                views: savedItem ? (savedItem.views || def.views) : def.views,
+
+                isHidden: savedItem ? Boolean(savedItem.isHidden) : Boolean(def.isHidden),
+
+                isEditorPick: isPick
+
+            };
+
+        });
+
+
+
+        savePostsData();
+
+        renderTable();
+
+    }
+
+
+
+    function savePostsData() {
+
+        localStorage.setItem('honeyjar_admin_posts', JSON.stringify(posts));
+
+        localStorage.setItem('HONEYJAR_ADMIN_POSTS_V1', JSON.stringify(posts));
+
+        const hiddenSlugs = posts.filter(p => p.isHidden).map(p => p.slug);
+
+        localStorage.setItem('honeyjar_hidden_slugs', JSON.stringify(hiddenSlugs));
+
+        updateStats();
+
+    }
+
+
+
+    function updateStats() {
+
+        const total = posts.length;
+
+        const elTotal = document.getElementById('tableTotalCount');
+
+        if (elTotal) elTotal.innerText = total;
+
+    }
+
+
+
+    // 🎨 7. 칼럼 목록 테이블 렌더링 엔진
+
+    function renderTable() {
+
+        const tbody = document.getElementById('postsTableBody');
+
+        if (!tbody) return;
+
+        tbody.innerHTML = '';
+
+
+
+        const total = posts.length;
+
+        const totalPages = Math.ceil(total / itemsPerPage) || 1;
+
+        if (currentAdminPage > totalPages) currentAdminPage = totalPages;
+
+
+
+        const startIndex = (currentAdminPage - 1) * itemsPerPage;
+
+        const pagePosts = posts.slice(startIndex, startIndex + itemsPerPage);
+
+
+
+        pagePosts.forEach((post, i) => {
+
+            const index = startIndex + i;
+
+            const tr = document.createElement('tr');
+
+            tr.id = `row-post-${post.id}`;
+
+            if (post.isHidden) tr.classList.add('row-hidden');
+
+
+
+            tr.innerHTML = `
+
+                <td style="text-align:center; font-weight:700; color:#64748b;">${index + 1}</td>
+
+                <td style="text-align:center;"><img src="${post.thumb}" class="post-thumb-mini" alt="썸네일" onerror="this.src='images/logo.png'"></td>
+
+                <td style="text-align:center;"><span class="badge-cat">${post.category}</span></td>
+
+                <td>
+
+                    <strong style="color:#111827; font-size:0.88rem;">${post.title}</strong>
+
+                    <div style="font-size: 0.76rem; color: #6b7280; margin-top: 2px;">${post.desc ? post.desc.substring(0, 45) + '...' : ''}</div>
+
+                </td>
+
+                <td style="text-align: center;">
+
+                    ${post.isHidden ? '<span class="badge-status-hidden">비공개(숨김)</span>' : '<span class="badge-status-live">● 공개 중</span>'}
+
+                </td>
+
+                <td style="text-align: center; color: #64748b; font-size: 0.82rem;">${post.date}</td>
+
+                <td style="text-align: center; font-weight: 700; color: #c26908;">${post.views || 0}</td>
+
+                <td style="text-align: center;">
+
+                    <div class="action-btns" style="justify-content:center;">
+
+                        <a href="${post.link || 'posts/' + post.slug}" target="_blank" class="btn-sm-view">보기 ↗</a>
+
+                        <button type="button" class="btn-sm-edit" onclick="startEditPost(${post.id})">수정</button>
+
+                        <button type="button" class="btn-sm-hide" onclick="toggleHidePost(${post.id})">
+
+                            ${post.isHidden ? '공개로 전환' : '숨김'}
+
+                        </button>
+
+                        <button type="button" style="background:${post.isEditorPick ? '#f59e0b' : '#f8fafc'}; color:${post.isEditorPick ? '#ffffff' : '#b45309'}; border:1px solid ${post.isEditorPick ? '#d97706' : '#fde68a'}; padding:4px 8px; border-radius:4px; font-size:0.78rem; font-weight:750; cursor:pointer;" onclick="setPostAsEditorPick('${post.slug}')">${post.isEditorPick ? '👑 PICK' : '🌟 PICK'}</button>
+
+                    </div>
+
+                </td>
+
+            `;
+
+            tbody.appendChild(tr);
+
+        });
+
+
+
+        renderAdminPagination(totalPages);
+
+        updateStats();
+
+    }
+
+
+
+    // 🔢 8. 페이지네이션 렌더링
+
+    function renderAdminPagination(totalPages) {
+
+        const pagContainer = document.getElementById('adminPostsPagination');
+
+        if (!pagContainer) return;
+
+
+
+        if (totalPages <= 1) {
+
+            pagContainer.innerHTML = '<button type="button" class="admin-page-btn active">1</button>';
+
+            return;
+
+        }
+
+
+
+        let html = `<button type="button" class="admin-page-btn ${currentAdminPage === 1 ? 'disabled' : ''}" onclick="changeAdminPage(${currentAdminPage - 1})">‹ 이전</button>`;
+
+        for (let p = 1; p <= totalPages; p++) {
+
+            html += `<button type="button" class="admin-page-btn ${p === currentAdminPage ? 'active' : ''}" onclick="changeAdminPage(${p})">${p}</button>`;
+
+        }
+
+        html += `<button type="button" class="admin-page-btn ${currentAdminPage === totalPages ? 'disabled' : ''}" onclick="changeAdminPage(${currentAdminPage + 1})">다음 ›</button>`;
+
+        pagContainer.innerHTML = html;
+
+    }
+
+
+
+    function changeAdminPage(newPage) {
+
+        const totalPages = Math.ceil(posts.length / itemsPerPage) || 1;
+
+        if (newPage < 1 || newPage > totalPages) return;
+
+        currentAdminPage = newPage;
+
+        renderTable();
+
+    }
+
+
+
+    // 👁️ 9. 칼럼 숨김/공개 토글
+
+    
+
+    // ============================================================================
+
+    // ☁️ GitHub API 클라우드 마스터 DB 실시간 동기화 엔진
+
+    // ============================================================================
+
+    const GITHUB_REPO_CONFIG = {
+
+        owner: "hmapt01-netizen",
+
+        repo: "kkuldanji",
+
+        branch: "main"
+
+    };
+
+
+
+    function showAdminToast(msg, type = "info") {
+
+        let toast = document.getElementById('adminLiveToast');
+
+        if (!toast) {
+
+            toast = document.createElement('div');
+
+            toast.id = 'adminLiveToast';
+
+            toast.style.cssText = `
+
+                position: fixed;
+
+                bottom: 28px;
+
+                right: 28px;
+
+                background: #0f172a;
+
+                color: #ffffff;
+
+                padding: 14px 22px;
+
+                border-radius: 12px;
+
+                font-size: 0.92rem;
+
+                font-weight: 750;
+
+                box-shadow: 0 12px 30px rgba(0,0,0,0.35);
+
+                border: 1px solid rgba(255,255,255,0.15);
+
+                z-index: 999999;
+
+                transform: translateY(80px);
+
+                opacity: 0;
+
+                transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+
+                display: flex;
+
+                align-items: center;
+
+                gap: 10px;
+
+            `;
+
+            document.body.appendChild(toast);
+
+        }
+
+        
+
+        let icon = "ℹ️";
+
+        if (type === "success") icon = "✅";
+
+        if (type === "loading") icon = "⏳";
+
+        if (type === "error") icon = "❌";
+
+        
+
+        toast.innerHTML = `<span>${icon}</span> <span>${msg}</span>`;
+
+        toast.style.transform = "translateY(0)";
+
+        toast.style.opacity = "1";
+
+        
+
+        clearTimeout(toast._timer);
+
+        if (type !== "loading") {
+
+            toast._timer = setTimeout(() => {
+
+                toast.style.transform = "translateY(80px)";
+
+                toast.style.opacity = "0";
+
+            }, 4000);
+
+        }
+
+    }
+
+
+
+    function updateGitHubBtnStatus() {
+
+        const btn = document.getElementById('btnGitHubSyncConfig');
+
+        if (!btn) return;
+
+        const token = localStorage.getItem('honeyjar_github_token');
+
+        if (token) {
+
+            btn.innerHTML = `<span style="color:#22c55e;">●</span> ☁️ 깃허브 클라우드 연동됨`;
+
+            btn.style.borderColor = "#22c55e";
+
+        } else {
+
+            btn.innerHTML = `<span style="color:#94a3b8;">○</span> ☁️ 깃허브 토큰 설정`;
+
+            btn.style.borderColor = "#475569";
+
+        }
+
+    }
+
+
+
+    function configureGitHubToken() {
+
+        const current = localStorage.getItem('honeyjar_github_token') || '';
+
+        const token = prompt("☁️ [꿀단지] GitHub Personal Access Token 입력:\n\n관리자 페이지에서 에디터 PICK이나 글 설정을 변경했을 때,\n깃허브 마스터 DB(posts_db.json)와 실서버에 100% 자동 반영됩니다.\n(최초 1회만 입력하시면 브라우저에 안전하게 보관됩니다)", current);
+
+        
+
+        if (token !== null) {
+
+            if (token.trim()) {
+
+                localStorage.setItem('honeyjar_github_token', token.trim());
+
+                updateGitHubBtnStatus();
+
+                showAdminToast("GitHub 토큰이 안전하게 저장되었습니다! 이제 모든 변경사항이 깃허브 마스터 DB에 자동 동기화됩니다.", "success");
+
+            } else {
+
+                localStorage.removeItem('honeyjar_github_token');
+
+                updateGitHubBtnStatus();
+
+                showAdminToast("GitHub 토큰이 해제되었습니다.", "info");
+
+            }
+
+        }
+
+    }
+
+
+
+    async function syncPostsDbToGitHub(commitMsg) {
+
+        let token = localStorage.getItem('honeyjar_github_token');
+
+        if (!token) {
+
+            const input = prompt("☁️ 실서버 마스터 DB(posts_db.json)에 자동 반영하기 위해 GitHub Access Token을 입력해주세요:\n(입력하시면 앞으로 모든 변경사항이 깃허브에 1초 만에 자동 저장됩니다)");
+
+            if (input && input.trim()) {
+
+                token = input.trim();
+
+                localStorage.setItem('honeyjar_github_token', token);
+
+                updateGitHubBtnStatus();
+
+            } else {
+
+                showAdminToast("⚠️ 토큰 미입력: 현재 브라우저에만 임시 적용되었습니다.", "info");
+
+                return;
+
+            }
+
+        }
+
+
+
+        showAdminToast("깃허브 마스터 DB(posts_db.json)에 실시간 커밋 & 배포 동기화 중...", "loading");
+
+
+
+        try {
+
+            const getUrl = `https://api.github.com/repos/${GITHUB_REPO_CONFIG.owner}/${GITHUB_REPO_CONFIG.repo}/contents/data/posts_db.json?ref=${GITHUB_REPO_CONFIG.branch}&_t=${Date.now()}`;
+
+            const getRes = await fetch(getUrl, {
+
+                headers: {
+
+                    'Authorization': `Bearer ${token}`,
+
+                    'Accept': 'application/vnd.github.v3+json'
+
+                }
+
+            });
+
+
+
+            if (!getRes.ok) {
+
+                throw new Error(`GitHub API 조회 실패 (상태 코드: ${getRes.status})`);
+
+            }
+
+
+
+            const fileInfo = await getRes.json();
+
+            const sha = fileInfo.sha;
+
+            const rawJson = decodeURIComponent(escape(atob(fileInfo.content.replace(/\s/g, ''))));
+
+            const remotePosts = JSON.parse(rawJson);
+
+
+
+            const pickSlug = localStorage.getItem('honeyjar_editor_pick_slug');
+
+            const hiddenSlugs = JSON.parse(localStorage.getItem('honeyjar_hidden_slugs') || '[]');
+
+
+
+            remotePosts.forEach(rp => {
+
+                const cleanSlug = rp.slug.replace('.html', '');
+
+                rp.isEditorPick = (rp.slug === pickSlug || cleanSlug === String(pickSlug).replace('.html', ''));
+
+                rp.isHidden = hiddenSlugs.some(hs => String(hs).replace('.html', '') === cleanSlug);
+
+            });
+
+
+
+            const updatedJsonStr = JSON.stringify(remotePosts, null, 2);
+
+            const encodedContent = btoa(unescape(encodeURIComponent(updatedJsonStr)));
+
+
+
+            const putUrl = `https://api.github.com/repos/${GITHUB_REPO_CONFIG.owner}/${GITHUB_REPO_CONFIG.repo}/contents/data/posts_db.json`;
+
+            const putRes = await fetch(putUrl, {
+
+                method: 'PUT',
+
+                headers: {
+
+                    'Authorization': `Bearer ${token}`,
+
+                    'Accept': 'application/vnd.github.v3+json',
+
+                    'Content-Type': 'application/json'
+
+                },
+
+                body: JSON.stringify({
+
+                    message: commitMsg || `🍯 관리자 웹 콘솔 마스터 DB 동기화 (${new Date().toLocaleString('ko-KR')})`,
+
+                    content: encodedContent,
+
+                    sha: sha,
+
+                    branch: GITHUB_REPO_CONFIG.branch
+
+                })
+
+            });
+
+
+
+            if (putRes.ok) {
+
+                showAdminToast("🎉 깃허브 마스터 DB 반영 및 Cloudflare 전 세계 자동 배포가 완료되었습니다!", "success");
+
+            } else {
+
+                const errBody = await putRes.json();
+
+                throw new Error(errBody.message || `커밋 실패 (${putRes.status})`);
+
+            }
+
+        } catch (err) {
+
+            console.error("GitHub Sync Error:", err);
+
+            showAdminToast(`동기화 실패: ${err.message} (로컬 브라우저 설정은 유지됨)`, "error");
+
+        }
+
+    }
+
+
+
+    function setPostAsEditorPick(slug) {
+
+        const p = posts.find(item => item.slug === slug);
+
+        if (!p) return;
+
+        
+
+        localStorage.setItem('honeyjar_editor_pick_slug', p.slug);
+
+        
+
+        posts.forEach(item => {
+
+            item.isEditorPick = (item.slug === p.slug);
+
+        });
+
+        
+
+        savePostsData();
+
+        renderTable();
+
+        showAdminToast(`👑 [${p.title}] 글이 에디터 PICK으로 지정되었습니다!`, "success");
+
+        
+
+        syncPostsDbToGitHub(`👑 에디터 PICK 변경: "${p.title}" (관리자 웹 실시간 동기화)`);
+
+    }
+
+
+
+    function toggleHidePost(id) {
+
+        const post = posts.find(p => p.id === id);
+
+        if (!post) return;
+
+        post.isHidden = !post.isHidden;
+
+        savePostsData();
+
+        renderTable();
+
+        const actionText = post.isHidden ? '비공개(숨김)' : '공개';
+
+        showAdminToast(`👁️ [${post.title}] 글이 ${actionText} 처리되었습니다.`, "info");
+
+        
+
+        syncPostsDbToGitHub(`👁️ 글 상태 변경 (${actionText}): "${post.title}" (관리자 웹 실시간 동기화)`);
+
+    }
+
+
+
+    // ✏️ 10. 수정 모드 시작 및 취소
+
+    function startEditPost(id) {
+
+        const post = posts.find(p => p.id === id);
+
+        if (!post) return;
+
+
+
+        document.getElementById('editPostId').value = post.id;
+
+        document.getElementById('editPostSlug').value = post.slug;
+
+        document.getElementById('postCat').value = post.category;
+
+        document.getElementById('postAuthor').value = post.author || '에디터 혀니';
+
+        document.getElementById('postTitle').value = post.title;
+
+        document.getElementById('postFileName').value = post.slug;
+
+        document.getElementById('postImgUrl').value = post.thumb;
+
+        document.getElementById('postDesc').value = post.desc || '';
+
+        document.getElementById('postContent').value = post.content || '';
+
+
+
+        document.getElementById('editorFormTitle').innerText = `✏️ 칼럼 수정 중: "${post.title}"`;
+
+        document.getElementById('editorFormBadge').innerText = "수정 모드 활성화됨";
+
+        document.getElementById('btnSubmitPost').innerText = "💾 대시보드 저장하기";
+
+        document.getElementById('btnCancelEdit').style.display = "block";
+
+
+
+        document.getElementById('articleEditorSection').scrollIntoView({ behavior: 'smooth' });
+
+    }
+
+
+
+    function cancelEditMode() {
+
+        document.getElementById('editPostId').value = "";
+
+        document.getElementById('editPostSlug').value = "";
+
+        document.getElementById('postTitle').value = "";
+
+        document.getElementById('postFileName').value = "";
+
+        document.getElementById('postDesc').value = "";
+
+        document.getElementById('postContent').value = "";
+
+
+
+        document.getElementById('editorFormTitle').innerText = "✍️ 칼럼 작성 & 실제 HTML 파일 생성기";
+
+        document.getElementById('editorFormBadge').innerText = "작성 후 [HTML 다운로드]로 실제 파일 생성";
+
+        document.getElementById('btnSubmitPost').innerText = "💾 대시보드 목록에 저장하기";
+
+        document.getElementById('btnCancelEdit').style.display = "none";
+
+    }
+
+
+
+    function handleSaveOnly(e) {
+
+        e.preventDefault();
+
+        const editId = document.getElementById('editPostId').value;
+
+        const category = document.getElementById('postCat').value;
+
+        const author = document.getElementById('postAuthor').value;
+
+        const title = document.getElementById('postTitle').value;
+
+        const slug = document.getElementById('postFileName').value.trim() || 'post.html';
+
+        const thumb = document.getElementById('postImgUrl').value;
+
+        const desc = document.getElementById('postDesc').value;
+
+        const content = document.getElementById('postContent').value;
+
+
+
+        if (editId) {
+
+            const post = posts.find(p => p.id === parseInt(editId));
+
+            if (post) {
+
+                post.category = category;
+
+                post.author = author;
+
+                post.title = title;
+
+                post.slug = slug;
+
+                post.link = 'posts/' + slug;
+
+                post.thumb = thumb;
+
+                post.desc = desc;
+
+                post.content = content;
+
+                savePostsData();
+
+                renderTable();
+
+                cancelEditMode();
+
+                alert("✅ 수정 완료되었습니다!");
+
+            }
+
+        }
+
+    }
+
+
+
+    function filterPostsTable() {
+
+        const query = document.getElementById('postSearchInput').value.toLowerCase();
+
+        const rows = document.querySelectorAll('#postsTableBody tr');
+
+        rows.forEach(row => {
+
+            const text = row.innerText.toLowerCase();
+
+            row.style.display = text.includes(query) ? '' : 'none';
+
+        });
+
+    }
+
+
+
+    // 💬 11. 댓글 관리 목록 불러오기 (전체 포스트 댓글 실시간 전수 집계)
+
+    // Implemented in js/admin-comments.js; server authorization is mandatory.
+
+    function filterAdminComments() {
+
+        const q = document.getElementById('commentSearchInput').value.toLowerCase();
+
+        const rows = document.querySelectorAll('#adminCommentsTableBody tr');
+
+        rows.forEach(r => {
+
+            r.style.display = r.innerText.toLowerCase().includes(q) ? '' : 'none';
+
+        });
+
+    }
+
+
+
+    // 🚀 페이지 로드 시 세션 자동 확인
+
+    window.addEventListener('DOMContentLoaded', () => {
+
+        sessionStorage.removeItem('honeyjar_admin_session');
+
+    });
+
+</script>
+
+<script src="js/admin-comments.js?v=simpleauth2"></script>
+</body>
+
+</html>

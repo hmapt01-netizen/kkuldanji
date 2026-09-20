@@ -132,15 +132,21 @@ def verify_research_facts(work_dir, required_step=1):
     has_valid_date = has_cur or has_prev or (has_year and has_validity)
 
     # 건강/의학/영양 분야 공인 출처 키워드 풀
-    source_keywords = [
+    korea_official_keywords = [
         "식약처", "식품의약품안전처", "질병관리청", "질병청", "농촌진흥청", "농진청", 
-        "보건복지부", "소비자원", "한국소비자원", "식품안전나라", "하버드", "Harvard", 
+        "보건복지부", "국민건강보험", "건강보험심사평가원", "심평원", "식품안전나라", 
+        "국가건강정보포털", "국립암센터", "대한의학회", "대한내과학회", "대한소화기학회",
+        "대한당뇨병학회", "국가표준식품성분표", "국민건강영양조사"
+    ]
+    source_keywords = korea_official_keywords + [
+        "소비자원", "한국소비자원", "하버드", "Harvard", 
         "란셋", "Lancet", "ADA", "미국당뇨병학회", "WHO", "세계보건기구", "ESC", "유럽심장학회", 
-        "AJCN", "임상영양", "국민건강영양조사", "학술지", "논문", "임상시험", "메타분석", 
-        "가이드라인", "코호트", "대한영양사협회", "대한당뇨병학회", "NEJM", "Nature", "BMJ",
+        "AJCN", "임상영양", "학술지", "논문", "임상시험", "메타분석", 
+        "가이드라인", "코호트", "대한영양사협회", "NEJM", "Nature", "BMJ",
         "http://", "https://"
     ]
     matched_sources = list(set([kw for kw in source_keywords if kw in content]))
+    matched_korea = list(set([kw for kw in korea_official_keywords if kw in content]))
 
     print(f"   - [Step 0 리서치 파일]: ✅ 확인됨 ({os.path.basename(research_path)})")
     
@@ -156,7 +162,12 @@ def verify_research_facts(work_dir, required_step=1):
     print(f"   - [Step 0 최신 기준 시점]: {date_status}")
 
     # 출처 검증 상태 출력
-    source_status = f"✅ {', '.join(matched_sources[:4])} 등 총 {len(matched_sources)}개 확인" if len(matched_sources) >= 2 else f"❌ 공인 출처 부족 (현재 {len(matched_sources)}개, 최소 2개 필수)"
+    if not matched_korea:
+        source_status = "❌ 한국 공인 1차 기관 출처 누락 (질병관리청, 식약처, 농진청 등 필수)"
+    elif len(matched_sources) >= 2:
+        source_status = f"✅ 한국 공인({', '.join(matched_korea[:2])}) 포함 총 {len(matched_sources)}개 확인"
+    else:
+        source_status = f"❌ 공인 출처 부족 (현재 {len(matched_sources)}개, 최소 2개 필수)"
     print(f"   - [Step 0 공인 출처 검증]: {source_status}")
 
     # 1) 최신 시점 누락 시 즉각 물리 차단
@@ -166,9 +177,16 @@ def verify_research_facts(work_dir, required_step=1):
         print(f"   👉 조치: search_web으로 최신 공인 자료를 확인하고 리서치.md를 보강하세요.")
         sys.exit(1)
 
+    # 1-1) [마스터 표준 0-5] 한국 공인 1차 기관 누락 시 즉각 물리 차단
+    if not matched_korea:
+        print(f"\n🚨 [HARD STOP 0 물리적 차단 / 마스터 표준 0-5] '리서치.md'에 한국 공인 1차 기관(질병관리청, 식약처, 농진청, 보건복지부 등) 출처가 1건도 없습니다!")
+        print(f"   🛑 외국 사이트에만 의존하는 행위를 방지하고 국내 독자의 식습관과 보건 기준에 부합하기 위해 한국 공인 기관 기준선이 1순위 필수입니다.")
+        print(f"   👉 조치: 질병관리청 국가건강정보포털, 식약처, 농촌진흥청 등의 공식 발표자료를 search_web하여 리서치.md를 보강하세요.")
+        sys.exit(1)
+
     # 2) 공인 출처 부족 시 즉각 물리 차단
     if len(matched_sources) < 2:
-        print(f"\n🚨 [HARD STOP 0 물리적 차단] '리서치.md'에 공인 출처(식약처, 질병청, 하버드, 란셋 등)가 2건 이상 기재되지 않았습니다!")
+        print(f"\n🚨 [HARD STOP 0 물리적 차단] '리서치.md'에 공인 출처가 2건 이상 기재되지 않았습니다!")
         print(f"   🛑 블로그 찌라시나 미검증 민간요법 방지를 위해 공인 연구기관/정부 통계 출처 2건 이상이 필수입니다.")
         print(f"   👉 조치: 신뢰할 수 있는 공인 기관의 최신 발표자료를 search_web하여 리서치.md에 기재하세요.")
         sys.exit(1)
@@ -305,9 +323,46 @@ def verify_research_facts(work_dir, required_step=1):
                 "FAQ 사전 실사 없이 본문 작성 강행 시도",
                 "확정된 제목이 약속한 쟁점/의문에 직결된 질문 2~3선과 공인 출처를 '리서치.md'에 보강 후 재개"
             )
+
+        # 7) [마스터 표준 23-6호] Step 0-B 확정 제목 전제 팩트체크 및 정합성 검증
+        title_error_patterns = [
+            r'\[\s*(?:제목\s*오류|전제\s*오류|팩트\s*오류|오류\s*감지|정합성\s*실패|FAIL)\s*\]',
+            r'제목\s*수정\s*필요',
+            r'제목의\s*전제가\s*(?:틀림|오류|반증|위험)'
+        ]
+        has_title_error = any(re.search(pat, content, re.IGNORECASE) for pat in title_error_patterns)
+
+        tj_path = os.path.join(work_dir, "titles.json")
+        title_error_in_json = False
+        if os.path.exists(tj_path):
+            try:
+                with open(tj_path, "r", encoding="utf-8-sig") as tj_f:
+                    tj_data = json.load(tj_f)
+                    title_error_in_json = tj_data.get("title_error", False) is True
+            except Exception:
+                pass
+
+        if has_title_error or title_error_in_json:
+            trigger_governance_block(
+                "마스터 표준 23-6호 (Step 0-B 확정 제목 전제 오류 감지 및 긴급 중단)",
+                "Step 0-B 심층 리서치 과정에서 확정된 제목의 전제에 의학적/사실적 오류(반증)가 감지되었습니다. 잘못된 제목으로 본문을 작성하는 행위가 물리적으로 차단됩니다.",
+                "오류가 확인된 제목으로 본문 작성 강행 시도",
+                "즉시 대표님께 [감지된 오류 내용 / 의학적 반증 근거 / 대체 제목 후보 3선]을 보고하고 제목 재승인 후 진행"
+            )
+
+        premise_keywords = ["제목 전제", "정합성 검증", "전제 팩트체크", "전제 검증", "제목 검증"]
+        has_premise_check = any(kw in content for kw in premise_keywords)
+        print(f"   - [Step 0-B 확정 제목 전제 정합성 실사]: {'✅ 확인됨 (팩트 무결성)' if has_premise_check else '❌ 누락'}")
+        if not has_premise_check:
+            trigger_governance_block(
+                "마스터 표준 23-6호 (확정 제목 전제 정합성 사전 실사)",
+                "확정된 제목의 핵심 전제가 사실/의학적 근거와 일치하는지 검증한 '### 🚨 [확정 제목 전제 팩트체크 및 정합성 검증]' 기록이 '리서치.md'에 누락되었습니다.",
+                "제목 전제 검증 없이 본문 작성 강행 시도",
+                "확정된 제목의 전제를 공인 출처로 검증하여 [정합성 판정: 정상 (PASS)]을 '리서치.md'에 기록 후 재개"
+            )
     else:
         # Step 1~3 (제목 단계)에서는 사전 팩트 안전선만 검증하고 FAQ는 요구하지 않음
-        faq_note = "✅ 사전 팩트 안전선 확보 완료 (맞춤 FAQ는 제목 확정 후 Step 0-B 심층 리서치에서 진행)"
+        faq_note = "✅ 사전 팩트 안전선 확보 완료 (맞춤 FAQ 및 제목 전제 검증은 제목 확정 후 Step 0-B 심층 리서치에서 진행)"
         print(f"   - [Step 0-A 사전 팩트 검증]: {faq_note}")
 
     return True
@@ -473,7 +528,7 @@ def check_step(required_step):
             import image_guard
             if not image_guard.validate_image_plan(work_dir, require_approval=True):
                 print("\n🚨 [HARD STOP 3.5 위반] image_plan.json이 누락되었거나 사용자 승인(is_user_approved=True)이 완료되지 않았습니다!")
-                print("   🛑 사유: AI가 단일 주인공/동일 의상 앵커 사전 승인 없이 본문 또는 이미지를 즉흥 작성하는 행위를 원천 차단합니다.")
+                print("   🛑 사유: AI가 단일 주인공/한국 아파트 배경 앵커 사전 승인 없이 본문 또는 이미지를 즉흥 작성하는 행위를 원천 차단합니다.")
                 sys.exit(1)
         except Exception as e:
             print(f"🚨 [Image Guard 검증 오류]: {e}")

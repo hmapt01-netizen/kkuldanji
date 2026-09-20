@@ -1,0 +1,1 @@
+Built-in image generation edit. Base: fresh post05. Reference: previous cooked apples only. Change only apples to moist golden soft cooked pieces with red peel and cinnamon; preserve face, clothes, background, plate, fork and white napkin. Output: exec-42c5406b-8e70-408f-96cb-edabf5eee909.png
