@@ -108,7 +108,8 @@ def audit_feeds(root, posts):
             if channel is None:
                 raise ValueError('channel 누락')
             items = channel.findall('item')
-            expected_urls = [LIVE_URL + '/posts/' + p['slug'] for p in posts]
+            clean_slug_fn = lambda s: s[:-5] if s.endswith('.html') else s
+            expected_urls = [LIVE_URL + '/posts/' + clean_slug_fn(p['slug']) for p in posts]
             if [i.findtext('link') for i in items] != expected_urls:
                 raise ValueError('DB와 글 목록/순서 불일치 (최신 글 누락 또는 중복)')
             self_link = channel.find('{http://www.w3.org/2005/Atom}link')

@@ -204,11 +204,13 @@ for idx, p in enumerate(posts):
     <div class="img-caption" style="font-size:0.83rem !important; color:#64748b !important; margin-top:8px !important; line-height:1.4 !important; text-align:center !important;">{featured_caption}</div>
 </div>'''
 
+    clean_slug = slug[:-5] if slug.endswith(".html") else slug
+    clean_post_url = f"https://honeyjar.co.kr/posts/{clean_slug}"
     out = post_tpl
     out = out.replace("{{META_TITLE}}", p["title"])
     out = out.replace("{{META_DESCRIPTION}}", p["desc"])
     out = out.replace("{{OG_IMAGE}}", entry_thumb_full)
-    out = out.replace("{{OG_URL}}", f"https://honeyjar.co.kr/posts/{slug}")
+    out = out.replace("{{OG_URL}}", clean_post_url)
     out = out.replace("{{SHORT_TITLE}}", p.get("shortTitle", p["title"]))
     out = out.replace("{{NAV_ACTIVE_DIET}}", nav_diet)
     out = out.replace("{{NAV_ACTIVE_HOMET}}", nav_homet)
@@ -459,14 +461,14 @@ else:
 # 5-1. 전 페이지 Canonical(표준 대표 URL) 무결성 가디언 (Googlebot URL 파편화 & 중복 색인 영구 방지)
 canonical_map = {
     'index.html': 'https://honeyjar.co.kr/',
-    'about.html': 'https://honeyjar.co.kr/about.html',
-    'privacy.html': 'https://honeyjar.co.kr/privacy.html',
-    'terms.html': 'https://honeyjar.co.kr/terms.html',
-    'contact.html': 'https://honeyjar.co.kr/contact.html',
-    'calculator.html': 'https://honeyjar.co.kr/calculator.html',
-    'youth-protection.html': 'https://honeyjar.co.kr/youth-protection.html',
-    'copyright.html': 'https://honeyjar.co.kr/copyright.html',
-    'email-rejection.html': 'https://honeyjar.co.kr/email-rejection.html'
+    'about.html': 'https://honeyjar.co.kr/about',
+    'privacy.html': 'https://honeyjar.co.kr/privacy',
+    'terms.html': 'https://honeyjar.co.kr/terms',
+    'contact.html': 'https://honeyjar.co.kr/contact',
+    'calculator.html': 'https://honeyjar.co.kr/calculator',
+    'youth-protection.html': 'https://honeyjar.co.kr/youth-protection',
+    'copyright.html': 'https://honeyjar.co.kr/copyright',
+    'email-rejection.html': 'https://honeyjar.co.kr/email-rejection'
 }
 
 canonical_updated = 0
@@ -532,25 +534,25 @@ sitemap_urls = [
     <priority>1.0</priority>
   </url>""",
     f"""  <url>
-    <loc>https://honeyjar.co.kr/about.html</loc>
+    <loc>https://honeyjar.co.kr/about</loc>
     <lastmod>{latest_iso}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>""",
     f"""  <url>
-    <loc>https://honeyjar.co.kr/privacy.html</loc>
+    <loc>https://honeyjar.co.kr/privacy</loc>
     <lastmod>{latest_iso}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>""",
     f"""  <url>
-    <loc>https://honeyjar.co.kr/terms.html</loc>
+    <loc>https://honeyjar.co.kr/terms</loc>
     <lastmod>{latest_iso}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>""",
     f"""  <url>
-    <loc>https://honeyjar.co.kr/contact.html</loc>
+    <loc>https://honeyjar.co.kr/contact</loc>
     <lastmod>{latest_iso}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -563,7 +565,8 @@ for p in posts:
     desc = p.get("desc", p.get("summary", title))
     cat = p.get("category", "라이프 웰니스")
     pub_date_rfc = parse_korean_date_to_rfc822(p.get("date", "2026. 8. 30."))
-    post_url = f"https://honeyjar.co.kr/posts/{slug}"
+    clean_slug = slug[:-5] if slug.endswith(".html") else slug
+    post_clean_url = f"https://honeyjar.co.kr/posts/{clean_slug}"
     
     # Sitemap url date
     p_nums = re.findall(r'\d+', p.get("date", ""))
@@ -572,17 +575,17 @@ for p in posts:
     # RSS item
     rss_items.append(f"""    <item>
       <title><![CDATA[{title}]]></title>
-      <link>{post_url}</link>
+      <link>{post_clean_url}</link>
       <description><![CDATA[{desc}]]></description>
       <category><![CDATA[{cat}]]></category>
       <author>contact@honeyjar.co.kr (에디터 혀니)</author>
-      <guid isPermaLink="true">{post_url}</guid>
+      <guid isPermaLink="true">{post_clean_url}</guid>
       <pubDate>{pub_date_rfc}</pubDate>
     </item>""")
     
     # Sitemap url
     sitemap_urls.append(f"""  <url>
-    <loc>{post_url}</loc>
+    <loc>{post_clean_url}</loc>
     <lastmod>{p_iso}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>

@@ -147,6 +147,111 @@ def verify_references_list(references: list) -> None:
             verify_reference_url(url, f"참고문헌 {i}번")
 
 
+def extract_reference_identifiers(references: list) -> set:
+    """
+    참고문헌 리스트에서 세부 직행 URL 및 고유 학술 식별자(PMID, DOI, PMCID) 집합 추출
+    """
+    identifiers = set()
+    for ref in references:
+        if not isinstance(ref, str):
+            continue
+        # URL 추출
+        urls = re.findall(r'href=[\'"]([^\'"]+)[\'"]', ref)
+        if not urls:
+            urls = re.findall(r'https?://[^\s\)\"\'\>]+', ref)
+        for url in urls:
+            parsed = urlparse(url.strip())
+            netloc = parsed.netloc.lower().replace("www.", "")
+            path = parsed.path.rstrip("/")
+            query_parts = []
+            if parsed.query:
+                q_dict = parse_qs(parsed.query)
+                for k in sorted(q_dict.keys()):
+                    if k.lower() in {"cntnts_sn", "contentid", "seq", "etcseq", "articleid"}:
+                        query_parts.append(f"{k}={q_dict[k][0]}")
+            normalized_url = f"{netloc}{path}"
+            if query_parts:
+                normalized_url += f"?{'&'.join(query_parts)}"
+            if normalized_url:
+                identifiers.add(normalized_url)
+
+        # PMID 추출
+        pmids = re.findall(r'PMID:\s*(\d+)', ref, flags=re.IGNORECASE)
+        for p in pmids:
+            identifiers.add(f"pmid:{p}")
+
+        # DOI 추출
+        dois = re.findall(r'10\.\d{4,9}/[-._;()/:A-Za-z0-9]+', ref)
+        for d in dois:
+            identifiers.add(f"doi:{d.lower().rstrip('.')}")
+
+    return identifiers
+
+
+def verify_unique_references_across_posts(current_slug: str, references: list, db_path: str = None, current_title: str = None) -> None:
+    """
+    [마스터 표준 23-7호] 참고문헌 복사·붙여넣기 100% 영구 금지 및 글별 1:1 고유 식별자 매핑 검증
+    전체 포스트 DB(posts_db.json)와 대조하여:
+    1. 다른 글의 참고문헌 목록을 80% 이상 그대로 베껴온 경우 차단
+    2. 현재 글의 참고문헌 중 기존 글들과 겹치지 않는 고유 직행 URL/식별자가 1건도 없는 경우(전체 재탕) 차단
+    """
+    if db_path is None:
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        db_path = os.path.join(base_dir, "data", "posts_db.json")
+
+    if not os.path.exists(db_path):
+        return
+
+    try:
+        with open(db_path, "r", encoding="utf-8-sig") as f:
+            all_posts = json.load(f)
+    except Exception:
+        return
+
+    current_ids = extract_reference_identifiers(references)
+    if not current_ids:
+        return
+
+    clean_curr_slug = (current_slug or "").replace(".html", "").strip()
+    clean_curr_title = (current_title or "").strip()
+
+    all_other_ids = set()
+    other_post_count = 0
+
+    for post in all_posts:
+        p_slug = (post.get("slug") or post.get("slugKey") or "").replace(".html", "").strip()
+        p_title = (post.get("title") or "").strip()
+        # 현재 검사 중인 글 자신과의 대조는 건너뜀 (리빌드/업데이트 지원)
+        if clean_curr_slug and p_slug and clean_curr_slug == p_slug:
+            continue
+        if clean_curr_title and p_title and clean_curr_title == p_title:
+            continue
+
+        p_refs = post.get("references") or post.get("academicRefs") or []
+        p_ids = extract_reference_identifiers(p_refs)
+        if not p_ids:
+            continue
+
+        other_post_count += 1
+        all_other_ids.update(p_ids)
+
+        intersection = current_ids.intersection(p_ids)
+        overlap_ratio = len(intersection) / len(current_ids)
+        if len(current_ids) >= 3 and overlap_ratio >= 0.8:
+            raise InvalidReferenceError(
+                f"🚨 [참고문헌 복사·재탕 위반] 기존 포스트('{post.get('title')}')의 참고문헌과 {overlap_ratio*100:.0f}% 중복됩니다.\n"
+                f"   🛑 [마스터 표준 23-7] 각 글은 다루는 핵심 주제 및 세부 지침과 1:1로 직결된 고유한 공인 1차 출처를 독립적으로 갖추어야 합니다."
+            )
+
+    if other_post_count > 0:
+        unique_ids = current_ids - all_other_ids
+        if not unique_ids:
+            raise InvalidReferenceError(
+                f"🚨 [고유 참고문헌 부재] 현재 포스트의 참고문헌 URL 및 학술 식별자가 모두 기존 다른 글들에서 이미 인용된 출처입니다.\n"
+                f"   🛑 [마스터 표준 23-7] 본 글의 핵심 쟁점 및 단서 조항을 입증하는 해당 글만의 고유 직행 URL 또는 논문 식별자(PMID/DOI)가 최소 1건 이상 등록되어야 합니다."
+            )
+
+
 # ---------------------------------------------------------------------------
 # 2. 순수 정량 수치 추출기 (Mathematical Quantity Extractor)
 # ---------------------------------------------------------------------------
@@ -576,10 +681,13 @@ def verify_cross_channel_consistency(google_data: dict, naver_html: str, manifes
 def validate_post_evidence(post_data: dict, work_dir: str = None) -> bool:
     print("🔍 [Evidence Guard] 공인 근거 및 팩트 무결성 정밀 검증 중 (Zero-Example 추상 모드)...")
 
-    # 1. 참고문헌 URL 직행성 검증
+    # 1. 참고문헌 URL 직행성 및 고유성(Anti-Boilerplate) 검증
     raw_refs = post_data.get("academicRefs") or post_data.get("references") or []
     verify_references_list(raw_refs)
-    print("   ✓ 참고문헌 직행 URL 검증 통과 (루트 도메인/검색 쿼리 0건)")
+    current_slug = post_data.get("slug") or post_data.get("slugKey") or ""
+    current_title = post_data.get("title") or ""
+    verify_unique_references_across_posts(current_slug, raw_refs, current_title=current_title)
+    print("   ✓ 참고문헌 직행 URL 및 글별 고유성(Anti-Boilerplate) 검증 통과 (재탕 0건)")
 
     # 매니페스트 로드
     manifest_data = None

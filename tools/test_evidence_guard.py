@@ -231,6 +231,72 @@ class TestEvidenceGuard(unittest.TestCase):
         )
         eg.check_paragraph_length(split_paragraphs, context_label="구글 본문 테스트")
 
+    def test_unique_references_verification_blocks_boilerplate_and_reused(self):
+        """9. [마스터 표준 23-7호] 참고문헌 복사·재탕 차단 및 고유 식별자 검증"""
+        import tempfile
+
+        # 가상 DB 생성
+        mock_db = [
+            {
+                "slug": "post-a.html",
+                "title": "기존 포스트 A",
+                "references": [
+                    '<a href="https://example.org/guideline-a">기관 A 지침</a>',
+                    '<a href="https://example.org/guideline-b">기관 B 지침</a>',
+                    '<a href="https://pubmed.ncbi.nlm.nih.gov/11111111/">논문 1 (PMID: 11111111)</a>'
+                ]
+            },
+            {
+                "slug": "post-b.html",
+                "title": "기존 포스트 B",
+                "references": [
+                    '<a href="https://example.org/guideline-c">기관 C 지침</a>',
+                    '<a href="https://example.org/guideline-d">기관 D 지침</a>',
+                    '<a href="https://pubmed.ncbi.nlm.nih.gov/22222222/">논문 2 (PMID: 22222222)</a>'
+                ]
+            }
+        ]
+
+        with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8-sig', delete=False, suffix='.json') as tf:
+            json.dump(mock_db, tf, ensure_ascii=False)
+            tmp_db_path = tf.name
+
+        try:
+            # 케이스 1: 포스트 A의 참고문헌을 100% 그대로 복사해 온 경우 ➔ 차단
+            stolen_refs = [
+                '<a href="https://example.org/guideline-a">기관 A 지침 복붙</a>',
+                '<a href="https://example.org/guideline-b">기관 B 지침 복붙</a>',
+                '<a href="https://pubmed.ncbi.nlm.nih.gov/11111111/">논문 1 (PMID: 11111111) 복붙</a>'
+            ]
+            with self.assertRaises(eg.InvalidReferenceError) as ctx:
+                eg.verify_unique_references_across_posts("new-post-c.html", stolen_refs, db_path=tmp_db_path)
+            self.assertIn("참고문헌 복사·재탕 위반", str(ctx.exception))
+
+            # 케이스 2: A와 B의 기존 출처들을 섞어서 썼으나 본 글만의 고유 식별자가 0건인 경우 ➔ 차단
+            reused_refs = [
+                '<a href="https://example.org/guideline-a">기관 A 지침</a>',
+                '<a href="https://example.org/guideline-c">기관 C 지침</a>',
+                '<a href="https://pubmed.ncbi.nlm.nih.gov/22222222/">논문 2 (PMID: 22222222)</a>'
+            ]
+            with self.assertRaises(eg.InvalidReferenceError) as ctx2:
+                eg.verify_unique_references_across_posts("new-post-c.html", reused_refs, db_path=tmp_db_path)
+            self.assertIn("고유 참고문헌 부재", str(ctx2.exception))
+
+            # 케이스 3: 기존 출처가 일부 섞여 있어도 본 글만의 고유 식별자(PMID: 33333333 또는 고유 URL)가 포함된 경우 ➔ 통과
+            valid_unique_refs = [
+                '<a href="https://example.org/guideline-a">기관 A 지침</a>',
+                '<a href="https://example.org/guideline-new-specific">이 글 전용 지침</a>',
+                '<a href="https://pubmed.ncbi.nlm.nih.gov/33333333/">이 글 전용 논문 (PMID: 33333333)</a>'
+            ]
+            eg.verify_unique_references_across_posts("new-post-c.html", valid_unique_refs, db_path=tmp_db_path)
+
+            # 케이스 4: 기존 포스트 A 자신을 리빌드/재검증할 때는 당연히 자기 자신과의 중복으로 에러 나지 않음 ➔ 통과
+            eg.verify_unique_references_across_posts("post-a.html", mock_db[0]["references"], db_path=tmp_db_path)
+
+        finally:
+            if os.path.exists(tmp_db_path):
+                os.remove(tmp_db_path)
+
 
 if __name__ == "__main__":
     unittest.main()
