@@ -60,6 +60,16 @@ class CrossChannelMismatchError(EvidenceGuardError):
     pass
 
 
+class ToneConsistencyError(EvidenceGuardError):
+    """경어체가 아닌 평서문(반말 느낌) 종결 예외"""
+    pass
+
+
+class ParagraphLengthError(EvidenceGuardError):
+    """과대 문단 길이(벽돌글) 및 줄 나눔 누락 예외"""
+    pass
+
+
 # ---------------------------------------------------------------------------
 # 1. 참고문헌 URL 직행성 및 도메인 검증 (순수 추상)
 # ---------------------------------------------------------------------------
@@ -276,8 +286,88 @@ def check_personal_anecdotes(text: str) -> None:
             )
 
 
+
 # ---------------------------------------------------------------------------
-# 5. 주장 매트릭스(Claim Matrix) 해시 무결성 검증
+# 5. 경어체 통일성 및 문단 줄 나눔(벽돌글 방지) 검증 (Zero-Example 추상 모드)
+# ---------------------------------------------------------------------------
+def check_honorific_consistency(text_or_html: str, context_label: str = "본문") -> None:
+    """
+    [마스터 표준 4호] 100% 정통 경어체 통일 원칙 (논문식 평어체 반말 영구 퇴출)
+    본문 서술문 및 매니페스트 주장에서 평서문 종결(반말/해라체: ~한다., ~된다., ~이다., ~있다., ~없다., ~합리적이다. 등)을 차단.
+    오직 정중한 경어체(~합니다, ~됩니다, ~입니다, ~않습니다, ~있습니다, ~바랍니다, ~하십시오, ~해요, ~지요 등)로만 종결되어야 함.
+    """
+    if not text_or_html:
+        return
+
+    # 1. 스타일, 스크립트, 주석 제거
+    clean = re.sub(r'<(style|script)[^>]*>.*?</\1>', '', text_or_html, flags=re.DOTALL)
+    clean = re.sub(r'<!--.*?-->', '', clean, flags=re.DOTALL)
+
+    # 2. 인용부호 안의 인용문 임시 제거 (인용구 내 평서문 오탐 방지)
+    clean = re.sub(r'"[^"]*"|“[^”]*”|\'[^\']*\'|‘[^’]*’', ' ', clean)
+
+    # 3. HTML 태그 제거
+    clean = re.sub(r'<[^>]+>', ' ', clean)
+
+    # 4. 문장 끝 또는 종결 부호 앞 단어 검사 (Zero-Example 순수 추상)
+    matches = re.finditer(r'([가-힣]{1,8}다)\s*(?:[\.\?!]|$)', clean)
+    bad_endings = []
+    for m in matches:
+        word = m.group(1)
+        if not word.endswith('니다'):
+            start = max(0, m.start() - 30)
+            end = min(len(clean), m.end() + 20)
+            snippet = clean[start:end].strip().replace('\n', ' ')
+            bad_endings.append((word, snippet))
+
+    if bad_endings:
+        err_msg = [f"🚨 [{context_label} 경어체 위반 감지] 정중한 경어체(~합니다, ~됩니다, ~입니다 등)가 아닌 평서문(반말 어조) 종결이 감지되었습니다!"]
+        for word, snip in bad_endings[:5]:
+            err_msg.append(f"   🛑 단어: '{word}' | 문맥: '...{snip}...'")
+        err_msg.append("   👉 원칙: [마스터 표준 4호] 모든 문장은 반드시 정중한 경어체로 종결되어야 합니다.")
+        raise ToneConsistencyError("\n".join(err_msg))
+
+
+def check_paragraph_length(body_html: str, context_label: str = "구글 본문") -> None:
+    """
+    [마스터 표준 4호] 내용 보존 & 의미 호흡 줄 나눔과 쾌적한 여백 호흡 (Anti-Wall Rule)
+    스마트폰이나 PC 화면에서 하나의 문단이 4~5줄 이상 길어지는 빽빽한 벽돌글을 100% 영구 금지.
+    문단 길이가 220자 이상이면서 3문장 이상이거나, 단일 문단이 280자를 초과하면 분리(줄 나눔)를 강제함.
+    """
+    if not body_html:
+        return
+
+    body_no_tables = re.sub(r'<table[^>]*>.*?</table>', '', body_html, flags=re.DOTALL)
+    paragraphs = re.findall(r'<p[^>]*>(.*?)</p>', body_no_tables, re.DOTALL)
+    bad_paragraphs = []
+
+    for i, p in enumerate(paragraphs):
+        # 캡션이나 부가 안내문 등 제외
+        if 'font-size:0.83rem' in p or 'color:#64748b' in p or 'caption' in p.lower():
+            continue
+
+        clean_p = re.sub(r'<[^>]+>', '', p).strip()
+        if not clean_p:
+            continue
+
+        sentences = [s.strip() for s in re.split(r'[.!?]\s+', clean_p) if s.strip()]
+        char_len = len(clean_p)
+
+        if char_len > 220 and len(sentences) >= 3:
+            bad_paragraphs.append((i, char_len, len(sentences), clean_p[:70]))
+        elif char_len > 280:
+            bad_paragraphs.append((i, char_len, len(sentences), clean_p[:70]))
+
+    if bad_paragraphs:
+        err_msg = [f"🚨 [{context_label} 벽돌글(과대 문단) 감지] 모바일 가독성을 해치는 빽빽한 문단이 감지되었습니다!"]
+        for idx, clen, scnt, snip in bad_paragraphs[:5]:
+            err_msg.append(f"   🛑 문단 #{idx+1}: {clen}자 ({scnt}개 문장) ➔ '...{snip}...'")
+        err_msg.append("   👉 원칙: [마스터 표준 4호] 1~2개 문장 단위 또는 '원리/기준 설명'에서 '실천 행동 요령'으로 전환되는 지점에서 별도의 <p> 태그로 분리(줄 나눔)하세요.")
+        raise ParagraphLengthError("\n".join(err_msg))
+
+
+# ---------------------------------------------------------------------------
+# 6. 주장 매트릭스(Claim Matrix) 해시 무결성 검증
 # ---------------------------------------------------------------------------
 def compute_statement_hash(statement: str) -> str:
     cleaned = re.sub(r'\s+', '', statement.strip())
@@ -294,6 +384,10 @@ def verify_claim_matrix(claims: list, body_text: str) -> None:
     for c in claims:
         cid = c.get("id")
         stmt = c.get("statement", "")
+
+        # [마스터 표준 4호] 매니페스트 주장 문장 경어체 종결 검증
+        check_honorific_consistency(stmt, context_label=f"매니페스트 주장 [{cid}]")
+
         recorded_hash = c.get("statement_hash", "")
         current_hash = compute_statement_hash(stmt)
 
@@ -471,9 +565,13 @@ def verify_cross_channel_consistency(google_data: dict, naver_html: str, manifes
             f"🚨 [응급 적신호 누락] 구글 또는 네이버 글 중 한 곳에 즉시 응급 진료 기준이 누락되었습니다! (구글: {g_red}, 네이버: {n_red})"
         )
 
+    # 7. 네이버 원고 경어체 통일성 및 문단 줄 나눔 검증 ([마스터 표준 4호])
+    check_honorific_consistency(n_body, context_label="네이버 원고")
+    check_paragraph_length(n_body, context_label="네이버 원고")
+
 
 # ---------------------------------------------------------------------------
-# 10. 통합 검증 인터페이스
+# 11. 통합 검증 인터페이스
 # ---------------------------------------------------------------------------
 def validate_post_evidence(post_data: dict, work_dir: str = None) -> bool:
     print("🔍 [Evidence Guard] 공인 근거 및 팩트 무결성 정밀 검증 중 (Zero-Example 추상 모드)...")
@@ -497,11 +595,18 @@ def validate_post_evidence(post_data: dict, work_dir: str = None) -> bool:
     check_personal_anecdotes(full_text)
     print("   ✓ 수치 집합 정합성 대조(S_article ⊆ S_source) 및 1인칭 일화 0건 확인")
 
-    # 3. 전역 에셋 동기화 검증
+    # 3. [마스터 표준 4호] 경어체 통일성 및 문단 줄 나눔(벽돌글 방지) 검증
+    check_honorific_consistency(post_data.get('bodyHtml', ''), context_label="구글 본문")
+    for f_idx, faq in enumerate(post_data.get('faqs', [])):
+        check_honorific_consistency(faq.get('a', ''), context_label=f"FAQ 답변 [{f_idx+1}]")
+    check_paragraph_length(post_data.get('bodyHtml', ''), context_label="구글 본문")
+    print("   ✓ 100% 정통 경어체 통일 및 문단 줄 나눔(벽돌글 방지) 검증 통과")
+
+    # 4. 전역 에셋 동기화 검증
     verify_global_asset_sync(post_data, work_dir)
     print("   ✓ 전역 에셋(제목, 요약, titles.json) 100% 동기화 확인")
 
-    # 4. 매니페스트 기반 식별자, 기관 직접성, 주장 매트릭스 검증
+    # 5. 매니페스트 기반 식별자, 기관 직접성, 주장 매트릭스 검증
     if manifest_data:
         # 식별자 정합성 검증
         verify_identifier_integrity(manifest_data.get("sources", []), json.dumps(raw_refs, ensure_ascii=False))

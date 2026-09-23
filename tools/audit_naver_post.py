@@ -12,7 +12,8 @@ banned = [
     '블로그', '사이트', '정확', '100%', '완전', '무조건',
     '최초', '확실', '만족', '후회', '충격', '폭탄',
     '민낯', '처절한', '역대급', '유발', '병원', '임상',
-    '의문', '의약품', '예방', '상담', '문의', '시술'
+    '의문', '의약품', '예방', '상담', '문의', '시술',
+    '않고', '의사', '의심', '의료'
 ]
 
 def audit_naver(path):
@@ -44,15 +45,16 @@ def audit_naver(path):
     print(f"  - 순수 본문 글자수 (공백 포함): {len(pure_text)}자")
     print(f"  - 외부 링크(Outbound Links): {len(links)}개")
     
+    is_pass = True
     if violations:
         print(f"  🚨 [금칙어 적발]: {violations}")
-        return False
+        is_pass = False
     else:
         print("  ✓ [네이버 44종 금칙어 0개 통과 (예방/의약품/상담/의문/문의 전원 배제)]")
 
     if len(links) > 0:
         print(f"  🚨 [외부 링크 적발]: {links}")
-        return False
+        is_pass = False
     else:
         print("  ✓ [외부 링크 0개 안전 모드 통과]")
 
@@ -71,8 +73,20 @@ def audit_naver(path):
     else:
         print(f"  ⚠️ [경고]: 제목 핵심 키워드({h1_words[:3]})가 본문 첫 문단(250자)에 명시되지 않았습니다.")
 
-    print("🎉 [100% AUDIT PASS] 네이버 블로그 원고 무결성 검증 통과!")
-    return True
+    # 4. [네이버 스킬 표준] 꿀벌 에디터 혀니 8종 시그니처 스티커 탑재 검증
+    stickers = re.findall(r'images/stickers/(sticker0[1-8]_[a-z]+(?:\.jpg|\.png))', html)
+    unique_stickers = sorted(list(set(stickers)))
+    if len(unique_stickers) >= 8:
+        print(f"  ✓ [꿀벌 마스코트 8종 스티커 완벽 탑재 ({len(unique_stickers)}종 발견)]")
+    else:
+        print(f"  ⚠️ [주의]: 꿀벌 스티커가 {len(unique_stickers)}종만 발견되었습니다 (8종 권장)")
+        is_pass = False
+
+    if is_pass:
+        print("🎉 [100% AUDIT PASS] 네이버 블로그 원고 무결성 검증 통과!")
+    else:
+        print("❌ [AUDIT FAIL] 위 지적 사항을 수정해 주세요.")
+    return is_pass
 
 if __name__ == '__main__':
     target = r'd:\작업\꿀단지\꿀단지 네이버\04_영양제_복용시간_상극조합\04_영양제_복용시간_상극조합_네이버블로그용.html'

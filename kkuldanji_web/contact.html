@@ -424,7 +424,7 @@
 
                     <span class="article-cat-tag">문의하기 (CONTACT)</span>
 
-                    <h1 class="article-main-title">꿀단지 공식 문의 및 제안</h1>
+                    <h1 class="article-main-title">혀니의 꿀단지 공식 문의 및 제안</h1>
 
                     <div class="article-meta-bar">
 
@@ -444,7 +444,7 @@
 
                     <div class="clean-callout" style="margin-bottom: 30px;">
 
-                        <p><strong>• 매체명:</strong> 꿀단지 (HONEYJAR)</p>
+                        <p><strong>• 매체명:</strong> 혀니의 꿀단지 (HONEYJAR)</p>
 
                         <p><strong>• 운영 및 편집:</strong> 발행인 겸 수석에디터 임진현 (1인 책임 큐레이션)</p>
 
@@ -770,7 +770,7 @@
 
                 body: JSON.stringify({
 
-                    _subject: '[꿀단지 문의] ' + typeText + ' - ' + name + '님',
+                    _subject: '[혀니의 꿀단지 문의] ' + typeText + ' - ' + name + '님',
 
                     _template: 'table',
 
@@ -814,7 +814,7 @@
 
             if (errorBox) {
                 errorBox.style.display = 'block';
-                errorBox.innerHTML = '✕ 메시지 전송 중 일시적인 네트워크 오류가 발생했습니다. 아래 버튼을 눌러 이메일 프로그램으로 바로 보내실 수 있습니다:<br><div style="margin-top:10px;"><a href="mailto:contact@honeyjar.co.kr?subject=' + encodeURIComponent('[꿀단지 문의] ' + typeText + ' - ' + name) + '&body=' + encodeURIComponent('성함: ' + name + '\n회신 이메일: ' + email + '\n문의 분류: ' + typeText + '\n\n문의 내용:\n' + message) + '" style="display:inline-block; background:#dc2626; color:#ffffff; padding:8px 16px; border-radius:6px; font-weight:800; text-decoration:none; font-size:0.88rem;">✉️ 이메일 프로그램으로 열기 (contact@honeyjar.co.kr)</a></div>';
+                errorBox.innerHTML = '✕ 메시지 전송 중 일시적인 네트워크 오류가 발생했습니다. 아래 버튼을 눌러 이메일 프로그램으로 바로 보내실 수 있습니다:<br><div style="margin-top:10px;"><a href="mailto:contact@honeyjar.co.kr?subject=' + encodeURIComponent('[혀니의 꿀단지 문의] ' + typeText + ' - ' + name) + '&body=' + encodeURIComponent('성함: ' + name + '\n회신 이메일: ' + email + '\n문의 분류: ' + typeText + '\n\n문의 내용:\n' + message) + '" style="display:inline-block; background:#dc2626; color:#ffffff; padding:8px 16px; border-radius:6px; font-weight:800; text-decoration:none; font-size:0.88rem;">✉️ 이메일 프로그램으로 열기 (contact@honeyjar.co.kr)</a></div>';
             }
 
             window.scrollTo({ top: 200, behavior: 'smooth' });

@@ -128,10 +128,14 @@
 <div class="container">
     <div class="header-bar">
         <div>
-            <span style="font-size:0.85rem; color:#64748b; font-weight:700;">네이버 C-Rank & DIA+ 고품질 전문 발행 규격</span>
+            <span style="font-size:0.85rem; color:#64748b; font-weight:700;">네이버 C-Rank & DIA+ 고품질 전문 발행 규격 (혀니의 꿀단지)</span>
             <h1 style="margin: 6px 0 0 0; font-size: 1.25rem; color: #0f172a;">아침 공복 사과 속쓰림 원인과 위장 부담 낮추는 사과 찌기</h1>
+            <div id="hashtagText" style="margin-top:10px;font-size:0.88rem;color:#047857;background:#ecfdf5;padding:8px 12px;border-radius:6px;border:1px solid #a7f3d0;word-break:keep-all;">#아침공복사과 #사과속쓰림 #사과찌기 #전자레인지사과 #익힌사과 #아침식단 #에디터혀니 #혀니의꿀단지</div>
         </div>
-        <button class="copy-btn" onclick="copyNaverContent()">📋 본문 전체 복사하기</button>
+        <div style="display:flex;gap:8px;flex-shrink:0;">
+            <button class="copy-btn" onclick="copyNaverContent()">📋 본문 전체 복사</button>
+            <button class="copy-btn" style="background:#059669;" onclick="copyTags()">🏷️ 태그 복사</button>
+        </div>
     </div>
 
     <div id="naverContent">
@@ -163,7 +167,7 @@
 
         <p>다만 사과를 먹고 난 뒤의 불편함은 사람마다 원인이 다양하므로,<br>단순한 증상 양상만으로 특정 원인이나 상태를 섣불리 단정할 수는 없습니다.</p>
 
-        <p>게다가 사과 껍질은 식감이 다소 질겨<br>충분히 씹지 않고 삼키면 소화 과정에서 부담을 느낄 수 있습니다.</p>
+        <p>게다가 사과 껍질은 식감이 다소 질겨<br>충분히 씹어 드셔야 소화 과정의 부담을 덜 수 있습니다.</p>
 
         <p>산미에 민감한 상태에서 질긴 식감까지 더해지면<br><u>속이 더 더부룩하거나 불편하게 느껴질 수 있습니다.</u></p>
 
@@ -219,11 +223,11 @@
         <p>익힌 뒤에도 껍질이 질기게 느껴지면 벗겨 드세요.<br>사과를 먹고 속이 불편하면 더 먹지 마세요.</p>
 
 
-        <!-- 7. 소아 주의사항 및 응급 적신호 카드 -->
+        <!-- 7. 소아 섭취 안내 및 응급 적신호 카드 -->
         <div class="warning-box">
-            <strong>⚠️ 소아 주의사항 및 진료 안내</strong>
-            • <b>소아 주의사항</b>: 어린아이는 나이와 씹는 발달 상태에 따라 음식 질감을 맞춰주어야 합니다. 단단한 생사과는 목에 걸릴 위험이 있으므로, 아이의 씹는 능력에 맞게 껍질을 벗겨 얇게 저미거나 포크가 쑥 들어갈 정도로 충분히 쪄서 부드럽게 으깨어 소량씩 주시는 것이 안전합니다.<br>
-            • <b>진료 기준 안내</b>: 숨이 차거나 흑색변 등 출혈이 의심되는 급작스러운 이상 신호가 나타나면 지체 없이 즉각적인 응급 처치와 진료를 받아야 합니다. 한편 조리법을 바꾸어도 속쓰림이나 소화 불편이 수주 이상 계속 이어진다면 내과 외래를 찾아 면밀하게 상태를 확인해 보시는 것이 좋습니다.
+            <strong>⚠️ 소아 섭취 안내 및 진료 기준</strong>
+            • <b>소아 섭취 안내</b>: 어린아이는 나이와 씹는 발달 상태에 따라 음식 질감을 맞춰주어야 합니다. 단단한 생사과는 목에 걸릴 위험이 있으므로, 아이의 씹는 능력에 맞게 껍질을 벗겨 얇게 저미거나 포크가 쑥 들어갈 정도로 충분히 쪄서 부드럽게 으깨어 소량씩 주시는 것이 안전합니다.<br>
+            • <b>진료 기준 안내</b>: 숨이 차거나 흑색변 등 출혈과 같은 급작스러운 이상 신호가 나타나면 지체 없이 즉각적인 응급 처치와 진료를 받아야 합니다. 한편 조리법을 바꾸어도 속쓰림이나 소화 불편이 수주 이상 계속 이어진다면 내과 외래를 찾아 면밀하게 상태를 확인해 보시는 것이 좋습니다.
         </div>
 
 
@@ -244,7 +248,9 @@
         <!-- 대화형 엔딩 댓글 유도 -->
         <p>여러분은 평소 아침에 사과를 생으로 바로 드시나요,<br>아니면 따뜻하게 찌거나 식사와 함께 드시나요? 편하게 댓글로 이야기를 들려주세요 😊</p>
 
-        <div class="ref-box"><strong>참고 자료 및 레시피 출처</strong><ul><li>서울아산 의료정보 — 위 건강 안내</li><li>서울아산 의료정보 — 역류 증상 안내</li><li>해외 보충 자료: 미국 국립보건원(NIDDK) 위 안내 · 미국 CDC 영유아 안전 안내</li></ul></div>
+        <div class="ref-box"><strong>참고 자료 및 레시피 출처</strong><ul><li>서울아산 건강정보 — 위 건강 안내</li><li>서울아산 건강정보 — 역류 증상 안내</li><li>해외 보충 자료: 미국 국립보건원(NIDDK) 위 안내 · 미국 CDC 영유아 안전 안내</li></ul></div>
+
+        <p class="hashtags" style="font-size:0.9rem;color:#047857;margin-top:24px;font-weight:600;">#아침공복사과 #사과속쓰림 #사과찌기 #전자레인지사과 #익힌사과 #아침식단 #에디터혀니 #혀니의꿀단지</p>
 
     </div>
 </div>
@@ -263,6 +269,21 @@ function copyNaverContent() {
         alert('복사 실패: 직접 드래그하여 복사해 주세요.');
     }
     window.getSelection().removeAllRanges();
+}
+
+function copyTags() {
+    const text = document.getElementById('hashtagText').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        alert('해시태그가 복사되었습니다!\n\n#아침공복사과 #사과속쓰림 #사과찌기 #전자레인지사과 #익힌사과 #아침식단 #에디터혀니 #혀니의꿀단지');
+    }).catch(() => {
+        const t = document.createElement('textarea');
+        t.value = text;
+        document.body.appendChild(t);
+        t.select();
+        document.execCommand('copy');
+        document.body.removeChild(t);
+        alert('해시태그가 복사되었습니다!');
+    });
 }
 </script>
 

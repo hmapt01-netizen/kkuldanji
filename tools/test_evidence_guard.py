@@ -55,9 +55,9 @@ class TestEvidenceGuard(unittest.TestCase):
             }
         ]
 
-        stmt1 = "영국 국민보건서비스(NHS) 지침에 따르면 따뜻한 물 한 컵에 소금 반 티스푼을 녹여 가글하는 생활 요법을 안내한다."
-        stmt2 = "소금물 가글 임상 연구(Ramalingam et al., 2019)는 코 세척과 가글을 병행한 소규모 파일럿 시험으로 가글 단독 효과로 단정할 수 없으며 대증요법에 한정된다."
-        stmt3 = "양치 직후에는 치약의 불소 보호막이 씻겨나가는 것을 막기 위해 물이나 가글로 바로 헹구지 말고(NHS 지침), 소금물 가글은 양치와 분리된 별도 시간대에 하는 것이 안전하다."
+        stmt1 = "영국 국민보건서비스(NHS) 지침에 따르면 따뜻한 물 한 컵에 소금 반 티스푼을 녹여 가글하는 생활 요법을 안내합니다."
+        stmt2 = "소금물 가글 임상 연구(Ramalingam et al., 2019)는 코 세척과 가글을 병행한 소규모 파일럿 시험으로 가글 단독 효과로 단정할 수 없으며 대증요법에 한정됩니다."
+        stmt3 = "양치 직후에는 치약의 불소 보호막이 씻겨나가는 것을 막기 위해 물이나 가글로 바로 헹구지 말고(NHS 지침), 소금물 가글은 양치와 분리된 별도 시간대에 하는 것이 안전합니다."
 
         self.valid_claims = [
             {
@@ -186,6 +186,52 @@ class TestEvidenceGuard(unittest.TestCase):
         with self.assertRaises(eg.CrossChannelMismatchError):
             eg.verify_cross_channel_consistency(self.valid_post_data, dup_naver, manifest_data=self.manifest_data)
 
+    def test_honorific_consistency_plain_ending_detection(self):
+        """7. 평서문(반말 느낌) 종결 적발 및 100% 정통 경어체 통일 검증"""
+        # 평서문 종결 감지 시 차단
+        bad_texts = [
+            "<p>사전 복용을 삼가며 증상이 있을 때 사용하는 것이 합리적이다.</p>",
+            "<p>열이 없거나 가벼운 증상일 때는 접종을 미룰 필요가 없다.</p>",
+            "<p>보건당국 가이드라인을 철저히 확인해야 한다.</p>",
+            "<p>의료진과의 상담을 권장한다.</p>"
+        ]
+        for bt in bad_texts:
+            with self.assertRaises(eg.ToneConsistencyError):
+                eg.check_honorific_consistency(bt, context_label="테스트")
+
+        # 올바른 경어체 통과
+        good_texts = [
+            "<p>사전 복용을 삼가며 증상이 있을 때 사용하는 것이 합리적입니다.</p>",
+            "<p>열이 없거나 가벼운 증상일 때는 접종을 미룰 필요가 없습니다.</p>",
+            "<p>보건당국 가이드라인을 철저히 확인해야 합니다.</p>",
+            "<p>의료진과의 상담을 권장합니다.</p>",
+            "<p>체온이 높다면 예진표 작성 시 말씀해 주세요.</p>"
+        ]
+        for gt in good_texts:
+            eg.check_honorific_consistency(gt, context_label="테스트")
+
+    def test_paragraph_length_wall_of_text_detection(self):
+        """8. 모바일 가독성을 해치는 과대 문단(벽돌글) 및 줄 나눔 누락 적발 검증"""
+        # 220자 이상이면서 3문장 이상인 빽빽한 벽돌글 문단
+        dense_paragraph = (
+            "<p>이미 감기 때문에 복용 중인 해열진통제는 그대로 드시되 예진 때 말씀하시면 됩니다. "
+            "하지만 백신 접종 후 생길 수 있는 열이나 통증을 예방하기 위해 해열진통제를 미리 복용할 필요는 일반적으로 없으며, "
+            "접종 후 증상이 발생했을 때 의료진의 안내에 따라 사용하는 것이 합리적입니다. "
+            "특별한 이유가 없다면 사전 복용을 삼가며 접종 후 실제로 열이나 통증이 생겼을 때 의료진 안내에 따라 복용하는 것으로 충분합니다.</p>"
+        )
+        with self.assertRaises(eg.ParagraphLengthError):
+            eg.check_paragraph_length(dense_paragraph, context_label="구글 본문 테스트")
+
+        # 1~2개 문장 단위로 분리(줄 나눔)된 쾌적한 문단들 통과
+        split_paragraphs = (
+            "<p>이미 감기 때문에 복용 중인 해열진통제는 그대로 드시되 예진 때 말씀하시면 됩니다. "
+            "하지만 백신 접종 후 생길 수 있는 열이나 통증을 예방하기 위해 해열진통제를 미리 복용할 필요는 일반적으로 없으며, "
+            "접종 후 증상이 발생했을 때 의료진의 안내에 따라 사용하는 것이 합리적입니다.</p>\n"
+            "<p>특별한 이유가 없다면 사전 복용을 삼가며 접종 후 실제로 열이나 통증이 생겼을 때 의료진 안내에 따라 복용하는 것으로 충분합니다.</p>"
+        )
+        eg.check_paragraph_length(split_paragraphs, context_label="구글 본문 테스트")
+
 
 if __name__ == "__main__":
     unittest.main()
+
