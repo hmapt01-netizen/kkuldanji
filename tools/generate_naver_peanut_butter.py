@@ -1,4 +1,15 @@
-<!DOCTYPE html>
+# -*- coding: utf-8 -*-
+"""
+네이버 블로그용 원고 생성 및 10대 감점 단어 린트 스크립트
+(skills/naver-honeyjar/SKILL.md 표준 준수)
+"""
+import re
+import os
+
+target_path = r"d:\작업\꿀단지\꿀단지 네이버\17_아침_공복_사과_속쓰림\17_아침_공복_사과_속쓰림_네이버블로그용.html"
+
+# 네이버 블로그 원고 HTML
+naver_html = """<!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
@@ -273,3 +284,25 @@ function copyContent() {
 
 </body>
 </html>
+"""
+
+# 10대 감점 단어 린트
+PENALTY_WORDS = ["않고", "추천", "최대", "무료", "100%", "사이트", "이자", "할인", "대행", "수수료"]
+
+# HTML 태그, 스타일, 스크립트 제거 순수 텍스트
+clean_text = re.sub(r'<style[\s\S]*?</style>', ' ', naver_html)
+clean_text = re.sub(r'<script[\s\S]*?</script>', ' ', clean_text)
+pure_text = re.sub(r'<[^>]+>', ' ', clean_text)
+pure_text = re.sub(r'\s+', ' ', pure_text)
+
+found = [w for w in PENALTY_WORDS if w in pure_text]
+print(f"네이버 원고 10대 감점 단어 검출: {found} (총 {len(found)}개)")
+if found:
+    raise ValueError(f"감점 단어가 포함되어 있습니다: {found}")
+
+# 파일 저장
+os.makedirs(os.path.dirname(target_path), exist_ok=True)
+with open(target_path, "w", encoding="utf-8") as f:
+    f.write(naver_html)
+
+print(f"✅ 네이버 블로그 원고 생성 완료: {target_path}")
