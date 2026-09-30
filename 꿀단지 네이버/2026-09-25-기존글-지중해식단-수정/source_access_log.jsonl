@@ -1,0 +1,6 @@
+{"at": "2026-09-24T21:20:46.274202+00:00", "action": "source_access", "phase": "research", "resource": "D:\\작업\\꿀단지\\data\\posts_db.json", "allowed": true}
+{"at": "2026-09-24T21:23:06.829220+00:00", "action": "source_access", "phase": "research", "resource": "https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/nutrition-basics/mediterranean-diet", "allowed": true}
+{"at": "2026-09-24T21:23:06.830246+00:00", "action": "source_access", "phase": "research", "resource": "https://pubmed.ncbi.nlm.nih.gov/29897866/", "allowed": true}
+{"at": "2026-09-24T21:23:06.830246+00:00", "action": "source_access", "phase": "research", "resource": "https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/fats/healthy-cooking-oils", "allowed": true}
+{"at": "2026-09-24T21:23:06.847027+00:00", "action": "source_access", "phase": "research", "resource": "https://www.heart.org/en/healthy-living/healthy-eating/eat-smart/nutrition-basics/alcohol-and-heart-health", "allowed": true}
+{"at": "2026-09-24T21:25:46.370967+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "공식 근거 및 기존 이미지 확인 완료"}

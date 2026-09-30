@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,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">
+    <title>"새우 머리 몇 개 먹었다고 설마" 대하 꽃게 섭취 후 발가락 통증과 요산 관리법</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+            line-height: 1.85;
+            color: #222;
+            background-color: #f8fafc;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 16px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        .copy-btn {
+            background: #03c75a;
+            color: #ffffff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .copy-btn:hover { background: #02b350; }
+        h1 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0;
+            line-height: 1.45;
+            word-break: keep-all;
+        }
+        h2 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #1a56db;
+            margin: 40px 0 20px;
+            text-align: left;
+            line-height: 1.4;
+        }
+        p {
+            font-size: 1.05rem;
+            margin-bottom: 18px;
+            word-break: keep-all;
+            color: #333;
+            line-height: 1.85;
+        }
+        .img-wrap {
+            margin: 25px 0;
+        }
+        .img-wrap img {
+            max-width: 100%;
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+        }
+        mark {
+            background: #fef08a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        u {
+            text-underline-offset: 4px;
+        }
+        .warning-box {
+            background: #fffbeb;
+            border: 1px solid #fef3c7;
+            border-radius: 10px;
+            padding: 18px 16px;
+            margin: 25px 0;
+            font-size: 0.93rem;
+            color: #92400e;
+            line-height: 1.7;
+            text-align: left;
+        }
+        .warning-box strong {
+            color: #b45309;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .rec-card {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin: 28px 0 20px 0;
+            text-align: left;
+        }
+        .rec-card-title {
+            color: #166534;
+            font-size: 0.95rem;
+            font-weight: 800;
+            margin-bottom: 6px;
+        }
+        .rec-card-desc {
+            color: #1e293b;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+        .ref-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 25px 0;
+            font-size: 0.88rem;
+            color: #475569;
+            line-height: 1.6;
+            text-align: left;
+        }
+        .ref-box strong {
+            color: #1e293b;
+            display: block;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-bar">
+        <div>
+            <span style="font-size:0.85rem; color:#64748b; font-weight:700;">네이버 C-Rank & DIA+ 고품질 전문 발행 규격 (에디터 혀니의 꿀단지)</span>
+            <h1 style="margin: 6px 0 0 0; font-size: 1.15rem; color: #0f172a;">"새우 머리 몇 개 먹었다고 설마" 대하 꽃게 섭취 후 발가락 통증과 요산 관리법</h1>
+            <div id="hashtagText" style="margin-top:10px;font-size:0.88rem;color:#047857;background:#ecfdf5;padding:8px 12px;border-radius:6px;border:1px solid #a7f3d0;word-break:keep-all;">#대하통풍 #새우머리요산 #꽃게내장통풍 #엄지발가락통증 #통풍초기증상 #통풍아스피린 #통풍냉찜질 #에디터혀니 #꿀단지</div>
+        </div>
+        <div style="display:flex;gap:8px;flex-shrink:0;">
+            <button class="copy-btn" onclick="copyNaverContent()">📋 본문 전체 복사</button>
+            <button class="copy-btn" style="background:#059669;" onclick="copyTags()">🏷️ 태그 복사</button>
+        </div>
+    </div>
+
+    <div id="naverContent">
+
+        <!-- 1. 도입 훅 & 대표 화보 -->
+        <div class="img-wrap">
+            <img src="images/thumb.jpg" alt="해산물 식사와 발의 불편함을 함께 표현한 상황 예시">
+        </div>
+
+        <p>선선한 가을바람과 함께 대하 소금구이나 꽃게찜을 맛있게 즐긴 다음 날 아침,<br>발가락이 찌릿하게 아파와 깜짝 놀라신 적 있으신가요?</p>
+
+        <p>'어젯밤 새우 머리 몇 개 먹었다고 벌써 통풍이 온 걸까?'<br>'어디 부딪힌 기억도 없는데 발을 디디기조차 힘들 정도로 욱신거리네?'<br>침대 모서리에 걸터앉아 붉어진 발끝을 보며 덜컥 겁부터 나셨을 겁니다.</p>
+
+        <div class="sticker-img-wrap" style="text-align:center;margin:16px 0 20px;"><img src="images/stickers/sticker01_shocked.jpg" alt="[스티커: 턱 빠지게 기겁하는 꿀벌 😲]" width="160" height="160" style="width:160px;max-width:180px;height:auto;display:inline-block;border-radius:12px;"></div>
+
+        <p><mark>해산물을 먹었다고 해서 통증의 원인을 단순히 음식 탓으로 단정할 수는 없습니다.</mark><br>관절이 붉게 붓고 아픈 증상은 감별해야 할 다른 원인들이 많기 때문입니다.</p>
+
+        <p>오늘 에디터 혀니가 갑작스러운 발가락 열감으로 불안하셨을 여러분을 위해<br>공인 가이드라인에 근거한 올바른 대처법을 차근차근 짚어드릴게요!</p>
+
+
+        <!-- 2. 섹션 1 -->
+        <h2>| 해산물 먹고 발가락이 아프다고 벌써 통풍일까요?</h2>
+
+        <div class="img-wrap">
+            <img src="images/post01.jpg" alt="양발을 바닥에 자연스럽게 내려놓고 앉아 있는 모습">
+        </div>
+
+        <p>엄지발가락 관절이 붉게 달아오르고 극심하게 아프다면<br><mark>단순히 음식 탓으로 넘기기 전에 증상의 양상을 먼저 살피는 편이 좋습니다.</mark></p>
+
+        <p>관절 부위가 붉게 붓고 열이 나는 증상은 통풍 외에도<br>세균 감염에 의한 화농성 관절염이나 봉와직염 등 즉각적인 감별이 필요한 신체 이상과 증상이 유사합니다.</p>
+
+        <div class="sticker-img-wrap" style="text-align:center;margin:16px 0 20px;"><img src="images/stickers/sticker02_excited.jpg" alt="[스티커: 눈 번쩍 솔깃한 꿀벌 ✨]" width="160" height="160" style="width:160px;max-width:180px;height:auto;display:inline-block;border-radius:12px;"></div>
+
+        <p>세균 감염에 의한 관절염은 방치할 경우 관절 연골 손상이 빠르게 진행될 수 있어<br><u>신속한 항생제 처방이 시급할 수 있으므로 스스로 넘겨짚지 않는 편이 좋습니다.</u></p>
+
+        <div class="img-wrap">
+            <img src="images/post02.jpg" alt="선생님이 발과 엄지발가락 주변을 진찰하는 모습">
+        </div>
+
+        <p>또한 체내 요산 농도는 음식 섭취뿐 아니라 신장의 배설 능력과 체내 상태가 복합적으로 관여합니다.<br>급성 통풍 발작 중에는 신체 반응과 배설 변화로 인해<br>혈중 요산 수치가 <mark>6.0mg/dL 미만</mark>으로 측정되더라도 통풍 가능성을 섣불리 배제할 수 없으므로, 진료실에서 종합적인 진찰을 통해 원인을 살피는 편이 바람직합니다.</p>
+
+        <div class="sticker-img-wrap" style="text-align:center;margin:16px 0 20px;"><img src="images/stickers/sticker03_detective.jpg" alt="[스티커: 과몰입 돋보기 탐정 꿀벌 🔍]" width="160" height="160" style="width:160px;max-width:180px;height:auto;display:inline-block;border-radius:12px;"></div>
+
+
+        <!-- 3. 섹션 2 -->
+        <h2>| 진료 전 찜질 요령과 아스피린·진통제 복용 시 주의할 점</h2>
+
+        <div class="img-wrap">
+            <img src="images/post03.jpg" alt="수건으로 감싼 냉찜질팩을 엄지발가락 옆에 가볍게 대어 열감을 식히는 모습">
+        </div>
+
+        <p>진료실을 찾기 전 통증이 심하다고 뜨거운 물에 족욕을 하거나 온찜질을 하시면 안 됩니다.<br><mark>온찜질은 염증 부위의 혈류를 늘려 통증과 부종을 크게 키울 수 있습니다.</mark></p>
+
+        <p>열감이 치솟는 초기에는 온찜질을 피하고<br>얇은 수건으로 감싼 얼음팩으로 <mark>15~20분간</mark> 가볍게 대어 열감을 가라앉히는 편이 훨씬 이롭습니다.</p>
+
+        <div class="sticker-img-wrap" style="text-align:center;margin:16px 0 20px;"><img src="images/stickers/sticker04_confused.jpg" alt="[스티커: 더듬이 꼬인 멘붕 꿀벌 ❓]" width="160" height="160" style="width:160px;max-width:180px;height:auto;display:inline-block;border-radius:12px;"></div>
+
+        <p>약물 복용 시에는 아스피린의 성격을 명확하게 구분짓는 편이 좋습니다.<br>심혈관 건강을 돌보는 목적으로 처방받은 저용량 아스피린은 주치의 상의 없이 임의 중단하지 말아야 하며,<br><mark>통증을 줄이겠다고 일반 아스피린을 임의로 추가 복용하는 것은 삼가시는 편이 좋습니다.</mark></p>
+
+        <p>진통제를 고를 때도 기존에 진료실에서 미리 안내받은 통풍 발작 대응 계획이 있는 분이 아니라면,<br><u>집에 남은 약을 임의로 드시지 마시고 신장이나 위장관 상태에 맞는 처방을 받으셔야 좋습니다.</u></p>
+
+        <div class="sticker-img-wrap" style="text-align:center;margin:16px 0 20px;"><img src="images/stickers/sticker05_exhausted.jpg" alt="[스티커: 하얗게 불태운 탈진 꿀벌 😮‍💨]" width="160" height="160" style="width:160px;max-width:180px;height:auto;display:inline-block;border-radius:12px;"></div>
+
+        <!-- 진료 전 핵심 행동 수칙 박스 -->
+        <div class="warning-box">
+            <strong>⚠️ 발가락 통증 시 진료 전 핵심 행동 수칙</strong><br>
+            • <b>즉각적인 진료 필요 신호</b>: 관절의 극심한 부종과 열감에 더해 오한이나 전신 발열이 동반된다면 단순 관절 이상이 아닐 수 있으므로 지체 없이 응급 진료를 받으셔야 좋습니다.<br>
+            • <b>온찜질 및 마사지 금지</b>: 통증 부위를 뜨겁게 하거나 강하게 주무르면 염증 부위 혈류가 늘어 통증이 커질 수 있으므로 삼가시는 편이 좋습니다.<br>
+            • <b>진료실 방문 안내</b>: 진통제로 며칠 만에 붓기가 가라앉았다고 안심하지 마시고, 관절 속 요산 결정 관리와 세밀한 상태 파악을 위해 담당 주치의 진찰을 받아보시길 권해드립니다.
+        </div>
+
+        <div class="sticker-img-wrap" style="text-align:center;margin:16px 0 20px;"><img src="images/stickers/sticker06_emergency.jpg" alt="[스티커: 호루라기 비상 경보 꿀벌 🚨]" width="160" height="160" style="width:160px;max-width:180px;height:auto;display:inline-block;border-radius:12px;"></div>
+
+
+        <!-- 4. 섹션 3 -->
+        <h2>| 통증이 가라앉은 뒤 2주 후 필요한 진짜 요산 검사</h2>
+
+        <div class="img-wrap">
+            <img src="images/post04.jpg" alt="해산물·탕 국물·술: 본문에서 설명하는 식품과 음주 요인의 예시">
+        </div>
+
+        <p>새우나 게 등 갑각류는 퓨린과 단백질이 풍부하며,<br>알코올은 간에서 분해되며 젖산을 만들어 신장의 요산 배설을 일시적으로 방해합니다.</p>
+
+        <p>하지만 급성 통증이 호전되었다고 해서 원인 평가를 미루어서는 안 됩니다.<br>급성기 요산 수치가 <mark>6.0mg/dL 미만</mark>인데도 통풍 가능성이 짙다면,<br>선생님의 판단에 따라 발작이 가라앉은 뒤 <mark>최소 2주 후</mark> 재검사합니다.<br><u>첫 진료를 재검사 시점까지 미루지는 마세요.</u></p>
+
+        <div class="img-wrap">
+            <img src="images/post05.jpg" alt="진료실에서 후속 검사 및 관리 계획을 의논하는 모습">
+        </div>
+
+        <p>공인 지침에서 제시하는 혈중 요산 <mark>6.0mg/dL 미만</mark> 기준은 발작 발생선이 아니라,<br>확인 후 관절 속 요산염 결정을 서서히 녹여 재발을 막기 위한 장기 관리 목표 수치입니다.</p>
+
+        <div class="sticker-img-wrap" style="text-align:center;margin:16px 0 20px;"><img src="images/stickers/sticker07_thumbsup.jpg" alt="[스티커: 온몸 젖힌 쌍엄지 척 꿀벌 👍]" width="160" height="160" style="width:160px;max-width:180px;height:auto;display:inline-block;border-radius:12px;"></div>
+
+        <!-- 다정한 마무리 조언 -->
+        <p>탈수를 막기 위해 미온수를 틈틈이 보충하는 것은 도움이 되지만,<br><mark>심장이나 신장 상태로 인해 수분 섭취 제한 처방을 받은 분들은 주치의 안내를 우선 따르는 편이 중요합니다.</mark></p>
+
+        <p>가을철 별미를 즐기실 때는 과도한 음주와 국물 과식을 조절하시고,<br>신체 이상이 느껴질 때는 진료실을 찾아 세밀한 확인을 받아보시길 권해드립니다.</p>
+
+        <!-- 대화형 엔딩 댓글 유도 -->
+        <p>여러분은 평소 대하를 드실 때 머리 구이나 탕 국물까지 즐기시나요,<br>아니면 담백한 몸통 살코기 위주로 드시나요? 댓글로 편하게 경험을 들려주세요 😊</p>
+
+        <div class="sticker-img-wrap" style="text-align:center;margin:16px 0 20px;"><img src="images/stickers/sticker08_honeypot.jpg" alt="[스티커: 꿀단지 안은 감동 인사 꿀벌 👋]" width="160" height="160" style="width:160px;max-width:180px;height:auto;display:inline-block;border-radius:12px;"></div>
+
+        <!-- 7. 하단 연관 칼럼 카드 -->
+        <div class="rec-card">
+            <div class="rec-card-title">🍯 에디터 혀니의 함께 보면 유익한 건강 칼럼</div>
+            <div class="rec-card-desc">
+                <strong>“술자리 후 검진이 걱정되나요?” 음주 후 검진 및 중성지방 대사 관리 수칙</strong><br>
+                간과 신장 대사를 건강하게 지켜주는 검진 전 생활 습관도 함께 확인해 보세요!
+            </div>
+        </div>
+
+        <!-- 8. 공인 참고 자료 및 출처 박스 -->
+        <div class="ref-box">
+            <strong>📚 공인 보건 가이드라인 및 공공 데이터</strong>
+            <ul>
+                <li>국가건강정보포털 — 통풍(Gout) 및 식생활 관리 지침</li>
+                <li>대한류마티스학회 — 한국인 통풍 가이드라인 및 환자 생활수칙 (DOI: 10.3904/kjim.2023.206)</li>
+                <li>미국류마티스학회 (ACR 2020; PMC10563586) — 통풍 관리 지침</li>
+                <li>영국 국립보건연구원 (NICE NG219) — 통풍 판별 및 관리 권고안</li>
+                <li>The New England Journal of Medicine (NEJM 2004; PMID: 15014182) — 퓨린 식품과 통풍 위험 역학 연구</li>
+            </ul>
+        </div>
+
+        <p class="hashtags" style="font-size:0.9rem;color:#047857;margin-top:24px;font-weight:600;">#대하통풍 #새우머리요산 #꽃게내장통풍 #엄지발가락통증 #통풍초기증상 #통풍아스피린 #통풍냉찜질 #에디터혀니 #꿀단지</p>
+
+    </div>
+</div>
+
+<script>
+function copyNaverContent() {
+    const content = document.getElementById('naverContent');
+    const range = document.createRange();
+    range.selectNode(content);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    try {
+        document.execCommand('copy');
+        alert('네이버 원고 본문이 복사되었습니다! 네이버 글쓰기 창에서 Ctrl+V 하세요.');
+    } catch (err) {
+        alert('복사 실패: 직접 드래그하여 복사해 주세요.');
+    }
+    window.getSelection().removeAllRanges();
+}
+
+function copyTags() {
+    const text = document.getElementById('hashtagText').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        alert('해시태그가 복사되었습니다!\n\n#대하통풍 #새우머리요산 #꽃게내장통풍 #엄지발가락통증 #통풍초기증상 #통풍아스피린 #통풍냉찜질 #에디터혀니 #꿀단지');
+    }).catch(() => {
+        const t = document.createElement('textarea');
+        t.value = text;
+        document.body.appendChild(t);
+        t.select();
+        document.execCommand('copy');
+        document.body.removeChild(t);
+        alert('해시태그가 복사되었습니다!');
+    });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+{"at": "2026-09-24T21:13:45.033295+00:00", "action": "source_access", "phase": "research", "resource": "D:\\작업\\꿀단지\\data\\posts_db.json", "allowed": true}
+{"at": "2026-09-24T21:14:08.374193+00:00", "action": "source_access", "phase": "research", "resource": "https://www.hopkinsmedicine.org/health/expert-qa/intermittent-fasting-what-is-it-and-how-does-it-work/", "allowed": true}
+{"at": "2026-09-24T21:14:08.375231+00:00", "action": "source_access", "phase": "research", "resource": "https://www.nejm.org/doi/abs/10.1056/NEJMoa2114833", "allowed": true}
+{"at": "2026-09-24T21:14:08.375231+00:00", "action": "source_access", "phase": "research", "resource": "https://general.kosso.or.kr/html/user/core/view/reaction/main/kosso/inc/data/guideline2022_vol8.pdf", "allowed": true}
+{"at": "2026-09-24T21:14:08.392264+00:00", "action": "source_access", "phase": "research", "resource": "https://www.hopkinsmedicine.org/news/newsroom/news-releases/2026/09/time-restricted-eating-provides-modest-weight-loss-benefits-for-adults-with-obesity-and-prediabetes", "allowed": true}
+{"at": "2026-09-24T21:14:35.843285+00:00", "action": "source_access", "phase": "research", "resource": "https://pubmed.ncbi.nlm.nih.gov/35443107/", "allowed": true}
+{"at": "2026-09-24T21:14:35.843285+00:00", "action": "source_access", "phase": "research", "resource": "https://pubmed.ncbi.nlm.nih.gov/35670159/", "allowed": true}
+{"at": "2026-09-24T21:15:23.309363+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "국내합의문 초록·공식 환자안내·최신발표와 기존근거를 범위구분하여 정리 완료"}

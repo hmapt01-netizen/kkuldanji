@@ -1,3 +1,9 @@
+/* All article TOCs, on desktop and mobile. */
+.toc-box ul,
+.toc-box li {
+    list-style: none !important;
+}
+
 /* 📱 모바일 스마트 상단 헤더 스크롤 영구 상단 고정 (Always Fixed Sticky) */
 @media (max-width: 768px) {
     body.tistory-single-post {
@@ -4615,4 +4621,5 @@ footer.clean-footer {
         margin-top: 4px;
     }
 }
+
 

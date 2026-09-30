@@ -1,0 +1,6 @@
+{"at": "2026-09-24T21:07:48.756216+00:00", "action": "source_access", "phase": "research", "resource": "D:\\작업\\꿀단지\\data\\posts_db.json", "allowed": true}
+{"at": "2026-09-24T21:08:13.846989+00:00", "action": "source_access", "phase": "research", "resource": "https://www.nhs.uk/live-well/exercise/sitting-exercises/", "allowed": true}
+{"at": "2026-09-24T21:08:13.848023+00:00", "action": "source_access", "phase": "research", "resource": "https://www.niddk.nih.gov/health-information/diabetes/overview/preventing-problems/low-blood-glucose-hypoglycemia", "allowed": true}
+{"at": "2026-09-24T21:08:13.848023+00:00", "action": "source_access", "phase": "research", "resource": "https://www.nhs.uk/live-well/eat-well/food-guidelines-and-food-labels/the-eatwell-guide/", "allowed": true}
+{"at": "2026-09-24T21:08:13.864930+00:00", "action": "source_access", "phase": "research", "resource": "https://www.nhs.uk/conditions/low-blood-pressure-hypotension/", "allowed": true}
+{"at": "2026-09-24T21:09:10.043817+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "원문4개와 기존 수면·수분 근거 확인, 집필용 근거 정리 완료"}

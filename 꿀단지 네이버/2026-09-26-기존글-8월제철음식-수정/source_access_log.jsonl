@@ -1,0 +1,9 @@
+{"at": "2026-09-25T21:59:45.133199+00:00", "action": "source_access", "phase": "research", "resource": "D:\\작업\\꿀단지\\data\\posts_db.json", "allowed": true}
+{"at": "2026-09-25T22:04:34.427674+00:00", "action": "source_access", "phase": "research", "resource": "https://www.kdca.go.kr/board/board.es?act=view&bid=0015&cg_code=C01&list_no=727746&mid=a20501020000&nPage=1", "allowed": true}
+{"at": "2026-09-25T22:04:34.427674+00:00", "action": "source_access", "phase": "research", "resource": "https://rda.go.kr/webzine/2022/08/sub1-6.html", "allowed": true}
+{"at": "2026-09-25T22:04:34.427674+00:00", "action": "source_access", "phase": "research", "resource": "https://www.nongsaro.go.kr/portal/ps/psr/psrb/monthFdmtDtl.ps?cntntsNo=211729&menuId=", "allowed": true}
+{"at": "2026-09-25T22:04:34.447316+00:00", "action": "source_access", "phase": "research", "resource": "https://www.fda.gov/food/buy-store-serve-safe-food/selecting-and-serving-produce-safely", "allowed": true}
+{"at": "2026-09-25T22:04:34.448395+00:00", "action": "source_access", "phase": "research", "resource": "https://extension.psu.edu/peach-season-in-pennsylvania", "allowed": true}
+{"at": "2026-09-25T22:04:34.450245+00:00", "action": "source_access", "phase": "research", "resource": "https://www.bfr.bund.de/en/service/frequently-asked-questions/topic/frequently-asked-questions-about-solanine-glycoalkaloids-in-potatoes/", "allowed": true}
+{"at": "2026-09-25T22:05:11.496256+00:00", "action": "source_access", "phase": "research", "resource": "https://www.korea.kr/news/policyNewsView.do?newsId=148930876", "allowed": true}
+{"at": "2026-09-25T22:07:36.087101+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "공식 자료 확인 완료. 사용자의 문맥·흐름 교정 요청을 반영하여 기존 글 재구성"}

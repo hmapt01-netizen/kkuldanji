@@ -1,0 +1,4 @@
+{"at": "2026-09-24T21:02:14.960183+00:00", "action": "source_access", "phase": "research", "resource": "https://www.nhlbi.nih.gov/health/sleep-deprivation/healthy-sleep-habits", "allowed": true}
+{"at": "2026-09-24T21:02:14.960183+00:00", "action": "source_access", "phase": "research", "resource": "https://www.nhlbi.nih.gov/health/insomnia/diagnosis", "allowed": true}
+{"at": "2026-09-24T21:02:14.960183+00:00", "action": "source_access", "phase": "research", "resource": "https://www.nccih.nih.gov/health/melatonin-what-you-need-to-know", "allowed": true}
+{"at": "2026-09-24T21:02:48.080024+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "기존 근거 재사용 및 NHLBI/NCCIH 추가 확인 완료"}

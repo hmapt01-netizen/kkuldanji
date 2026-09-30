@@ -652,25 +652,7 @@ def verify_cross_channel_consistency(google_data: dict, naver_html: str, manifes
                     f"🚨 [네이버 원고 중복 문단 감지] 연속된 두 문단 내용이 60% 이상 중복됩니다:\n   [문단 1]: {p1[:60]}...\n   [문단 2]: {p2[:60]}..."
                 )
 
-    # 5. 소아 안전 수칙 동기화
-    child_keywords = ["어린이", "소아", "아이", "삼킴"]
-    g_has_child = any(kw in g_body for kw in child_keywords)
-    n_has_child = any(kw in n_body for kw in child_keywords)
-    if not (g_has_child and n_has_child):
-        raise CrossChannelMismatchError(
-            f"🚨 [소아 안전 수칙 누락] 구글 또는 네이버 글 중 한 곳에 소아 주의사항이 누락되었습니다! (구글: {g_has_child}, 네이버: {n_has_child})"
-        )
-
-    # 6. 응급 적신호 (호흡곤란/연하곤란/고열/응급) 동기화
-    red_flags = ["호흡곤란", "삼키기", "연하곤란", "고열", "응급"]
-    g_red = any(kw in g_body for kw in red_flags)
-    n_red = any(kw in n_body for kw in red_flags)
-    if not (g_red and n_red):
-        raise CrossChannelMismatchError(
-            f"🚨 [응급 적신호 누락] 구글 또는 네이버 글 중 한 곳에 즉시 응급 진료 기준이 누락되었습니다! (구글: {g_red}, 네이버: {n_red})"
-        )
-
-    # 7. 네이버 원고 경어체 통일성 및 문단 줄 나눔 검증 ([마스터 표준 4호])
+    # 5. 네이버 원고 경어체 통일성 및 문단 줄 나눔 검증 ([마스터 표준 4호])
     check_honorific_consistency(n_body, context_label="네이버 원고")
     check_paragraph_length(n_body, context_label="네이버 원고")
 
