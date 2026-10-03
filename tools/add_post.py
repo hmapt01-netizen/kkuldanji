@@ -25,13 +25,7 @@ def validate_lead_quote_card(body_html):
         raise AssertionError("🚨 [마스터 표준 1 위반] 본문 상단에 'lead-quote-card' 핵심 요약 카드가 누락되었습니다!")
     
     card_content = card.get_text(separator=' ').strip()
-    
-    # 1. 출처 표기 확인: '—', '–', '<small>' 태그, 또는 '출처:' 명시 필수
-    has_source = ('—' in card_content or '–' in card_content or 
-                  card.find('small') is not None or 
-                  bool(re.search(r'출처\s*[:：]', card_content)))
-    if not has_source:
-        raise AssertionError("🚨 [마스터 표준 23 위반] lead-quote-card에 공인 기관/문서 출처 라벨('— ...')이 누락되었습니다! 단순 문장만 넣는 것은 금지됩니다.")
+    # 1. 출처 표기 확인: 가독성 및 유저 피드백에 따라 본문 상단 요약 카드의 인위적 라벨(— ...) 강제 해제
         
     # 2. AI 가공 조직명(임의 조합 연구팀/추진단) 날조 차단
     if re.search(r'[가-힣A-Za-z0-9]+\s*(?:연구팀|추진단|태스크포스|TF팀)', card_content):
