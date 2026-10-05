@@ -8,6 +8,7 @@ import os
 import sys
 import re
 import json
+import time
 import urllib.request
 import urllib.parse
 from datetime import datetime
@@ -235,6 +236,7 @@ def audit_naver_serp(titles):
         search_q = " ".join(search_terms) if search_terms else clean_q
         docs, err = fetch_naver_serp_docs(search_q)
         badge, reason = analyze_naver_competition(clean_q, docs or [], err, ac_items, seed)
+        time.sleep(1.2)
 
         print(f"[{idx:02d}/10] '{title[:28]}...' -> 쿼리: '{clean_q}' (AC 시드 '{seed}' {len(ac_items)}건) | 판정: {badge}")
 

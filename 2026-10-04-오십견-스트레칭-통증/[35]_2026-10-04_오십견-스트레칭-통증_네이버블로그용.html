@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="32x32" href="data:image/png;base64,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">
+    <title>오십견 스트레칭 어깨 통증 줄이는 법, 회전근개 파열 자가 판별과 단계별 안전 운동법</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+            line-height: 1.85;
+            color: #222;
+            background-color: #f8fafc;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 30px 20px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        .header-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 16px;
+            margin-bottom: 25px;
+            text-align: left;
+        }
+        .copy-btn {
+            background: #03c75a;
+            color: #ffffff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+            white-space: nowrap;
+        }
+        .copy-btn:hover { background: #02b350; }
+        h1 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: #0f172a;
+            margin: 0;
+            line-height: 1.45;
+            word-break: keep-all;
+        }
+        h2 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: #1a56db;
+            margin: 40px 0 20px;
+            text-align: left;
+            line-height: 1.4;
+        }
+        p {
+            font-size: 1.05rem;
+            margin-bottom: 18px;
+            word-break: keep-all;
+            color: #333;
+            line-height: 1.85;
+        }
+        .img-wrap {
+            margin: 25px 0;
+        }
+        .img-wrap img {
+            max-width: 680px;
+            width: inherit;
+            height: auto;
+            border-radius: 10px;
+            display: block;
+            margin: 0 auto;
+        }
+        mark {
+            background: #fef08a;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+        u {
+            text-underline-offset: 4px;
+        }
+        .warning-box {
+            background: #fffbeb;
+            border: 1px solid #fef3c7;
+            border-radius: 10px;
+            padding: 18px 16px;
+            margin: 25px 0;
+            font-size: 0.93rem;
+            color: #92400e;
+            line-height: 1.7;
+            text-align: left;
+        }
+        .warning-box strong {
+            color: #b45309;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .rec-card {
+            background: #f0fdf4;
+            border: 1px solid #bbf7d0;
+            border-radius: 12px;
+            padding: 20px 16px;
+            margin: 30px 0;
+            text-align: left;
+        }
+        .rec-card-title {
+            font-size: 1rem;
+            font-weight: 800;
+            color: #166534;
+            margin-bottom: 8px;
+        }
+        .rec-card-desc {
+            font-size: 0.92rem;
+            color: #15803d;
+            line-height: 1.6;
+        }
+        .ref-box {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 16px;
+            margin: 30px 0 10px;
+            font-size: 0.85rem;
+            color: #64748b;
+            text-align: left;
+            line-height: 1.7;
+        }
+        .ref-box strong {
+            color: #334155;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .ref-box ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+        .ref-box li {
+            margin-bottom: 4px;
+        }
+        .ref-box a {
+            color: #2563eb;
+            text-decoration: underline;
+        }
+        .lead-card {
+            background: #f8fafc;
+            border-left: 4px solid #2563eb;
+            padding: 16px 18px;
+            margin: 25px 0;
+            text-align: left;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.95rem;
+            line-height: 1.75;
+            color: #334155;
+        }
+        .lead-card strong {
+            color: #1e3a8a;
+            display: block;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header-bar">
+        <h1>오십견 스트레칭 어깨 통증 줄이는 법, 회전근개 파열 자가 판별과 단계별 안전 운동법</h1>
+        <button class="copy-btn" onclick="copyNaverContent()">본문 복사하기</button>
+    </div>
+
+    <!-- 네이버 블로그 에디터 붙여넣기 본문 영역 -->
+    <div id="naverContent">
+        <div class="img-wrap"><img src="./images/thumb.jpg" alt="오십견 스트레칭, 아파도 늘려야 할까요?" width="1280" height="720" /></div>
+
+        <!-- 공식 기준선 기반 핵심 요약 카드 (Two-Zone Attribution) -->
+        <div class="lead-card">
+            <strong>📌 핵심 요약 (공인 가이드라인 기반 정리)</strong>
+            오십견으로 어깨가 뻣뻣해졌다면 아픈 팔을 힘으로 당기지 마세요. 움직임 차이만으로 원인을 가려내기는 어려우니 먼저 진찰로 상태를 살피고, 내게 맞는 동작을 배워보는 것이 좋습니다.
+        </div>
+
+        <!-- 감정 스티커 1: 서두 딜레마 충격 -->
+        <img src="./images/stickers/sticker01_shocked.jpg" alt="꿀단지 놀란 표정 마스코트 스티커" style="display: block; margin: 20px auto; max-width: 180px; height: auto;" />
+
+        <p>출근길에 자동차 뒷좌석에 놓아둔 서류 가방을 무심코 집으려다, 어깨 뒤편이 찌릿하게 걸려 얼어붙은 경험 있으신가요?</p>
+
+        <p>샤워할 때 등 뒤로 손을 돌려 거품을 칠하거나 티셔츠를 벗으려고 양팔을 번쩍 들 때마다 날카로운 뻐근함이 밀려오곤 합니다.</p>
+
+        <p>'단순한 환절기 근육통일까, 아니면 어깨가 굳어버린 오십견일까?' 덜컥 걱정이 앞서며 온종일 목덜미와 팔뚝을 조물거리게 되지요.</p>
+
+        
+        
+
+        <p>인터넷이나 헬스장에서는 "굳은 어깨는 눈물이 쏙 빠지도록 꺾어야 빨리 풀린다"는 험한 조언을 건네기도 합니다.</p>
+
+        <p>하지만 아픈 곳을 무작정 잡아당기면 오히려 더 불편해질 수 있어요.</p>
+
+        <!-- 소제목 1 -->
+        <h2>1. 거울 앞에서 살피는 내 어깨, 1차 움직임 관찰 포인트</h2>
+<div class="img-wrap"><img src="./images/post01.jpg" alt="오른쪽 어깨의 불편감을 살펴보는 모습" width="1280" height="720" /><p style="font-size:13px;color:#777;">오른쪽 어깨의 불편감을 살펴보는 모습</p></div>
+
+        <!-- 감정 스티커 2: 판별 시작 호기심 -->
+        <img src="./images/stickers/sticker02_excited.jpg" alt="꿀단지 호기심 가득한 마스코트 스티커" style="display: block; margin: 20px auto; max-width: 180px; height: auto;" />
+
+        <p>팔이 뜻대로 올라가지 않을 때 집에서 우선 차분히 확인해 볼 수 있는 단서는 <b>'도움을 받을 때의 반응'</b>입니다.</p>
+
+        <p>스스로 팔을 들 때와 다른 사람이 살며시 받쳐줄 때의 차이는 진료실에서 확인하는 단서 중 하나예요.</p>
+
+        <p>집에서는 어느 쪽으로 움직일 때 불편한지 살펴두세요. 가족에게 억지로 팔을 올려달라며 움직임을 시험할 필요는 없어요.</p>
+
+        
+        
+
+        <!-- 감정 스티커 3: 탐정 분석 -->
+        <img src="./images/stickers/sticker03_detective.jpg" alt="꿀단지 탐정 돋보기 마스코트 스티커" style="display: block; margin: 20px auto; max-width: 180px; height: auto;" />
+
+        <p>오십견은 어깨를 둘러싼 관절 주머니가 두꺼워지고 뻣뻣해진 상태예요.</p>
+
+        <p>그래서 내 힘으로 올리기 힘든 것은 물론이고, <b>가족이 살며시 받쳐서 들어주어도 관절 속이 턱 걸리며 끝까지 올려주기 어렵습니다.</b></p>
+
+        <p>회전근개는 팔을 움직이는 힘줄들이며, 여기에 문제가 생겨도 팔을 들기 버거울 수 있어요.</p>
+
+        <p>혼자서 팔을 들 때는 힘이 들어가지 않아 끙끙 앓게 되지만, <b>가족이 아래를 든든하게 받쳐주면 통증이 있더라도 팔이 비교적 더 위쪽으로 올라가는 모습을 볼 수 있어요.</b></p>
+
+        <p>다만 통증이 심해 몸이 잔뜩 굳어있거나 두 문제가 함께 겹쳐 나타나는 경우도 많으니, 이 차이는 참고용 단서로만 삼고 진료실에서 정밀하게 확인하는 것이 원칙입니다.</p>
+
+        <!-- 소제목 2 -->
+        <h2>2. 아파도 억지로 꺾어야 할까? 위험한 통설과 안전 기준</h2>
+<div class="img-wrap"><img src="./images/post02.jpg" alt="수건 위에 준비한 온찜질 팩" width="1280" height="720" /><p style="font-size:13px;color:#777;">수건 위에 준비한 온찜질 팩</p></div>
+
+        <!-- 감정 스티커 4: 혼란스러운 표정 -->
+        <img src="./images/stickers/sticker04_confused.jpg" alt="꿀단지 고민하는 마스코트 스티커" style="display: block; margin: 20px auto; max-width: 180px; height: auto;" />
+
+        <p>주변 분들의 말만 믿고 문틀을 붙잡고 몸을 비틀거나 공원 철봉에 매달려 어깨를 억지로 잡아 늘리는 분들이 계십니다.</p>
+
+        <p>솔직하게 말씀드리면, <u>이런 거친 동작은 관절을 지키기는커녕 회복을 더디게 만드는 안타까운 행동</u>이에요.</p>
+
+        <p>어깨가 굳기 시작하는 시기에는 움직일 때뿐 아니라 밤에도 욱신거려 잠을 깨기도 합니다.</p>
+
+        <p>통증이 심한 시기에 거칠게 늘리면 어깨가 더 아파질 수 있습니다.</p>
+
+        <!-- 감정 스티커 5: 지치고 아픈 표정 -->
+        <img src="./images/stickers/sticker05_exhausted.jpg" alt="꿀단지 지친 마스코트 스티커" style="display: block; margin: 20px auto; max-width: 180px; height: auto;" />
+
+        <p>억지로 높은 곳까지 올리려 애쓰기보다 지금 편하게 움직일 수 있는 폭부터 살펴보세요.</p>
+
+        <p>가족이나 주변 사람에게 부탁해 팔을 강제로 꺾어 올리는 일 역시 절대로 해서는 안 될 위험한 방법입니다.</p>
+
+        <!-- 경고 박스 -->
+        <div class="warning-box">
+            <strong>⚠️ 몸이 보내는 통증 신호등 자가 판별 기준</strong>
+            당기는 느낌과 아픔은 구분해 주세요. 움직이는 동안 통증이 생기면 멈추고, 아픈 동작이 거듭된다면 어깨 상태와 운동 방법을 다시 점검해 보세요.
+        </div>
+
+        <!-- 소제목 3 -->
+        <h2>3. 힘을 빼고 중력에 맡기는 시계추 릴랙스 홈케어</h2>
+<div class="img-wrap"><img src="./images/post03.jpg" alt="팔의 이동 방향은 앞뒤·좌우·작은 원" width="1280" height="720" /><p style="font-size:13px;color:#777;">팔의 이동 방향은 앞뒤·좌우·작은 원</p></div>
+
+        <p>시계추 운동은 팔을 아래로 내려놓은 채 가볍게 흔드는 동작이에요.</p>
+
+        <p>그림의 화살표를 따라 앞뒤, 좌우, 작은 원 순으로 살펴보세요. 팔로 크게 휘두르는 대신 몸을 조금 움직여 오른팔이 따라 흔들리게 합니다.</p>
+
+        <p>불편한 팔이 왼쪽이라면 사진과 반대로 손을 바꾸면 됩니다.</p>
+
+        
+        
+
+        <!-- 감정 스티커 6: 안전 주의 안내 -->
+        <img src="./images/stickers/sticker06_emergency.jpg" alt="꿀단지 경고 안내 마스코트 스티커" style="display: block; margin: 20px auto; max-width: 180px; height: auto;" />
+
+        <p><b>[시계추 릴랙스 정석 3단계]</b></p>
+
+        <p><b>1단계 지지대 짚기:</b> 흔들림 없는 튼튼한 식탁 앞에 서서, 아프지 않은 손으로 모서리를 단단하게 짚어 상체를 받쳐줍니다.</p>
+
+        <p><b>2단계 편한 자세 찾기:</b> 몸을 조금 앞으로 기울여 아픈 팔이 아래로 내려오게 해주세요. 허리를 몇 도까지 숙일지에 매달릴 필요는 없어요.</p>
+
+        <p><b>3단계 작게 흔들기:</b> 몸을 살짝 움직여 팔이 앞뒤로 따라 흔들리게 해보세요. 편하게 할 수 있다면 좌우로 움직이거나 작은 원을 그려봅니다.</p>
+
+        <p>팔을 힘차게 돌리거나 어깨를 치켜올리지는 마세요. 아프면 바로 쉬고, 몇 번씩 할지는 진료실에서 배운 범위에 맞춰주세요.</p>
+
+        
+        
+
+        <p>따뜻한 찜질로 운동 전 뻣뻣함을 덜기도 하지만, 잠시 편안해졌다고 동작을 크게 해도 된다는 뜻은 아니에요.</p>
+
+        <!-- 소제목 4 -->
+        <h2>4. 수건 한 장으로 서서히 넓히는 부드러운 가동범위</h2>
+<div class="img-wrap"><img src="./images/post04.jpg" alt="두 손과 수건이 보이는 등 뒤 스트레칭 준비 자세" width="1280" height="720" /><p style="font-size:13px;color:#777;">두 손과 수건이 보이는 등 뒤 스트레칭 준비 자세</p></div>
+
+        <!-- 감정 스티커 7: 엄지척 칭찬 -->
+        <img src="./images/stickers/sticker07_thumbsup.jpg" alt="꿀단지 최고 응원 마스코트 스티커" style="display: block; margin: 20px auto; max-width: 180px; height: auto;" />
+
+        <p>수건 운동은 등 뒤로 손을 보내는 동작이라 어깨 상태에 따라 버거울 수 있어요. 시계추를 하다 덜 아파졌다는 이유만으로 바로 이어가지는 마세요.</p>
+
+        <p>먼저 이 동작을 해도 되는지 진료실에서 확인해 주세요. 아래 손이 등 뒤에 닿기 어렵거나 수건을 잡기부터 아프다면 무리해서 자세를 만들지 마세요.</p>
+
+        
+        
+
+        <p><b>[수건을 활용한 부드러운 스트레칭 요령]</b></p>
+
+        <p>1. 긴 수건을 돌돌 말아 등 뒤로 늘어뜨린 뒤, 아프지 않은 손은 목 뒤 위쪽에서 잡고 아픈 손은 허리 뒤 아래쪽에서 잡습니다.</p>
+
+        <p>2. 위쪽 손으로 수건을 위로 천천히 당겨 올려주면, 아래쪽 아픈 팔이 조용히 따라 올라오며 어깨 주변이 서서히 펴지게 됩니다.</p>
+
+        <p>3. 가볍게 당기는 느낌까지만 움직인 뒤 서서히 풀어주세요. 몸을 비틀며 더 끌어올리거나 통증을 견디며 버티지는 마세요.</p>
+
+        <p>유지하는 시간과 되풀이하는 횟수는 어깨 상태에 맞춰 안내받아 주세요. 사진 속 높이까지 올리는 것이 목표는 아닙니다.</p>
+
+        <!-- 소제목 5 -->
+        <h2>5. 언제 진료실 진찰과 정밀 검사가 꼭 필요할까요?</h2>
+<div class="img-wrap"><img src="./images/post05.jpg" alt="진료 전 증상을 정리할 수 있는 노트와 펜" width="1280" height="720" /><p style="font-size:13px;color:#777;">진료 전 증상을 정리할 수 있는 노트와 펜</p></div>
+
+        <p>어깨 통증은 자연스레 낫겠거니 하며 참고 견디다 보면 뻣뻣한 불편함이 장기화될 수 있습니다.</p>
+
+        <p>아래와 같은 신호가 관찰된다면 혼자서 참지 마시고 진료실에서 담당의의 진찰을 받아보셔야 합니다.</p>
+
+        <p>첫째, 밤에 통증으로 자꾸 깨거나 옷 입기와 씻기가 계속 불편할 때.</p>
+
+        <p>둘째, 팔을 옆으로 들어 올리는 도중 특정 높이에서 힘이 툭 빠지며 잔을 떨어뜨릴 것 같을 때.</p>
+
+        <p>셋째, 넘어지거나 짐을 든 뒤 갑자기 팔을 움직이기 힘들어진 때. 이때는 운동부터 시도하기보다 진료를 먼저 받아보세요.</p>
+
+        <p>언제부터 불편했는지와 다친 일이 있었는지를 메모해 가세요. 검사가 필요한지는 담당의가 어깨를 살핀 뒤 결정합니다.</p>
+
+        
+        
+
+        <!-- 감정 스티커 8: 꿀단지 마무리 인사 -->
+        <img src="./images/stickers/sticker08_honeypot.jpg" alt="꿀단지 꿀통을 든 마스코트 스티커" style="display: block; margin: 20px auto; max-width: 180px; height: auto;" />
+
+        <p>굳어버린 어깨를 대할 때 무엇보다 중요한 마음가짐은 조급함 대신 차분한 배려입니다.</p>
+
+        <p>오늘은 팔을 얼마나 높이 들었는지보다, 힘을 뺐을 때 편하게 움직일 수 있었는지 살펴보세요.</p>
+
+        <p>급하게 당기기보다 내 속도로 움직이는 습관부터 챙겨보세요. 🍯</p>
+
+        <!-- 하단 연계 칼럼 카드 -->
+        <div class="rec-card">
+            <div class="rec-card-title">💡 꿀단지가 함께 권해드리는 건강 칼럼</div>
+            <div class="rec-card-desc">
+                <a href="../kkuldanji_web/posts/posture-wall-stretching.html" style="color:#166534;font-weight:700;text-decoration:underline;">굽은 등과 말린 어깨를 활짝 펴는 3분 벽 스트레칭 정석</a><br>
+                평소 구부정한 자세로 어깨와 목 주변이 자주 뭉친다면, 벽을 활용한 자세 교정 스트레칭도 함께 확인해 보세요!
+            </div>
+        </div>
+
+        <!-- 공인 출처 참고문헌 박스 -->
+                <div class="ref-box">
+            <strong>📚 공인 의학 가이드라인 및 출처</strong>
+            <ul>
+                <li>국가건강정보포털 의학정보: 오십견(동결견, 유착관절낭염) 편</li>
+                <li>미국정형외과학회(AAOS): Frozen Shoulder 어깨 건강 안내</li>
+                <li>대한정형외과학회(KOA): 견관절 유착성 관절낭염 건강정보</li>
+                <li>Shoulder & Elbow 학술지: Adhesive capsulitis of the shoulder 종설 (Le et al., 2017)</li>
+            </ul>
+        </div>
+
+        <p class="hashtags" id="hashtagText" style="font-size:0.9rem;color:#047857;margin-top:24px;font-weight:600;">#오십견스트레칭 #오십견통증 #오십견회전근개파열 #회전근개구별법 #어깨통증자가판별 #시계추스트레칭 #굳은어깨운동 #어깨수건스트레칭 #꿀단지건강</p>
+
+    </div>
+</div>
+
+<script>
+function copyNaverContent() {
+    const content = document.getElementById('naverContent');
+    const range = document.createRange();
+    range.selectNode(content);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+    try {
+        document.execCommand('copy');
+        alert('네이버 블로그 본문이 복사되었습니다! 네이버 블로그 스마트에디터에서 Ctrl+V 하세요.');
+    } catch (err) {
+        alert('복사 실패: 직접 드래그하여 복사해 주세요.');
+    }
+    window.getSelection().removeAllRanges();
+}
+
+function copyTags() {
+    const text = document.getElementById('hashtagText').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+        alert('해시태그가 복사되었습니다!\n\n' + text);
+    }).catch(() => {
+        const t = document.createElement('textarea');
+        t.value = text;
+        document.body.appendChild(t);
+        t.select();
+        document.execCommand('copy');
+        document.body.removeChild(t);
+        alert('해시태그가 복사되었습니다!');
+    });
+}
+</script>
+
+</body>
+</html>
