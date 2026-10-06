@@ -127,6 +127,25 @@ def prepare(work, seeds=(), use_gsc=True, collect=True):
                     for phrase in result['items'][:5]:
                         ref = add_source('autocomplete', channel, phrase, result['source_url'], phrase)
                         add_candidate(phrase, ref)
+        searchad_secret = ROOT / 'naver_searchad_secret.json'
+        if searchad_secret.is_file():
+            try:
+                from naver_searchad import fetch_keyword_stats
+                searchad_seeds = list(dict.fromkeys(list(seeds) + list(seen)))[:5]
+                if searchad_seeds:
+                    stats = fetch_keyword_stats(searchad_seeds)
+                    for item in stats[:15]:
+                        kw = item['keyword']
+                        tot = item['total_volume']
+                        mo = item['mobile_volume']
+                        pc = item['pc_volume']
+                        comp = item['comp_idx']
+                        excerpt = f"네이버 공식 월간 검색량: {tot:,}회 (모바일 {mo:,}회, PC {pc:,}회 / 경쟁도 {comp})"
+                        ref = add_source('naver_searchad', 'naver', kw, 'https://manage.searchad.naver.com',
+                                         excerpt, metrics=item)
+                        add_candidate(kw, ref)
+            except Exception:
+                pass
     context = dict(version=1, collected_at=now(), posts=metadata, gsc=snapshot, collected_sources=sources,
                    autocomplete_attempts=attempts,
                    notice='제목·설명과 수집 관찰만 포함. 본문 중복·검색량·경쟁 판단 미완료.')
@@ -154,7 +173,7 @@ def validate(review, context=None):
         raise ValueError('version=1, stage=discovery 필요')
     sources = {}
     original_sources = {s['id']: s for s in (context or {}).get('collected_sources', [])}
-    kinds = {'gsc', 'autocomplete', 'serp_screen', 'web_search', 'question', 'trend', 'announcement'}
+    kinds = {'gsc', 'autocomplete', 'serp_screen', 'web_search', 'question', 'trend', 'announcement', 'naver_searchad'}
     for s in review.get('sources', []):
         if not s.get('id') or s['id'] in sources or s.get('kind') not in kinds:
             raise ValueError('서로 다른 출처 ID와 지원 자료 유형 필요')
