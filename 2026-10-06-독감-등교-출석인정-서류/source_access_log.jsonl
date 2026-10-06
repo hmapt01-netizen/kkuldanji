@@ -18,3 +18,5 @@
 {"at": "2026-10-06T08:00:28.085991+00:00", "action": "source_access", "phase": "research", "resource": "https://kdca.go.kr/bbs/kdca/55/310106/download.do", "allowed": true}
 {"at": "2026-10-06T08:00:28.190768+00:00", "action": "source_access", "phase": "research", "resource": "https://www.cdc.gov/flu/vaccines/egg-allergies.html", "allowed": true}
 {"at": "2026-10-06T08:01:39.382460+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "오늘 글 2편 검증 완료. 공식 근거와 잔여 오류 source_notes 및 검증결과에 기록. 원고 수정·배포 없음"}
+{"at": "2026-10-06T23:20:23.581199+00:00", "action": "transition", "previous": "writing", "phase": "research", "note": "2026-10-07 사용자 새글 검증 요청: 최신 3편 의학 수치·접종 일정 및 공식 참고문헌 추가 대조"}
+{"at": "2026-10-06T23:21:34.173469+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "사용자가 쯔쯔가무시 글만 검증 대상으로 지정하여 독감 추가 조사 종료. 기존 source_notes 보존"}

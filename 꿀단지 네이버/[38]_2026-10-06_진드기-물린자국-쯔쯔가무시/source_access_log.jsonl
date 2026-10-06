@@ -1,0 +1,9 @@
+{"at": "2026-10-06T23:21:34.483362+00:00", "action": "transition", "previous": "topic", "phase": "titles", "note": "기존 완성 원고 검증. 제목은 기존 titles.json 보존, 새 선택 아님"}
+{"at": "2026-10-06T23:21:34.583166+00:00", "action": "transition", "previous": "titles", "phase": "research", "note": "사용자가 명시한 쯔쯔가무시 네이버·구글 원고의 사실 검증"}
+{"at": "2026-10-06T23:21:34.684019+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=5261", "allowed": true}
+{"at": "2026-10-06T23:21:34.780906+00:00", "action": "source_access", "phase": "research", "resource": "https://www.kdca.go.kr/kdca/3396/subview.do", "allowed": true}
+{"at": "2026-10-06T23:21:58.683230+00:00", "action": "source_access", "phase": "research", "resource": "https://www.kdca.go.kr/contents.es?mid=a20302040101", "allowed": true}
+{"at": "2026-10-06T23:21:58.784707+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=5300", "allowed": true}
+{"at": "2026-10-06T23:21:58.883033+00:00", "action": "source_access", "phase": "research", "resource": "https://nedrug.mfds.go.kr/pbp/CCBAC01/getItemDetail?itemSeq=197800045", "allowed": true}
+{"at": "2026-10-06T23:21:58.982601+00:00", "action": "source_access", "phase": "research", "resource": "https://www.kdca.go.kr/contents.es?mid=a20302040102", "allowed": true}
+{"at": "2026-10-06T23:22:50.480225+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "쯔쯔가무시 두 원고 검증 결과와 확인 근거 저장. 사실관계 수정 필요. 원고·배포 변경 없음"}
