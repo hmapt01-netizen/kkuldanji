@@ -1,0 +1,48 @@
+test_autocomplete_never_proves_demand (test_blue_ocean.Evidence.test_autocomplete_never_proves_demand) ... ok
+test_complete_review_priority_and_hold (test_blue_ocean.Evidence.test_complete_review_priority_and_hold) ... ok
+test_fewer_than_ten_needs_scope_note (test_blue_ocean.Evidence.test_fewer_than_ten_needs_scope_note) ... ok
+test_guard_rejects_old_schema_wrong_channel_and_query (test_blue_ocean.Evidence.test_guard_rejects_old_schema_wrong_channel_and_query) ... ok
+test_import_failure_does_not_replace_good_audit (test_blue_ocean.Evidence.test_import_failure_does_not_replace_good_audit) ... ok
+test_missing_evidence_cannot_pass (test_blue_ocean.Evidence.test_missing_evidence_cannot_pass) ... ok
+test_nonpositive_or_invalid_metrics (test_blue_ocean.Evidence.test_nonpositive_or_invalid_metrics) ... ok
+test_repeated_questions_require_distinct_sources (test_blue_ocean.Evidence.test_repeated_questions_require_distinct_sources) ... ok
+test_seed_metric_not_exact_query_evidence (test_blue_ocean.Evidence.test_seed_metric_not_exact_query_evidence) ... ok
+test_source_and_duplicate_validation (test_blue_ocean.Evidence.test_source_and_duplicate_validation) ... ok
+test_stale_and_future_records (test_blue_ocean.Evidence.test_stale_and_future_records) ... ok
+test_unreviewed_doc_blocks_positive_badge (test_blue_ocean.Evidence.test_unreviewed_doc_blocks_positive_badge) ... ok
+test_candidate_report_does_not_claim_unperformed_checks (test_blue_ocean.Integration.test_candidate_report_does_not_claim_unperformed_checks) ... ok
+test_discovery_never_recommends_unreviewed_candidate (test_blue_ocean.Integration.test_discovery_never_recommends_unreviewed_candidate) ... ok
+test_google_actually_fetches_serp_and_preserves_legacy_keys (test_blue_ocean.Integration.test_google_actually_fetches_serp_and_preserves_legacy_keys) ... ok
+test_query_preserves_long_tail_condition (test_blue_ocean.Integration.test_query_preserves_long_tail_condition) ... ok
+test_title_renderer_does_not_trust_fake_badge (test_blue_ocean.Integration.test_title_renderer_does_not_trust_fake_badge) ... ok
+test_ads_shopping_tracking_and_duplicate_urls (test_blue_ocean.Parsing.test_ads_shopping_tracking_and_duplicate_urls) ... ok
+test_autocomplete_failure_distinct_from_empty (test_blue_ocean.Parsing.test_autocomplete_failure_distinct_from_empty) ... ok
+test_captcha_not_results (test_blue_ocean.Parsing.test_captcha_not_results) ... ok
+test_current_naver_ugc_titles_not_source_or_snippet (test_blue_ocean.Parsing.test_current_naver_ugc_titles_not_source_or_snippet) ... ok
+test_empty_results_do_not_imply_gap (test_blue_ocean.Parsing.test_empty_results_do_not_imply_gap) ... ok
+test_full_urls_and_ids_not_truncated (test_blue_ocean.Parsing.test_full_urls_and_ids_not_truncated) ... ok
+test_google_heading_and_redirect (test_blue_ocean.Parsing.test_google_heading_and_redirect) ... ok
+test_web_profile_is_not_title (test_blue_ocean.Parsing.test_web_profile_is_not_title) ... ok
+test_duplicate_queries_not_multiple_recommendations (test_topic_opportunity.TopicAgent.test_duplicate_queries_not_multiple_recommendations) ... ok
+test_feedback_appends_original_decision_hash_without_changing_review (test_topic_opportunity.TopicAgent.test_feedback_appends_original_decision_hash_without_changing_review) ... ok
+test_google_evidence_cannot_be_relabelled_as_naver (test_topic_opportunity.TopicAgent.test_google_evidence_cannot_be_relabelled_as_naver) ... ok
+test_guard_rejects_fake_badge_failed_or_empty_collection (test_topic_opportunity.TopicAgent.test_guard_rejects_fake_badge_failed_or_empty_collection) ... ok
+test_hypothesis_can_be_recommended_as_exploration_without_fake_metrics (test_topic_opportunity.TopicAgent.test_hypothesis_can_be_recommended_as_exploration_without_fake_metrics) ... ok
+test_legacy_entrypoint_uses_shared_collector (test_topic_opportunity.TopicAgent.test_legacy_entrypoint_uses_shared_collector) ... ok
+test_new_post_and_existing_update_are_separate (test_topic_opportunity.TopicAgent.test_new_post_and_existing_update_are_separate) ... ok
+test_no_fake_gsc_success_or_values (test_topic_opportunity.TopicAgent.test_no_fake_gsc_success_or_values) ... ok
+test_no_search_means_no_positive_badge_no_audit_writes (test_topic_opportunity.TopicAgent.test_no_search_means_no_positive_badge_no_audit_writes) ... ok
+test_portal_comparison_requires_actual_matching_screen (test_topic_opportunity.TopicAgent.test_portal_comparison_requires_actual_matching_screen) ... ok
+test_prepare_never_fills_recommendations_or_overwrites_work (test_topic_opportunity.TopicAgent.test_prepare_never_fills_recommendations_or_overwrites_work) ... ok
+test_report_rejects_changed_context_and_unbacked_sources (test_topic_opportunity.TopicAgent.test_report_rejects_changed_context_and_unbacked_sources) ... ok
+test_summary_comparison_never_requires_or_claims_body_review (test_topic_opportunity.TopicAgent.test_summary_comparison_never_requires_or_claims_body_review) ... ok
+test_title_search_without_explicit_queries_never_contacts_network (test_topic_opportunity.TopicAgent.test_title_search_without_explicit_queries_never_contacts_network) ... ok
+test_title_stage_does_not_require_research_and_still_requires_selection (test_topic_opportunity.TopicAgent.test_title_stage_does_not_require_research_and_still_requires_selection) ... ok
+test_phase_lifecycle_and_network_block (test_source_access_guard.AccessTests.test_phase_lifecycle_and_network_block) ... ok
+test_title_validation_does_not_require_body_evidence (test_source_access_guard.AccessTests.test_title_validation_does_not_require_body_evidence) ... ok
+test_titles_precede_research (test_source_access_guard.AccessTests.test_titles_precede_research) ... ok
+
+----------------------------------------------------------------------
+Ran 43 tests in 0.128s
+
+OK

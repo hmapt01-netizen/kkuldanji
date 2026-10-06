@@ -1,0 +1,15 @@
+{"at": "2026-10-06T00:16:11.644047+00:00", "action": "transition", "previous": "topic", "phase": "titles", "note": "기존 원고 검증 요청에 따른 저장 제목 확인이며 신규 선택 기록이 아님"}
+{"at": "2026-10-06T00:16:11.957244+00:00", "action": "transition", "previous": "titles", "phase": "research", "note": "기존 원고 검증 요청: 등교 및 서류 주장 추가 조사. 기존 저장 제목 유지"}
+{"at": "2026-10-06T00:16:12.058290+00:00", "action": "source_access", "phase": "research", "resource": "https://kdca.go.kr/bbs/kdca/55/310106/download.do", "allowed": true}
+{"at": "2026-10-06T00:16:24.562434+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=5295", "allowed": true}
+{"at": "2026-10-06T00:16:24.684261+00:00", "action": "source_access", "phase": "research", "resource": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=312&lev=0&statusYN=W&s=moe&m=0301&opType=N&boardSeq=97825", "allowed": true}
+{"at": "2026-10-06T00:16:24.782445+00:00", "action": "source_access", "phase": "research", "resource": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=316&lev=0&statusYN=W&s=moe&m=0302&opType=N&boardSeq=97830", "allowed": true}
+{"at": "2026-10-06T00:16:24.880146+00:00", "action": "source_access", "phase": "research", "resource": "https://www.law.go.kr/LSW/lsInfoP.do?lsiSeq=230873", "allowed": true}
+{"at": "2026-10-06T00:16:39.567504+00:00", "action": "source_access", "phase": "research", "resource": "https://www.goesh.kr/shngok-m/na/ntt/selectNttInfo.do?bbsId=2469&mi=3640&nttSn=507309", "allowed": true}
+{"at": "2026-10-06T00:17:29.774759+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "검증용 추가 조사 완료. 원고 변경 없이 검증 결과와 근거 요약 저장"}
+{"at": "2026-10-06T02:34:32.977583+00:00", "action": "transition", "previous": "writing", "phase": "research", "note": "현재 수정 원고 재검증 요청. 변경된 참고문헌 링크와 남은 등교/서류 주장 확인"}
+{"at": "2026-10-06T02:34:33.299300+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/view.do?cntnts_sn=4576", "allowed": true}
+{"at": "2026-10-06T02:34:33.396219+00:00", "action": "source_access", "phase": "research", "resource": "https://kdca.go.kr/bbs/kdca/55/310106/download.do", "allowed": true}
+{"at": "2026-10-06T02:34:33.493988+00:00", "action": "source_access", "phase": "research", "resource": "https://www.law.go.kr/법령/학교보건법", "allowed": true}
+{"at": "2026-10-06T02:34:33.593041+00:00", "action": "source_access", "phase": "research", "resource": "https://www.moe.go.kr/boardCnts/viewRenew.do?boardID=316&lev=0&statusYN=W&s=moe&m=0302&opType=N&boardSeq=97830", "allowed": true}
+{"at": "2026-10-06T02:35:17.967434+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "현재 원고 재검증 완료. 남은 오류와 추가 확인 결과 기록, 원고 수정 없음"}

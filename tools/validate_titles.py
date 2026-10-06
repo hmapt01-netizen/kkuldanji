@@ -2,7 +2,7 @@
 """
 꿀단지 (KKULDANJI) - 마스터 제목 공식 및 실시간 SERP 기계적 자동 검증기 (Title Validator)
 AI가 짐작이나 기억에 의존해 공식을 왜곡하거나 금칙어를 포함하는 행위를 물리적으로 차단하고,
-실제 포털(네이버/구글) 1페이지를 실시간 크롤링하여 4단계 실제 경쟁도와 키워드 3단 조합 표를 생성합니다.
+형식 검사와 검색 수집을 분리하며, 문구 점수로 노출 가능성을 판단하지 않습니다.
 """
 import sys
 import os
@@ -91,66 +91,43 @@ def extract_health_keyword_triad(title):
 
 
 def calculate_low_authority_score(title, audit_record):
-    """
-    [마스터 표준 27-3/27-4] 꿀단지 저지수 블로그 적합도 알고리즘 점수 (0~100점)
-    1. 대중 직관 체감 훅 또는 핵심 검색어 전면(1~14자) 배치 여부 (최대 +40점)
-    2. 일반인 클릭 유발 롱테일 실천/상황 수식어 결합 여부 (최대 +30점)
-    3. 실제 SERP 경쟁도 및 자동완성 실존 여부 (최대 +30점 / 허수빈집 -40점)
-    4. 일반인 클릭 기피 학술 의학 외계어 노출 감점 (-25점)
-    """
-    score = 0
-    breakdowns = []
-
-    starts_with_quote = title.startswith('"') or title.startswith('“') or title.startswith("'") or title.startswith('‘')
-    if starts_with_quote:
-        score += 35
-        breakdowns.append("✅ 대중 공감 독백 훅 전면 배치 (+35점)")
-    else:
-        score += 40
-        breakdowns.append("✅ 핵심 검색어 전면(1~14자) 100% 일치 배치 (+40점)")
-
-    situations = [
-        "당일", "식후", "공복", "복용", "섭취", "시간", "시차", "골든타임", "부작용",
-        "속쓰림", "통증", "아침", "대처", "판별", "성분표", "라벨", "시간표", "반감기", "대조"
-    ]
-    matched_sit = [s for s in situations if s in title]
-    if len(matched_sit) >= 2:
-        score += 30
-        breakdowns.append(f"✅ 대중 클릭 롱테일 2개 이상 결합 ({', '.join(matched_sit[:2])}) (+30점)")
-    elif len(matched_sit) == 1:
-        score += 20
-        breakdowns.append(f"✅ 대중 클릭 롱테일 1개 결합 ({matched_sit[0]}) (+20점)")
-    else:
-        score += 5
-        breakdowns.append("⚠️ 롱테일 수식어 부족 (+5점)")
-
-    jargons = ["에티올로지", "병태생리", "파토제네시스", "약동학", "동태학", "파마코키네틱스"]
-    matched_jargon = [j for j in jargons if j in title]
-    if matched_jargon:
-        score -= 25
-        breakdowns.append(f"⚠️ 대중 클릭 기피 전문 의학 외계어 노출 ({', '.join(matched_jargon)}) (-25점)")
-
-    badge = audit_record.get("badge", "")
-    if "💎" in badge:
-        score += 30
-        breakdowns.append("💎 SERP 실사 독점 빈집 (+30점)")
-    elif "🟢" in badge:
-        score += 25
-        breakdowns.append("🟢 SERP 실사 알짜 틈새 (+25점)")
-    elif "🟡" in badge:
-        score += 10
-        breakdowns.append("🟡 SERP 중간 경쟁 (+10점)")
-    elif "🔴" in badge:
-        breakdowns.append("🔴 SERP 레드오션 (+0점)")
-    elif "⚠️" in badge:
-        score -= 40
-        breakdowns.append("⚠️ 허수 빈집 감점 (-40점)")
-
-    score = max(0, min(100, score))
-    return score, breakdowns
+    return None, ["문구 기반 노출 점수는 사용하지 않습니다"]
 
 
-def validate_naver_titles(titles, run_serp=True):
+def render_evidence_table(records):
+    from blue_ocean import evaluate
+    print("| 번호 | 제목 | 검색 질문 | 검토 상태 | 근거 / 미확인 |")
+    print("|---|---|---|---|---|")
+    for record in records:
+        result = evaluate(record)
+        values = [record.get('idx'), record.get('title'), record.get('clean_query', ''),
+                  result['badge'], result['reason']]
+        print('| ' + ' | '.join(str(v).replace('|', '&#124;').replace('\n', ' ') for v in values) + ' |')
+    print("자동 추천 보류. 후보의 상대적 우선순위는 topic_opportunity 보고서에서 근거와 함께 판단합니다.")
+    return None
+
+
+def collect_title_evidence(titles, channel, search_queries):
+    if not search_queries or len(search_queries) != len(titles) or any(not isinstance(q, str) or not q.strip() for q in search_queries):
+        raise ValueError("제목 순서에 맞는 search_queries가 필요합니다. 제목을 잘라 검색하지 않습니다.")
+    import contextlib
+    import io
+    records = audit_titles(search_queries, channel=channel)
+    for title, record in zip(titles, records):
+        record['title'] = title
+    with contextlib.redirect_stdout(io.StringIO()) as output:
+        render_evidence_table(records)
+    report = output.getvalue()
+    print(report)
+    data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data')
+    os.makedirs(data_dir, exist_ok=True)
+    with open(os.path.join(data_dir, f'last_{channel}_titles_audit.json'), 'w', encoding='utf-8') as f:
+        json.dump(dict(timestamp=datetime.now().astimezone().isoformat(), channel=channel,
+            total_candidates=len(titles), report_schema=3, serp_table_rendered=True, triad_table_rendered=False,
+            markdown_table=report, top_pick=None, records=records), f, ensure_ascii=False, indent=2)
+
+
+def validate_naver_titles(titles, run_serp=True, search_queries=None):
     """
     네이버 블로그 마스터 제목 10선 공식 검증 및 [마스터 표준 27호] 실시간 SERP 실사
     """
@@ -186,63 +163,8 @@ def validate_naver_titles(titles, run_serp=True):
 
     print("\n🎉 [100% 검증 통과] 네이버 제목 10선이 3대 그룹 공식 및 금칙어(실익·셈법·맹점 포함) 0개를 완벽히 충족했습니다!")
 
-    if run_serp and audit_titles:
-        audit_records = audit_titles(titles, channel="naver")
-        
-        for r in audit_records:
-            score, bdowns = calculate_low_authority_score(r["title"], r)
-            r["low_auth_score"] = score
-            r["low_auth_breakdowns"] = bdowns
-
-        sorted_by_low_auth = sorted(audit_records, key=lambda x: x["low_auth_score"], reverse=True)
-
-        table_lines = [
-            "### 📊 [마스터 표준 27호/27-4] 실시간 SERP 실사 및 키워드 3단 조합 성적표 (네이버 1페이지 실사)",
-            "| 번호 | 네이버 후보 제목 | 🔑 키워드 3단 조합 (메인 + 연관 + 변주) | 저지수 적합도 점수 | 실제 경쟁 강도 | 네이버 실시간 SERP 실사 근거 및 채점 내역 |",
-            "| :---: | :--- | :--- | :---: | :---: | :--- |"
-        ]
-
-        for r in audit_records:
-            c, rel, v = extract_health_keyword_triad(r["title"])
-            r["triad"] = {"core": c, "related": rel, "variation": v}
-            breakdown_str = " / ".join(r["low_auth_breakdowns"][:2])
-            line = f"| **{r['idx']}** | **{r['title']}** | **메인:** {c}<br>• **연관:** {rel}<br>• **변주:** {v} | **{r['low_auth_score']}점** | **{r['badge']}** | {r['reason']} ({breakdown_str}) |"
-            table_lines.append(line)
-            print(line)
-
-        markdown_table_str = "\n".join(table_lines)
-
-        print("\n### 🎯 결론 및 저지수 블로그 알고리즘 기반 최종 추천 픽")
-        pick1 = sorted_by_low_auth[0]
-        pick2 = sorted_by_low_auth[1] if len(sorted_by_low_auth) > 1 else sorted_by_low_auth[0]
-        pick3 = sorted_by_low_auth[2] if len(sorted_by_low_auth) > 2 else (sorted_by_low_auth[1] if len(sorted_by_low_auth) > 1 else sorted_by_low_auth[0])
-
-        print(f"- 🥇 **[1픽 / 저지수 강력 추천 (적합도 {pick1['low_auth_score']}점)] {pick1['idx']}번: {pick1['title']}**\n  • **선정 근거**: {', '.join(pick1['low_auth_breakdowns'])} ({pick1['badge']})")
-        print(f"- 🥈 **[2픽 / 차선책 (적합도 {pick2['low_auth_score']}점)] {pick2['idx']}번: {pick2['title']}**\n  • **선정 근거**: {', '.join(pick2['low_auth_breakdowns'])} ({pick2['badge']})")
-        print(f"- 🥉 **[3픽 / 틈새형 (적합도 {pick3['low_auth_score']}점)] {pick3['idx']}번: {pick3['title']}**\n  • **선정 근거**: {', '.join(pick3['low_auth_breakdowns'])} ({pick3['badge']})")
-        print("=" * 80)
-        print("\n🚨 [AI 보고 절대 의무 - 마스터 표준 27-4]")
-        print("AI는 사용자 보고 시 위 마크다운 표 전체를 생략·요약 없이 100% 그대로 채팅창에 출력해야 합니다!")
-        print("단순 불릿 요약(번호: 제목) 출력은 사용자 기만행위로 간주되어 엄격히 금지됩니다.\n")
-
-        try:
-            data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
-            os.makedirs(data_dir, exist_ok=True)
-            naver_audit_path = os.path.join(data_dir, "last_naver_titles_audit.json")
-            with open(naver_audit_path, "w", encoding="utf-8") as nf:
-                json.dump({
-                    "timestamp": datetime.now().isoformat(),
-                    "channel": "naver",
-                    "total_candidates": len(titles),
-                    "serp_table_rendered": True,
-                    "triad_table_rendered": True,
-                    "markdown_table": markdown_table_str,
-                    "top_pick": pick1,
-                    "records": audit_records
-                }, nf, ensure_ascii=False, indent=2)
-            print(f"🔒 [네이버 감사 로그 기록 완료]: {os.path.basename(naver_audit_path)}")
-        except Exception as e:
-            print(f"⚠️ 네이버 감사 로그 기록 오류: {e}")
+    if run_serp:
+        collect_title_evidence(titles, 'naver', search_queries)
 
     return True
 
@@ -285,7 +207,7 @@ def validate_daum_titles(titles):
     return True
 
 
-def validate_google_titles(titles, run_serp=True):
+def validate_google_titles(titles, run_serp=True, search_queries=None):
     """
     꿀단지 구글 본진 마스터 제목 10선 공식 검증 및 [마스터 표준 27호] 실시간 SERP 4단계 경쟁도 실사
     """
@@ -317,72 +239,8 @@ def validate_google_titles(titles, run_serp=True):
 
     print("\n🎉 [100% 검증 통과] 구글 본진 제목 10선이 규격 및 금칙어(실익·셈법 포함) 0개를 완벽히 충족했습니다!")
 
-    if run_serp and audit_titles:
-        audit_records = audit_titles(titles, channel="google")
-    else:
-        audit_records = []
-        for idx, title in enumerate(titles, 1):
-            audit_records.append({
-                "idx": idx,
-                "title": title,
-                "badge": "🟢 알짜 틈새",
-                "reason": "[기본 실사: 롱테일 정보성 의도]"
-            })
-
-    for r in audit_records:
-        score, bdowns = calculate_low_authority_score(r["title"], r)
-        r["low_auth_score"] = score
-        r["low_auth_breakdowns"] = bdowns
-
-    sorted_by_low_auth = sorted(audit_records, key=lambda x: x["low_auth_score"], reverse=True)
-
-    table_lines = [
-        "### 📊 [마스터 표준 27호/27-4] 실시간 SERP 실사 및 키워드 3단 조합 성적표 (구글/포털 실사)",
-        "| 번호 | 구글 후보 제목 | 🔑 키워드 3단 조합 (메인 + 연관 + 변주) | 저지수 적합도 점수 | 실제 경쟁 강도 | 구글 실시간 SERP 실사 근거 및 저지수 채점 내역 |",
-        "| :---: | :--- | :--- | :---: | :---: | :--- |"
-    ]
-
-    for r in audit_records:
-        c, rel, v = extract_health_keyword_triad(r["title"])
-        r["triad"] = {"core": c, "related": rel, "variation": v}
-        breakdown_str = " / ".join(r["low_auth_breakdowns"][:2])
-        line = f"| **{r['idx']}** | **{r['title']}** | **메인:** {c}<br>• **연관:** {rel}<br>• **변주:** {v} | **{r['low_auth_score']}점** | **{r['badge']}** | {r['reason']} ({breakdown_str}) |"
-        table_lines.append(line)
-        print(line)
-
-    markdown_table_str = "\n".join(table_lines)
-
-    print("\n### 🎯 결론 및 저지수 블로그 알고리즘 기반 최종 추천 픽")
-    pick1 = sorted_by_low_auth[0]
-    pick2 = sorted_by_low_auth[1] if len(sorted_by_low_auth) > 1 else sorted_by_low_auth[0]
-    pick3 = sorted_by_low_auth[2] if len(sorted_by_low_auth) > 2 else (sorted_by_low_auth[1] if len(sorted_by_low_auth) > 1 else sorted_by_low_auth[0])
-
-    print(f"- 🥇 **[1픽 / 저지수 강력 추천 (적합도 {pick1['low_auth_score']}점)] {pick1['idx']}번: {pick1['title']}**\n  • **선정 근거**: {', '.join(pick1['low_auth_breakdowns'])} ({pick1['badge']})")
-    print(f"- 🥈 **[2픽 / 차선책 (적합도 {pick2['low_auth_score']}점)] {pick2['idx']}번: {pick2['title']}**\n  • **선정 근거**: {', '.join(pick2['low_auth_breakdowns'])} ({pick2['badge']})")
-    print(f"- 🥉 **[3픽 / 틈새형 (적합도 {pick3['low_auth_score']}점)] {pick3['idx']}번: {pick3['title']}**\n  • **선정 근거**: {', '.join(pick3['low_auth_breakdowns'])} ({pick3['badge']})")
-    print("=" * 80)
-    print("\n🚨 [AI 보고 절대 의무 - 마스터 표준 27-4]")
-    print("AI는 사용자 보고 시 위 마크다운 표 전체를 생략·요약 없이 100% 그대로 채팅창에 출력해야 합니다!")
-    print("단순 불릿 요약(번호: 제목) 출력은 사용자 기만행위로 간주되어 엄격히 금지됩니다.\n")
-
-    try:
-        data_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "data")
-        os.makedirs(data_dir, exist_ok=True)
-        audit_path = os.path.join(data_dir, "last_google_titles_audit.json")
-        with open(audit_path, "w", encoding="utf-8") as af:
-            json.dump({
-                "timestamp": datetime.now().isoformat(),
-                "channel": "google",
-                "total_candidates": len(titles),
-                "serp_table_rendered": True,
-                "triad_table_rendered": True,
-                "markdown_table": markdown_table_str,
-                "top_pick": pick1,
-                "records": audit_records
-            }, af, ensure_ascii=False, indent=2)
-        print(f"🔒 [감사 로그 기록 완료]: {os.path.basename(audit_path)}")
-    except Exception as e:
-        print(f"⚠️ 감사 로그 기록 실패: {e}")
+    if run_serp:
+        collect_title_evidence(titles, 'google', search_queries)
 
     return True
 
@@ -405,13 +263,13 @@ if __name__ == "__main__":
             all_ok = True
             if mode == "google":
                 titles = data if isinstance(data, list) else (data.get("google_candidates") if isinstance(data.get("google_candidates"), list) else data.get("google", []))
-                all_ok = validate_google_titles(titles)
+                all_ok = validate_google_titles(titles, search_queries=data.get('search_queries') if isinstance(data, dict) else None)
             elif mode == "daum":
                 titles = data if isinstance(data, list) else (data.get("daum_candidates") if isinstance(data.get("daum_candidates"), list) else data.get("daum", []))
                 all_ok = validate_daum_titles(titles)
             elif mode == "naver":
                 titles = data if isinstance(data, list) else (data.get("naver_candidates") if isinstance(data.get("naver_candidates"), list) else data.get("naver", []))
-                all_ok = validate_naver_titles(titles)
+                all_ok = validate_naver_titles(titles, search_queries=data.get('search_queries') if isinstance(data, dict) else None)
             else:
                 if isinstance(data, list):
                     if any("..." in t for t in data):
@@ -422,11 +280,11 @@ if __name__ == "__main__":
                         all_ok = validate_naver_titles(data)
                 elif isinstance(data, dict):
                     if "naver" in data:
-                        all_ok = validate_naver_titles(data["naver"]) and all_ok
+                        all_ok = validate_naver_titles(data["naver"], search_queries=data.get("naver_search_queries", data.get("search_queries"))) and all_ok
                     if "daum" in data:
                         all_ok = validate_daum_titles(data["daum"]) and all_ok
                     if "google" in data:
-                        all_ok = validate_google_titles(data["google"]) and all_ok
+                        all_ok = validate_google_titles(data["google"], search_queries=data.get("google_search_queries", data.get("search_queries"))) and all_ok
             
             if not all_ok:
                 sys.exit(1)

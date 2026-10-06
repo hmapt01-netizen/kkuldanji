@@ -235,20 +235,20 @@ def verify_research_facts(work_dir, required_step=1):
     if not has_audit_section:
         print(f"\n🚨 [HARD STOP 0 물리적 차단] '리서치.md'에 [마스터 표준 25호] '사전 검토 6대 실사 브리핑' 기록이 누락되었습니다!")
         print(f"   🛑 사유: AI가 기발행 글 DB 전수 대조와 콘텐츠 로드맵 실사를 거치지 않고 임의로 글을 작성하는 것을 방지합니다.")
-        print(f"   👉 조치: 'python tools/suggest_topics.py' 실행 결과인 사전 검토 6대 실사 브리핑 표를 리서치.md 상단에 기록하세요.")
+        print(f"   👉 조치: topic_opportunity 보고서의 사전 검토 근거와 한계를 리서치.md에 인계하세요.")
         sys.exit(1)
 
     # 5) [마스터 표준 26호] 실시간 SERP 실사 및 4단계 실제 경쟁도(레드/블루오션) 성적표 검증
     serp_keywords = ["경쟁도", "경쟁 강도", "레드오션", "블루오션", "SERP"]
     has_serp_section = any(kw in content for kw in serp_keywords)
     has_serp_badges = any(b in content for b in ["🔴", "🟡", "🟢", "💎"])
-    has_serp_table = has_serp_section and has_serp_badges
+    has_serp_table = has_serp_section  # 근거 기록을 요구하며 긍정 배지를 강요하지 않음
 
-    print(f"   - [Step 0 SERP 경쟁도 표]: {'✅ 확인됨 (4단계 팩트체크 성적표)' if has_serp_table else '❌ 누락'}")
+    print(f"   - [Step 0 SERP 경쟁도 표]: {'✅ 경쟁 검토 기록 있음; 내용 진위는 별도 대조' if has_serp_table else '❌ 누락'}")
     if not has_serp_table:
         print(f"\n🚨 [HARD STOP 0 물리적 차단] '리서치.md'에 [마스터 표준 26호] '실시간 SERP 실사 및 4단계 실제 경쟁도(레드/블루오션) 성적표'가 누락되었습니다!")
         print(f"   🛑 사유: AI가 실시간 포털 검색 결과를 실사하지 않고 짐작으로 작성하거나 보고서 표를 누락하는 것을 방지합니다.")
-        print(f"   👉 조치: 'search_web'으로 상위 포털 결과를 실사하고 [🔴 초극심 레드오션 / 🟡 중간 경쟁 / 🟢 알짜 틈새 / 💎 진짜 블루오션 빈집] 성적표를 리서치.md에 반드시 기록하세요.")
+        print(f"   👉 조치: 'search_web'으로 상위 포털 결과를 실사하고 관찰한 경쟁 문서와 미확인 범위를 리서치.md에 기록하세요. 특정 배지는 필수가 아닙니다.")
         sys.exit(1)
 
     # [마스터 표준 27호 물리적 게이트 잠금] data/last_serp_audit.json 파일 실존 및 유효성 검증
@@ -295,7 +295,16 @@ def verify_research_facts(work_dir, required_step=1):
             print(f"   👉 조치: 'python tools/audit_serp_live.py'를 현재 주제로 재실행하세요.")
             sys.exit(1)
 
-        print(f"   - [Step 0 SERP 크롤링 증거]: ✅ 100% 무결성 확인 (실사 {len(records)}건, 주제일치: 확인됨, 채널: {audit_data.get('channel', 'naver')})")
+        try:
+            from serp_collection import usable_collection
+        except ImportError:
+            from tools.serp_collection import usable_collection
+        matching = [r for r in records if any(tok in (r.get('title', '') + ' ' + r.get('clean_query', '')) for tok in topic_tokens)]
+        if audit_data.get('schema_version') != 2 or not any(usable_collection(r, audit_data.get('channel')) for r in matching):
+            print('현재 주제의 사용 가능한 검색 수집 기록 없음. 실패·빈 결과·구형 배지를 실사 완료로 취급하지 않습니다.')
+            sys.exit(1)
+
+        print(f"   - [Step 0 SERP 크롤링 증거]: 기록 형식 확인; 검색 사실·판단 정확성 보증 아님 (기록 {len(records)}건, 주제일치: 확인됨, 채널: {audit_data.get('channel', 'naver')})")
     except Exception as e:
         print(f"\n🚨 [HARD STOP 0 물리적 차단] 'data/last_serp_audit.json' 파싱 오류: {e}")
         sys.exit(1)
@@ -415,11 +424,15 @@ def verify_titles_audit(channel, selected_title):
         sys.exit(1)
 
     for r in records:
-        triad = r.get("triad", {})
-        if not triad.get("core") or not triad.get("variation"):
-            print(f"\n🚨 [HARD STOP 물리적 차단] {channel.upper()} 후보 {r.get('idx')}번에 키워드 3단 조합 분해가 누락되었습니다!")
-            print(f"   제목: {r.get('title')}")
-            sys.exit(1)
+        if audit_data.get('report_schema') == 3:
+            if not r.get('clean_query') or not r.get('title') or not r.get('collection_status'):
+                print('제목·독립 검색 질문·수집 상태 연결 필요')
+                sys.exit(1)
+        else:
+            triad = r.get('triad', {})
+            if not triad.get('core') or not triad.get('variation'):
+                print('구형 제목 기록 불완전: 새 질문별 보고서로 재검토 필요')
+                sys.exit(1)
 
     # 4. 확정된 제목이 감사 로그 10선 내 실존하는지 대조 검증
     if selected_title:
@@ -446,10 +459,10 @@ def verify_titles_audit(channel, selected_title):
             print(f"   🛑 사유: 키워드 3단 조합 및 SERP 실사를 통과하지 않은 미검증 제목의 임의 채택을 원천 차단합니다.")
             sys.exit(1)
 
-    print(f"   - [{channel.upper()} 키워드 3단 조합 및 SERP 감사]: ✅ 100% 무결성 확인 (10선 전수 분해 및 확정 일치 확인됨)")
+    print(f"   - [{channel.upper()} 키워드 3단 조합 및 SERP 감사]: 후보 기록 및 선택 제목 일치 확인; 노출 가능성 검증 아님")
     return True
 
-def check_step(required_step):
+def check_step(required_step, work_dir=None):
     """
     required_step:
       0 -> Step 0 (리서치 검증 단계)
@@ -458,7 +471,7 @@ def check_step(required_step):
       3 -> Step 3 (구글 제목 보고 단계: 네이버 & 다음 제목 승인 필수)
       4 -> Step 4 (본문 작성 단계: Step 0-B 심층 리서치 & 3대 제목 100% 승인 필수)
     """
-    work_dir = get_latest_work_dir()
+    work_dir = work_dir or get_latest_work_dir()
     if not work_dir:
         print("❌ 작업 폴더(YYYY-MM-DD-주제명)가 존재하지 않습니다.")
         sys.exit(1)
@@ -466,7 +479,10 @@ def check_step(required_step):
     print(f"🔍 [꿀단지 단계별 게이트 검사] 대상 폴더: {os.path.basename(work_dir)}")
 
     # 1. 최신 팩트체크 검증 (required_step에 따라 Step 0-A 또는 Step 0-B 자동 분리)
-    verify_research_facts(work_dir, required_step=required_step)
+    if required_step not in (1, 2, 3):
+        verify_research_facts(work_dir, required_step=required_step)
+    else:
+        print('제목 단계: 원문 리서치를 선행 요구하지 않습니다. 제목·검색 요약으로 잠정 비교합니다.')
 
     tj_path = os.path.join(work_dir, "titles.json")
     titles = {}
@@ -494,7 +510,7 @@ def check_step(required_step):
             sys.exit(1)
         verify_titles_audit("naver", naver)
     elif required_step == 3:
-        if not is_2track and not (naver and daum):
+        if not naver or (not is_2track and not daum):
             print("\n🚨 [HARD STOP 2 위반] 네이버 또는 다음 제목이 확정되지 않았습니다! 구글 제목 단계 진행이 물리적으로 차단됩니다.")
             sys.exit(1)
         verify_titles_audit("naver", naver)
@@ -562,5 +578,8 @@ if __name__ == "__main__":
             step = float(raw_step)
         except ValueError:
             step = raw_step
-    check_step(step)
+    explicit_work = None
+    if '--work-dir' in sys.argv:
+        explicit_work = sys.argv[sys.argv.index('--work-dir') + 1]
+    check_step(step, explicit_work)
 

@@ -12,3 +12,4 @@ tools/deploy_site.py
 
 __pycache__/
 *.pyc
+codex_tools/topic_agent_20261005/dependencies/

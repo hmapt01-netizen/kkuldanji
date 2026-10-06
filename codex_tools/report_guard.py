@@ -20,8 +20,8 @@ def render(records, channel):
         evaluated.append((record, result, score))
         counts = result.get('coverage_counts')
         evidence = (f"직접 {counts['direct']} / 일부 {counts['partial']} / 무관 {counts['unrelated']}. "
-                    if counts else '') + result['reason']
-        points = f'{score}/100' if score is not None else '미확인'
+                    if counts and sum(counts.values()) else '') + result['reason']
+        points = '미사용' if result.get('comparison_ready', result['evidence_complete']) else '미확인'
         reviewed = result.get('comparison_ready', result['evidence_complete'])
         judgement = record.get('review') if result['evidence_complete'] else record.get('title_review', {})
         evidence = (result.get('review_scope', '') + '. ' if result.get('review_scope') else '') + evidence
@@ -42,7 +42,7 @@ def render(records, channel):
         lines.append(f"- {n}픽: **{record['idx']}번** — {result['reason']}")
     if not picks:
         lines.append('비교 근거가 확인된 후보가 없어 추천을 보류합니다.')
-    lines += ['', '경쟁도는 수집 결과와 접근 가능한 본문을 기준으로 한 상대 평가입니다. 미열람 문서와 실제 검색량은 확인되지 않았습니다. 추천은 상대적 경쟁 강도, 확인한 본문의 직접 답변 비중, 규칙 점수 순입니다. 완전한 블루오션만 고르는 방식은 아닙니다. 규칙 점수는 검색량·상위 노출 확률이 아닙니다. 같은 검색어의 후보는 조사 근거를 공유하며 미확인 후보에는 점수를 부여하지 않습니다.',
+    lines += ['', '경쟁도는 행에 표시한 검토 범위에 따른 상대 평가입니다. 제목·요약 검토를 본문 검토로 해석하지 않습니다. 미열람 문서와 실제 검색량은 확인되지 않았습니다. 추천은 확인된 경쟁 근거를 비교하며 문구 점수는 사용하지 않습니다. 완전한 블루오션만 고르는 방식은 아닙니다. 규칙 점수는 검색량·상위 노출 확률이 아닙니다. 같은 검색어의 후보는 조사 근거를 공유하며 미확인 후보에는 점수를 부여하지 않습니다.',
               '', '원하시는 제목 번호를 선택해 주세요.']
     return '\n'.join(lines) + '\n'
 

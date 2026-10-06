@@ -74,11 +74,27 @@ def fetch_naver_serp_docs(query):
     return result["top_docs"], result["error"]
 
 
+def usable_collection(record, channel):
+    """Check a collection receipt, not the truth of its contents or a ranking."""
+    from urllib.parse import urlparse, parse_qs
+    from blue_ocean import recent, canonical_url
+    parsed = urlparse(record.get('search_url', ''))
+    hosts = {'naver': {'search.naver.com'}, 'google': {'www.google.com', 'google.com', 'www.google.co.kr'}}
+    query = record.get('clean_query')
+    docs = record.get('top_docs', [])
+    urls = [canonical_url(d.get('url', '')) for d in docs]
+    return bool(record.get('collection_status') == 'ok' and query and
+                parsed.hostname in hosts.get(channel, set()) and
+                (parse_qs(parsed.query).get('query') or parse_qs(parsed.query).get('q')) == [query] and
+                recent(record.get('collected_at')) and docs and all(urls) and
+                len(urls) == len(set(urls)) and all(d.get('title') for d in docs))
+
+
 def analyze_naver_competition(query, docs, error_msg, ac_items, seed):
     return "⚠️ 추가 조사", "수요 자료와 상위 문서 본문 검토 필요" + (f": {error_msg}" if error_msg else "")
 
 
-def analyze_google_competition(query, ac_items, seed):
+def analyze_google_competition(query, ac_items, seed, full_title=""):
     return "⚠️ 추가 조사", "자동완성만으로 구글 경쟁도 판정 불가; 실제 SERP와 본문 검토 필요"
 
 
@@ -155,11 +171,16 @@ def import_review(path):
 
 
 def main():
+    global DATA_DIR
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("queries", nargs="*")
     parser.add_argument("--import-review", metavar="JSON")
     parser.add_argument("--review-template", metavar="JSON")
+    parser.add_argument("--output-dir", type=Path)
     args = parser.parse_args()
+    if args.output_dir:
+        DATA_DIR = args.output_dir.resolve()
+        DATA_DIR.mkdir(parents=True, exist_ok=True)
     if args.import_review:
         if args.queries or args.review_template:
             parser.error("--import-review는 다른 작업과 함께 사용할 수 없습니다")

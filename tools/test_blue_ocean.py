@@ -191,14 +191,9 @@ class Integration(unittest.TestCase):
         self.assertEqual(extract_clean_query_and_seed(query)[0], query)
 
     def test_candidate_report_does_not_claim_unperformed_checks(self):
-        with tempfile.TemporaryDirectory() as tmp, patch.object(s, 'root_dir', tmp), \
-             patch.object(s, 'fetch_portal_suggestions', return_value=['두유 영양 비교']), \
-             patch.object(s, 'fetch_live_news_trends', return_value=[]), \
-             contextlib.redirect_stdout(io.StringIO()) as output:
-            (Path(tmp) / 'data').mkdir()
-            s.run_topic_suggestion('두유')
-            saved = json.loads((Path(tmp) / 'data/last_topic_audit.json').read_text(encoding='utf-8'))
-        self.assertIsNone(saved['top_pick'])
+        with tempfile.TemporaryDirectory() as tmp, contextlib.redirect_stdout(io.StringIO()) as output:
+            saved = s.run_topic_suggestion('fixture query', work_dir=tmp, offline=True)
+        self.assertEqual(saved['recommendations'], [])
         self.assertNotIn('PASS', output.getvalue())
         self.assertNotIn('검색수요 0건', output.getvalue())
 

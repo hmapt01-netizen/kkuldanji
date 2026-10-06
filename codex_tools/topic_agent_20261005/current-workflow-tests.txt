@@ -1,0 +1,443 @@
+test_adding_google_query_does_not_reset_naver_selection (test_workflow_guard.Workflow.test_adding_google_query_does_not_reset_naver_selection) ... ERROR
+test_cannot_finish_before_research_or_titles (test_workflow_guard.Workflow.test_cannot_finish_before_research_or_titles) ... ERROR
+test_cannot_skip_naver_selection_in_two_track (test_workflow_guard.Workflow.test_cannot_skip_naver_selection_in_two_track) ... ERROR
+test_changed_evidence_returns_to_research (test_workflow_guard.Workflow.test_changed_evidence_returns_to_research) ... ERROR
+test_changed_report_returns_to_title_stage (test_workflow_guard.Workflow.test_changed_report_returns_to_title_stage) ... ERROR
+test_collect_function_blocks_before_network_when_research_missing (test_workflow_guard.Workflow.test_collect_function_blocks_before_network_when_research_missing) ... ERROR
+test_collector_reused_and_duplicate_queries_collected_once (test_workflow_guard.Workflow.test_collector_reused_and_duplicate_queries_collected_once) ... ERROR
+test_competition_precedes_wording_score (test_workflow_guard.Workflow.test_competition_precedes_wording_score) ... ok
+test_draft_required_before_plan_and_changed_body_invalidates_approval (test_workflow_guard.Workflow.test_draft_required_before_plan_and_changed_body_invalidates_approval) ... ERROR
+test_existing_format_validator_is_called (test_workflow_guard.Workflow.test_existing_format_validator_is_called) ... ok
+test_finish_requires_actual_reply_even_with_valid_receipts (test_workflow_guard.Workflow.test_finish_requires_actual_reply_even_with_valid_receipts) ... ERROR
+test_google_collect_function_blocks_without_naver_choice (test_workflow_guard.Workflow.test_google_collect_function_blocks_without_naver_choice) ... ERROR
+test_google_complete_report_and_workflow (test_workflow_guard.Workflow.test_google_complete_report_and_workflow) ... ERROR
+test_medium_competition_can_be_compared_without_blue_ocean (test_workflow_guard.Workflow.test_medium_competition_can_be_compared_without_blue_ocean) ... ERROR
+test_migration_preserves_choices_and_tentative_plan (test_workflow_guard.Workflow.test_migration_preserves_choices_and_tentative_plan) ... ERROR
+test_missing_report_cannot_record_titles (test_workflow_guard.Workflow.test_missing_report_cannot_record_titles) ... ERROR
+test_no_fabricated_empty_approval (test_workflow_guard.Workflow.test_no_fabricated_empty_approval) ... ERROR
+test_old_title_only_reply_is_rejected (test_workflow_guard.Workflow.test_old_title_only_reply_is_rejected) ... ERROR
+test_one_query_for_all_titles_is_rejected (test_workflow_guard.Workflow.test_one_query_for_all_titles_is_rejected) ... ok
+test_one_reviewed_query_cannot_pass_comparison (test_workflow_guard.Workflow.test_one_reviewed_query_cannot_pass_comparison) ... ok
+test_path_outside_work_rejected (test_workflow_guard.Workflow.test_path_outside_work_rejected) ... ok
+test_pending_evidence_never_receives_score_or_recommendation (test_workflow_guard.Workflow.test_pending_evidence_never_receives_score_or_recommendation) ... ok
+test_plan_change_invalidates_approval (test_workflow_guard.Workflow.test_plan_change_invalidates_approval) ... ERROR
+test_recommendation_queries_are_not_duplicates (test_workflow_guard.Workflow.test_recommendation_queries_are_not_duplicates) ... ok
+test_recommendations_follow_evidence_without_wording_score (test_workflow_guard.Workflow.test_recommendations_follow_evidence_without_wording_score) ... ok
+test_registration_blocks_before_existing_function_without_approvals (test_workflow_guard.Workflow.test_registration_blocks_before_existing_function_without_approvals) ... ERROR
+test_registration_calls_existing_function_only_after_approvals (test_workflow_guard.Workflow.test_registration_calls_existing_function_only_after_approvals) ... ERROR
+test_related_evidence_missing_blocks_collection (test_workflow_guard.Workflow.test_related_evidence_missing_blocks_collection) ... ERROR
+test_repair_preserves_old_receipts_and_files (test_workflow_guard.Workflow.test_repair_preserves_old_receipts_and_files) ... ERROR
+test_report_build_blocks_before_write_without_naver_choice (test_workflow_guard.Workflow.test_report_build_blocks_before_write_without_naver_choice) ... ERROR
+test_report_tampering_rejected_including_header_only_table (test_workflow_guard.Workflow.test_report_tampering_rejected_including_header_only_table) ... ok
+test_reviewed_candidates_reuse_existing_cache_without_network (test_workflow_guard.Workflow.test_reviewed_candidates_reuse_existing_cache_without_network) ... ERROR
+test_selected_title_must_belong_to_current_list (test_workflow_guard.Workflow.test_selected_title_must_belong_to_current_list) ... ERROR
+test_selection_continues_to_google_without_extra_permission (test_workflow_guard.Workflow.test_selection_continues_to_google_without_extra_permission) ... ERROR
+test_title_comparison_does_not_claim_full_fact_validation (test_workflow_guard.Workflow.test_title_comparison_does_not_claim_full_fact_validation) ... ok
+test_title_evidence_mismatch_rejected_even_at_valid_length (test_workflow_guard.Workflow.test_title_evidence_mismatch_rejected_even_at_valid_length) ... ERROR
+test_title_length_boundaries_for_both_channels (test_workflow_guard.Workflow.test_title_length_boundaries_for_both_channels) ... ok
+test_unobserved_keywords_and_fake_source_rejected (test_workflow_guard.Workflow.test_unobserved_keywords_and_fake_source_rejected) ... ok
+test_unreviewed_query_and_title_intent_drift_rejected (test_workflow_guard.Workflow.test_unreviewed_query_and_title_intent_drift_rejected) ... ERROR
+test_unreviewed_selected_candidate_blocks_next_stage (test_workflow_guard.Workflow.test_unreviewed_selected_candidate_blocks_next_stage) ... ERROR
+test_wait_only_after_valid_titles_presented (test_workflow_guard.Workflow.test_wait_only_after_valid_titles_presented) ... ERROR
+
+======================================================================
+ERROR: test_adding_google_query_does_not_reset_naver_selection (test_workflow_guard.Workflow.test_adding_google_query_does_not_reset_naver_selection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 113, in test_adding_google_query_does_not_reset_naver_selection
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_cannot_finish_before_research_or_titles (test_workflow_guard.Workflow.test_cannot_finish_before_research_or_titles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 68, in test_cannot_finish_before_research_or_titles
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_cannot_skip_naver_selection_in_two_track (test_workflow_guard.Workflow.test_cannot_skip_naver_selection_in_two_track)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 72, in test_cannot_skip_naver_selection_in_two_track
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_changed_evidence_returns_to_research (test_workflow_guard.Workflow.test_changed_evidence_returns_to_research)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 107, in test_changed_evidence_returns_to_research
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_changed_report_returns_to_title_stage (test_workflow_guard.Workflow.test_changed_report_returns_to_title_stage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 184, in test_changed_report_returns_to_title_stage
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_collect_function_blocks_before_network_when_research_missing (test_workflow_guard.Workflow.test_collect_function_blocks_before_network_when_research_missing)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 335, in test_collect_function_blocks_before_network_when_research_missing
+    adapter.collect(self.work, g.read(self.work / 'naver_candidates.json'), 'naver')
+  File "D:\작업\꿀단지\codex_tools\title_adapter.py", line 77, in collect
+    mapped = [dict(copy.deepcopy(by_query[q]), idx=i, title=t)
+                                 ~~~~~~~~^^^
+KeyError: 'fixture exact question 0'
+
+======================================================================
+ERROR: test_collector_reused_and_duplicate_queries_collected_once (test_workflow_guard.Workflow.test_collector_reused_and_duplicate_queries_collected_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 230, in test_collector_reused_and_duplicate_queries_collected_once
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_draft_required_before_plan_and_changed_body_invalidates_approval (test_workflow_guard.Workflow.test_draft_required_before_plan_and_changed_body_invalidates_approval)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 432, in test_draft_required_before_plan_and_changed_body_invalidates_approval
+    self.test_google_complete_report_and_workflow()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 197, in test_google_complete_report_and_workflow
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_finish_requires_actual_reply_even_with_valid_receipts (test_workflow_guard.Workflow.test_finish_requires_actual_reply_even_with_valid_receipts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 151, in test_finish_requires_actual_reply_even_with_valid_receipts
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_google_collect_function_blocks_without_naver_choice (test_workflow_guard.Workflow.test_google_collect_function_blocks_without_naver_choice)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 339, in test_google_collect_function_blocks_without_naver_choice
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_google_complete_report_and_workflow (test_workflow_guard.Workflow.test_google_complete_report_and_workflow)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 197, in test_google_complete_report_and_workflow
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_medium_competition_can_be_compared_without_blue_ocean (test_workflow_guard.Workflow.test_medium_competition_can_be_compared_without_blue_ocean)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 277, in test_medium_competition_can_be_compared_without_blue_ocean
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_migration_preserves_choices_and_tentative_plan (test_workflow_guard.Workflow.test_migration_preserves_choices_and_tentative_plan)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 456, in test_migration_preserves_choices_and_tentative_plan
+    self.test_google_complete_report_and_workflow()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 197, in test_google_complete_report_and_workflow
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_missing_report_cannot_record_titles (test_workflow_guard.Workflow.test_missing_report_cannot_record_titles)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 160, in test_missing_report_cannot_record_titles
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_no_fabricated_empty_approval (test_workflow_guard.Workflow.test_no_fabricated_empty_approval)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 81, in test_no_fabricated_empty_approval
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_old_title_only_reply_is_rejected (test_workflow_guard.Workflow.test_old_title_only_reply_is_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 155, in test_old_title_only_reply_is_rejected
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_plan_change_invalidates_approval (test_workflow_guard.Workflow.test_plan_change_invalidates_approval)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 446, in test_plan_change_invalidates_approval
+    self.test_google_complete_report_and_workflow()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 197, in test_google_complete_report_and_workflow
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_registration_blocks_before_existing_function_without_approvals (test_workflow_guard.Workflow.test_registration_blocks_before_existing_function_without_approvals)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 373, in test_registration_blocks_before_existing_function_without_approvals
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_registration_calls_existing_function_only_after_approvals (test_workflow_guard.Workflow.test_registration_calls_existing_function_only_after_approvals)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 381, in test_registration_calls_existing_function_only_after_approvals
+    self.test_google_complete_report_and_workflow()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 197, in test_google_complete_report_and_workflow
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_related_evidence_missing_blocks_collection (test_workflow_guard.Workflow.test_related_evidence_missing_blocks_collection)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 353, in test_related_evidence_missing_blocks_collection
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_repair_preserves_old_receipts_and_files (test_workflow_guard.Workflow.test_repair_preserves_old_receipts_and_files)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 138, in test_repair_preserves_old_receipts_and_files
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_report_build_blocks_before_write_without_naver_choice (test_workflow_guard.Workflow.test_report_build_blocks_before_write_without_naver_choice)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 346, in test_report_build_blocks_before_write_without_naver_choice
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_reviewed_candidates_reuse_existing_cache_without_network (test_workflow_guard.Workflow.test_reviewed_candidates_reuse_existing_cache_without_network)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 253, in test_reviewed_candidates_reuse_existing_cache_without_network
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_selected_title_must_belong_to_current_list (test_workflow_guard.Workflow.test_selected_title_must_belong_to_current_list)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 86, in test_selected_title_must_belong_to_current_list
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_selection_continues_to_google_without_extra_permission (test_workflow_guard.Workflow.test_selection_continues_to_google_without_extra_permission)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 91, in test_selection_continues_to_google_without_extra_permission
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_title_evidence_mismatch_rejected_even_at_valid_length (test_workflow_guard.Workflow.test_title_evidence_mismatch_rejected_even_at_valid_length)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 128, in test_title_evidence_mismatch_rejected_even_at_valid_length
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_unreviewed_query_and_title_intent_drift_rejected (test_workflow_guard.Workflow.test_unreviewed_query_and_title_intent_drift_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 120, in test_unreviewed_query_and_title_intent_drift_rejected
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_unreviewed_selected_candidate_blocks_next_stage (test_workflow_guard.Workflow.test_unreviewed_selected_candidate_blocks_next_stage)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 295, in test_unreviewed_selected_candidate_blocks_next_stage
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+======================================================================
+ERROR: test_wait_only_after_valid_titles_presented (test_workflow_guard.Workflow.test_wait_only_after_valid_titles_presented)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 76, in test_wait_only_after_valid_titles_presented
+    self.proposed()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 59, in proposed
+    self.research()
+  File "D:\작업\꿀단지\codex_tools\test_workflow_guard.py", line 56, in research
+    g.record(self.work, 'research', self.research_files, 'Fixture research reviewed')
+  File "D:\작업\꿀단지\codex_tools\workflow_guard.py", line 230, in record
+    raise ValueError('리서치 완료 기록은 research 단계에서만 가능')
+ValueError: 리서치 완료 기록은 research 단계에서만 가능
+
+----------------------------------------------------------------------
+Ran 41 tests in 0.866s
+
+FAILED (errors=29)

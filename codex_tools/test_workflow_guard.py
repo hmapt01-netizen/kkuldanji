@@ -259,9 +259,10 @@ class Workflow(unittest.TestCase):
         self.assertEqual([r['collected_at'] for r in before], [r['collected_at'] for r in after])
         self.assertEqual([r['review'] for r in before], [r['review'] for r in after])
 
-    def test_recommendations_follow_existing_score_not_manual_pick(self):
+    def test_recommendations_follow_evidence_without_wording_score(self):
         rows = g.read(self.work / 'naver_serp_audit.json')['records']
-        expected = sorted(rows, key=lambda r: adapter.assessed(r)[1], reverse=True)[:3]
+        expected = sorted(rows, key=adapter.comparison_key)[:3]
+        self.assertTrue(all(adapter.assessed(row)[1] is None for row in rows))
         text = report.render(rows, 'naver')
         for i, row in enumerate(expected, 1):
             self.assertIn(f"- {i}픽: **{row['idx']}번**", text)
@@ -315,7 +316,7 @@ class Workflow(unittest.TestCase):
         result, score = adapter.assessed(row)
         self.assertFalse(result['evidence_complete'])
         self.assertTrue(result['comparison_ready'])
-        self.assertIsNotNone(score)
+        self.assertIsNone(score)
         row['top_docs'] = row['top_docs'][:2]
         result, score = adapter.assessed(row)
         self.assertFalse(result.get('comparison_ready', False))

@@ -14,7 +14,6 @@ import validate_titles as existing
 import serp_collection as collector
 from audit_serp_live import extract_clean_query_and_seed
 from blue_ocean import evaluate, recent
-from legacy_score import calculate_low_authority_score
 
 
 def check_titles(data, channel):
@@ -144,14 +143,25 @@ def assessed(record):
             badge={'gap': '🟢', 'medium': '🟡', 'high': '🔴'}[review['competition']],
             reason=review['reason'], coverage_counts={k:sum(d['answer_coverage']==k for d in docs) for k in ('direct','partial','unrelated')},
             review_scope=f"본문 {len(docs)}/{len(record['top_docs'])}개 확인")
+    if (not result.get('comparison_ready', result['evidence_complete'])
+            and review.get('scope') == 'title_summary'
+            and collector.usable_collection(record, 'naver' if 'search.naver.com' in record.get('search_url', '') else 'google')
+            and review.get('competition') in ('gap', 'medium', 'high')
+            and review.get('reason') and recent(review.get('reviewed_at'))
+            and keyword.get('text') == record.get('clean_query')
+            and keyword.get('source_url', '').startswith('https://') and recent(keyword.get('observed_at'))):
+        result = dict(result, comparison_ready=True, status='relative_comparison',
+            badge='제목·요약 기준 잠정 비교', reason=review['reason'],
+            coverage_counts={'direct': 0, 'partial': 0, 'unrelated': 0},
+            review_scope='제목·검색 요약 검토; 본문 답변 누락 미확인')
     # Unknown evidence has no score: the old ⚠️ deduction conflated missing
-    # data with zero demand. Preserve the formula only for reviewed records.
-    score = calculate_low_authority_score(record['title'], dict(record, badge=result['badge']))[0] if result.get('comparison_ready', result['evidence_complete']) else None
+    # data with zero demand. Wording scores are retired for all records.
+    score = None  # 문구 점수는 경쟁 판단이나 추천에 사용하지 않는다.
     return result, score
 
 
 def comparison_key(record):
-    """Competition first; the legacy wording score is only a tie-breaker."""
+    """Compare evidence only; title wording scores never break ties."""
     result, score = assessed(record)
     if not result.get('comparison_ready', result['evidence_complete']):
         return (3, 1, 0)
@@ -159,7 +169,7 @@ def comparison_key(record):
     total = sum(counts.values())
     review = record['review'] if result['evidence_complete'] else record['title_review']
     strength = {'gap': 0, 'medium': 1, 'high': 2}[review['competition']]
-    return (strength, counts['direct'] / total if total else 1, -score)
+    return (strength, counts['direct'] / total if total else 1, 0)
 
 
 def main():
