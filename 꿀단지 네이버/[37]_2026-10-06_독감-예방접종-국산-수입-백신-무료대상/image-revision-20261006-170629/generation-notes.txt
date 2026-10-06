@@ -1,0 +1,4 @@
+Built-in image_gen used. User requested generation and replacement.
+post02 prompt: Preserve warm apartment oak-table still life. Brochure ONLY 예방접종 안내; generic map pins without letters, dates, logos or vaccine counts.
+post04 prompt: Preserve warm apartment oak-table still life. Checklist ONLY 접종 전 확인 / 신분증 / 건강 상태 / 접종 일정; no dates, English or extra small text.
+Both generated outputs visually inspected. JPEG web copies 1280x720. Originals backed up. Captions synchronized. No publication performed.

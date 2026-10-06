@@ -37,7 +37,7 @@ def validate_lead_quote_card(body_html):
             raise AssertionError("🚨 [마스터 표준 23 위반] lead-quote-card에 가상 따옴표(“...”) 인용문이 감지되었습니다! 공인 기관이 직접 발언하지 않은 내용을 따옴표로 감싸는 것은 금지되며, 《문서명》 취지 요약으로 기재하세요.")
 
 
-def add_post(post_data, image_dir=None):
+def add_post(post_data, image_dir=None, work_dir=None):
     """
     꿀단지 - 신규 칼럼 원스톱 자동 등록 및 일괄 컴파일 엔진
     """
@@ -49,7 +49,8 @@ def add_post(post_data, image_dir=None):
         if tools_dir not in sys.path:
             sys.path.insert(0, tools_dir)
         import step_guard
-        step_guard.check_step(4)
+        work_dir = work_dir or step_guard.get_latest_work_dir()
+        step_guard.check_step(4, work_dir=work_dir)
     except Exception as e:
         print(f"🚨 [물리적 차단] Step Guard 검증 실패: {e}")
         raise AssertionError(f"Step Guard 검증 실패로 포스트 등록이 물리적으로 중단되었습니다: {e}")
@@ -57,7 +58,6 @@ def add_post(post_data, image_dir=None):
     # 0-1. [마스터 표준 23-2호] Evidence Guard 직접 검증
     try:
         import evidence_guard
-        work_dir = step_guard.get_latest_work_dir()
         evidence_guard.validate_post_evidence(post_data, work_dir=work_dir)
     except Exception as e:
         print(f"🚨 [물리적 차단] Evidence Guard 검증 실패: {e}")
@@ -184,6 +184,8 @@ if __name__ == "__main__":
         with open(sys.argv[1], "r", encoding="utf-8-sig") as f:
             data = json.load(f)
         img_dir = sys.argv[2] if len(sys.argv) > 2 and os.path.exists(sys.argv[2]) else None
-        add_post(data, image_dir=img_dir)
+        target_dir = os.path.dirname(os.path.abspath(sys.argv[1]))
+        work_dir = target_dir if os.path.exists(os.path.join(target_dir, "리서치.md")) else None
+        add_post(data, image_dir=img_dir, work_dir=work_dir)
     else:
         print("사용법: python add_post.py [post_data.json] [image_dir (선택)]")

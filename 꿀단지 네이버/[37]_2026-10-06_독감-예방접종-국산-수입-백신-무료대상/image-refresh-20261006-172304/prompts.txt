@@ -1,0 +1,4 @@
+Built-in image_gen. Both images newly generated and visually checked.
+Thumbnail: warm Korean apartment, cream-sweater woman studying leaflet, ivory/navy/orange editorial layout. Exact text: 독감 예방접종 / 국산 vs 수입 / 무엇이 다를까? / 무료 접종 대상까지.
+Still life: oak table, ID wallet with blank card reverse, clipboard, ear thermometer, pen, water. Exact text: 접종 전 준비 / 신분증 챙기기 / 건강 상태 확인 / 예진표 작성. No dates or personal data.
+Web copies 1280x720 JPEG. Previous files backed up. No online deployment.
