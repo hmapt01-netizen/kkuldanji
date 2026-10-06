@@ -95,7 +95,18 @@ def calculate_low_authority_score(title, audit_record):
 
 
 def render_evidence_table(records):
-    from blue_ocean import evaluate
+    try:
+        from blue_ocean import evaluate
+    except ImportError:
+        try:
+            from tools.blue_ocean import evaluate
+        except ImportError:
+            try:
+                import sys, os
+                sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+                from blue_ocean import evaluate
+            except Exception:
+                evaluate = lambda r: {'badge': '⚠️ 미확인', 'reason': '평가기 로드 실패'}
     print("| 번호 | 제목 | 검색 질문 | 검토 상태 | 근거 / 미확인 |")
     print("|---|---|---|---|---|")
     for record in records:
