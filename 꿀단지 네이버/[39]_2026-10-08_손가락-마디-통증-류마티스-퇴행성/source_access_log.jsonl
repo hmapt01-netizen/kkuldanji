@@ -1,0 +1,44 @@
+{"at": "2026-10-08T03:24:22.480832+00:00", "action": "transition", "previous": "topic", "phase": "titles", "note": "기존 39번 글 검증 요청: 신규 제목 선택이 아닌 저장된 제목 기준 검토"}
+{"at": "2026-10-08T03:24:22.483314+00:00", "action": "transition", "previous": "titles", "phase": "research", "note": "사용자 요청: 꿀단지 오늘 글 찾아서 검증해줘. 기존 원고 의학적 주장 재검증"}
+{"at": "2026-10-08T03:24:22.484343+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\post_data.json", "allowed": true}
+{"at": "2026-10-08T03:24:32.533641+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\post_data.json", "allowed": true}
+{"at": "2026-10-08T03:24:32.552853+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\리서치.md", "allowed": true}
+{"at": "2026-10-08T03:24:32.553858+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\evidence_manifest.json", "allowed": true}
+{"at": "2026-10-08T03:24:32.554911+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성_네이버블로그용.html", "allowed": true}
+{"at": "2026-10-08T03:24:57.763048+00:00", "action": "source_access", "phase": "research", "resource": "https://pubmed.ncbi.nlm.nih.gov/20872595/", "allowed": true}
+{"at": "2026-10-08T03:24:57.763048+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=5298", "allowed": true}
+{"at": "2026-10-08T03:24:57.764051+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/view.do?cntnts_sn=5309", "allowed": true}
+{"at": "2026-10-08T03:24:57.764051+00:00", "action": "source_access", "phase": "research", "resource": "https://www.nice.org.uk/guidance/ng100/chapter/Recommendations", "allowed": true}
+{"at": "2026-10-08T03:24:57.765404+00:00", "action": "source_access", "phase": "research", "resource": "https://www.plymouthhospitals.nhs.uk/display-pil/pil-active-tendon-gliding-exercises-5881/", "allowed": true}
+{"at": "2026-10-08T03:24:57.766434+00:00", "action": "source_access", "phase": "research", "resource": "https://pubmed.ncbi.nlm.nih.gov/21383216/", "allowed": true}
+{"at": "2026-10-08T03:25:21.090097+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성_네이버블로그용.html", "allowed": true}
+{"at": "2026-10-08T03:25:21.091128+00:00", "action": "source_access", "phase": "research", "resource": "kkuldanji_web\\posts\\finger-joint-pain-rheumatoid-arthritis-morning-stiffness.html", "allowed": true}
+{"at": "2026-10-08T03:25:21.091128+00:00", "action": "source_access", "phase": "research", "resource": "data/posts_db.json", "allowed": true}
+{"at": "2026-10-08T03:26:24.091659+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "기존 글 검증 완료. 근거 요약 저장. 원고는 미수정이며 수정 필요 판정."}
+{"at": "2026-10-08T03:39:24.791591+00:00", "action": "transition", "previous": "writing", "phase": "research", "note": "사용자 수정 완료에 따른 이전 지적사항 재검증"}
+{"at": "2026-10-08T03:39:24.792598+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\post_data.json", "allowed": true}
+{"at": "2026-10-08T03:39:24.794721+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\리서치.md", "allowed": true}
+{"at": "2026-10-08T03:39:24.797332+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\evidence_manifest.json", "allowed": true}
+{"at": "2026-10-08T03:39:24.798381+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성_네이버블로그용.html", "allowed": true}
+{"at": "2026-10-08T03:39:42.212549+00:00", "action": "source_access", "phase": "research", "resource": "kkuldanji_web\\posts\\finger-joint-pain-rheumatoid-arthritis-morning-stiffness.html", "allowed": true}
+{"at": "2026-10-08T03:39:42.212549+00:00", "action": "source_access", "phase": "research", "resource": "data\\posts_db.json", "allowed": true}
+{"at": "2026-10-08T03:39:42.214054+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성_네이버블로그용.html", "allowed": true}
+{"at": "2026-10-08T03:40:19.584739+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "수정본 재검증 완료. 잔여 의학 표현/서지/교차중복 문제를 재검증결과에 기록."}
+{"at": "2026-10-08T03:46:10.155924+00:00", "action": "transition", "previous": "writing", "phase": "research", "note": "사용자 재수정 및 이미지 포함 재검증 요청"}
+{"at": "2026-10-08T03:46:10.156927+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\post_data.json", "allowed": true}
+{"at": "2026-10-08T03:46:10.159495+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\evidence_manifest.json", "allowed": true}
+{"at": "2026-10-08T03:46:10.160542+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\image_plan.json", "allowed": true}
+{"at": "2026-10-08T03:46:10.162003+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성_네이버블로그용.html", "allowed": true}
+{"at": "2026-10-08T03:46:39.607388+00:00", "action": "source_access", "phase": "research", "resource": "kkuldanji_web\\posts\\finger-joint-pain-rheumatoid-arthritis-morning-stiffness.html", "allowed": true}
+{"at": "2026-10-08T03:46:39.608429+00:00", "action": "source_access", "phase": "research", "resource": "data\\posts_db.json", "allowed": true}
+{"at": "2026-10-08T03:46:39.609464+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성_네이버블로그용.html", "allowed": true}
+{"at": "2026-10-08T03:46:39.616353+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\evidence_manifest.json", "allowed": true}
+{"at": "2026-10-08T03:47:50.936317+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "3차 검증 완료: 사진 6장 스티커 8장 육안 확인, 캡션/배치/서지 잔여사항 기록."}
+{"at": "2026-10-08T04:01:41.583254+00:00", "action": "transition", "previous": "writing", "phase": "research", "note": "사용자 전체 재검수와 운동 도해 수정 요청. 운동 공식 원문 및 잔여 참고문헌 재확인"}
+{"at": "2026-10-08T04:01:41.790456+00:00", "action": "source_access", "phase": "research", "resource": "https://www.plymouthhospitals.nhs.uk/display-pil/pil-active-tendon-gliding-exercises-5881/", "allowed": true}
+{"at": "2026-10-08T04:03:01.046265+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\post_data.json", "allowed": true}
+{"at": "2026-10-08T04:03:01.048329+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\evidence_manifest.json", "allowed": true}
+{"at": "2026-10-08T04:03:01.049329+00:00", "action": "source_access", "phase": "research", "resource": "꿀단지 네이버\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성\\[39]_2026-10-08_손가락-마디-통증-류마티스-퇴행성_네이버블로그용.html", "allowed": true}
+{"at": "2026-10-08T04:03:13.820232+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=5298", "allowed": true}
+{"at": "2026-10-08T04:03:13.821292+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=5309", "allowed": true}
+{"at": "2026-10-08T04:07:35.219964+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "공식 자료 추가 확인 완료, source_notes에 반영하고 이미지 및 본문 재검수 진행"}

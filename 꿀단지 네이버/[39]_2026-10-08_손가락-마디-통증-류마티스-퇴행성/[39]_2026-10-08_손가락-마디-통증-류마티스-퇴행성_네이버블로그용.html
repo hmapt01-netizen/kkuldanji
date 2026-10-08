@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>"나이 들어 쑤시나 보다 했는데" 손가락 굳는 증상 그냥 뒀다가 생긴 일</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f8fafc;
+            font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", 맑은고딕, sans-serif;
+            color: #334155;
+            line-height: 1.8;
+            word-break: keep-all;
+        }
+        .copy-banner {
+            max-width: 680px;
+            margin: 0 auto 20px auto;
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+        }
+        .copy-banner span {
+            font-size: 14px;
+            font-weight: 600;
+            color: #0f172a;
+        }
+        .copy-btn {
+            background: #22c55e;
+            color: #ffffff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .copy-btn:hover {
+            background: #16a34a;
+        }
+        .tag-banner {
+            max-width: 680px;
+            margin: 0 auto 24px auto;
+            background: #f1f5f9;
+            border-radius: 12px;
+            padding: 16px 20px;
+            border: 1px solid #cbd5e1;
+        }
+        .tag-title {
+            font-size: 13px;
+            font-weight: bold;
+            color: #475569;
+            margin-bottom: 8px;
+        }
+        .tag-list {
+            font-size: 13px;
+            color: #0284c7;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .container {
+            max-width: 680px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 40px 24px;
+            border-radius: 16px;
+            box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+            text-align: center;
+        }
+        h1.main-title {
+            font-size: 24px;
+            line-height: 1.45;
+            color: #0f172a;
+            font-weight: 800;
+            margin-bottom: 30px;
+            letter-spacing: -0.5px;
+        }
+        h2.section-title {
+            text-align: left;
+            border-left: 5px solid #22c55e;
+            padding-left: 14px;
+            margin: 44px 0 22px 0;
+            font-size: 20px;
+            font-weight: 700;
+            color: #0f172a;
+            letter-spacing: -0.3px;
+        }
+        p {
+            margin: 18px 0;
+            font-size: 16px;
+            color: #334155;
+            line-height: 1.85;
+        }
+        .img-card {
+            display: block;
+            width: 100%;
+            max-width: 680px;
+            height: auto;
+            border-radius: 12px;
+            margin: 24px auto;
+            object-fit: cover;
+        }
+        .sticker-img {
+            display: block;
+            margin: 22px auto;
+            max-width: 180px;
+            width: 100%;
+            height: auto;
+            border: none;
+        }
+        mark.yellow-highlight {
+            background: #fef08a;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-weight: 700;
+            color: #1e293b;
+        }
+        u.fact-underline {
+            text-decoration: underline;
+            text-underline-offset: 4px;
+            text-decoration-color: #22c55e;
+            text-decoration-thickness: 2px;
+            font-weight: 600;
+        }
+        .recommend-card {
+            margin: 40px 0 24px 0;
+            padding: 20px;
+            background: #f0fdf4;
+            border-radius: 12px;
+            border: 1px solid #bbf7d0;
+            text-align: left;
+        }
+        .recommend-label {
+            font-size: 13px;
+            font-weight: 700;
+            color: #16a34a;
+            margin-bottom: 6px;
+        }
+        .recommend-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #14532d;
+            text-decoration: none;
+        }
+        .ref-box {
+            margin-top: 36px;
+            padding: 18px 20px;
+            background: #f8fafc;
+            border-radius: 10px;
+            border: 1px solid #e2e8f0;
+            text-align: left;
+            font-size: 13px;
+            color: #64748b;
+            line-height: 1.65;
+        }
+        .ref-box strong {
+            color: #334155;
+            display: block;
+            margin-bottom: 6px;
+        }
+        .hashtag-footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #0284c7;
+            line-height: 1.8;
+            font-weight: 500;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 간편 복사 헤더 배너 -->
+    <div class="copy-banner">
+        <span>📋 스마트에디터 원문 간편 복사</span>
+        <button class="copy-btn" onclick="copyContent()">본문 전체 복사하기</button>
+    </div>
+
+    <!-- 해시태그 원클릭 복사 박스 -->
+    <div class="tag-banner">
+        <div class="tag-title">🏷️ 네이버 스마트에디터 태그란 복사용 해시태그</div>
+        <div class="tag-list" id="tagContent">#손가락마디통증 #손가락관절염 #조조강직 #류마티스관절염 #퇴행성관절염 #헤베르덴결절 #손가락스트레칭 #건글라이딩 #손가락굳음 #관절건강 #손가락마디부종 #에디터혀니 #꿀단지</div>
+        <button class="copy-btn" style="background:#0284c7; padding:8px 14px; font-size:13px;" onclick="copyTags()">해시태그 복사하기</button>
+    </div>
+
+    <!-- 네이버 블로그 본문 래퍼 -->
+    <div class="container" id="naverContent">
+
+        <!-- 메인 제목 -->
+        <h1 class="main-title">"나이 들어 쑤시나 보다 했는데" 손가락 굳는 증상 그냥 뒀다가 생긴 일</h1>
+
+        <!-- 대표 실물 화보 -->
+        <img src="images/thumb.jpg" alt="손가락 마디 통증: 아침 뻣뻣함의 통증 위치와 진료 신호" class="img-card">
+
+        <!-- 도입 훅 (찔리는 일상 공감 독백) -->
+        <p>
+            자고 일어난 아침, 손을 쥐었다 펴기가 뻑뻑하고<br>
+            물건을 집어 올리거나 문손잡이를 돌릴 때 찌릿했던 적 있으신가요?
+        </p>
+        <p>
+            "어제 손을 좀 많이 썼나 보다", "나이 들어 쑤시는 거겠지"<br>
+            하고 대수롭지 않게 파스 한 장 붙이고 넘기기 쉬운데요.
+        </p>
+
+        <!-- 스펙 충격 (노란 형광펜 + 깜짝 꿀벌) -->
+        <p>
+            <mark class="yellow-highlight">
+                아침에 일어난 뒤 굳어있던 손이 30분 안쪽으로 부드러워진다면 퇴행 변화에서 자주 보이는 흐름인데요.<br>
+                그렇더라도 관절 주변이 가라앉지 않은 채 통통하게 부어있다면 시간만 믿고 넘겨선 안 됩니다.
+            </mark>
+        </p>
+
+        <img src="images/stickers/sticker01_shocked.jpg" alt="충격 꿀벌 스티커" class="sticker-img">
+
+        <p>
+            아침마다 손가락이 굳어 펴지지 않으면 덜컥 걱정이 앞서기 마련이지요.<br>
+            원인을 살피는 과정 없이 방치하면 관절낭과 연골에 지속적인 부담을 줄 수 있거든요.
+        </p>
+
+        <!-- 섹션 1 -->
+        <h2 class="section-title">| 나이 탓인 줄 알았던 아침 뻣뻣함, 왜 생길까?</h2>
+
+        <img src="images/post01.jpg" alt="아침에 손가락의 움직임과 불편함을 살피는 모습" class="img-card">
+
+        <p>
+            아침에 느끼는 손의 뻣뻣함을 조조강직이라고 하는데요.<br>
+            골관절염이나 류마티스 관절염이 있으면 아침 또는 쉬고 난 뒤 뻣뻣함을 느낄 수 있어요.
+        </p>
+        <p>
+            기상 후 손을 가볍게 움직이며 30분 안쪽에 부드러워지는 것은 골관절염의 흔한 모습이지만,<br>
+            초기 류마티스에서도 굳는 시간이 짧게 스쳐 지나갈 수 있어 주의 깊게 살펴야 합니다.
+        </p>
+
+        <img src="images/stickers/sticker02_excited.jpg" alt="솔깃 꿀벌 스티커" class="sticker-img">
+
+        <p>
+            손가락 관절 마디의 부종과 열감이 사라지지 않는다면<br>
+            피 검사 수치가 정상이어도 전문적인 평가를 받아보는 것이 바람직합니다.
+        </p>
+
+        <img src="images/stickers/sticker03_detective.jpg" alt="탐정 꿀벌 스티커" class="sticker-img">
+
+        <!-- 섹션 2 -->
+        <h2 class="section-title">| 끝마디 vs 중간마디, 아픈 위치로 보는 관절 상태</h2>
+
+        <img src="images/post02.jpg" alt="끝마디·가운데마디·뿌리마디와 엄지 뿌리의 위치" class="img-card">
+
+        <p>
+            <mark class="yellow-highlight">
+                흔히 닳아서 생기는 골관절염은 손톱 쪽 끝 관절 외에도 중간 부위나 엄지 시작 관절까지 쑤심과 튀어나옴이 생깁니다.
+            </mark>
+        </p>
+        <p>
+            <u class="fact-underline">맨 끝마디에 단단하게 혹처럼 만져지는 헤베르덴이나 둘째 마디의 부샤르는 뼈 돌기가 자라나는 징후인데요.</u><br>
+            반면 전신 염증인 류마티스는 손바닥과 이어지는 뿌리 마디와 둘째 마디가 양쪽 손에서 비슷하게 붓는 경향이 있어요. 다만 한쪽만 불편하다고 배제할 수는 없습니다.
+        </p>
+
+        <img src="images/stickers/sticker04_confused.jpg" alt="멘붕 꿀벌 스티커" class="sticker-img">
+
+        <p>
+            류마티스에서 끝마디 침범은 매우 드물게 나타나는 편이지만,<br>
+            <mark class="yellow-highlight">마디 위치 하나만으로 섣불리 단정하기보다 관절 부종이 지속될 때는 내과 진료를 권장합니다.</mark>
+        </p>
+
+        <!-- 섹션 3 -->
+        <h2 class="section-title">| 아픈 관절에 무리한 자극은 금물: 피해야 할 습관</h2>
+
+        <img src="images/post04.jpg" alt="손을 무리하게 비틀지 않고 편안하게 쉬는 모습" class="img-card">
+
+        <p>
+            손마디가 답답하고 뻐근하다고 습관적으로 '우두둑' 소리를 내며 비트는 분들 계실 텐데요.<br>
+            소리를 내는 행위가 곧바로 관절 손상으로 이어진다는 명백한 입증은 없지만, 이미 쑤시는 부위에 불필요한 비틀림을 가하면 주변 조직을 덧나게 할 수 있습니다.
+        </p>
+
+        <img src="images/stickers/sticker05_exhausted.jpg" alt="탈진 꿀벌 스티커" class="sticker-img">
+
+        
+
+        <p>
+            <mark class="yellow-highlight">튀어나온 마디를 누르거나 문지를 때 아프다면 그만 멈추세요. 새로 생긴 돌기나 통증은 진료로 확인하는 편이 좋아요.</mark>
+        </p>
+        <p>
+            체온이 정상이어도 마디 하나가 갑자기 붉게 부풀어 오르면서 손도 못 댈 만큼 아프다면 세균 감염 같은 돌발 상황을 염두에 두고 지체 없이 가까운 진료실을 찾아가셔야 합니다.
+        </p>
+        <p>
+            갑자기 심하게 붓거나 아플 때는 찜질이나 운동보다 진료가 먼저예요.<br>
+            아래 그림은 힘줄 움직임을 돕는 네 가지 자세 예시예요. 통증 없이 가볍게 움직일 수 있을 때만 해보고, 아프면 중단하세요.
+        </p>
+<img src="images/post03.jpg" alt="같은 왼손을 손바닥 쪽에서 본 손 펴기·갈고리·가벼운 주먹·끝마디를 편 주먹 자세" class="img-card">
+
+        <p>그림은 모두 같은 왼손을 손바닥 쪽에서 본 모습이에요.<br>손 펴기 → 갈고리 모양 → 가벼운 주먹 → 끝마디를 편 주먹을 보여줍니다. 각 자세 사이에는 다시 손을 펴주세요. 꽉 쥐거나 억지로 굽히는 동작은 피하세요. 다쳤거나 수술한 손은 담당 선생님의 안내를 따르세요.</p>
+
+        <img src="images/stickers/sticker06_emergency.jpg" alt="비상 꿀벌 스티커" class="sticker-img">
+
+        <!-- 화보 연동 & 다정한 마무리 조언 -->
+        <img src="images/post05.jpg" alt="진료 전에 불편한 부위와 증상 양상을 기록하는 모습" class="img-card">
+
+        <p>
+            손가락 관절의 작은 신호는 내 몸이 휴식과 점검을 바라는 소중한 목소리입니다.<br>
+            아침에 손이 굳는 시간과 불편한 마디 위치를 차분히 적어두시면 진료실에서 큰 도움이 됩니다.
+        </p>
+
+        <!-- 대화형 엔딩 댓글 유도 -->
+        <img src="images/stickers/sticker07_thumbsup.jpg" alt="엄지척 꿀벌 스티커" class="sticker-img">
+
+        <p>
+            여러분은 아침에 손가락이 굳을 때 억지로 뚝뚝 꺾으셨나요,<br>
+            아니면 따뜻하게 주무르며 참으셨나요? 댓글로 편하게 경험을 나눠주세요 😊
+        </p>
+
+        <img src="images/stickers/sticker08_honeypot.jpg" alt="꿀단지 꿀벌 스티커" class="sticker-img">
+
+        <!-- 하단 추천 포스팅 카드 -->
+        <div class="recommend-card">
+            <div class="recommend-label">🍯 함께 보면 유익한 건강 가이드</div>
+            <a href="../../kkuldanji_web/posts/plantar-fasciitis-morning-heel-pain-stretching.html" class="recommend-title">
+                ▶ "아침에 첫발 디딜 때 찌릿!" 발바닥 뒤꿈치 통증과 아침 스트레칭 감별법
+            </a>
+        </div>
+
+        <!-- 공인 참고 문헌 박스 -->
+        <div class="ref-box">
+            <strong>📚 공인 의학 데이터 및 가이드라인 출처</strong>
+            • NHS: 골관절염·류마티스 관절염의 증상 안내<br>
+            • UK NICE NG100 가이드라인: 성인 류마티스 관절염 조기 감별 및 내과 의뢰 권고<br>
+            • UK NHS: 수부 골관절염 및 감염성 관절염 안내<br>• University Hospitals Plymouth NHS Trust: Active Tendon Gliding Exercises<br>• Deweber 외, 2011: 손가락 꺾기와 손 골관절염의 연관성 연구
+        </div>
+
+        <!-- 하단 해시태그 -->
+        <div class="hashtag-footer">
+            #손가락마디통증 #손가락관절염 #조조강직 #류마티스관절염 #퇴행성관절염 #헤베르덴결절 #손가락스트레칭 #건글라이딩 #손가락굳음 #관절건강 #손가락마디부종 #에디터혀니 #꿀단지
+        </div>
+
+    </div>
+
+    <!-- 복사 기능 스크립트 -->
+    <script>
+        function copyContent() {
+            const content = document.getElementById('naverContent');
+            const range = document.createRange();
+            range.selectNode(content);
+            window.getSelection().removeAllRanges();
+            window.getSelection().addRange(range);
+            try {
+                document.execCommand('copy');
+                alert('본문이 복사되었습니다! 스마트에디터에 그대로 붙여넣으세요.');
+            } catch (err) {
+                alert('복사에 실패했습니다. 마우스로 직접 드래그하여 복사해주세요.');
+            }
+            window.getSelection().removeAllRanges();
+        }
+
+        function copyTags() {
+            const tags = document.getElementById('tagContent').innerText;
+            navigator.clipboard.writeText(tags).then(() => {
+                alert('해시태그가 복사되었습니다! 네이버 태그란에 붙여넣으세요.');
+            }).catch(() => {
+                alert('해시태그 복사 실패: 직접 복사해주세요.');
+            });
+        }
+    </script>
+</body>
+</html>

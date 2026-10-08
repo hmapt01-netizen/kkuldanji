@@ -140,9 +140,12 @@ def collect_title_evidence(titles, channel, search_queries):
 
 def validate_naver_titles(titles, run_serp=True, search_queries=None):
     """
-    네이버 블로그 마스터 제목 10선 공식 검증 및 [마스터 표준 27호] 실시간 SERP 실사
+    네이버 블로그 마스터 제목 10선 공식 검증 및 [마스터 표준 0-2] 2대 트랙(홈판형 5선 + 검색혼합형 5선) 실사 검증
+    - 1~5번: 트랙 A (네이버 홈판/피드형) - 생생한 독백/대화 따옴표 훅 필수, 25~32자 슬림 숏헤드라인
+    - 6~10번: 트랙 B (홈판+검색 혼합형) - 필수 검색어 온전 보존 + 실제 고민/감별 훅 2단 결합
+    - 공통: 네이버 금칙어 0개, 말줄임표('...') 혼입 금지
     """
-    print("🔍 [네이버 제목 10선 공식 기계적 검증 시작]")
+    print("🔍 [네이버 제목 10선 2대 트랙(홈판형 5선 + 검색혼합형 5선) 공식 기계적 검증 시작]")
     errors = []
 
     if len(titles) != 10:
@@ -153,18 +156,19 @@ def validate_naver_titles(titles, run_serp=True, search_queries=None):
         if found_forbidden:
             errors.append(f"❌ {idx}번 네이버 제목 금칙어 적발: {found_forbidden} -> '{title}'")
 
+        # 트랙 A (1~5번): 홈판형 독백/대화 따옴표 훅 검증
         if 1 <= idx <= 3:
             if not ('"' in title or '“' in title or "'" in title):
-                errors.append(f"❌ 그룹 1 규격 미달 ({idx}번): 따옴표 인플루언서 독백 훅('\"...\"')이 누락되었습니다 -> '{title}'")
+                errors.append(f"❌ 트랙 A(홈판형) 규격 미달 ({idx}번): 생생한 독백/대화 따옴표 훅('\"...\"')이 누락되었습니다 -> '{title}'")
 
         if "..." in title:
-            errors.append(f"❌ 다음 채널 패턴 혼입 ({idx}번): 말줄임표('...')는 다음 채널 전용 훅입니다 -> '{title}'")
+            errors.append(f"❌ 다음 채널 패턴 혼입 ({idx}번): 말줄임표('...')는 다음 채널 전용 훅입니다. 물음표/쉼표/구어체로 종결하세요 -> '{title}'")
 
         clean_len = len(title.strip())
-        if clean_len > 60:
-            errors.append(f"❌ 글자 수 초과 ({idx}번, {clean_len}자): 네이버 검색 노출을 위해 60자 이하여야 합니다 (권장 25~55자) -> '{title}'")
+        if clean_len > 45:
+            errors.append(f"❌ 글자 수 초과 ({idx}번, {clean_len}자): 네이버 모바일 1~2줄 완독 및 검색 결과 잘림 방지를 위해 45자 이하여야 합니다 (권장 25~35자) -> '{title}'")
         elif clean_len < 18:
-            errors.append(f"❌ 글자 수 부족 ({idx}번, {clean_len}자): 검색 키워드 유입을 위해 최소 18자 이상이어야 합니다 -> '{title}'")
+            errors.append(f"❌ 글자 수 부족 ({idx}번, {clean_len}자): 검색 키워드 및 체감 훅 전달을 위해 최소 18자 이상이어야 합니다 -> '{title}'")
 
     if errors:
         print("\n🚨 [검증 실패: 규격 미달]")
@@ -172,7 +176,7 @@ def validate_naver_titles(titles, run_serp=True, search_queries=None):
             print(f"  {err}")
         return False
 
-    print("\n🎉 [100% 검증 통과] 네이버 제목 10선이 3대 그룹 공식 및 금칙어(실익·셈법·맹점 포함) 0개를 완벽히 충족했습니다!")
+    print("\n🎉 [100% 검증 통과] 네이버 제목 10선이 [트랙 A: 홈판형 5선] + [트랙 B: 검색혼합형 5선] 2대 트랙 규격을 완벽히 충족했습니다!")
 
     if run_serp:
         collect_title_evidence(titles, 'naver', search_queries)

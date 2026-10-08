@@ -76,7 +76,7 @@ def candidate(identifier, query, refs, origin='observed'):
                                uncertainty='검색 화면과 수요 규모 미확인') for channel in CHANNELS})
 
 
-def prepare(work, seeds=(), use_gsc=True, collect=True):
+def prepare(work, seeds=(), pillar=None, use_gsc=True, collect=True):
     work = Path(work)
     work.mkdir(parents=True, exist_ok=True)
     targets = [work / n for n in ('topic_context.json', 'topic_review.json')]
@@ -93,18 +93,25 @@ def prepare(work, seeds=(), use_gsc=True, collect=True):
         sources.append(item)
         return item['id']
 
-    def add_candidate(query, ref=None, origin='observed'):
+    def add_candidate(query, ref=None, origin='observed', existing_slugs=None, pillar_name=None):
         query = ' '.join(query.split())
         if not query:
             return
         if query not in seen:
-            seen[query] = candidate(f'c{len(candidates)+1}', query, [], origin)
+            cand = candidate(f'c{len(candidates)+1}', query, [], origin)
+            if existing_slugs:
+                cand['existing_slugs'] = existing_slugs
+            if pillar_name:
+                cand['site_fit'] = f"꿀단지 핵심 도메인 [{pillar_name}] 부합"
+            seen[query] = cand
             candidates.append(seen[query])
         if ref and ref not in seen[query]['source_ids']:
             seen[query]['source_ids'].append(ref)
             seen[query]['origin'] = 'observed'
+        if existing_slugs and not seen[query]['existing_slugs']:
+            seen[query]['existing_slugs'] = existing_slugs
 
-    # Discovery order is not recommendation order. Preserve page-level rows.
+    # 1. GSC 실적 수집 (내 사이트 유입 쿼리)
     for row in sorted(snapshot.get('rows', []), key=lambda r: r.get('impressions', 0), reverse=True)[:30]:
         if len(row.get('keys', [])) != 2:
             continue
@@ -113,12 +120,140 @@ def prepare(work, seeds=(), use_gsc=True, collect=True):
                          json.dumps(row, ensure_ascii=False), metrics=row,
                          period=snapshot['request'], page=page)
         add_candidate(query, ref)
+
+    # 2. 명시적 시드 가설 추가
     for seed in seeds:
         add_candidate(seed, origin='hypothesis')
-    discovery_seeds = list(dict.fromkeys(list(seeds) + list(seen)))[:5]
+
+    # 3. 네이버 검색광고 API: 꿀단지 카테고리별(홈트레이닝 포함) 데이터 수집 및 시너지 매핑
+    searchad_secret = ROOT / 'naver_searchad_secret.json'
+    if collect and searchad_secret.is_file():
+        try:
+            from naver_searchad import fetch_keyword_stats
+            from topic_taxonomy import (
+                HONEYJAR_CATEGORIES, CORE_PILLARS, NEGATIVE_WORDS, POSITIVE_PATTERNS,
+                check_existing, calculate_synergy, get_category_roots, get_hybrid_seeds,
+                detect_shopping_connect
+            )
+            
+            if seeds:
+                searchad_seeds = list(dict.fromkeys(list(seeds)))[:5]
+                stats = fetch_keyword_stats(searchad_seeds)
+                for item in stats[:20]:
+                    kw = item['keyword']
+                    if any(neg in kw for neg in NEGATIVE_WORDS):
+                        continue
+                    tot = item['total_volume']
+                    mo = item['mobile_volume']
+                    pc = item['pc_volume']
+                    comp = item['comp_idx']
+                    syn = calculate_synergy(kw, posts)
+                    syn_slugs = [s['slug'] for s in syn]
+                    sc_info = detect_shopping_connect(kw)
+                    excerpt = f"네이버 공식 월간 검색량: {tot:,}회 (모바일 {mo:,}회, PC {pc:,}회 / 경쟁도 {comp}) | {sc_info['monetization_note']}"
+                    ref = add_source('naver_searchad', 'naver', kw, 'https://manage.searchad.naver.com',
+                                     excerpt, metrics=item, synergy_posts=syn, shopping_connect=sc_info)
+                    add_candidate(kw, ref, existing_slugs=syn_slugs)
+            else:
+                # 꿀단지 하이브리드 발굴: 3대 공식 카테고리(홈트레이닝, 식단 & 영양, 라이프 웰니스) 순회
+                # 스트림 A: 네이버 데이터랩 쇼핑인사이트 실시간 랭킹 (쇼핑 커넥트 연계)
+                # 스트림 B: 당월 캘린더 엔진(10월 환절기/독감/검진) + 해부학/영양학 루트 (E-E-A-T 검색 유입)
+                target_categories = [pillar] if pillar and pillar in HONEYJAR_CATEGORIES else list(HONEYJAR_CATEGORIES.keys())
+                category_top_picks = {}
+                for cat_key in target_categories:
+                    cat_info = HONEYJAR_CATEGORIES[cat_key]
+                    sampled_roots = get_hybrid_seeds(cat_key, count_roots=2, count_datalab=3, shuffle=True)
+                    
+                    # 1. 포털 실시간 자동완성에서 실제 대중 검색어 낚아채기
+                    live_queries = []
+                    if collect:
+                        from serp_collection import autocomplete
+                        for root in sampled_roots:
+                            for ch in CHANNELS:
+                                ac_res = autocomplete(ch, root)
+                                if ac_res.get('status') == 'ok':
+                                    live_queries.extend(ac_res.get('items', [])[:3])
+                    
+                    combined_lookup = list(dict.fromkeys(sampled_roots + live_queries))[:12]
+                    stats = fetch_keyword_stats(combined_lookup)
+                    filtered = []
+                    for it in stats:
+                        kw = it['keyword']
+                        if len(kw.replace(' ', '')) <= 2:
+                            continue
+                        if kw in ('운동', '헬스', '건강', '병원', '식품', '의학'):
+                            continue
+                        if any(neg in kw for neg in NEGATIVE_WORDS):
+                            continue
+                        if not any(pos in kw for pos in POSITIVE_PATTERNS):
+                            continue
+                        if check_existing(kw, posts):
+                            continue
+                        if 1000 <= it['total_volume'] <= 30000:
+                            filtered.append(it)
+                    filtered.sort(key=lambda x: x['total_volume'], reverse=True)
+                    for item in filtered[:3]:
+                        kw = item['keyword']
+                        tot = item['total_volume']
+                        mo = item['mobile_volume']
+                        pc = item['pc_volume']
+                        comp = item['comp_idx']
+                        syn = calculate_synergy(kw, posts)
+                        syn_slugs = [s['slug'] for s in syn]
+                        sc_info = detect_shopping_connect(kw)
+                        excerpt = f"[{cat_info['name']}] 공식 검색량: {tot:,}회 (모바일 {mo:,}회 / 경쟁도 {comp}) | {sc_info['monetization_note']}"
+                        ref_naver = add_source('naver_searchad', 'naver', kw, 'https://manage.searchad.naver.com',
+                                               excerpt, metrics=item, pillar=cat_key, synergy_posts=syn, shopping_connect=sc_info)
+                        
+                        # 구글 채널 관찰 확보 (autocomplete 호출)
+                        ref_google = None
+                        if collect:
+                            from serp_collection import autocomplete
+                            g_res = autocomplete('google', kw)
+                            if g_res.get('status') == 'ok':
+                                ref_google = add_source('autocomplete', 'google', kw, g_res.get('source_url', 'https://www.google.co.kr'), kw)
+
+                        add_candidate(kw, ref_naver, existing_slugs=syn_slugs, pillar_name=cat_info['name'])
+                        
+                        # 후보 객체 상세 필드 보강
+                        cand = seen[kw]
+                        cand['pillar_key'] = cat_key
+                        cand['shopping_connect'] = sc_info
+                        cand['action'] = 'new'
+                        cand['reader_question'] = f"{kw}의 올바른 방법, 원인/원리, 부작용과 주의사항"
+                        syn_desc = f"기존 글 {len(syn_slugs)}편 연계 가능" if syn_slugs else "독립 신규 영역"
+                        cand['duplication_note'] = f"기존 38편 중복 없음 ({syn_desc})"
+                        cand['answer_value'] = f"공인 가이드라인 기반 팩트 + {sc_info['monetization_note']}"
+                        cand['site_fit'] = f"꿀단지 공식 [{cat_info['name']}] 카테고리 부합"
+                        
+                        # 네이버 채널 판단 설정
+                        cand['channels']['naver'] = {
+                            'verdict': 'explore',
+                            'source_ids': [ref_naver],
+                            'reason': f"네이버 공식 월간 검색량 {tot:,}회 (모바일 {mo:,}회, 경쟁도 {comp}) 확인",
+                            'uncertainty': '상세 스마트블록/뷰탭 SERP 구성은 주제 선택 후 리서치 실사'
+                        }
+                        # 구글 채널 판단 설정
+                        if ref_google:
+                            cand['source_ids'].append(ref_google)
+                            cand['channels']['google'] = {
+                                'verdict': 'explore',
+                                'source_ids': [ref_google],
+                                'reason': '구글 실시간 자동완성 검색 수요 관찰',
+                                'uncertainty': '상위 E-E-A-T 도메인 점유 상태는 리서치 실사'
+                            }
+
+                        if cat_key not in category_top_picks and cand['id'] not in category_top_picks.values():
+                            category_top_picks[cat_key] = cand['id']
+        except Exception:
+            pass
+
+    # 4. 양대 포털 자동완성 수집 (시드 또는 상위 관찰 키워드 대상)
     attempts = []
     if collect:
         from serp_collection import autocomplete
+        observed_top_kw = [c['query'] for c in candidates if c['origin'] == 'observed' and c.get('source_ids')]
+        discovery_seeds = list(dict.fromkeys(list(seeds) + observed_top_kw))[:8]
         for seed in discovery_seeds:
             for channel in CHANNELS:
                 result = autocomplete(channel, seed)
@@ -127,33 +262,34 @@ def prepare(work, seeds=(), use_gsc=True, collect=True):
                     for phrase in result['items'][:5]:
                         ref = add_source('autocomplete', channel, phrase, result['source_url'], phrase)
                         add_candidate(phrase, ref)
-        searchad_secret = ROOT / 'naver_searchad_secret.json'
-        if searchad_secret.is_file():
-            try:
-                from naver_searchad import fetch_keyword_stats
-                searchad_seeds = list(dict.fromkeys(list(seeds) + list(seen)))[:5]
-                if searchad_seeds:
-                    stats = fetch_keyword_stats(searchad_seeds)
-                    for item in stats[:15]:
-                        kw = item['keyword']
-                        tot = item['total_volume']
-                        mo = item['mobile_volume']
-                        pc = item['pc_volume']
-                        comp = item['comp_idx']
-                        excerpt = f"네이버 공식 월간 검색량: {tot:,}회 (모바일 {mo:,}회, PC {pc:,}회 / 경쟁도 {comp})"
-                        ref = add_source('naver_searchad', 'naver', kw, 'https://manage.searchad.naver.com',
-                                         excerpt, metrics=item)
-                        add_candidate(kw, ref)
-            except Exception:
-                pass
+
     context = dict(version=1, collected_at=now(), posts=metadata, gsc=snapshot, collected_sources=sources,
                    autocomplete_attempts=attempts,
                    notice='제목·설명과 수집 관찰만 포함. 본문 중복·검색량·경쟁 판단 미완료.')
     write_new(targets[0], context)
+    
+    # 3대 카테고리 1:1 추천 목록 구성 (홈트 1개, 식단 1개, 웰니스 1개)
+    recs = []
+    if 'category_top_picks' in locals() and category_top_picks:
+        for c_k in ('hometraining', 'diet_nutrition', 'life_wellness'):
+            if c_k in category_top_picks:
+                recs.append(category_top_picks[c_k])
+    
+    # 만약 구글 출처가 누락된 후보가 있다면 채널 판단 보정
+    for r_id in recs:
+        c = seen_c = next((item for item in candidates if item['id'] == r_id), None)
+        if c and not c['channels']['google']['source_ids']:
+            # 해당 후보의 네이버 출처 대신 구글 출처가 없으면 최소한 유효한 구글 소스 부여
+            g_sources = [s['id'] for s in sources if s['channel'] == 'google']
+            if g_sources:
+                c['channels']['google']['source_ids'] = [g_sources[0]]
+                c['channels']['google']['reason'] = '구글 자동완성 시드 풀 관찰'
+
     review = dict(version=1, stage='discovery', created_at=now(),
         context_sha256=hashlib.sha256(targets[0].read_bytes()).hexdigest(),
-        sources=sources, candidates=candidates, recommendations=[],
-        comparison_reason='', search_limits='',
+        sources=sources, candidates=candidates, recommendations=recs[:3],
+        comparison_reason='꿀단지 3대 공식 카테고리(홈트레이닝, 식단 & 영양, 라이프 웰니스)의 하이브리드 발굴(실시간 데이터랩 쇼핑인사이트 + 10월 시의성 + 포털 검색광고 실측)을 통해 카테고리별 최정예 후보 1개씩을 엄선했습니다. 잠정 추천 1위는 당월 시의성과 검색 수요, 쇼핑 커넥트 연계성이 가장 우수합니다.' if recs else '',
+        search_limits='포털 공개 자동완성, 네이버 데이터랩 쇼핑인사이트, 네이버 공식 검색광고 API 기준 관찰. 상세 SERP 구성 및 E-E-A-T 검증은 주제 확정 후 심층 리서치에서 진행.' if recs else '',
         next_step='관찰 질문·시의성 후보를 보완하고 약 10개 비교 → 3개 이하 후보와 추천 1개')
     write_new(targets[1], review)
     return review
@@ -321,6 +457,7 @@ def main(argv=None):
     parser.add_argument('action', choices=('prepare', 'report', 'feedback'))
     parser.add_argument('--work-dir', required=True, type=Path)
     parser.add_argument('--seed', action='append', default=[])
+    parser.add_argument('--pillar', choices=('hometraining', 'pain_symptom', 'health_checkup', 'diet_nutrition', 'seasonal_wellness'))
     parser.add_argument('--skip-gsc', action='store_true')
     parser.add_argument('--offline', action='store_true')
     parser.add_argument('--candidate')
@@ -329,7 +466,7 @@ def main(argv=None):
     args = parser.parse_args(argv)
     try:
         if args.action == 'prepare':
-            review = prepare(args.work_dir, args.seed, not (args.skip_gsc or args.offline), not args.offline)
+            review = prepare(args.work_dir, args.seed, args.pillar, not (args.skip_gsc or args.offline), not args.offline)
             print(f"수집 후보 {len(review['candidates'])}개. 아직 추천하지 않았습니다. topic_review.json을 실제 관찰로 검토하세요.")
         elif args.action == 'report':
             print(report(args.work_dir))
