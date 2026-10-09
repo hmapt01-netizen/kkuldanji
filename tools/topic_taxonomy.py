@@ -227,14 +227,23 @@ def check_existing(kw, posts):
     for p in posts:
         t_c = p.get("title", "").replace(" ", "")
         s_c = p.get("slug", "").replace("-", "")
-        if len(kw_c) >= 3 and (kw_c in t_c or kw_c in s_c):
+        d_c = p.get("desc", "").replace(" ", "")
+        if len(kw_c) >= 3 and (kw_c in t_c or kw_c in s_c or kw_c in d_c):
             return p
+    tokens = [t for t in ["손가락", "마디", "통증", "류마티스", "퇴행성", "관절염", "족저근막염", "비염", "독감", "백신", "위내시경", "수면내시경", "공복혈당", "중성지방", "단백뇨"] if t in kw_c]
+    if len(tokens) >= 2:
+        for p in posts:
+            t = p.get("title", "")
+            if all(tok in t for tok in tokens):
+                return p
     return None
 
 
 def calculate_synergy(kw, posts):
-    """키워드와 기존 38편 글의 토픽 클러스터(내부 링크 시너지)를 계산합니다."""
+    """키워드와 기존 39편 글의 토픽 클러스터(내부 링크 시너지)를 계산합니다."""
     synergy_rules = [
+        # 손가락 / 관절 / 류마티스 / 손목
+        (["손가락", "관절", "류마티스", "마디", "손목", "방아쇠"], ["finger-joint-pain-rheumatoid-arthritis-morning-stiffness"]),
         # 허리 / 척추 / 코어 / 폼롤러
         (["허리", "디스크", "척추", "협착증", "요추", "골반", "기립근", "폼롤러"], ["pelvic-stretching-back-pain-relief", "core-exercise-home"]),
         # 목 / 어깨 / 거북목 / 목견인기

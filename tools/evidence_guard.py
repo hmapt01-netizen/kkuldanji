@@ -273,6 +273,9 @@ def extract_factual_quantities(text: str) -> set:
     clean = re.sub(r'<[^>]+>', ' ', clean)
     clean = re.sub(r'&[a-zA-Z0-9#]+;', ' ', clean)
 
+    # 2-1. 공정위/쇼핑 커넥트 법정 고지 문구 제거 (의학/건강 수치와 무관한 제휴 운영 문구)
+    clean = re.sub(r'이\s*포스팅은\s*네이버\s*쇼핑\s*커넥트.*?실적에서\s*제외됩니다\.?', ' ', clean, flags=re.DOTALL)
+
     # 3. 날짜 메타데이터 제거 (YYYY년 M월 D일, YYYY-MM-DD, M월 D일 등)
     clean = re.sub(r'\b\d{4}[-./년]\s*\d{1,2}[-./월]\s*\d{1,2}일?', ' ', clean)
     clean = re.sub(r'\b\d{1,2}월\s*\d{1,2}일\b', ' ', clean)
