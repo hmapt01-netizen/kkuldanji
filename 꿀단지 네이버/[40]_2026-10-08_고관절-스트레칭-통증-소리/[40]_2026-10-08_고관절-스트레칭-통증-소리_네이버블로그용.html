@@ -2,16 +2,132 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>“걸을 때마다 뚝뚝?” 고관절 소리와 스트레칭 주의 신호, 연골 지키는 안전 이완법</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background-color: #f8fafc;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", 맑은고딕, sans-serif;
+      color: #334155;
+      line-height: 1.8;
+      word-break: keep-all;
+    }
+    .copy-banner {
+      max-width: 720px;
+      margin: 0 auto 14px auto;
+      background: #ffffff;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    }
+    .copy-banner span {
+      font-size: 14px;
+      font-weight: 600;
+      color: #0f172a;
+    }
+    .copy-btn {
+      background: #22c55e;
+      color: #ffffff;
+      border: none;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .copy-btn:hover {
+      background: #16a34a;
+    }
+    .tag-banner {
+      max-width: 720px;
+      margin: 0 auto 24px auto;
+      background: #f1f5f9;
+      border-radius: 12px;
+      padding: 16px 20px;
+      border: 1px solid #cbd5e1;
+    }
+    .tag-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: #475569;
+      margin-bottom: 8px;
+    }
+    .tag-list {
+      font-size: 13px;
+      color: #0284c7;
+      line-height: 1.6;
+      margin-bottom: 12px;
+    }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 40px 24px;
+      border-radius: 16px;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.05);
+    }
+    h1.main-title {
+      font-size: 24px;
+      line-height: 1.45;
+      color: #0f172a;
+      font-weight: 800;
+      margin-bottom: 24px;
+      letter-spacing: -0.5px;
+      text-align: center;
+    }
+    .hashtag-footer {
+      margin-top: 32px;
+      padding-top: 16px;
+      border-top: 1px dashed #cbd5e1;
+      font-size: 14px;
+      color: #0284c7;
+      line-height: 1.8;
+      font-weight: 600;
+      text-align: center;
+    }
+  </style>
 </head>
-<body style="font-family:'Apple SD Gothic Neo', 'Malgun Gothic', sans-serif; line-height:1.8; color:#333; max-width:720px; margin:0 auto; padding:20px;">
+<body>
 
-  <!-- 상단 공정위 고지 (단정하고 선명한 1줄) -->
-  <p style="text-align:center; font-size:0.88rem; color:#475569; margin:12px 0 24px 0; font-weight:500;">
-    "이 포스팅은 네이버 쇼핑 커넥트 활동의 일환으로, 판매 발생 시 수수료를 제공받습니다."
-  </p>
+  <!-- 제목 복사 헤더 배너 -->
+  <div class="copy-banner">
+    <span>📌 네이버 제목: <strong id="titleText">“걸을 때마다 뚝뚝?” 고관절 소리와 스트레칭 주의 신호, 연골 지키는 안전 이완법</strong></span>
+    <button class="copy-btn" style="background:#03c75a;" onclick="copyTitle()">제목 복사하기</button>
+  </div>
 
-  <!-- 대표 이미지 -->
+  <!-- 간편 본문 복사 헤더 배너 -->
+  <div class="copy-banner">
+    <span>📋 스마트에디터 원문 간편 복사</span>
+    <button class="copy-btn" onclick="copyContent()">본문 전체 복사하기</button>
+  </div>
+
+  <!-- 해시태그 원클릭 복사 박스 -->
+  <div class="tag-banner">
+    <div class="tag-title">🏷️ 네이버 스마트에디터 태그란 복사용 해시태그</div>
+    <div class="tag-list" id="tagContent">#고관절스트레칭 #고관절소리 #고관절뚝뚝 #발음성고관절 #고관절통증 #고관절연골 #골반스트레칭 #사타구니통증 #대퇴비구충돌증후군 #홈트레이닝 #요가매트 #폼롤러 #에디터혀니 #꿀단지</div>
+    <button class="copy-btn" style="background:#0284c7; padding:8px 14px; font-size:13px;" onclick="copyTags()">해시태그 복사하기</button>
+  </div>
+
+  <!-- 네이버 블로그 본문 래퍼 -->
+  <div class="container" id="naverContent">
+
+    <!-- 메인 제목 -->
+    <h1 class="main-title">“걸을 때마다 뚝뚝?” 고관절 소리와 스트레칭 주의 신호, 연골 지키는 안전 이완법</h1>
+
+    <!-- 상단 공정위 고지 (단정하고 선명한 1줄) -->
+    <p style="text-align:center; font-size:0.88rem; color:#475569; margin:12px 0 24px 0; font-weight:500;">
+      "이 포스팅은 네이버 쇼핑 커넥트 활동의 일환으로, 판매 발생 시 수수료를 제공받습니다."
+    </p>
+
+    <!-- 대표 이미지 -->
   <p style="text-align:center; margin:24px 0 6px 0;">
     <img src="images/thumb.jpg" alt="골반을 짚으며 고관절 소리와 통증 여부를 확인해보는 모습" style="max-width:100%; height:auto; border-radius:8px;">
   </p>
@@ -212,10 +328,52 @@
     </p>
   </div>
 
+  <!-- 하단 해시태그 -->
+  <div class="hashtag-footer">
+    #고관절스트레칭 #고관절소리 #고관절뚝뚝 #발음성고관절 #고관절통증 #고관절연골 #골반스트레칭 #사타구니통증 #대퇴비구충돌증후군 #홈트레이닝 #요가매트 #폼롤러 #에디터혀니 #꿀단지
+  </div>
+
   <!-- 하단 공정위 대가성 문구 안내 -->
   <div style="margin-top:28px; font-size:0.84rem; color:#94a3b8; text-align:center;">
     이 포스팅은 네이버 쇼핑 커넥트 활동의 일환으로, 판매 발생 시 수수료를 제공받습니다.
   </div>
 
+  </div>
+
+  <!-- 복사 기능 스크립트 -->
+  <script>
+    function copyTitle() {
+      const title = document.getElementById('titleText').innerText;
+      navigator.clipboard.writeText(title).then(() => {
+        alert('네이버 제목이 복사되었습니다! 제목 입력란에 붙여넣으세요.');
+      }).catch(() => {
+        alert('제목 복사 실패: 직접 드래그하여 복사해주세요.');
+      });
+    }
+
+    function copyContent() {
+      const content = document.getElementById('naverContent');
+      const range = document.createRange();
+      range.selectNode(content);
+      window.getSelection().removeAllRanges();
+      window.getSelection().addRange(range);
+      try {
+        document.execCommand('copy');
+        alert('본문이 복사되었습니다! 스마트에디터에 그대로 붙여넣으세요.');
+      } catch (err) {
+        alert('복사에 실패했습니다. 마우스로 직접 드래그하여 복사해주세요.');
+      }
+      window.getSelection().removeAllRanges();
+    }
+
+    function copyTags() {
+      const tags = document.getElementById('tagContent').innerText;
+      navigator.clipboard.writeText(tags).then(() => {
+        alert('해시태그가 복사되었습니다! 네이버 태그란에 붙여넣으세요.');
+      }).catch(() => {
+        alert('해시태그 복사 실패: 직접 복사해주세요.');
+      });
+    }
+  </script>
 </body>
 </html>
