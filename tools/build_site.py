@@ -100,6 +100,55 @@ def sanitize_body_faq(body_html):
     clean = re.sub(r'\s*data-ke-[a-zA-Z0-9_-]+(?:=(?:["\'][^"\']*["\']|[^\s>]+))?', '', clean)
     return clean.strip()
 
+def inject_standard_toc(body_html):
+    """
+    [마스터 표준] 꿀단지 단일 공식 목차(Auto-TOC) 자동 생성 엔진
+    - 수동/구형/인라인 목차 태그를 완벽히 제거(Zero Manual Inconsistency)
+    - 본문의 <h2> 태그들을 순회하며 id="sec1", "sec2"... 표준 앵커 부여
+    - master_template.html의 영구 CSS 규격(.toc-box, .toc-title, .toc-list, .toc-num)에 맞춘
+      단일 표준 목차 컴포넌트를 첫 번째 <h2> 바로 앞에 100% 자동 주입
+    """
+    if not body_html:
+        return ""
+    clean_body = re.sub(r'<nav\b[^>]*class=["\'][^"\']*toc-box[^"\']*["\'][^>]*>[\s\S]*?</nav>', '', body_html, flags=re.I)
+    clean_body = re.sub(r'<nav\b[^>]*>[\s\S]*?📖?\s*목차[\s\S]*?</nav>', '', clean_body, flags=re.I)
+    clean_body = re.sub(r'<div\b[^>]*class=["\'][^"\']*toc-box[^"\']*["\'][^>]*>[\s\S]*?</ul>\s*</div>', '', clean_body, flags=re.I)
+    h2_matches = list(re.finditer(r'<h2\b([^>]*)>([\s\S]*?)</h2>', clean_body, flags=re.I))
+    if len(h2_matches) < 2:
+        return clean_body
+    toc_items = []
+    replacements = []
+    sec_idx = 1
+    for match in h2_matches:
+        attrs = match.group(1)
+        inner_content = match.group(2)
+        plain_title = re.sub(r'<[^>]+>', '', inner_content).strip()
+        if any(keyword in plain_title for keyword in ["자주 묻는 질문", "자주묻는질문", "FAQ", "참고 문헌", "참고문헌"]):
+            continue
+        normalized_title = re.sub(r'^\d+[\.\)]\s*', '', plain_title).strip()
+        toc_items.append((sec_idx, normalized_title))
+        clean_attrs = re.sub(r'\s*id=["\'][^"\']*["\']', '', attrs)
+        new_h2 = f'<h2 id="sec{sec_idx}"{clean_attrs}>{inner_content}</h2>'
+        replacements.append((match.start(), match.end(), new_h2))
+        sec_idx += 1
+    if not toc_items:
+        return clean_body
+    for start, end, new_tag in reversed(replacements):
+        clean_body = clean_body[:start] + new_tag + clean_body[end:]
+    toc_lines = [f'        <li><a href="#sec{i}"><span class="toc-num">{i}.</span> <span>{title}</span></a></li>' for i, title in toc_items]
+    standard_toc = f'''<nav class="toc-box" aria-label="목차">
+    <div class="toc-title">📖 목차</div>
+    <ul class="toc-list">
+{chr(10).join(toc_lines)}
+    </ul>
+</nav>'''
+    first_h2_pos = clean_body.find('<h2 id="sec1"')
+    if first_h2_pos != -1:
+        clean_body = clean_body[:first_h2_pos] + standard_toc + "\n\n" + clean_body[first_h2_pos:]
+    else:
+        clean_body = standard_toc + "\n\n" + clean_body
+    return clean_body
+
 # Build Registry Data
 registry_items = []
 for p in posts:
@@ -222,6 +271,7 @@ for idx, p in enumerate(posts):
     out = out.replace("{{ACADEMIC_SOURCE}}", p.get("academicSource", "임상영양학·보건학 연구 데이터 기반"))
     out = out.replace("{{FEATURED_IMAGE_HTML}}", featured_img_html)
     cleaned_body_html = sanitize_body_faq(deduplicate_body_first_image(p["bodyHtml"], p.get("thumb", "")))
+    cleaned_body_html = inject_standard_toc(cleaned_body_html)
     cleaned_body_html = re.sub(
         r'<div class="post-img-wrap"([^>]*)>\s*(<img[^>]+>)\s*<p[^>]*>([\s\S]*?)</p>\s*</div>',
         r'<div class="post-img-wrap"\1>\n    \2\n    <div class="img-caption" style="font-size:0.83rem !important; color:#64748b !important; margin-top:8px !important; line-height:1.4 !important; text-align:center !important;">\3</div>\n</div>',
