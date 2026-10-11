@@ -137,7 +137,7 @@ def inject_standard_toc(body_html):
         clean_body = clean_body[:start] + new_tag + clean_body[end:]
     toc_lines = [f'        <li><a href="#sec{i}"><span class="toc-num">{i}.</span> <span>{title}</span></a></li>' for i, title in toc_items]
     standard_toc = f'''<nav class="toc-box" aria-label="목차">
-    <div class="toc-title">📖 목차</div>
+    <div class="toc-title">목차</div>
     <ul class="toc-list">
 {chr(10).join(toc_lines)}
     </ul>
