@@ -1,0 +1,1 @@
+6장 육안 재검수. 4번 채반 부유 오류 수정, 5번 네이버 본문과 맞도록 백미 변경. 나머지 4장에서는 뚜렷한 형태 오류 미발견. 내장 image_gen 사용. 수정 프롬프트: post04 - support sieve rim on metal mixing bowl resting on countertop, preserve soaking cabbage and kitchen. post05 - change only mixed grain rice to white rice, preserve person and scene. 네이버 및 구글 자산 교체, 공개 배포 안 함.

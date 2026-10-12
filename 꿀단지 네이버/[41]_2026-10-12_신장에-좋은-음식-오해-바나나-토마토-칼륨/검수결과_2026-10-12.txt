@@ -1,0 +1,41 @@
+검수일: 2026-10-12 (한국 시간)
+대상: 41번 신장에 좋은 음식 오해 — 네이버 HTML, post_data.json, 리서치.md, evidence_manifest.json, 로컬 생성 구글 페이지
+종합 판정: 수정 필요. 원고/DB/배포 내용은 변경하지 않음.
+
+[우선 수정할 내용]
+1. 두 제목의 '콩팥 망치는/기능 떨어뜨리는' 인과관계는 현재 제시 근거로 입증되지 않음. 콩팥 기능 저하로 칼륨 배출이 어려워지는 위험과 음식 자체가 기능을 떨어뜨린다는 주장은 구분해야 함.
+2. 구글의 eGFR 60 미만이면 급격히 칼륨 배설이 떨어지고 5.5 이상으로 치솟는다는 설명, 단백뇨 양성 또는 당뇨·고혈압 10년이면 반드시 제한한다는 FAQ는 일률적 적용 근거 부족. 혈중 칼륨·약물·신기능·개별 처방을 기준으로 설명해야 함.
+3. 두 글의 백미가 모든 콩팥 환자의 안전한 표준/의학적 정답이라는 주장은 과도함. 잡곡 섭취는 검사 결과와 영양 상태 등에 따라 개별화해야 함.
+4. 구글 표는 100g 기준이라고 쓰고 바나나·토마토는 1개 수치를 사용. 리서치의 도정 곡물 수치를 본문에서 조리된 밥 수치로 변경했고 리서치 내부에서도 백미 100g/밥 210g 수치가 혼재. 식품 코드·조리 상태·가식부 중량을 확정하여 재산출 필요. 인 수치 120~140 대 290~310은 '3배 이상'이라고 일반화할 수도 없음.
+5. 구글 '농축된 채소즙은 한 모금만으로도 응급실행 고칼륨 폭탄'은 섭취량·상태를 무시한 과장. 두 글의 공포 표현을 조건부 위험 설명으로 수정 필요.
+6. '칼륨 50%/반으로 줄이는' 소제목은 모든 채소·조리 조건에서 보장되지 않음. 일부 칼륨 감소와 섭취량 조절을 설명하고 정량 효과는 해당 식품/실험 근거가 있을 때만 표시.
+7. 리서치의 인용문과 manifest의 '기반 요약' 표시가 불일치. 학회 FAQ 목록·영양 DB 주소를 특정 진료지침 제목으로 표시한 참고문헌은 실제 문서와 일치 여부 재확인 필요. 원문 대조 없는 '100% 정합 입증' 기록을 검증 완료 증거로 인정하지 않음.
+
+[파일 및 편집 검사]
+네이버: audit_naver_post FAIL. 자동 금칙어 12종, 외부 링크 1개. 기관명·편집 UI에서 잡힌 단어가 있어 전부 본문 오류나 검색 불이익으로 판단하지 않음.
+네이버: 스티커 8개 참조 중 실제 파일 5개 누락.
+- images/stickers/sticker04_smart.jpg
+- images/stickers/sticker05_question.jpg
+- images/stickers/sticker06_crying.jpg
+- images/stickers/sticker07_sigh.jpg
+- images/stickers/sticker08_thinking.jpg
+네이버: 제목 37자(현재 Codex 40~60자 규칙 미달), H2 3개. 검사기 텍스트 2088자(공백 포함; 순수 본문 별도 계측 아님).
+구글: validate_body_style FAIL — toc-box 목차 없음. figure 및 figcaption 0개(사진은 div/p 방식).
+이미지: thumb와 본문 5장 모두 1280x720, 112~160KB. 본문 3:2 규격 대신 16:9.
+DB: data/posts_db.json 해당 slug 1개, bodyHtml은 post_data.json과 일치.
+교차검사: H2·캡션 완전 동일 항목 0개, 4-gram 중복률 1.96%. 금칙어/외부 링크 항목으로 전체 FAIL. 수치는 검색 순위나 완전 독창성을 보장하지 않음.
+로컬 사이트: HTML 52개, 내부 링크 1446개, 에셋 960개. required/link/asset/html/favicon/encoding/pagination/rss 각각 오류 0건. 레지스트리 41개 글.
+주의: 사이트 에셋 통과 범위에 네이버 별도 패키지는 포함되지 않으므로 스티커 누락과 양립함.
+미실행: 브라우저 시각 검수, 공개 서버 새 글 반영/색인, 외부 링크 전체 원문 대조.
+상태 기록: source_access_guard는 topic, workflow_guard는 naver_titles를 반환. Codex 완료 기록 없음. 타 도구에서 작성된 글의 승인 유무를 이 상태만으로 단정하지 않음.
+
+[공식 자료 검색 대조]
+검수 단계에서 저장 근거와 자체 원고를 읽고, 다음 공식 출처 검색 결과 텍스트를 추가 대조함. 원문 페이지를 직접 열어 정밀 검증한 것은 아님. 국내 출처 특정 문서와 인용문은 미확인 상태로 남김.
+- NKF Creating a Kidney Friendly Plate (2026-06-05): 모든 CKD 환자가 저칼륨 식단을 필요로 하지 않으며 검사 결과 등에 따라 개인화.
+https://www.kidney.org/kidney-topics/creating-kidney-friendly-plate?page=1
+- NKF Whole Grains: 통곡물을 CKD 식단에 포함할 수 있으며 식물성 인의 흡수율도 고려.
+https://www.kidney.org/kidney-topics/whole-grains
+- NKF Potassium in Your CKD Diet: 침출은 칼륨 전부를 제거하지 않으며 섭취량 제한 고려.
+https://www.kidney.org/kidney-topics/potassium-your-ckd-diet?page=7
+- NIDDK Healthy Eating for Adults with Chronic Kidney Disease: 일부 채소에서 삶기/침출로 칼륨을 낮출 수 있음.
+https://www.niddk.nih.gov/health-information/kidney-disease/chronic-kidney-disease-ckd/healthy-eating-adults-chronic-kidney-disease
