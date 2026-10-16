@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿/**
+﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿/**
  * 🍯 꿀단지 공식 모바일 액션 & 실시간 인기글 랭킹 엔진 (HoneyJar Real-Time Global Features & Dynamic Popular Ranking)
  * - 1인 1하트 중복 방지 + 글로벌 실시간 하트 동기화 + 하단바 댓글수 즉시 연동
  * - 🕒 3일 후 자동 소멸 스마트 최신 뱃지 시스템 (Auto-Expiring New Badge System)
@@ -117,11 +117,15 @@ function scrollToComments() {
     }
 }
 
+function copyArticleUrl() {
+    copyCurrentUrl();
+}
+
 function copyCurrentUrl() {
     const url = window.location.href;
     if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(url).then(() => {
-            showToast('글 링크가 복사되었습니다 📋');
+            showToast('글 주소가 복사되었습니다 📋');
         }).catch(() => {
             fallbackCopyUrl(url);
         });
@@ -141,7 +145,7 @@ function fallbackCopyUrl(text) {
     textArea.select();
     try {
         document.execCommand('copy');
-        showToast('글 링크가 복사되었습니다 📋');
+        showToast('글 주소가 복사되었습니다 📋');
     } catch (err) {
         alert('주소 복사에 실패했습니다.');
     }
@@ -154,13 +158,16 @@ function showToast(message) {
         toast = document.createElement('div');
         toast.id = 'honeyjarBottomToast';
         toast.className = 'honeyjar-toast';
+        toast.style.cssText = 'position:fixed; bottom:34px; left:50%; transform:translateX(-50%); background:rgba(15,23,42,0.92); color:#ffffff; padding:11px 22px; border-radius:999px; font-size:0.88rem; font-weight:700; z-index:99999; box-shadow:0 8px 24px rgba(15,23,42,0.22); transition:opacity 0.2s ease, transform 0.2s ease; opacity:0; pointer-events:none; white-space:nowrap;';
         document.body.appendChild(toast);
     }
     toast.innerText = message;
     toast.classList.add('show');
+    toast.style.opacity = '1';
     clearTimeout(toast._timer);
     toast._timer = setTimeout(() => {
         toast.classList.remove('show');
+        toast.style.opacity = '0';
     }, 2400);
 }
 
