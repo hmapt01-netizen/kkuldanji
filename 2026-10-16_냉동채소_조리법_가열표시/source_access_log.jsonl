@@ -1,0 +1,9 @@
+{"at": "2026-10-16T02:32:34.065423+00:00", "action": "source_access", "phase": "topic", "resource": "https://www.gov.uk/government/publications/cooking-your-food/cooking-your-food", "allowed": false}
+{"at": "2026-10-16T02:32:34.286589+00:00", "action": "source_access", "phase": "topic", "resource": "https://www.nhs.uk/healthier-families/food-facts/5-a-day/", "allowed": false}
+{"at": "2026-10-16T02:32:34.512820+00:00", "action": "source_access", "phase": "topic", "resource": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000210274", "allowed": false}
+{"at": "2026-10-16T02:32:52.209331+00:00", "action": "transition", "previous": "topic", "phase": "titles", "note": "신규 선정 아님: 사용자가 지정한 오늘 기존 글의 검증. 저장된 두 제목을 그대로 사용"}
+{"at": "2026-10-16T02:32:52.434112+00:00", "action": "transition", "previous": "titles", "phase": "research", "note": "오늘 기존 글 검증 요청에 따른 추가 사실확인. 기존 titles.json 제목 유지, 신규 선택 기록 아님"}
+{"at": "2026-10-16T02:32:52.640361+00:00", "action": "source_access", "phase": "research", "resource": "https://www.gov.uk/government/publications/cooking-your-food/cooking-your-food", "allowed": true}
+{"at": "2026-10-16T02:32:52.851876+00:00", "action": "source_access", "phase": "research", "resource": "https://www.nhs.uk/healthier-families/food-facts/5-a-day/", "allowed": true}
+{"at": "2026-10-16T02:32:53.055076+00:00", "action": "source_access", "phase": "research", "resource": "https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000210274", "allowed": true}
+{"at": "2026-10-16T02:33:54.449418+00:00", "action": "source_access", "phase": "research", "resource": "https://www.law.go.kr/admRulLsInfoP.do?admRulId=36814&efYd=0", "allowed": true}

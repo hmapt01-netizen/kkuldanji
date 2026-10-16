@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>“데친 건데 그냥 먹어도 되지?” 녹인 냉동채소 샐러드에 바로 부으면 위험한 이유</title>
+<style>
+  body {
+    font-family: 'Pretendard', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    margin: 0;
+    padding: 20px 12px 60px;
+    line-height: 1.85;
+  }
+  .control-bar {
+    max-width: 680px;
+    margin: 0 auto 18px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .btn-copy {
+    background: #0f766e;
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.95rem;
+  }
+  .btn-tag {
+    background: #d97706;
+    color: #ffffff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  .tag-copy-box {
+    max-width: 680px;
+    margin: 0 auto 20px;
+    background: #fffbeb;
+    border: 1px dashed #f59e0b;
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    color: #92400e;
+  }
+  #naver-content {
+    max-width: 680px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 36px 22px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    text-align: center;
+  }
+  #naver-content h1 {
+    font-size: 1.45rem;
+    line-height: 1.45;
+    color: #0f172a;
+    margin-bottom: 26px;
+    word-break: keep-all;
+  }
+  #naver-content h2 {
+    font-size: 1.2rem;
+    color: #0f766e;
+    margin: 38px auto 18px;
+    padding-left: 10px;
+    display: inline-block;
+    border-left: 4px solid #0f766e;
+    text-align: left;
+  }
+  #naver-content p {
+    font-size: 1.03rem;
+    color: #334155;
+    margin: 18px auto;
+    word-break: keep-all;
+    text-align: center;
+  }
+  .post-img {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 14px;
+    margin: 24px auto;
+  }
+  .ref-box {
+    margin-top: 36px;
+    padding: 18px 20px;
+    background: #f1f5f9;
+    border-radius: 12px;
+    text-align: left;
+    font-size: 0.88rem;
+    color: #475569;
+    line-height: 1.7;
+  }
+</style>
+<script>
+function copyForNaver() {
+  const el = document.getElementById('naver-content');
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  const sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+  document.execCommand('copy');
+  sel.removeAllRanges();
+  alert('네이버 스마트에디터 본문이 복사되었습니다! 에디터에 붙여넣기(Ctrl+V) 하세요.');
+}
+function copyTagsOnly() {
+  const tags = document.getElementById('raw-hashtags').innerText;
+  navigator.clipboard.writeText(tags).then(() => {
+    alert('해시태그가 복사되었습니다!');
+  });
+}
+</script>
+</head>
+<body>
+
+<div class="control-bar">
+  <div><strong>🍯 꿀단지 네이버 블로그 원클릭 발행 도구</strong></div>
+  <div style="display:flex; gap:8px;">
+    <button class="btn-copy" onclick="copyForNaver()">📋 네이버 본문 복사하기</button>
+    <button class="btn-tag" onclick="copyTagsOnly()">🏷️ 해시태그 복사하기</button>
+  </div>
+</div>
+
+<div class="tag-copy-box">
+  <div style="font-weight:800; margin-bottom:6px;">🏷️ 네이버 스마트에디터 태그란 복사용 해시태그</div>
+  <div id="raw-hashtags">#냉동채소 #냉동브로콜리 #냉동채소조리법 #냉동채소샐러드 #냉동야채믹스 #냉동브로콜리해동 #냉동옥수수 #가열하여섭취하는냉동식품 #냉동채소영양 #샐러드만들기 #직장인식단 #자취생식단 #에디터혀니 #꿀단지</div>
+</div>
+
+<div id="naver-content" style="text-align: center;">
+
+  <h1>“데친 건데 그냥 먹어도 되지?” 녹인 냉동채소 샐러드에 바로 부으면 위험한 이유</h1>
+
+  <img src="images/thumb.jpg" alt="냉동채소 포장의 조리 안내를 확인하는 장면 — 예시 포장" class="post-img">
+
+  <p>퇴근하고 돌아와 밥 차릴 기운조차 없을 때<br>냉동실 속 손질된 채소만큼 반가운 게 없지요.</p>
+
+  <p>봉지를 열면 초록빛이 워낙 선명하다 보니<br>찬물에 살짝 녹여 샐러드에 바로 넣으셨던 적 있으시죠?</p>
+
+  <p><mark style="background:#fef08a; padding:2px 6px; border-radius:4px; font-weight:bold;">하지만 익은 것처럼 보여도 포장지의 가열 표시를 확인하지 않으면<br>남아 있던 세균 때문에 배탈로 고생할 수 있습니다!</mark></p>
+
+  <img src="images/stickers/sticker01_shocked.jpg" alt="충격 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+  <h2>| 색이 파릇해도 가열 표시부터 확인하세요</h2>
+
+  <img src="images/post03.jpg" alt="냄비에서 브로콜리와 당근, 완두콩을 가열하는 모습" class="post-img">
+
+  <p>얼린 브로콜리나 완두콩이 파랗게 보이는 건<br>급속 냉동 전에 살짝 열을 쐬어 효소만 멈춰 두었기 때문입니다.</p>
+
+  <p>이 과정만으로는 저온에서 버티는 세균까지<br>모두 사라지는 것이 아니어서 주의가 필요합니다.</p>
+
+  <img src="images/stickers/sticker02_excited.jpg" alt="솔깃한 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+  <p>그래서 봉지 뒷면 정보표시면을 살펴보면<br><u style="text-underline-offset: 4px;">가열하여 섭취하는 냉동식품인지 아니면 가열하지 않고 섭취하는 냉동식품인지</u><br>뚜렷하게 구분해 적어 두었습니다.</p>
+
+  <img src="images/stickers/sticker03_detective.jpg" alt="탐정 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+  <p>만약 가열하여 섭취하는 냉동식품이라고 적혀 있다면<br>실온에서 녹이기만 해서 바로 드시면 안 됩니다.</p>
+
+  <img src="images/stickers/sticker04_confused.jpg" alt="멘붕 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+  <h2>| 샐러드에 넣을 땐 익혀서 식히는 순서</h2>
+
+  <p>시원한 샐러드나 아침 스무디에 넣을 때도<br>포장에 가열 안내가 있다면 먼저 익히는 과정이 필수입니다.</p>
+
+  <p><mark style="background:#fef08a; padding:2px 6px; border-radius:4px; font-weight:bold;">미리 녹이지 말고 언 상태 그대로 포장지 조리 안내에 맞춰<br>중심부 70℃에서 2분 이상 김이 모락모락 오르도록 익혀 주세요.</mark></p>
+
+  <img src="images/post04.jpg" alt="익힌 채소의 물기를 빼고 얕은 용기에 펼치는 모습" class="post-img">
+
+  <p>다 익힌 뒤에는 넓은 채반에 바로 펼쳐<br>고인 물기와 수증기를 빠르게 날려 식혀 주는 것이 비결입니다.</p>
+
+  <p>이렇게 열기를 식힌 뒤 샐러드 볼에 올리면<br>잎채소도 숨이 죽지 않고 아삭한 식감이 살아납니다.</p>
+
+  <img src="images/stickers/sticker07_thumbsup.jpg" alt="엄지척 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+  <h2>| 양념 제품 성분표와 냉장 보관 주의점</h2>
+
+  <img src="images/post02.jpg" alt="무가미 제품과 소스 동봉 제품의 원재료 표시를 비교하는 예시" class="post-img">
+
+  <p>냉동채소도 성인 1회 분량 80g 기준으로<br>하루 채소 섭취량을 채우는 훌륭한 식재료가 됩니다.</p>
+
+  <p><mark style="background:#fef08a; padding:2px 6px; border-radius:4px; font-weight:bold;">다만 버터 소스나 시즈닝이 들어간 제품은 소금과 지방, 당류가 높으니<br>원재료 100% 무가미 제품인지 뒷면 성분표를 꼭 비교해 보세요.</mark></p>
+
+  <img src="images/stickers/sticker05_exhausted.jpg" alt="탈진 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+  <img src="images/post01.jpg" alt="먹을 분량의 냉동채소를 덜고 봉지를 밀봉하는 손" class="post-img">
+
+  <p>한 번 녹인 채소는 다시 얼리지 말고 먹을 만큼만 덜어 쓰며,<br>익혀 둔 채소는 2시간 안에 냉장고에 넣어 48시간 이내에 드셔야 안전합니다.</p>
+
+  <img src="images/post05.jpg" alt="조리한 채소를 밀폐 용기에 담아 냉장고에 넣는 손" class="post-img">
+
+  <p>혹시라도 덜 익은 식품을 드신 뒤 열이 나거나 복통과 구토가 이어진다면<br>혼자 참지 마시고 즉시 전문 의료기관을 찾아 상태를 점검받으세요.</p>
+
+  <img src="images/stickers/sticker06_emergency.jpg" alt="비상 경보 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+  <p>오늘 저녁 냉동실에서 채소 봉지를 꺼내실 때는<br>붓기 전에 뒷면의 가열 표시 한 줄부터 먼저 살펴보시면 어떨까요?</p>
+
+  <p>여러분은 평소 냉동 브로콜리나 채소믹스를 볶음 요리에 주로 넣으시나요,<br>아니면 익혀서 식힌 뒤 샐러드에 곁들이시나요? 댓글로 편하게 나눠 주세요 😊</p>
+
+  <img src="images/stickers/sticker08_honeypot.jpg" alt="꿀단지 인사 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+  <div style="margin: 30px auto; padding: 18px 20px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; text-align: left;">
+    <div style="font-weight: 800; color: #92400e; margin-bottom: 6px;">🍯 함께 읽으면 좋은 지난 꿀단지 글</div>
+    <div style="color: #475569; font-size: 0.93rem;">👉 여름 제철 식재료 장보기부터 생옥수수 손질 후 가정 내 냉동 소분·보관 요령이 궁금하시다면 이전 제철 식재료 보관 가이드를 함께 참고해 보세요!</div>
+  </div>
+
+  <div class="ref-box">
+    <div style="font-weight: 800; color: #1e293b; margin-bottom: 8px;">📚 공인 식약·보건 데이터 및 참고 문헌</div>
+    <div style="margin-bottom: 4px;">1. 식품의약품안전처 수입식품정보마루 — 식품의 기준 및 규격 제품상태 용어 풀이 (가열하여 섭취하는 냉동식품 및 가열하지 않고 섭취하는 냉동식품 정의)</div>
+    <div style="margin-bottom: 4px;">2. 식품의약품안전처 — 식품등의 표시기준 (냉동식품 가열 섭취 여부 구분 표시 기준)</div>
+    <div style="margin-bottom: 4px;">3. 영국 국민보건서비스 (NHS) — 5 A Day: Food Facts (냉동채소 1회 80g 섭취 기준 및 가공제품 소금·지방·당류 확인 안내)</div>
+    <div>4. 영국 식품기준청 (Food Standards Agency, GOV.UK) — Cooking your food: Section 6 Advice on cooking frozen vegetables (샐러드·스무디 활용 전 가열 지시 확인 및 70℃ 2분 조리·48시간 보관 수칙)</div>
+  </div>
+
+  <p style="margin-top: 28px; font-size: 0.9rem; color: #64748b;">
+    #냉동채소 #냉동브로콜리 #냉동채소조리법 #냉동채소샐러드 #냉동야채믹스 #냉동브로콜리해동 #냉동옥수수 #가열하여섭취하는냉동식품 #냉동채소영양 #샐러드만들기 #직장인식단 #자취생식단 #에디터혀니 #꿀단지
+  </p>
+
+</div>
+</body>
+</html>

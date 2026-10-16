@@ -1,0 +1,43 @@
+================================================================================
+[공인 1차 출처 원문 덤프 (Official Source Raw Dump)]
+열람일(Date): 2026-10-16
+주제: 냉동채소 해동 섭취 가능 여부, 영양 선택 기준 및 가열 조리 표시 읽는 법
+================================================================================
+
+[출처 1] 식품의약품안전처 (MFDS) 수입식품정보마루 — 「식품의 기준 및 규격」 제품상태 용어 풀이 및 「식품등의 표시기준」
+- 공식 URL: https://impfood.mfds.go.kr/CFCII08F01
+- 관련 행정규칙 URL: https://www.law.go.kr/LSW/admRulInfoP.do?admRulSeq=2100000210274 (식품의약품안전처 고시 제2022-66호 「식품등의 표시기준」)
+- 열람일: 2026-10-16
+- 원문 발췌 (Verbatim Quote):
+"냉동식품: “냉동식품”이라 함은 제조‧가공 또는 조리한 식품을 장기보존할 목적으로 냉동처리, 냉동보관하는 것으로 용기‧포장에 넣은 식품을 말함"
+"냉동식품(가열하여 섭취): 섭취시 별도의 가열과정을 거쳐야만 하는 냉동식품"
+"냉동식품(가열하지 않고 섭취): 별도의 가열과정 없이 그대로 섭취할 수 있는 냉동식품"
+"살균제품: ‘살균’이라 함은 따로 규정이 없는 한 세균, 효모, 곰팡이 등 미생물의 영양 세포를 불활성화시켜 감소시키는 것을 말함"
+"식품등의 표시기준(식약처 고시): 냉동식품은 제품의 유형에 따라 “가열하여 섭취하는 냉동식품” 또는 “가열하지 않고 섭취하는 냉동식품”으로 구분하여 표시하여야 한다."
+
+--------------------------------------------------------------------------------
+
+[출처 2] 영국 국민보건서비스 (NHS) — 5 A Day: Food Facts (Healthier Families)
+- 공식 URL: https://www.nhs.uk/healthier-families/food-facts/5-a-day/
+- 열람일: 2026-10-16 (페이지 내 별도 검토일 표기 미확인)
+- 원문 발췌 (Verbatim Quote):
+"What does and does not count for 5 A Day?
+Almost every type of fresh, frozen, tinned and dried fruit and veg you can think of counts towards your 5 A Day. So do fruit or vegetables in ready-meals or shop-bought sauces. However, always check the packaging and watch out for high amounts of salt, fat and sugar – or use the NHS Food Scanner app to quickly find healthier swaps."
+"Counts as 5 A Day:
+- Frozen fruit and veg, like berries, peas or spinach
+- Tinned fruit and veg, like pineapple or sweetcorn – pick versions in natural juice or water
+- Ready-made salad – go for dressings lower in salt, fat and sugar"
+"Portions for adults:
+An adult portion of fresh, frozen or tinned fruit or vegetables is 80g. For dried fruit, a portion is 30g."
+
+--------------------------------------------------------------------------------
+
+[출처 3] 영국 식품기준청 (Food Standards Agency, GOV.UK) — Cooking your food (Section 6: Advice on cooking frozen vegetables)
+- 공식 URL: https://www.gov.uk/government/publications/cooking-your-food/cooking-your-food
+- 게시/수정일: 2017-12-18 (Published 18 December 2017)
+- 열람일: 2026-10-16
+- 원문 발췌 (Verbatim Quote):
+"6. Advice on cooking frozen vegetables
+Some frozen vegetables, such as sweetcorn, peas, and carrots, can contain bacteria. Frozen vegetables need to be thoroughly cooked before you can eat them. If you intend to use frozen vegetables as part of a cold salad or smoothies, check the instructions on the packaging first. If the advice on the packaging states that the frozen vegetables should be cooked, you must ensure that this is done before they are eaten cold, or you can use tinned equivalents."
+"7.1 Eating leftovers cold
+Leftovers can be eaten cold if they have been cooked properly, cooled, and put in the fridge within two hours. Putting food in the fridge slows bacterial growth so it is safe to eat. Eat leftovers within 48 hours or freeze them if you think this won’t be possible."

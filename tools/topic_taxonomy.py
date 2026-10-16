@@ -222,14 +222,61 @@ def load_existing_posts():
         return json.load(f)
 
 
-def check_existing(kw, posts):
+def _extract_core_tokens(text):
+    import re
+    stopwords = {
+        "방법", "이유", "원인", "증상", "효과", "효능", "부작용", "차이", "비교", "기준",
+        "가이드", "정리", "시간", "운동", "식단", "음식", "영양제", "복용법", "먹는법",
+        "섭취", "관리", "예방", "완화", "루틴", "습관", "자세", "동작", "추천", "주의사항",
+        "체크리스트", "골든타임", "하루", "아침", "저녁", "공복", "식후", "전후"
+    }
+    clean = re.sub(r'[^가-힣a-zA-Z0-9\s]', ' ', str(text))
+    words = [w.strip() for w in clean.split() if len(w.strip()) >= 2]
+    particles = ('은', '는', '이', '가', '을', '를', '의', '에', '로', '으로', '과', '와', '도', '만', '까지', '부터')
+    normalized = set()
+    for w in words:
+        for p in particles:
+            if len(w) > 2 and w.endswith(p):
+                w = w[:-len(p)]
+                break
+        if len(w) >= 2 and w not in stopwords:
+            normalized.add(w)
+    return normalized
+
+
+def _days_since_post(date_str):
+    import re
+    m = re.search(r'(\d{4})[.\-/년\s]+(\d{1,2})[.\-/월\s]+(\d{1,2})', str(date_str))
+    if m:
+        try:
+            p_date = datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)))
+            return (datetime.now() - p_date).days
+        except Exception:
+            pass
+    return 999
+
+
+def check_existing(kw, posts, cooldown_days=14):
+    """기존 글 중복 및 최근 14일 이내 발행 소재 쿨타임(Cooldown) 차단"""
     kw_c = kw.replace(" ", "")
+    kw_tokens = _extract_core_tokens(kw)
+
     for p in posts:
         t_c = p.get("title", "").replace(" ", "")
         s_c = p.get("slug", "").replace("-", "")
         d_c = p.get("desc", "").replace(" ", "")
         if len(kw_c) >= 3 and (kw_c in t_c or kw_c in s_c or kw_c in d_c):
             return p
+
+        # 최근 14일 이내 발행된 글과 핵심 소재 토큰이 겹치면 쿨타임 차단
+        if cooldown_days and _days_since_post(p.get("date", "")) <= cooldown_days:
+            p_tokens = _extract_core_tokens(p.get("title", ""))
+            if kw_tokens and p_tokens and kw_tokens.intersection(p_tokens):
+                return p
+            for tok in kw_tokens:
+                if len(tok) >= 2 and tok in t_c:
+                    return p
+
     tokens = [t for t in ["손가락", "마디", "통증", "류마티스", "퇴행성", "관절염", "족저근막염", "비염", "독감", "백신", "위내시경", "수면내시경", "공복혈당", "중성지방", "단백뇨"] if t in kw_c]
     if len(tokens) >= 2:
         for p in posts:
@@ -240,25 +287,16 @@ def check_existing(kw, posts):
 
 
 def calculate_synergy(kw, posts):
-    """키워드와 기존 39편 글의 토픽 클러스터(내부 링크 시너지)를 계산합니다."""
+    """키워드와 기존 기발행 글의 토픽 클러스터(내부 링크 시너지 + 기존 글 수치 요약 desc)를 계산합니다."""
     synergy_rules = [
-        # 손가락 / 관절 / 류마티스 / 손목
         (["손가락", "관절", "류마티스", "마디", "손목", "방아쇠"], ["finger-joint-pain-rheumatoid-arthritis-morning-stiffness"]),
-        # 허리 / 척추 / 코어 / 폼롤러
         (["허리", "디스크", "척추", "협착증", "요추", "골반", "기립근", "폼롤러"], ["pelvic-stretching-back-pain-relief", "core-exercise-home"]),
-        # 목 / 어깨 / 거북목 / 목견인기
         (["목", "경추", "거북목", "일자목", "어깨", "라운드숄더", "승모근", "견갑골", "견인기", "교정기"], ["posture-stretching-office", "posture-wall-stretching", "frozen-shoulder-stretching-rotator-cuff-differentiation"]),
-        # 하체 / 무릎 / 고관절 / 발 / 압박스타킹
         (["무릎", "고관절", "하체", "스쿼트", "발목", "발등", "족저", "아킬레스", "종아리", "압박스타킹"], ["knee-safe-squat-workout", "pelvic-stretching-back-pain-relief", "plantar-fasciitis-morning-heel-pain-stretching"]),
-        # 혈당 / 당뇨 / 대사
         (["혈당", "당뇨", "인슐린", "식후", "당화혈색소"], ["fasting-blood-sugar-prediabetes-guide", "post-meal-walk-blood-sugar", "intermittent-fasting-guide"]),
-        # 지질 / 콜레스테롤 / 혈관 / 오메가3
         (["콜레스테롤", "이상지질혈증", "지방간", "중성지방", "간수치", "ldl", "오메가"], ["triglycerides-retest-alcohol-preparation", "fasting-blood-sugar-prediabetes-guide"]),
-        # 소변 / 신장 / 통풍
         (["소변", "단백뇨", "거품뇨", "요산", "통풍", "신장", "크레아티닌"], ["urinalysis-proteinuria-foamy-urine-retest-guide", "autumn-shrimp-crab-big-toe-pain-gout-care"]),
-        # 감염 / 백신 / 환절기 면역 / 비염
         (["대상포진", "독감", "백신", "면역", "진드기", "비염", "감기", "환절기", "인후통", "코세척"], ["tick-bite-scab-scrub-typhus-symptoms-guide", "flu-vaccine-domestic-imported-comparison-free-target", "nasal-spray-rebound-rhinitis-5day-rule", "salt-water-gargle-concentration-ratio"]),
-        # 식단 / 위장 / 소화 / 영양제 / 마그네슘
         (["식단", "단백질", "위염", "속쓰림", "소화", "커피", "유산균", "영양제", "마그네슘", "비타민"], ["morning-apple-heartburn-gastritis-egg", "coffee-after-meal-golden-time", "greek-yogurt-diet-trap", "slow-aging-rice-recipe"])
     ]
 
@@ -267,15 +305,27 @@ def calculate_synergy(kw, posts):
         if any(trig in kw for trig in triggers):
             matched_slugs.extend(target_slugs)
 
+    # 동적 토큰 매칭 보강
+    kw_tokens = _extract_core_tokens(kw)
+    if kw_tokens:
+        for p in posts:
+            p_tokens = _extract_core_tokens(p.get("title", ""))
+            if kw_tokens.intersection(p_tokens):
+                matched_slugs.append(p.get("slug", "").replace(".html", ""))
+
     matched_slugs = list(dict.fromkeys(matched_slugs))
     synergy_posts = []
     for p in posts:
         slug_base = p.get("slug", "").replace(".html", "")
         if slug_base in matched_slugs:
+            clean_slug = p.get("slug") if str(p.get("slug", "")).endswith(".html") else f"{slug_base}.html"
             synergy_posts.append({
                 "slug": p.get("slug"),
                 "title": p.get("title", "")[:35],
-                "date": p.get("date")
+                "date": p.get("date"),
+                "desc": p.get("desc", p.get("summary", "")),
+                "pill_html": f'<a href="{clean_slug}" class="inline-pill-link">🔗 {p.get("title", "")[:28]}...</a>'
             })
 
     return synergy_posts[:3]
+

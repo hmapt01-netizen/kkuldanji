@@ -17,6 +17,9 @@ ROOT_DIR = r"d:\작업\꿀단지"
 RULE_FILES = [
     os.path.join(ROOT_DIR, "AGENTS.md"),
     os.path.join(ROOT_DIR, "GEMINI.md"),
+    os.path.join(ROOT_DIR, "skills", "topic-opportunity", "SKILL.md"),
+    os.path.join(ROOT_DIR, "skills", "kkuldanji-naver-title", "SKILL.md"),
+    os.path.join(ROOT_DIR, "skills", "kkuldanji-google-article", "SKILL.md"),
     os.path.join(ROOT_DIR, "skills", "naver-honeyjar", "SKILL.md")
 ]
 

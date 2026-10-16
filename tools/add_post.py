@@ -86,7 +86,12 @@ def add_post(post_data, image_dir=None, work_dir=None):
     # 2. [마스터 표준 28] 이미지 검증 및 복사: thumb.jpg와 본문 섹션 이미지 중복 원천 차단
     slug_key = post_data.get("slugKey", post_data.get("slug", "").replace(".html", ""))
     target_img_dir = os.path.join(r"d:\작업\꿀단지\kkuldanji_web\images\posts", slug_key)
-    
+
+    if not image_dir and work_dir:
+        candidate_img_dir = os.path.join(work_dir, "images")
+        if os.path.exists(candidate_img_dir):
+            image_dir = candidate_img_dir
+
     if image_dir and os.path.exists(image_dir):
         try:
             import image_guard
@@ -139,7 +144,36 @@ def add_post(post_data, image_dir=None, work_dir=None):
         if len(raw_refs.strip()) < 50:
             raise AssertionError(f"🚨 [마스터 표준 23 위반] academicRefs 내용이 부실합니다 (최소 50자 이상).")
 
-    # 4. [마스터 표준 1 & 23] 상단 핵심 요약 카드(lead-quote-card) 기계적 무결성 검증
+    # 4. 본문 HTML 정제 (중복 H1 제거, 해시태그 제거, 테이블 스타일러 및 알약 내부링크 자동 적용)
+    body_html = post_data.get("bodyHtml", "")
+    body_html = re.sub(r'<h1[^>]*>[\s\S]*?</h1>', '', body_html, flags=re.IGNORECASE)
+    body_html = re.sub(r'<div[^>]*class=["\'][^"\']*tag-box[^"\']*["\'][^>]*>[\s\S]*?</div>', '', body_html, flags=re.IGNORECASE)
+    try:
+        from table_styler import apply_table_styles
+        body_html = apply_table_styles(body_html)
+    except Exception:
+        pass
+
+    # 내부 .html 링크를 inline-pill-link 알약 배지로 자동 보정
+    def _convert_pill_link(m):
+        full_tag = m.group(0)
+        if 'class=' in full_tag:
+            return full_tag
+        href = m.group(1)
+        text = m.group(2).strip()
+        if not text.startswith("🔗"):
+            text = f"🔗 {text}"
+        return f'<a href="{href}" class="inline-pill-link">{text}</a>'
+
+    body_html = re.sub(
+        r'<a\s+href=["\']([^"\':/]+\.html)["\'][^>]*>([\s\S]*?)</a>',
+        _convert_pill_link,
+        body_html,
+        flags=re.IGNORECASE
+    )
+    post_data["bodyHtml"] = body_html
+
+    # 4-1. [마스터 표준 1 & 23] 상단 핵심 요약 카드(lead-quote-card) 기계적 무결성 검증
     validate_lead_quote_card(post_data.get("bodyHtml", ""))
     print("  ✓ 상단 핵심 요약 카드(lead-quote-card) 출처 투명성 무결성 검증 통과")
 
@@ -153,6 +187,8 @@ def add_post(post_data, image_dir=None, work_dir=None):
         p["isLatest"] = False
 
     post_data["isLatest"] = True
+    if not str(post_data.get("slug", "")).endswith(".html"):
+        post_data["slug"] = f"{post_data['slug']}.html"
     
     # 중복 slug 검사
     existing_idx = next((i for i, p in enumerate(posts) if p["slug"] == post_data["slug"]), None)
@@ -167,7 +203,7 @@ def add_post(post_data, image_dir=None, work_dir=None):
 
     print(f"  ✓ posts_db.json 최상단(1번 자리) 등록 완료 (총 {len(posts)}편)")
 
-    # 4. build_site.py 자동 실행하여 전체 사이트 일괄 컴파일
+    # 6. build_site.py 자동 실행하여 전체 사이트 일괄 컴파일
     print("  ⚙️ 정석 SSG 컴파일러 자동 가동 중...")
     build_script = r"d:\작업\꿀단지\tools\build_site.py"
     res = subprocess.run([sys.executable, build_script], capture_output=True, text=True, encoding="utf-8")
@@ -177,6 +213,8 @@ def add_post(post_data, image_dir=None, work_dir=None):
         return False
 
     print("🎉 [완전 자동화 완료] 꿀단지 신규 글 등록 ➔ SSG 컴파일이 원스톱으로 완료되었습니다!")
+    print(f"   🌐 구글 포스트 프리뷰: file:///d:/작업/꿀단지/kkuldanji_web/posts/{post_data['slug']}")
+    print(f"   🏠 구글 메인 프리뷰:   file:///d:/작업/꿀단지/kkuldanji_web/index.html")
     return True
 
 if __name__ == "__main__":

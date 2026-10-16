@@ -118,6 +118,16 @@ def verify_reference_url(url: str, context_label: str = "참고문헌") -> None:
                 f"   🛑 검색 결과가 아닌 대상 문서의 실제 세부 뷰어 페이지 URL을 직접 연결하세요."
             )
 
+    # 3. 실시간 DNS 도메인 실존 여부 검증 (할루시네이션 도메인 원천 차단)
+    import socket
+    host_only = domain.split(":")[0]
+    try:
+        socket.gethostbyname(host_only)
+    except Exception:
+        raise InvalidReferenceError(
+            f"🚨 [{context_label} 도메인 DNS 조회 실패] 존재하지 않거나 접속 불가능한 도메인입니다: '{host_only}' ({url})"
+        )
+
 
 def verify_references_list(references: list) -> None:
     """
@@ -592,11 +602,12 @@ def verify_global_asset_sync(post_data: dict, work_dir: str = None) -> None:
             try:
                 with open(tj_path, "r", encoding="utf-8-sig") as f:
                     tj_data = json.load(f)
-                t_google = tj_data.get("google", "").strip()
+                raw_g = tj_data.get("selected_google") or tj_data.get("google") or ""
+                t_google = raw_g.strip() if isinstance(raw_g, str) else ""
                 # 정규화하여 제목 일치 확인
                 norm_p_title = re.sub(r'[\s\"\'“”‘’]', '', title)
                 norm_g_title = re.sub(r'[\s\"\'“”‘’]', '', t_google)
-                if norm_p_title != norm_g_title and norm_p_title not in norm_g_title and norm_g_title not in norm_p_title:
+                if norm_g_title and norm_p_title != norm_g_title and norm_p_title not in norm_g_title and norm_g_title not in norm_p_title:
                     raise NumberInconsistencyError(
                         f"🚨 [제목 불일치 적발] titles.json의 확정 구글 제목('{t_google}')과 post_data.json의 제목('{title}')이 일치하지 않습니다.\n"
                         f"   👉 조치: titles.json과 post_data.json의 제목을 100% 동일하게 동기화하세요."
