@@ -1,4 +1,4 @@
-﻿/**
+/**
  * 🍯 꿀단지 공식 실시간 트래킹 엔진 (HoneyJar Real-Time Global Analytics Engine)
  * - 100% 진짜 실시간 조회수, 실제 체류 시간, 실제 스크롤 완독률 서버 누적
  */

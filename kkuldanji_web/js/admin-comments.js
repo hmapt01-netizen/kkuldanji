@@ -1,4 +1,4 @@
-﻿// The administrator password stays only in page memory, never browser storage.
+// The administrator password stays only in page memory, never browser storage.
 let commentAdminPassword = '';
 function clearAdminPassword() { commentAdminPassword = ''; }
 

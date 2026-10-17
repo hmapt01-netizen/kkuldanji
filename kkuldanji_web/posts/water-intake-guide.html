@@ -1966,7 +1966,7 @@ figure.post-photo-figure figcaption,
 
                         </div>
 
-                        <button type="button" onclick="copyArticleUrl()" class="meta-share-btn pc-only-share" title="글 주소 복사하기">
+                        <button type="button" onclick="copyArticleUrl()" class="meta-share-btn pc-only-share" title="글 주소 복사하기" style="display:inline-flex; align-items:center; gap:5px; background:transparent; border:none; color:#64748b; font-size:0.84rem; font-weight:600; cursor:pointer; padding:4px 8px; border-radius:6px;">
 
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
 
@@ -2396,13 +2396,66 @@ figure.post-photo-figure figcaption,
 
 
 
-    <script defer src="../js/analytics.js"></script>
+    <script>
+    window.showToast = window.showToast || function(message) {
+        var toast = document.getElementById('honeyjarBottomToast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'honeyjarBottomToast';
+            toast.className = 'honeyjar-toast';
+            toast.style.cssText = 'position:fixed; bottom:34px; left:50%; transform:translateX(-50%); background:rgba(15,23,42,0.92); color:#ffffff; padding:11px 22px; border-radius:999px; font-size:0.88rem; font-weight:700; z-index:99999; box-shadow:0 8px 24px rgba(15,23,42,0.22); transition:opacity 0.2s ease, transform 0.2s ease; opacity:0; pointer-events:none; white-space:nowrap;';
+            document.body.appendChild(toast);
+        }
+        toast.innerText = message;
+        toast.classList.add('show');
+        toast.style.opacity = '1';
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(function() {
+            toast.classList.remove('show');
+            toast.style.opacity = '0';
+        }, 2400);
+    };
+    window.fallbackCopyUrl = window.fallbackCopyUrl || function(text) {
+        var textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            window.showToast('글 주소가 복사되었습니다 📋');
+        } catch (err) {
+            alert('주소 복사에 실패했습니다.');
+        }
+        textArea.remove();
+    };
+    window.copyCurrentUrl = window.copyCurrentUrl || function() {
+        var url = window.location.href;
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(url).then(function() {
+                window.showToast('글 주소가 복사되었습니다 📋');
+            }).catch(function() {
+                window.fallbackCopyUrl(url);
+            });
+        } else {
+            window.fallbackCopyUrl(url);
+        }
+    };
+    window.copyArticleUrl = window.copyArticleUrl || function() {
+        window.copyCurrentUrl();
+    };
+    </script>
+
+    <script defer src="../js/analytics.js?v=20261017_clean"></script>
 
     <script defer src="../js/comments.js?v=20260914_simpleauth2"></script>
 
-    <script defer src="../js/features.js?v=20261016_share"></script>
+    <script defer src="../js/features.js?v=20261017_clean"></script>
 
-    <script defer src="../js/tracker.js?v=20260825140000"></script>
+    <script defer src="../js/tracker.js?v=20261017_clean"></script>
 
 </body>
 

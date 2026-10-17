@@ -1966,7 +1966,7 @@ figure.post-photo-figure figcaption,
 
                         </div>
 
-                        <button type="button" onclick="copyArticleUrl()" class="meta-share-btn pc-only-share" title="글 주소 복사하기">
+                        <button type="button" onclick="copyArticleUrl()" class="meta-share-btn pc-only-share" title="글 주소 복사하기" style="display:inline-flex; align-items:center; gap:5px; background:transparent; border:none; color:#64748b; font-size:0.84rem; font-weight:600; cursor:pointer; padding:4px 8px; border-radius:6px;">
 
                             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle;"><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><polyline points="16 6 12 2 8 6"></polyline><line x1="12" y1="2" x2="12" y2="15"></line></svg>
 
@@ -2122,10 +2122,10 @@ figure.post-photo-figure figcaption,
   특히 포화지방보다 LDL을 더 강하게 높이고 좋은 HDL까지 떨어뜨리는 트랜스지방산은 영양성분표 함량이 0.2g 미만일 때 0으로 표시될 수 있습니다. 숫자가 0g이라도 원재료명에 마가린, 쇼트닝, 부분경화유가 적힌 도넛이나 파이, 튀김류는 피하는 것이 안전합니다.
 </p>
 <p style="font-size:1.02rem; line-height:1.9; color:#334155; margin-bottom:22px;">
-  여기에 매일 마시는 커피 추출 방식도 함께 점검해 볼 대목입니다. 설탕과 프림이 없는 블랙커피라도 금속 거름망을 쓰는 프렌치프레스나 고압 추출 에스프레소 기반 커피처럼 종이 필터로 여과하지 않은 커피에는 디테르펜(diterpene)이라는 지용성 성분이 남아 간에서 LDL을 걸러내는 수용체의 활성을 억제합니다.
+  여기에 매일 마시는 커피 추출 방식도 함께 점검해 볼 대목입니다. 설탕과 프림이 없는 블랙커피라도 카페에서 고압으로 추출한 에스프레소 아메리카노나 스테인리스(금속) 거름망으로 내린 드립커피처럼 종이 필터로 여과하지 않은 커피에는 디테르펜(diterpene)이라는 지용성 성분이 남아 간에서 LDL을 걸러내는 수용체의 활성을 억제합니다.
 </p>
 <p style="font-size:1.02rem; line-height:1.9; color:#334155; margin-bottom:22px;">
-  하루 4잔 이상 마실 경우 LDL 콜레스테롤 수치가 유의하게 상승하므로, 촘촘한 종이 필터로 여과해 내린 드립 커피 형태로 선택하고 하루 3~4잔 미만만 즐기는 것이 바람직합니다.
+  하루 4잔 이상 마실 경우 LDL 콜레스테롤 수치가 유의하게 상승하므로, 촘촘한 종이 필터나 일회용 종이 드립백으로 기름 성분을 걸러낸 드립 커피 형태로 선택하고 하루 3~4잔 미만만 즐기는 것이 바람직합니다.
 </p>
 
 <div class="custom-data-table-wrap" style="width: 100%; overflow-x: auto; margin: 24px 0; border: 1px solid #e2e8f0; border-radius: 12px;"><table class="custom-data-table" style="width: 100%; border-collapse: collapse; font-size: 0.94rem; line-height: 1.6; margin: 0;">
@@ -2522,13 +2522,66 @@ figure.post-photo-figure figcaption,
 
 
 
-    <script defer src="../js/analytics.js"></script>
+    <script>
+    window.showToast = window.showToast || function(message) {
+        var toast = document.getElementById('honeyjarBottomToast');
+        if (!toast) {
+            toast = document.createElement('div');
+            toast.id = 'honeyjarBottomToast';
+            toast.className = 'honeyjar-toast';
+            toast.style.cssText = 'position:fixed; bottom:34px; left:50%; transform:translateX(-50%); background:rgba(15,23,42,0.92); color:#ffffff; padding:11px 22px; border-radius:999px; font-size:0.88rem; font-weight:700; z-index:99999; box-shadow:0 8px 24px rgba(15,23,42,0.22); transition:opacity 0.2s ease, transform 0.2s ease; opacity:0; pointer-events:none; white-space:nowrap;';
+            document.body.appendChild(toast);
+        }
+        toast.innerText = message;
+        toast.classList.add('show');
+        toast.style.opacity = '1';
+        clearTimeout(toast._timer);
+        toast._timer = setTimeout(function() {
+            toast.classList.remove('show');
+            toast.style.opacity = '0';
+        }, 2400);
+    };
+    window.fallbackCopyUrl = window.fallbackCopyUrl || function(text) {
+        var textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        try {
+            document.execCommand('copy');
+            window.showToast('글 주소가 복사되었습니다 📋');
+        } catch (err) {
+            alert('주소 복사에 실패했습니다.');
+        }
+        textArea.remove();
+    };
+    window.copyCurrentUrl = window.copyCurrentUrl || function() {
+        var url = window.location.href;
+        if (navigator.clipboard && window.isSecureContext) {
+            navigator.clipboard.writeText(url).then(function() {
+                window.showToast('글 주소가 복사되었습니다 📋');
+            }).catch(function() {
+                window.fallbackCopyUrl(url);
+            });
+        } else {
+            window.fallbackCopyUrl(url);
+        }
+    };
+    window.copyArticleUrl = window.copyArticleUrl || function() {
+        window.copyCurrentUrl();
+    };
+    </script>
+
+    <script defer src="../js/analytics.js?v=20261017_clean"></script>
 
     <script defer src="../js/comments.js?v=20260914_simpleauth2"></script>
 
-    <script defer src="../js/features.js?v=20261016_share"></script>
+    <script defer src="../js/features.js?v=20261017_clean"></script>
 
-    <script defer src="../js/tracker.js?v=20260825140000"></script>
+    <script defer src="../js/tracker.js?v=20261017_clean"></script>
 
 </body>
 

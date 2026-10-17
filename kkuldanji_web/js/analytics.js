@@ -1,4 +1,4 @@
-﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿﻿(function() {
+(function() {
     const STORAGE_KEY = 'honeyjar_analytics_data';
     const SEARCH_STORAGE_KEY = 'honeyjar_search_keywords';
     const postSlug = window.location.pathname.split('/').pop().replace('.html', '') || 'home';
