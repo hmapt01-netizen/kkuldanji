@@ -1,0 +1,1 @@
+Built-in image_gen edit: preserve woman, clothes and room; remove all flowing water; move nozzle away from face for a preparation scene. User requested no visible outflow. Updated both article alt text and Google caption. No remote deployment.

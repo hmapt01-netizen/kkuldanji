@@ -1,0 +1,8 @@
+{"at": "2026-10-17T07:43:02.658818+00:00", "action": "transition", "previous": "topic", "phase": "titles", "note": "사용자 최신 꿀단지글 검증 요청: 기존 코세척 원고의 제목 기록 보존, 신규 선정 아님"}
+{"at": "2026-10-17T07:43:03.065560+00:00", "action": "transition", "previous": "titles", "phase": "research", "note": "사용자 요청에 따른 기존 두 원고 사실 검증. 기존 titles.json 제목을 식별용으로 유지하며 신규 승인 생성 없음"}
+{"at": "2026-10-17T07:43:03.272102+00:00", "action": "source_access", "phase": "research", "resource": "D:\\작업\\꿀단지\\2026-10-17_환절기비염_코세척_생리식염수_방법\\리서치.md", "allowed": true}
+{"at": "2026-10-17T07:43:16.239079+00:00", "action": "source_access", "phase": "research", "resource": "https://www.cdc.gov/naegleria/prevention/sinus-rinsing.html", "allowed": true}
+{"at": "2026-10-17T07:43:16.466330+00:00", "action": "source_access", "phase": "research", "resource": "https://www.j-rhinology.org/upload/pdf/jr-7-132.pdf", "allowed": true}
+{"at": "2026-10-17T07:43:16.674386+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=1101", "allowed": true}
+{"at": "2026-10-17T07:43:16.889284+00:00", "action": "source_access", "phase": "research", "resource": "https://nedrug.mfds.go.kr/pbp/CCBBB01/getItemDetail?itemSeq=200300245", "allowed": true}
+{"at": "2026-10-17T07:43:17.100414+00:00", "action": "source_access", "phase": "research", "resource": "https://honeyjar.co.kr/posts/nasal-irrigation-saline-selection-lens-solution-tap-water-guide.html", "allowed": true}

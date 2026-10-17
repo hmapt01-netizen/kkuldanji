@@ -1,0 +1,102 @@
+================================================================================
+[공인 1차 출처 원문 덤프 파일 (official_source_raw.txt)]
+- 작성 단계: Step 0-A (1차 광범위 사전 팩트 탐색 및 원문 검증)
+- 열람일: 2026-10-17
+- 주제: 가을 환절기 비염·부비동염 코막힘 관리 및 생리식염수 코세척 올바른 방법·주의사항
+================================================================================
+
+[출처 1] 질병관리청 국가건강정보포털 (KDCA) — 비부비동염 (cntnts_sn=1101)
+- 공식 URL: https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=1101
+- 등록일자: 2020-03-13 / 업데이트: 2026-07-16 / 열람일: 2026-10-17
+- 원문 발췌 (요약문 및 증상·치료·생리식염수 코 세척 지침):
+'이것만은 꼭 기억하세요'
+• 부비동은 얼굴뼈 속에 있는 공기 주머니로, 코와 작은 통로로 연결되어 있습니다.
+• 비부비동염은 이 공간의 점막에 염증이 생기는 질환으로, 흔히 비염과 함께 나타납니다.
+• 증상으로는 코막힘, 콧물, 얼굴 통증, 후각 저하 등이 있으며 12주 이상 지속되면 만성으로 분류합니다.
+
+[증상]
+비부비동염의 전형적인 증상은 코막힘, 콧물, 후비루(콧물이 코 인두 부분에서 입 인두로 흐르는 현상), 얼굴 통증, 압박감, 후각 감소입니다. 급성 바이러스성 비부비동염은 주로 10일 이내에 증상이 호전되어 단순 감기로 취급됩니다. 급성 바이러스 감염 후 5일이 지나 비부비동염 증상이 심해지거나 10일 이상 지속되는 경우도 많습니다. 변색된 콧물이 나오고, 특정 국소 부위에 심한 통증이 나타나고, 38도 이상 발열, 혈액 검사상 염증 지표가 상승하거나 종종 감기에 걸려 호전되었다가 다시 악화된다면 급성 세균성 비부비동염을 의심할 수 있습니다. 만성 비부비동염의 경우에는 증상이 12주 이상 지속됩니다.
+
+[치료 — ④ 생리식염수 코 세척]
+생리식염수 코 세척은 만성 비부비동염 치료에 중요하며 적극적으로 권장됩니다. 콧물의 점도를 낮춰서 쉽게 배출시킬 수 있고, 콧물과 딱지를 물리적으로 제거해 습도와 점액 섬모운동을 개선해줍니다. 하지만 드물게 코 통증, 코피 또는 귀로 역류해 귀 통증이 발생할 수 있습니다.
+
+[올바른 생리식염수 코 세척 방법 및 주의 사항]
+• 다양한 코 세척 전용 분말과 용기 세트가 판매되므로 쉽게 구할 수 있습니다.
+• 깨끗한 물(정수기 물 등)에 코 세척 전용 분말을 섞어 생리식염수를 만들고 미지근한 상태로 사용합니다(30~35℃).
+• 만성 비부비동염 환자는 1회 200 mL 이상의 코 세척을 권고합니다.
+• 머리를 아래로 하여 앞으로 숙인 자세를 취합니다(고개를 45도 숙인 자세).
+• 코 세척 용기의 노즐 부위를 콧구멍에 밀착해 숨을 잠시 멈추고 입을 벌린 상태에서 사용합니다.
+• 코 세척 중 침을 삼키거나 너무 강하게 주입하거나, 코 세척 후 코를 세게 풀면 귀가 아플 수 있습니다.
+• 코 세척 후 비부비동 내에 세척액이 고여서 흘러나올 수 있으므로 고개를 앞뒤좌우로 기울여 고인 세척액을 제거합니다.
+• 코 세척 용기의 오염 방지를 위해 사용 후 용기를 깨끗이 씻고 뒤집어서 완전히 말린 후 재사용합니다.
+
+[국소용 스테로이드제의 올바른 사용법 및 주의 사항 / 점막 수축제 주의사항]
+• 국소용 스테로이드제 사용 전 코를 풀어 콧속을 깨끗이 합니다.
+• 약병을 흔들고 뚜껑을 연 후 분사를 쉽게 할 수 있도록 잘 잡습니다.
+• 고개를 살짝 앞으로 숙입니다.
+• 약병의 끝을 코 속에 깊숙이 넣고 약병의 끝은 투여하는 코와 같은 쪽의 눈을 향하도록 합니다.
+• 다른 손으로 반대편 코를 막은 뒤, 숨을 참고 분무합니다. 5초간 숨을 멈춘 뒤 입으로 서서히 숨을 내쉽니다.
+• 분무 직후에 코를 풀지 않습니다. 국소용 스테로이드제는 분무를 시작하고 5~14일에 최대 효과가 나타나므로, 최소 5일간 사용 후 효과를 평가합니다.
+• 점막 수축제는 비부비동 점막의 혈관을 수축시켜 점막 부종을 가라앉히므로 코막힘을 줄여줍니다. 하지만 오랜 기간 사용하면 약물 유발성 비염이 생겨 오히려 코막힘이 심해질 수 있습니다.
+
+--------------------------------------------------------------------------------
+
+[출처 2] 질병관리청 국가건강정보포털 (KDCA) — 만성비염 (cntnts_sn=5703) 및 알레르기 (cntnts_sn=5806)
+- 공식 URL 1: https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=5703
+- 공식 URL 2: https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=5806
+- 업데이트: 2026-05-18 (cntnts_sn=5703), 2026-05-06 (cntnts_sn=5806) / 열람일: 2026-10-17
+- 원문 발췌:
+• 비염은 정의상 코점막에 염증이 생겨 코막힘, 콧물(비루), 재채기, 코 가려움증 중 하나 이상의 증상이 2일 이상, 하루 1시간 넘게 지속되는 경우를 말합니다.
+• 2024년도 국민건강영양조사에 따르면 국내에서 알레르기비염의 유병률은 19세 이상 성인의 20.9%였으며, 30대에서 28.2%로 가장 높았습니다. 이는 2009년의 11.9%, 2018년의 16.7%에 비해 뚜렷이 증가한 것입니다.
+• 만성 비염으로 알레르기 클리닉을 방문한 975명 중 43%는 단순 알레르기 비염, 23%는 비알레르기 비염, 34%는 알레르기 비염과 비알레르기 비염의 혼합형으로 진단되었습니다. 따라서 만성 비염 환자의 57%는 어느 정도 비알레르기 비염의 특성을 가지고 있습니다.
+• 날아다니는 꽃가루의 종류는 계절에 따라 다른데 일반적으로 나무 꽃가루는 봄철에, 목초 꽃가루는 여름철에, 잡초 꽃가루는 가을에 많이 날아다닙니다.
+• 혈관 운동성 비염은 대개 온도나 습도, 담배 연기나 강한 향 등 자극을 받으면 비염 증상이 생기며, 알레르기 비염 환자가 장시간 찬 공기에 노출되면 코막힘이 유발되므로 주의해야 합니다.
+• 침구는 물세탁이 가능한 소재로 섭씨 55~60도 이상의 뜨거운 물에 최소 1주일에 한 번씩 세탁하는 것이 도움이 됩니다.
+
+--------------------------------------------------------------------------------
+
+[출처 3] 미국 질병통제예방센터 (CDC) — How to Safely Rinse Sinuses & 미국 식품의약국 (FDA)
+- 공식 URL 1: https://www.cdc.gov/naegleria/prevention/sinus-rinsing.html
+- 공식 URL 2: https://www.fda.gov/consumers/consumer-updates/rinsing-your-sinuses-neti-pots-safe
+- 열람일: 2026-10-17
+- 원문 발췌:
+• When rinsing your sinuses or nasal passages, use store-bought distilled or sterilized water, or tap or faucet water that's been boiled and cooled.
+• Germs such as the amebas Naegleria fowleri and Acanthamoeba can grow in public and private water tanks and pipes. Although rare, people have died from rinsing their sinuses with tap water containing Naegleria fowleri and Acanthamoeba.
+• Boiled and Cooled Tap Water protocol:
+  1. Bring water to a rolling boil for 1 minute (at elevations above 6,500 feet, boil for 3 minutes).
+  2. Let the water cool until lukewarm.
+  3. Store unused boiled water in clean, sanitized containers with tight covers.
+
+--------------------------------------------------------------------------------
+
+[출처 4] 식품의약품안전처 의약품안전나라 (NEDRUG) — 의약외품 범위 지정 고시 (제2020-48호) 및 관류용 멸균생리식염수 허가정보 (품목기준코드 200300245, ATC B05CB01)
+- 공식 URL 1: https://nedrug.mfds.go.kr/cntnts/37
+- 공식 URL 2: https://www.health.kr/drug/A11ABBBBB1066
+- 열람일: 2026-10-17
+- 원문 발췌:
+• [의약외품 범위 지정 (식약처 고시 제2020-48호, 약사법 제2조제7호 나목)]
+  라. 콘택트렌즈관리용품: 콘택트렌즈의 관리를 위하여 세척ㆍ보존ㆍ소독ㆍ헹굼 기타 이와 유사한 방법으로 사용되는 물품으로서 기구 또는 기계가 아닌 것
+  바. 인체에 직접 사용하는 과산화수소수, 이소프로필 알코올, 염화벤잘코늄, 크레졸 또는 에탄올을 주성분으로 하는 외용 소독제
+• [대한관류용멸균생리식염수 (품목기준코드 200300245, ATC 코드 B05CB01, 자료출처: 식품의약품안전처)]
+  - 성분/함량: 염화나트륨 (Sodium Chloride) 9g/L (0.9%), 첨가제: 주사용수 (일반의약품, 단일제)
+  - 효능·효과: 관류 및 세정제
+  - 저장방법: 밀봉용기, 실온(1∼30℃)보관
+  - 사용상의 주의사항:
+    1) 이 약은 국소적으로 사용하여야 하며 비경구적 주사제로 사용하지 않는다.
+    2) 밀폐된 체강의 관류중에 과도한 용량이나 압력을 가하면 조직이 확장되거나 파괴될 수 있다.
+    3) 부유물질이 있거나 또는 용기가 훼손되었을 때는 사용하지 않는다.
+    4) 관류로 사용할 때는 새로 개봉한 것을 사용하고 잔액은 재사용하지 않는다.
+
+--------------------------------------------------------------------------------
+
+[출처 5] 대한비과학회지 (Journal of Rhinology) — Effects of Saline Solution on Ciliary Movement in Human Nasal Epithelium in vitro (J Rhinol 2000;7(2):132-136)
+- 공식 URL: https://www.j-rhinology.org/upload/pdf/jr-7-132.pdf
+- 저자 및 소속: Kang Soo Lee, Chang Ho Lee, Yang-Gi Min, Chae-Seo Rhee, Chul Hee Lee, Dong Wook Lee (Department of Otorhinolaryngology-Head and Neck Surgery, Seoul National University College of Medicine 등)
+- 열람일: 2026-10-17
+- 원문 발췌:
+• Normal turbinate mucosa was exposed to five different concentrations including 0.06%, 0.12%, 0.9%, 3.0%, and 7.0% of phosphate-buffered saline solutions. CBF (ciliary beat frequency) was measured up to 60 minutes after exposure to each concentration of saline solution and histologic changes were examined by transmission electron microscopy.
+• Table 1 (CBF): In 0.90% isotonic saline solution, baseline CBF was 11.95±1.15 Hz at 0 min, 12.01±1.03 Hz at 5 min, 11.90±0.83 Hz at 10 min, and 11.30±0.82 Hz at 60 min (no significant change in CBF up to 60 minutes).
+• In 3.0% hypertonic saline solution, CBF markedly decreased at 1 minute (from 11.07±0.83 Hz to 6.16±1.43 Hz) and ciliary movement completely stopped (0 Hz, complete ciliostasis) in all specimens at 10 minutes.
+• In 7.0% hypertonic saline solution, CBF decreased immediately after addition of the saline solution (from 11.12±0.93 Hz to 0.54±1.01 Hz at 1 min) and complete ciliostasis (0 Hz) was observed in all specimens at 5 minutes.
+• Transmission electron microscopic findings: The shape of each epithelial cell, the nucleus, the cytoplasmic organelles and ciliary ultrastructure were well preserved in control solution and 0.9% saline solutions. However, in the specimens with ciliostasis after exposure to hypertonic saline solutions, intercellular tight junction and desmosome were disrupted and the intercellular spaces were widened. In addition, the ciliated cells and their nuclei were contracted due to high osmolarity.
+
