@@ -33,6 +33,7 @@
 | **Step 0-B** | **2차 제목 맞춤형 심층 리서치 (Target-Focused Deep Dive Research)**<br>확정된 제목이 약속한 세부 기전·수치·통설 대조·맞춤 FAQ 2~3선을 `리서치.md` 및 `evidence_manifest.json`에 완결 보강 | `python tools/step_guard.py 4` |
 | **Step 4** | **구글 본진(`post_data.json`) & 네이버(`네이버.html`) 독립 집필 + 이미지 6장 생성/최적화 + 로컬 빌드 및 프리뷰 보고** ➔ **HARD STOP 4 (`"발행해줘"` 대기)** | `skills/kkuldanji-google-article/SKILL.md` & `skills/naver-honeyjar/SKILL.md`<br>`python tools/optimize_images.py "[작업폴더]"`<br>`python tools/evidence_guard.py "[작업폴더]"`<br>`python tools/audit_duplicates.py`<br>`python tools/add_post.py "[작업폴더]/post_data.json"`<br>`python tools/audit_site.py --local` |
 | **Step 5/6** | **실서버 배포 (`git push`) 및 라이브 검증** (사용자가 `"발행해줘"` 승인 시에만 실행) | `git add . && git commit && git push`<br>`python tools/audit_site.py --live` |
+| **클립/쇼츠** | **네이버 클립 & 쇼츠 30초 세로형(`1080×1920`) 영상 제작** (Step S-1 30초 대본 제시 ➔ Step S-2 레퍼런스 분석·음원 요청 ➔ Step S-3 단어 싱크·렌더링) | `skills/kkuldanji-shorts-clip/SKILL.md` |
 
 ---
 

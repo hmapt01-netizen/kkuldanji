@@ -7,3 +7,4 @@
 - **Step 1 네이버 2대 트랙 제목 10선**: [`skills/kkuldanji-naver-title/SKILL.md`](file:///d:/작업/꿀단지/skills/kkuldanji-naver-title/SKILL.md)
 - **Step 2~4 구글 웹 매거진 (`post_data.json`)**: [`skills/kkuldanji-google-article/SKILL.md`](file:///d:/작업/꿀단지/skills/kkuldanji-google-article/SKILL.md)
 - **Step 4 네이버 블로그 본문 & 8종 꿀벌 스티커 (`네이버.html`)**: [`skills/naver-honeyjar/SKILL.md`](file:///d:/작업/꿀단지/skills/naver-honeyjar/SKILL.md)
+- **네이버 클립 & 쇼츠 30초 세로형 영상 제작 (`1080×1920`)**: [`skills/kkuldanji-shorts-clip/SKILL.md`](file:///d:/작업/꿀단지/skills/kkuldanji-shorts-clip/SKILL.md)

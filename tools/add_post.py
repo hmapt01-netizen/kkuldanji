@@ -154,20 +154,22 @@ def add_post(post_data, image_dir=None, work_dir=None):
     except Exception:
         pass
 
-    # 내부 .html 링크를 inline-pill-link 알약 배지로 자동 보정
+    # 내부 .html 링크를 inline-pill-link 알약 배지(우측 ↗ 화살표)로 100% 일관되게 자동 보정
     def _convert_pill_link(m):
-        full_tag = m.group(0)
-        if 'class=' in full_tag:
-            return full_tag
-        href = m.group(1)
-        text = m.group(2).strip()
-        if not text.startswith("🔗"):
-            text = f"🔗 {text}"
-        return f'<a href="{href}" class="inline-pill-link">{text}</a>'
+        attrs = m.group(1)
+        href = m.group(2).strip()
+        text = re.sub(r'<[^>]+>', '', m.group(3)).strip()
+        if href.startswith("http") and "honeyjar.co.kr/posts/" in href:
+            href = href.split("honeyjar.co.kr/posts/")[-1].strip("/")
+        elif href.startswith("http"):
+            return m.group(0)
+        text = re.sub(r'^🔗\s*', '', text).strip()
+        text = re.sub(r'\s*(?:↗|→)\s*$', '', text).strip()
+        return f'<a class="inline-pill-link" href="{href}">{text} ↗</a>'
 
     body_html = re.sub(
-        r'<a\s+href=["\']([^"\':/]+\.html)["\'][^>]*>([\s\S]*?)</a>',
-        _convert_pill_link,
+        r'<a\b([^>]*?)href=["\']([^"\'#]+\.html)["\']([^>]*?)>([\s\S]*?)</a>',
+        lambda m: _convert_pill_link(type('M', (), {'group': lambda self, i: (m.group(0), m.group(1)+m.group(3), m.group(2), m.group(4))[i]})()),
         body_html,
         flags=re.IGNORECASE
     )

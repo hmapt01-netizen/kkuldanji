@@ -20,7 +20,8 @@ RULE_FILES = [
     os.path.join(ROOT_DIR, "skills", "topic-opportunity", "SKILL.md"),
     os.path.join(ROOT_DIR, "skills", "kkuldanji-naver-title", "SKILL.md"),
     os.path.join(ROOT_DIR, "skills", "kkuldanji-google-article", "SKILL.md"),
-    os.path.join(ROOT_DIR, "skills", "naver-honeyjar", "SKILL.md")
+    os.path.join(ROOT_DIR, "skills", "naver-honeyjar", "SKILL.md"),
+    os.path.join(ROOT_DIR, "skills", "kkuldanji-shorts-clip", "SKILL.md")
 ]
 
 # 2. 가디언 도구 검사 대상 (추상 알고리즘 보존 검사)

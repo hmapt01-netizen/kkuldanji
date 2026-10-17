@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LDL 콜레스테롤 수치 높은 이유, 총콜레스테롤 200 넘을 때 커피·식단 조절법</title>
+<style>
+  body {
+    font-family: 'Pretendard', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    margin: 0;
+    padding: 20px 12px 60px;
+    line-height: 1.85;
+  }
+  .control-bar {
+    max-width: 680px;
+    margin: 0 auto 18px;
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    padding: 16px 20px;
+    box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .btn-copy {
+    background: #0f766e;
+    color: #ffffff;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.95rem;
+  }
+  .btn-tag {
+    background: #d97706;
+    color: #ffffff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  .tag-copy-box {
+    max-width: 680px;
+    margin: 0 auto 20px;
+    background: #fffbeb;
+    border: 1px dashed #f59e0b;
+    border-radius: 12px;
+    padding: 14px 18px;
+    font-size: 0.9rem;
+    color: #92400e;
+  }
+  #naver-content {
+    max-width: 680px;
+    margin: 0 auto;
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 36px 22px;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.06);
+    text-align: center;
+  }
+  #naver-content h1 {
+    font-size: 1.45rem;
+    line-height: 1.45;
+    color: #0f172a;
+    margin-bottom: 26px;
+    word-break: keep-all;
+  }
+  #naver-content h2 {
+    font-size: 1.2rem;
+    color: #0f766e;
+    margin: 38px auto 18px;
+    padding-left: 10px;
+    display: inline-block;
+    border-left: 4px solid #0f766e;
+    text-align: left;
+  }
+  #naver-content p {
+    font-size: 1.03rem;
+    color: #334155;
+    margin: 18px auto;
+    word-break: keep-all;
+    text-align: center;
+  }
+  .post-img {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 14px;
+    margin: 24px auto;
+  }
+  .ref-box {
+    margin-top: 36px;
+    padding: 18px 20px;
+    background: #f1f5f9;
+    border-radius: 12px;
+    text-align: left;
+    font-size: 0.88rem;
+    color: #475569;
+    line-height: 1.7;
+  }
+</style>
+<script>
+function copyForNaver() {
+  const el = document.getElementById('naver-content');
+  const range = document.createRange();
+  range.selectNodeContents(el);
+  const sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+  document.execCommand('copy');
+  sel.removeAllRanges();
+  alert('네이버 스마트에디터 본문이 복사되었습니다! 에디터에 붙여넣기(Ctrl+V) 하세요.');
+}
+function copyTagsOnly() {
+  const tags = document.getElementById('raw-hashtags').innerText;
+  navigator.clipboard.writeText(tags).then(() => {
+    alert('해시태그가 복사되었습니다!');
+  });
+}
+</script>
+</head>
+<body>
+
+<div class="control-bar">
+  <div><strong>🍯 꿀단지 네이버 원고 원클릭 발행 도구</strong></div>
+  <div style="display:flex; gap:8px;">
+    <button class="btn-copy" onclick="copyForNaver()">📋 네이버 본문 복사하기</button>
+    <button class="btn-tag" onclick="copyTagsOnly()">🏷️ 해시태그 복사하기</button>
+  </div>
+</div>
+
+<div class="tag-copy-box">
+  <div style="font-weight:800; margin-bottom:6px;">🏷️ 네이버 스마트에디터 태그란 복사용 해시태그</div>
+  <div id="raw-hashtags">#콜레스테롤수치 #LDL콜레스테롤 #총콜레스테롤수치 #콜레스테롤낮추는음식 #콜레스테롤낮추는방법 #콜레스테롤높은이유 #HDL콜레스테롤 #LDL콜레스테롤정상수치 #건강검진콜레스테롤 #콜레스테롤커피 #콜레스테롤계란 #이상지질혈증식단 #에디터혀니 #꿀단지</div>
+</div>
+
+<div id="naver-content" style="text-align: center;">
+
+  <h1>LDL 콜레스테롤 수치 높은 이유, 총콜레스테롤 200 넘을 때 커피·식단 조절법</h1>
+
+  <img src="images/thumb.jpg" alt="종이 필터 드립 커피와 삶은 달걀, 통곡물 아침 식사 풍경" class="post-img">
+
+  <p>건강검진 우편물을 뜯어 보았을 때<br>총콜레스테롤 옆에 200 mg/dL이 넘는 숫자가 적혀 있으면<br>가슴이 철렁 내려앉기 마련이지요.</p>
+
+  <p>평소 기름진 고기 요리를 자주 먹는 편도 아닌데<br>왜 나쁜 LDL 콜레스테롤이 130 mg/dL이나 160 mg/dL을 넘었는지<br>억울한 마음이 드셨던 적 있으시죠?</p>
+
+  <p><mark style="background:#fef08a; padding:2px 6px; border-radius:4px; font-weight:bold;">사실 우리 몸의 지질은 식사량보다 간에서 스스로 만드는 양이 훨씬 많아서<br>계란만 끊어서는 수치가 쉽게 내려가지 않습니다!</mark></p>
+
+  <img src="images/stickers/sticker01_shocked.jpg" alt="충격 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+  <h2>| 소식해도 수치가 오르는 뜻밖의 이유</h2>
+
+  <img src="images/post01.jpg" alt="채혈 전 안정 시간과 9~12시간 공복 상태를 상징하는 물컵과 시계" class="post-img">
+
+  <p>우선 피를 뽑기 전날 밤부터 9~12시간 빈속을 잘 유지했는지,<br>검진실 의자에서 5분 동안 차분히 숨을 고른 뒤 측정했는지 떠올려 보세요.</p>
+
+  <p>바쁘게 걸어와 숨이 찬 채로 주사기를 꽂으면 피가 일시적으로 진해져<br>수치가 높게 찍힐 수 있으니 날을 달리해 2회 이상 확인하는 편이 정확합니다.</p>
+
+  <img src="images/stickers/sticker02_excited.jpg" alt="솔깃한 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+  <p>적게 먹는데도 LDL 지표가 130~159 mg/dL 경계선을 넘어서는 까닭은<br><u style="text-underline-offset: 4px;">간식 속 숨은 기름기와 호르몬·체질 변화가 간에서 지질 생성을 부추기기 때문</u>입니다.</p>
+
+  <img src="images/stickers/sticker03_detective.jpg" alt="탐정 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+  <p>특히 여성분들은 완경기를 지나며 에스트로겐 방어막이 옅어져서<br>식단이 그대로여도 나쁜 지질은 치솟고 든든한 HDL(여성 50 mg/dL, 남성 40 mg/dL 기준)은 줄어듭니다.</p>
+
+  <img src="images/stickers/sticker04_confused.jpg" alt="멘붕 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+  <h2>| 계란보다 포화지방과 커피 필터 점검</h2>
+
+  <img src="images/post02.jpg" alt="버터·삼겹살 포화지방과 올리브유·견과류·아보카도 불포화지방 비교" class="post-img">
+
+  <p>식재료 자체에 들어 있는 콜레스테롤은 수치가 이미 높은 분만<br>하루 300mg 안쪽으로 줄이면 되니 아침 삶은 달걀 한 알을 겁내실 필요는 없습니다.</p>
+
+  <p><mark style="background:#fef08a; padding:2px 6px; border-radius:4px; font-weight:bold;">정작 먼저 덜어내야 할 대상은 삼겹살·버터·팜유 같은 포화지방(열량의 7% 미만)과<br>0.2g 미만일 때 0으로 적히는 마가린·도넛 속 트랜스지방입니다.</mark></p>
+
+  <img src="images/post03.jpg" alt="종이 필터 핸드드립 커피와 금속 거름망 커피 추출 비교" class="post-img">
+
+  <p>게다가 종이 거름망을 쓰지 않은 프렌치프레스나 에스프레소 커피의 디테르펜 기름 성분은<br>간세포가 피 속 지질을 회수하는 통로를 막아 하루 4잔 넘게 마시면 수치를 끌어올립니다.</p>
+
+  <p>그러니 설탕 없는 블랙이라도 종이 필터를 거쳐 내린 드립 커피로 골라<br>하루 3~4잔 아래로만 가볍게 즐기시는 습관이 훨씬 유리합니다.</p>
+
+  <img src="images/stickers/sticker07_thumbsup.jpg" alt="엄지척 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+  <h2>| 식이섬유 25g 식단과 전문가 상담 기준</h2>
+
+  <img src="images/post04.jpg" alt="현미보리 잡곡밥과 고등어구이, 두부 샐러드, 미역 반찬 한식 식단" class="post-img">
+
+  <p>장 속에서 남는 기름기를 흡착해 밖으로 내보내려면 수용성 섬유질이 풍부한 귀리·보리·콩·해조류로<br>전체 식이섬유를 매일 25g 이상 넉넉하게 채워 주는 밥상이 든든한 버팀목이 됩니다.</p>
+
+  <p><mark style="background:#fef08a; padding:2px 6px; border-radius:4px; font-weight:bold;">우유는 지방 1% 이하 저지방 제품으로 바꾸고, 과체중·비만인 경우 하루 500 kcal씩 덜어내어<br>몸무게를 5~10%만 줄여도 혈액 검사표가 한결 가벼워집니다.</mark></p>
+
+  <img src="images/stickers/sticker05_exhausted.jpg" alt="탈진 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+  <img src="images/post05.jpg" alt="가을 공원 산책로를 빠르게 걷는 유산소 운동 모습" class="post-img">
+
+  <p>조금 숨이 차는 빠른 걸음을 주 5회, 한 번에 30분 이상 이어 가고<br>주 2회 근력 운동을 보태어 허리둘레(남성 90 cm, 여성 85 cm 아래)를 지켜 보세요.</p>
+
+  <p>다만 집안 내력으로 수용체 기능이 약하거나 LDL 지표가 190 mg/dL을 넘길 때,<br>또는 혈당·혈압 고민이 함께 있거나 걸을 때 종아리 통증·가슴 압박감이 느껴진다면<br>혼자 식단만 고집하지 마시고 빠르게 전문의를 찾아 맞춤 관리를 상의하셔야 합니다.</p>
+
+  <img src="images/stickers/sticker06_emergency.jpg" alt="비상 경보 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+  <p>내일 아침 향긋한 커피를 내리실 때는 하얀 종이 필터를 먼저 챙겨 보시고<br>저녁 식탁에는 쫀득한 귀리·보리 잡곡밥과 미역 반찬을 올려보시면 어떨까요?</p>
+
+  <p>여러분은 혈관 관리를 위해 커피 추출 습관부터 먼저 바꾸실 건가요,<br>아니면 빵·과자 같은 간식 속 기름기부터 줄여 보실 건가요? 댓글로 편하게 들려주세요 😊</p>
+
+  <img src="images/stickers/sticker08_honeypot.jpg" alt="꿀단지 인사 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+  <div style="margin: 30px auto; padding: 18px 20px; background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; text-align: left;">
+    <div style="font-weight: 800; color: #92400e; margin-bottom: 6px;">🍯 함께 읽으면 좋은 지난 꿀단지 글</div>
+    <div style="color: #475569; font-size: 0.93rem;">👉 검진표에서 중성지방이 150~199 mg/dL 넘게 나왔을 때 재검 전 금주·빈속 준비 순서와 공복혈당·당화혈색소 읽는 법도 지난 꿀단지 이야기에서 함께 살펴보세요!</div>
+  </div>
+
+  <div class="ref-box">
+    <div style="font-weight: 800; color: #1e293b; margin-bottom: 8px;">📚 공인 보건·학술 데이터 및 참고 문헌</div>
+    <div style="margin-bottom: 4px;">1. 질병관리청 국가건강정보포털 — 이상지질혈증 역학 및 비약물·약물 관리 안내 (문서번호 6715)</div>
+    <div style="margin-bottom: 4px;">2. 질병관리청 국가건강정보포털 — 이상지질혈증 식사요법 상세 자료 (문서번호 6714)</div>
+    <div>3. 한국지질·동맥경화학회 — 지질 선별 채혈 수칙 및 동맥경화 예방 영양 가이드라인</div>
+  </div>
+
+  <p style="margin-top: 28px; font-size: 0.9rem; color: #64748b;">
+    #콜레스테롤수치 #LDL콜레스테롤 #총콜레스테롤수치 #콜레스테롤낮추는음식 #콜레스테롤낮추는방법 #콜레스테롤높은이유 #HDL콜레스테롤 #LDL콜레스테롤정상수치 #건강검진콜레스테롤 #콜레스테롤커피 #콜레스테롤계란 #이상지질혈증식단 #에디터혀니 #꿀단지
+  </p>
+
+</div>
+</body>
+</html>

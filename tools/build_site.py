@@ -272,6 +272,23 @@ for idx, p in enumerate(posts):
     out = out.replace("{{FEATURED_IMAGE_HTML}}", featured_img_html)
     cleaned_body_html = sanitize_body_faq(deduplicate_body_first_image(p["bodyHtml"], p.get("thumb", "")))
     cleaned_body_html = inject_standard_toc(cleaned_body_html)
+    # 내부 .html 포스트 간 링크를 100% 동일한 알약 배지(inline-pill-link + ↗)로 정규화
+    def _norm_pill(m):
+        href = m.group(1).strip()
+        if href.startswith("http") and "honeyjar.co.kr/posts/" in href:
+            href = href.split("honeyjar.co.kr/posts/")[-1].strip("/")
+        elif href.startswith("http"):
+            return m.group(0)
+        text = re.sub(r'<[^>]+>', '', m.group(2)).strip()
+        text = re.sub(r'^🔗\s*', '', text).strip()
+        text = re.sub(r'\s*(?:↗|→)\s*$', '', text).strip()
+        return f'<a class="inline-pill-link" href="{href}">{text} ↗</a>'
+    cleaned_body_html = re.sub(
+        r'<a\b[^>]*?href=["\']([^"\'#]+\.html)["\'][^>]*?>([\s\S]*?)</a>',
+        _norm_pill,
+        cleaned_body_html,
+        flags=re.IGNORECASE
+    )
     cleaned_body_html = re.sub(
         r'<div class="post-img-wrap"([^>]*)>\s*(<img[^>]+>)\s*<p[^>]*>([\s\S]*?)</p>\s*</div>',
         r'<div class="post-img-wrap"\1>\n    \2\n    <div class="img-caption" style="font-size:0.83rem !important; color:#64748b !important; margin-top:8px !important; line-height:1.4 !important; text-align:center !important;">\3</div>\n</div>',

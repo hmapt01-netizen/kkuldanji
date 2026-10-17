@@ -70,9 +70,9 @@ def check_candidates(candidates):
 
     try:
         sys.path.insert(0, os.path.join(ROOT_DIR, "tools"))
-        from naver_searchad import fetch_searchad_keywords
+        from naver_searchad import fetch_keyword_stats
     except Exception:
-        fetch_searchad_keywords = None
+        fetch_keyword_stats = None
 
     try:
         from datalab_popular import tag_shopping_connect
@@ -161,27 +161,29 @@ def check_candidates(candidates):
             print(f"   💎 [판정: 100% 신규 블루오션 주제] 기발행 {len(posts)}편과 겹치는 핵심 토큰이 전혀 없습니다.")
 
         # 2. 네이버 검색광고 API 실측 + 스윗스팟 세부 연관검색어 TOP 5
-        if fetch_searchad_keywords:
+        if fetch_keyword_stats:
             clean_q = re.sub(r"\s+", "", cand)
-            res = fetch_searchad_keywords([cand, clean_q])
-            exact_info = res.get("exact", {}).get(clean_q)
-            related_list = res.get("related", [])
+            try:
+                stats_list = fetch_keyword_stats([clean_q])
+            except Exception:
+                stats_list = []
+            exact_info = next((r for r in stats_list if r["keyword"] == clean_q), None)
 
             if exact_info:
-                print(f"   📊 [네이버 검색광고 실측]: 월간 총 검색량 {exact_info['total']:,}회 (PC {exact_info['pc']:,} / 모바일 {exact_info['mobile']:,}) | 경쟁도: {exact_info['compIdx']}")
+                print(f"   📊 [네이버 검색광고 실측]: 월간 총 검색량 {exact_info['total_volume']:,}회 (PC {exact_info['pc_volume']:,} / 모바일 {exact_info['mobile_volume']:,}) | 경쟁도: {exact_info['comp_idx']}")
             else:
                 print(f"   📊 [네이버 검색광고 실측]: '{cand}' 구문 일치 직접 검색량 미잡힘 ➔ 아래 세부 연관검색어 결합 필수")
 
             sweet_spot_related = [
-                r for r in related_list
-                if r["keyword"] != clean_q and 100 <= r["total"] <= 25000
+                r for r in stats_list
+                if r["keyword"] != clean_q and 100 <= r["total_volume"] <= 25000
             ]
             sweet_spot_related.sort(
-                key=lambda x: (0 if 300 <= x["total"] <= 15000 else 1, -x["total"])
+                key=lambda x: (0 if 300 <= x["total_volume"] <= 15000 else 1, -x["total_volume"])
             )
             top_related = sweet_spot_related[:5]
             if top_related:
-                rel_strs = [f"{r['keyword']}({r['total']:,}회)" for r in top_related]
+                rel_strs = [f"{r['keyword']}({r['total_volume']:,}회)" for r in top_related]
                 print(f"   🎯 [제목/소제목 결합용 스윗스팟 연관검색어 TOP 5]: {' | '.join(rel_strs)}")
                 print(f"      👉 위 연관검색어 중 1~2개를 Step 1 네이버 제목([트랙 B: 하이브리드형])과 본문 H2 소제목에 반드시 포함하십시오!")
 
