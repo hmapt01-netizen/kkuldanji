@@ -83,37 +83,60 @@ def validate_naver_titles(titles, run_serp=False, search_queries=None):
     return True
 
 
+GOOGLE_BLIND_WORDS = [
+    "이것", "이 질환", "이 증상", "이 음식", "이 영양제", "이 자세", "이 습관", "이 방법", "이 동작", "이 병"
+]
+
+GOOGLE_COMPLEX_UNITS = [
+    "mmHg", "g/dL", "mg/dL", "μg/L", "ug/L", "mL", "kcal", "mcg"
+]
+
+
 def validate_google_titles(titles, run_serp=False, search_queries=None):
     """
-    꿀단지 구글 본진 마스터 제목 10선 공식 검증 (플랫폼 금칙어 오염 해제 적용)
+    꿀단지 구글 본진 듀얼 트랙 제목 10선 공식 검증
+    ([트랙 A: 검색·진료 가이드형 5선] + [트랙 B: 디스커버·착각 반전형 5선])
     """
-    print("🔍 [구글 본진 제목 10선 공식 기계적 검증 시작 (진단·치료·병원·추천 등 자연 검색어 허용)]")
+    print("🔍 [구글 본진 제목 10선 듀얼 트랙(검색·진료 가이드형 5선 + 디스커버·착각 반전형 5선) 공식 기계적 검증 시작]")
     errors = []
 
     if len(titles) != 10:
-        errors.append(f"❌ 제목 개수 오류: 10개가 아닌 {len(titles)}개입니다.")
+        errors.append(f"❌ 제목 개수 오류: 10개가 아닌 {len(titles)}개입니다. ([트랙 A 5선] + [트랙 B 5선] 총 10개 필수)")
 
     for idx, title in enumerate(titles, 1):
+        track_label = "트랙 A(검색·진료형)" if idx <= 5 else "트랙 B(디스커버·반전형)"
+
         found_forbidden = [w for w in GOOGLE_FORBIDDEN_WORDS if w in title]
         if found_forbidden:
-            errors.append(f"❌ {idx}번 구글 제목 공통 금칙어 적발: {found_forbidden} -> '{title}'")
+            errors.append(f"❌ {idx}번 [{track_label}] 공통 금칙어 적발: {found_forbidden} -> '{title}'")
 
-        if "..." in title:
-            errors.append(f"❌ 말줄임표('...') 혼입 ({idx}번) -> '{title}'")
+        if "..." in title or "…" in title:
+            errors.append(f"❌ {idx}번 [{track_label}] 말줄임표('...' 또는 '…') 혼입 -> '{title}'")
+
+        if ":" in title or "：" in title:
+            errors.append(f"❌ {idx}번 [{track_label}] 구형 콜론(':') 키워드 나열식 적발 (자연스러운 문장형 필수) -> '{title}'")
+
+        found_blind = [w for w in GOOGLE_BLIND_WORDS if w in title]
+        if found_blind:
+            errors.append(f"❌ {idx}번 [{track_label}] 블라인드 지시어 은닉 적발 ({found_blind}, 정식 명칭 명시 필수) -> '{title}'")
+
+        found_units = [u for u in GOOGLE_COMPLEX_UNITS if re.search(re.escape(u), title, re.IGNORECASE)]
+        if found_units:
+            errors.append(f"❌ {idx}번 [{track_label}] 복잡한 임상·계량 단위 노출 적발 ({found_units}, 본문에만 수록하고 제목에는 쉬운 해답 개수 N가지 사용) -> '{title}'")
 
         clean_len = len(title.strip())
-        if clean_len > 70:
-            errors.append(f"❌ 글자 수 초과 ({idx}번, {clean_len}자): 70자 이하여야 합니다 -> '{title}'")
-        elif clean_len < 18:
-            errors.append(f"❌ 글자 수 부족 ({idx}번, {clean_len}자): 최소 18자 이상이어야 합니다 -> '{title}'")
+        if clean_len > 46:
+            errors.append(f"❌ 글자 수 초과 ({idx}번 [{track_label}], {clean_len}자): 모바일 완독을 위해 46자 이하여야 합니다 -> '{title}'")
+        elif clean_len < 24:
+            errors.append(f"❌ 글자 수 부족 ({idx}번 [{track_label}], {clean_len}자): 최소 24자 이상이어야 합니다 -> '{title}'")
 
     if errors:
-        print("\n🚨 [검증 실패: 구글 제목 규격 미달]")
+        print("\n🚨 [검증 실패: 구글 듀얼 트랙 제목 규격 미달]")
         for err in errors:
             print(f"  {err}")
         return False
 
-    print("🎉 [100% 검증 통과] 구글 본진 제목 10선이 규격 및 공통 금칙어 0개를 완벽히 충족했습니다!")
+    print("🎉 [100% 검증 통과] 구글 본진 제목 10선이 [트랙 A: 검색·진료 가이드형 5선] + [트랙 B: 디스커버·착각 반전형 5선] 규격을 완벽히 충족했습니다!")
     return True
 
 

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>“앉았다 일어설 때 아찔한 순간, 그 자리에 버티면 위험할까?”</title>
+  <style>
+    body {
+      font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
+      margin: 0;
+      padding: 20px;
+    }
+    .toolbar {
+      max-width: 680px;
+      margin: 0 auto 20px auto;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+      text-align: center;
+    }
+    .btn-copy {
+      background: #0284c7;
+      color: #ffffff;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin: 4px;
+    }
+    .btn-copy-tag {
+      background: #16a34a;
+      color: #ffffff;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      margin: 4px;
+    }
+    .tag-preview-box {
+      margin-top: 12px;
+      padding: 10px 14px;
+      background: #f1f5f9;
+      border-radius: 8px;
+      font-size: 13px;
+      color: #334155;
+      line-height: 1.6;
+      word-break: keep-all;
+    }
+    #naver-content {
+      max-width: 680px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 36px 24px;
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.05);
+      text-align: center;
+      line-height: 1.95;
+      font-size: 17px;
+      color: #334155;
+    }
+    #naver-content p {
+      margin: 0 0 24px 0;
+      text-align: center;
+      word-break: keep-all;
+    }
+    #naver-content h2 {
+      font-size: 21px;
+      font-weight: 800;
+      color: #0f172a;
+      margin: 42px 0 22px 0;
+      text-align: center;
+    }
+    .post-photo {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      border-radius: 12px;
+      margin: 24px auto;
+    }
+    .ref-box {
+      margin-top: 36px;
+      padding: 18px;
+      background: #f8fafc;
+      border-radius: 10px;
+      font-size: 13.5px;
+      color: #64748b;
+      text-align: center;
+      line-height: 1.75;
+    }
+  </style>
+  <script>
+    function copyForNaver() {
+      const container = document.getElementById('naver-content');
+      const range = document.createRange();
+      range.selectNode(container);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      document.execCommand('copy');
+      selection.removeAllRanges();
+      alert('네이버 블로그 본문이 복사되었습니다! 스마트에디터에 붙여넣기(Ctrl+V) 하세요.');
+    }
+    function copyHashtags() {
+      const tagText = document.getElementById('hashtag-raw').innerText;
+      navigator.clipboard.writeText(tagText).then(function() {
+        alert('해시태그가 복사되었습니다!');
+      });
+    }
+  </script>
+</head>
+<body>
+
+  <div class="toolbar">
+    <button class="btn-copy" onclick="copyForNaver()">📋 네이버 블로그 본문 원클릭 전체 복사</button>
+    <button class="btn-copy-tag" onclick="copyHashtags()">🏷️ 해시태그 복사하기</button>
+    <div class="tag-preview-box" id="hashtag-raw">#기립성저혈압 #기립성저혈압원인 #기립성저혈압증상 #저혈압증상 #앉았다일어날때어지럼증 #빈혈차이 #기립성어지럼증 #미주신경성실신 #아침어지럼증 #혈압측정법 #심장내과 #순환기내과 #에디터혀니 #꿀단지</div>
+  </div>
+
+  <div id="naver-content" style="text-align: center;">
+    <h1 style="font-size: 24px; font-weight: 800; color: #0f172a; margin-bottom: 28px; line-height: 1.45; text-align: center;">“앉았다 일어설 때 아찔한 순간, 그 자리에 버티면 위험할까?”</h1>
+
+    <img src="images/thumb.jpg" alt="아침 침대 끝에 앉아 순간적인 기립 어지럼증에 이마를 짚고 호흡을 고르는 모습" class="post-photo">
+
+    <p>
+      소파에 편하게 앉아 쉬다가 몸을 일으킬 때나<br>
+      새벽에 잠에서 깨어 화장실로 향하는 길에<br>
+      갑자기 눈앞이 까맣게 변해 휘청거린 적 있으신가요?
+    </p>
+
+    <p>
+      대부분은 벽이나 문고리를 붙잡고 가만히 서서<br>
+      시야가 다시 밝아질 때까지 꿋꿋이 버티거나<br>
+      단순히 피가 부족한 빈혈 때문이라고 넘기곤 합니다.
+    </p>
+
+    <p>
+      하지만 <mark style="background:#fef08a; padding:2px 6px; border-radius:4px; font-weight:bold;">최소 5분 이상 누웠다가 일어선 뒤 1분이나 3분 안에<br>
+      수축기 혈압 20 mmHg 또는 이완기 혈압 10 mmHg 이상 뚝 떨어지는</mark><br>
+      기립성 저혈압 신호일 때 그 자리에 서서 참으면 무척 위험합니다.
+    </p>
+
+    <img src="images/stickers/sticker01_shocked.jpg" alt="충격 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+    <h2>| 서서 버티다 쓰러지면 외상 위험 20%</h2>
+
+    <img src="images/post03.jpg" alt="거실 매트 위에 안전하게 누워 쿠션 위에 두 다리를 높게 올리고 쉬는 여성" class="post-photo">
+
+    <p>
+      누워 있거나 앉아 있을 때는 우리 몸의 혈액이<br>
+      복부와 하체 쪽으로 넉넉하게 머물러 있는데요.<br>
+      갑자기 일어서면 중력 때문에 피가 다리로 쏠리면서<br>
+      심장과 뇌로 올라가는 혈류가 순간적으로 줄어들게 됩니다.
+    </p>
+
+    <img src="images/stickers/sticker02_excited.jpg" alt="솔깃한 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+    <p>
+      이때 자율신경계가 재빨리 혈관을 조여주지 못하면<br>
+      시야가 흐려지다가 결국 의식을 잃고 쓰러질 수 있습니다.<br>
+      실제로 <mark style="background:#fef08a; padding:2px 6px; border-radius:4px; font-weight:bold;">실신으로 넘어지는 분들의 20%가 머리나 뼈를 다치는<br>
+      2차 낙상 외상을 겪는다</mark>는 사실이 정말 아찔하더라고요.
+    </p>
+
+    <img src="images/stickers/sticker03_detective.jpg" alt="탐정 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+    <p>
+      그래서 눈앞이 캄캄해지는 느낌이 찾아오는 즉시<br>
+      억지로 서서 참지 말고 <u style="text-underline-offset: 4px;">바닥에 앉거나 누운 뒤<br>
+      베개나 쿠션 위에 두 다리를 높게 올려주어야</u> 합니다.<br>
+      당장 눕기 힘든 밖이라면 두 다리를 X자로 교차해 꼬고<br>
+      종아리와 엉덩이, 아랫배에 꽉 힘을 주거나 쪼그려 앉아보세요.
+    </p>
+
+    <h2>| 빈혈 철분제 오해와 아침 물 480mL 습관</h2>
+
+    <img src="images/post02.jpg" alt="투명한 유리컵에 담긴 물 480mL와 복약 케이스 및 저탄수화물 견과류 식단" class="post-photo">
+
+    <p>
+      일어설 때마다 어지럽다고 피 검사도 해보지 않은 채<br>
+      철분 영양제부터 사서 드시는 분들도 참 많으시죠?<br>
+      하지만 빈혈은 혈색소 수치(남성 13 g/dL, 여성 12 g/dL 미만)가 낮아<br>
+      가만히 있거나 걸을 때도 내내 숨이 차고 피곤한 상태를 뜻합니다.
+    </p>
+
+    <img src="images/stickers/sticker04_confused.jpg" alt="멘붕 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+    <p>
+      기립성 저혈압인데 엉뚱하게 철분제만 챙겨 먹으면<br>
+      어지럼증은 그대로인데 <mark style="background:#fef08a; padding:2px 6px; border-radius:4px; font-weight:bold;">복용자의 15~20%에서 나타나는<br>
+      속쓰림과 메스꺼움, 변비, 설사 같은 위장 불편</mark>만 겪기 쉽습니다.
+    </p>
+
+    <img src="images/post04.jpg" alt="오후 햇살 속에서 좌식 실내 자전거 페달을 밟으며 하체 근육을 단련하는 여성" class="post-photo">
+
+    <p>
+      심부전이나 신장질환으로 수분 제한이 없다면<br>
+      평소 <mark style="background:#fef08a; padding:2px 6px; border-radius:4px; font-weight:bold;">하루 2.0~2.5 L의 물을 충분히 마시고<br>
+      아침 기상 직후 어지럼증이 심할 땐 물 약 480 mL를</mark> 먼저 마셔보세요.<br>
+      잘 때 침대 머리 쪽을 10~20도 살짝 높여 두고<br>
+      침대 끝에 걸터앉아 발목을 위아래로 까딱인 뒤 천천히 일어나면<br>
+      아침마다 핑 도는 증상이 한결 편안해집니다.
+    </p>
+
+    <img src="images/stickers/sticker05_exhausted.jpg" alt="탈진 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+    <p>
+      또한 식사 후 30분 안에 수축기 혈압이 20 mmHg 이상 내려가는<br>
+      식후 저혈압이 있다면 탄수화물을 줄여 조금씩 자주 드시는 게 좋습니다.<br>
+      활동 전 누운 상태에서 아랫배 복대(20~40 mmHg 압력)나<br>
+      허벅지까지 오는 압박스타킹을 착용하고 오후에 실내 자전거를 타면<br>
+      하체 혈액이 심장으로 훨씬 잘 올라오게 됩니다.
+    </p>
+
+    <h2>| 전립선약 점검과 심장내과 방문 신호</h2>
+
+    <img src="images/post01.jpg" alt="식탁 의자에 등을 기대고 앉아 왼쪽 위팔에 혈압계 커프를 감고 측정하는 여성" class="post-photo">
+
+    <p>
+      평소 드시는 전립선비대증 약(알파-1 차단제)이나<br>
+      이뇨제, 혈압 강하제, 안정제 등도 혈관 수축을 늦출 수 있는데요.<br>
+      임의로 약을 끊지 마시고 최근 복약 기록표를 챙겨서<br>
+      담당 주치의와 복용 시간이나 용량 조절을 상의해 보셔야 합니다.
+    </p>
+
+    <img src="images/stickers/sticker06_emergency.jpg" alt="비상 경보 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+    <p>
+      무엇보다 <mark style="background:#fef08a; padding:2px 6px; border-radius:4px; font-weight:bold;">운동 도중이나 누워 있을 때 갑자기 정신을 잃거나<br>
+      가슴 통증, 숨 가쁨, 심장 두근거림, 50세 이전 돌연사 가족력</mark>이 있다면<br>
+      단순 기립성 어지럼증이 아닌 심장 원인일 수 있어<br>
+      지체 없이 심장내과(순환기내과) 정밀 검사를 받아야 합니다.
+    </p>
+
+    <img src="images/post05.jpg" alt="심장내과 진료실 책상 위에 놓인 청진기와 심전도 파형 모니터 및 혈압 측정 기구 정물 사진" class="post-photo">
+
+    <p>
+      집에서 3~4회 반복 측정해도 수축기 혈압이 내내 90 mmHg 미만이면서<br>
+      어지럼증이 동반되면 증상 강도와 관계없이 진료를 받아보시고,<br>
+      평소 130 mmHg이던 혈압이 110, 100 mmHg처럼 연속으로 뚝뚝 떨어진다면<br>
+      90 mmHg 이상이라도 금식 상태를 유지한 채 즉시 응급실로 향하시기 바랍니다.
+    </p>
+
+    <img src="images/stickers/sticker07_thumbsup.jpg" alt="쌍엄지 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+    <p>
+      여러분은 일어설 때 아찔한 순간이 찾아오면<br>
+      그 자리에서 벽을 짚고 버티셨나요, 아니면 바로 앉아 쉬셨나요?<br>
+      평소 겪으셨던 증상이나 나만의 대처법을 댓글로 편하게 나눠주세요!
+    </p>
+
+    <img src="images/stickers/sticker08_honeypot.jpg" alt="꿀단지 인사 꿀벌 스티커" style="display: block; margin: 20px auto; max-width: 180px; width: 100%; border: none;">
+
+    <div class="ref-box">
+      <strong>📚 공인 보건·학술 데이터 및 참고 문헌</strong><br>
+      • 질병관리청 국가건강정보포털 (KDCA) — 저혈압 및 기립 저혈압 관리 기준 (cntnts_sn=5259)<br>
+      • 대한신경과학회지 (JKNA) — 기립 시 어지럼증을 호소하는 환자의 비약물 관리 지침 (DOI: 10.17340/jkna.2025.0059)<br>
+      • 질병관리청 국가건강정보포털 (KDCA) — 실신 감별 및 낙상 외상 예방 수칙 (cntnts_sn=5853)<br>
+      • 질병관리청 국가건강정보포털 (KDCA) — 빈혈 혈색소 기준 및 철분 보충 주의점 (cntnts_sn=1104)
+    </div>
+
+    <p style="margin-top: 28px; font-size: 14px; color: #64748b;">
+      #기립성저혈압 #기립성저혈압원인 #기립성저혈압증상 #저혈압증상 #앉았다일어날때어지럼증 #빈혈차이 #기립성어지럼증 #미주신경성실신 #아침어지럼증 #혈압측정법 #심장내과 #순환기내과 #에디터혀니 #꿀단지
+    </p>
+  </div>
+
+</body>
+</html>

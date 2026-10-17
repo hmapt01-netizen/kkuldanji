@@ -29,7 +29,7 @@
 | **주제 선정** | 하이브리드 주제 발굴 (3대 카테고리 후보 3선 & 잠정 추천 1개) ➔ **HARD STOP** | `skills/topic-opportunity/SKILL.md`<br>`python tools/view_top_keywords.py --cat all`<br>`python tools/check_topic_duplication.py "후보1" "후보2"` |
 | **Step 0-A** | **1차 광범위 사전 팩트 탐색 (Pre-Fact & Baseline Check)**<br>공인 1차 기준선(Baseline) + 주의사항(Delta) + `official_source_raw.txt` 원문 덤프 + `리서치.md` 1차 작성 (제목 확정 전 세부 FAQ 조기 작성 금지) | `read_url_content`로 공인 1차 원문 열람 후 `official_source_raw.txt`(200바이트 이상, URL·열람일 포함) 저장<br>`python tools/step_guard.py 1` |
 | **Step 1** | **네이버 제목 10선 보고 및 승인 ([트랙 A 홈판형 5선] + [트랙 B 하이브리드형 5선])** ➔ **HARD STOP 1** | `skills/kkuldanji-naver-title/SKILL.md`<br>`titles.json` 저장 후 `python tools/validate_titles.py` |
-| **Step 2/3** | **구글 SEO 제목 10선 보고 및 최종 제목 확정 (`titles.json` 잠금)** ➔ **HARD STOP 2/3** | `skills/kkuldanji-google-article/SKILL.md`<br>`titles.json`에 `selected_naver`, `selected_google` 확정 저장 |
+| **Step 2/3** | **구글 SEO 듀얼 트랙 제목 10선 보고 및 최종 제목 확정 ([트랙 A 검색·진료 가이드형 5선] + [트랙 B 디스커버·착각 반전형 5선], `titles.json` 잠금)** ➔ **HARD STOP 2/3** | `skills/kkuldanji-google-article/SKILL.md`<br>`titles.json`에 `selected_naver`, `selected_google` 확정 저장 후 `python tools/validate_titles.py google` |
 | **Step 0-B** | **2차 제목 맞춤형 심층 리서치 (Target-Focused Deep Dive Research)**<br>확정된 제목이 약속한 세부 기전·수치·통설 대조·맞춤 FAQ 2~3선을 `리서치.md` 및 `evidence_manifest.json`에 완결 보강 | `python tools/step_guard.py 4` |
 | **Step 4** | **구글 본진(`post_data.json`) & 네이버(`네이버.html`) 독립 집필 + 이미지 6장 생성/최적화 + 로컬 빌드 및 프리뷰 보고** ➔ **HARD STOP 4 (`"발행해줘"` 대기)** | `skills/kkuldanji-google-article/SKILL.md` & `skills/naver-honeyjar/SKILL.md`<br>`python tools/optimize_images.py "[작업폴더]"`<br>`python tools/evidence_guard.py "[작업폴더]"`<br>`python tools/audit_duplicates.py`<br>`python tools/add_post.py "[작업폴더]/post_data.json"`<br>`python tools/audit_site.py --local` |
 | **Step 5/6** | **실서버 배포 (`git push`) 및 라이브 검증** (사용자가 `"발행해줘"` 승인 시에만 실행) | `git add . && git commit && git push`<br>`python tools/audit_site.py --live` |
@@ -100,11 +100,20 @@
 
 ---
 
-## 🖼️ [마스터 핵심 6] 화보 이미지 6장 생성 및 `optimize_images.py` 자동 최적화
+## 🖼️ [마스터 핵심 6] 화보 이미지 6장 시각적 일관성 앵커 및 `optimize_images.py` 자동 최적화
 
-1. **글당 총 6장 고유 이미지 생성 (`thumb.jpg`, `post01.jpg` ~ `post05.jpg`)**:
-   - 한국인 체형·식문화·주거 환경에 맞는 사실적 라이프스타일/인포그래픽 화보로 생성하며, 이미지 내 깨진 글자나 기괴한 신체 묘사를 엄격히 배제한다.
-2. **단일 CLI 최적화 및 `dHash` 중복 검증 필수**:
+단일 포스팅 내 AI 화보의 시각적 일관성과 몰입도를 위해 아래 5대 시각적 앵커(Visual Continuity Anchor) 공식을 의무 준수한다:
+
+1. **[동일 주인공(Character Anchor) 100% 고정 및 참조 상속 원칙]**:
+   - 한 편의 글에 인물이 등장할 때는 글 전체를 관통하는 **단 1명의 주인공 페르소나**(나이, 성별, 얼굴 특징, 헤어스타일, 체형, 의상 톤)를 확정하고 동일한 시각적 정체성을 유지한다.
+   - 후속 인물 화보 생성 시 선행 생성된 주인공 기준 앵커 이미지 경로를 참조 이미지(`ImagePaths`)로 전달하고, 프롬프트 서두에 `The exact same Korean person from the reference image with identical facial features...` 앵커 서술을 고정 삽입하여 컷마다 다른 인물이 나오는 현상을 차단한다.
+2. **[한국 아파트 실내 배경(Korean Apartment Living Anchor) 필수 탑재]**:
+   - 이국적 서구 주택이나 이질적인 스튜디오를 배제하고, 친숙한 **대한민국 아파트 실내 생활 공간**(거실, 침실, 주방, 원목 다이닝 식탁, 베란다 채광 환경)을 기본 배경으로 연출한다.
+3. **[인물 3컷 : 정물·도구 2컷 (3:2 황금 비율) 교차 스토리텔링]**:
+   - 본문 5대 화보(`post01.jpg` ~ `post05.jpg`)가 모두 단조로운 인물 샷으로 채워지지 않도록, **[1. 일상 속 증상·고민 인물 샷] ➔ [2. 핵심 측정기·도구·식단 클로즈업 정물 샷] ➔ [3. 올바른 실천·대처 동작 인물 샷] ➔ [4. 생활 관리 용품·비교 정물 샷] ➔ [5. 회복·진료 상담 주인공 샷]**처럼 **동일 주인공 3컷과 정물·도구 2컷을 3:2 비율로 유기적으로 교차 배치**한다.
+4. **[대표 썸네일(`thumb.jpg`)과 본문 5대 화보(`post01~05.jpg`) 분리 독립]**:
+   - 글 전체 주제를 직관적으로 상징하는 대표 히어로 썸네일(`thumb.jpg`) 1장과 5개 H2 소제목 서사에 1:1 대응하는 본문 화보(`post01.jpg` ~ `post05.jpg`) 5장, **총 6장의 100% 서로 다른 고유 화보**를 생성하며, 이미지 내 깨진 글자·숫자·워터마크 및 기괴한 신체 묘사를 엄격히 배제한다.
+5. **[단일 CLI 최적화 및 `dHash` 중복 검증 필수]**:
    - 이미지 생성 직후 `python tools/optimize_images.py "[작업폴더]"`를 실행하여 **`_originals/` 원본 백업 + 16:9 비율 자동 크롭 + 200KB 이하 압축 + `thumb.jpg`와 `post01~05.jpg` 간 지각 해시(`dHash`) 시각적 중복 차단**을 한 번에 완료한다.
 
 ---
