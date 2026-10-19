@@ -59,19 +59,29 @@ def validate_naver_titles(titles, run_serp=False, search_queries=None):
         if found_forbidden:
             errors.append(f"❌ {idx}번 네이버 제목 금칙어 적발: {found_forbidden} -> '{title}'")
 
-        # 트랙 A (1~3번 이상): 홈판형 독백/대화 따옴표 훅 검증
-        if 1 <= idx <= 3:
+        # 트랙 A (1~5번): 홈판형 독백/대화 따옴표 훅 검증
+        if 1 <= idx <= 5:
             if not ('"' in title or '“' in title or "'" in title or '‘' in title):
                 errors.append(f"❌ 트랙 A(홈판형) 규격 미달 ({idx}번): 생생한 독백/대화 따옴표 훅('\"...\"')이 누락되었습니다 -> '{title}'")
+
+        # 트랙 B (6~10번): 홈판+검색 하이브리드형 — 교과서식 요약 종결 차단 및 홈판 후킹 검증
+        if 6 <= idx <= 10:
+            boring_endings = ("기준", "수칙", "식습관", "식단", "관리법", "대처법", "방법", "정리", "가이드")
+            stripped_t = title.strip()
+            if any(stripped_t.endswith(be) for be in boring_endings):
+                errors.append(
+                    f"❌ 트랙 B(하이브리드형) 홈판 후킹 실종 ({idx}번): 뒷부분이 딱딱한 요약 명사('{stripped_t[-3:]}')로 끝났습니다. "
+                    f"앞쪽엔 핵심 검색어를 두고, 뒤쪽엔 일상 실수·반전·의문형 홈판 후킹('~이유', '~까닭', '~할까?')을 결합하세요 -> '{title}'"
+                )
 
         if "..." in title:
             errors.append(f"❌ 말줄임표('...') 혼입 ({idx}번): 물음표/쉼표/구어체로 깔끔하게 종결하세요 -> '{title}'")
 
         clean_len = len(title.strip())
-        if clean_len > 46:
-            errors.append(f"❌ 글자 수 초과 ({idx}번, {clean_len}자): 네이버 모바일 가독성을 위해 46자 이하여야 합니다 (권장 25~38자) -> '{title}'")
-        elif clean_len < 16:
-            errors.append(f"❌ 글자 수 부족 ({idx}번, {clean_len}자): 최소 16자 이상이어야 합니다 -> '{title}'")
+        if clean_len > 60:
+            errors.append(f"❌ 글자 수 초과 ({idx}번, {clean_len}자): 공백·문장부호 포함 60자 이하여야 합니다 (권장 40~55자) -> '{title}'")
+        elif clean_len < 38:
+            errors.append(f"❌ 글자 수 부족 ({idx}번, {clean_len}자): 너무 짧은 제목 방지 및 검수 규격(40~60자) 충족을 위해 최소 38자 이상이어야 합니다 -> '{title}'")
 
     if errors:
         print("\n🚨 [검증 실패: 네이버 제목 규격 미달]")
@@ -125,10 +135,10 @@ def validate_google_titles(titles, run_serp=False, search_queries=None):
             errors.append(f"❌ {idx}번 [{track_label}] 복잡한 임상·계량 단위 노출 적발 ({found_units}, 본문에만 수록하고 제목에는 쉬운 해답 개수 N가지 사용) -> '{title}'")
 
         clean_len = len(title.strip())
-        if clean_len > 46:
-            errors.append(f"❌ 글자 수 초과 ({idx}번 [{track_label}], {clean_len}자): 모바일 완독을 위해 46자 이하여야 합니다 -> '{title}'")
-        elif clean_len < 24:
-            errors.append(f"❌ 글자 수 부족 ({idx}번 [{track_label}], {clean_len}자): 최소 24자 이상이어야 합니다 -> '{title}'")
+        if clean_len > 60:
+            errors.append(f"❌ 글자 수 초과 ({idx}번 [{track_label}], {clean_len}자): 공백·문장부호 포함 60자 이하여야 합니다 -> '{title}'")
+        elif clean_len < 38:
+            errors.append(f"❌ 글자 수 부족 ({idx}번 [{track_label}], {clean_len}자): 최소 38자 이상(권장 40~55자)이어야 합니다 -> '{title}'")
 
     if errors:
         print("\n🚨 [검증 실패: 구글 듀얼 트랙 제목 규격 미달]")
