@@ -52,3 +52,13 @@ description: 혀니의 꿀단지 네이버 클립 및 유튜브 쇼츠용 30초 
    - **중앙 모션 그래픽 & AI 영상 카드 (`Y: 560~1310px`, `1000×750px`)**: 오프셋 테두리(`#back`)가 장면 전환마다 탄성 바운스하며, 내부(`#cardtop`)에 UI 모션 부품과 `<video>` 클립을 배치한다. 모든 배지·저울 라벨에는 `white-space: nowrap`과 충분한 너비를 부여해 끝 글자 줄바꿈을 원천 방지한다.
    - **하단 실시간 단어 하이라이트 자막 (`Y: 1350~1450px`)**: 어두운 알약 배경(`rgba(19,40,79,0.94)`, `border: 2px solid rgba(255,255,255,0.16)`) 안에 현재 발화 단어가 포인트 컬러(`#FFB27A` 또는 `#FFD600`)로 실시간 점등되고 지나간 단어는 흰색(`#FFFFFF`)으로 유지된다.
    - **엔딩 CTA 버튼 & 안내문 (`Y: 1475~1640px`)**: 마지막 장면에서 `"혀니의 꿀단지 블로그에서 확인하기 →"` 버튼과 `"정확한 판단은 의료진과 상담하세요"` 문구가 등장하며, 마지막 `0.8~1.0초`는 모든 요소와 영상 프레임이 완전히 정지(`끝 정지: 예`)해야 한다.
+3. **[오픈몬테이지 스타일 효과음(`ShortsSfxBuilder` + `효과음_라이브러리` 33종) & 차트 애니메이션 엔진(v2.2) 결합]**:
+   - 공용 도구 모듈(`D:\작업\쇼츠만들기\레퍼런스_광고키트\레퍼런스_광고키트\클로드용_자료\도구\세로광고\프리셋_효과음_차트.py`)을 임포트하여 모션과 오디오 타격감을 1:1 동기화한다:
+     - **효과음 2대 트랙 (NaN 방지 `_env_sin` 패치 & `-7dB` 볼륨 밸런스 완료)**:
+       - **합성음 11종**: `add_whoosh`(15ms 선행), `add_low_whoosh`, `add_pop`, `add_ui_click`, `add_counter_ticks`, `add_riser`, `add_warning_pulse`, `add_typing_burst`, `add_chime`, `add_rpm_rev`, `add_price_drop`
+       - **실제 녹음 CC0 샘플 33종 (`효과음_라이브러리/`)**: `add_card_swish`, `add_soft_pop`, `add_popup`, `add_tap`, `add_toggle`, `add_impact`, `add_ding`, `add_confirm`, `add_error`, `add_coin`, `add_coins`, `add_shimmer`, `add_power_up`, `add_bell`, `add_end_jingle` 및 `master_mix()` (`-14 LUFS` / `-1.5 dBTP` 자동 마스터링)
+     - **차트·인포그래픽 애니메이션 (PIL 렌더러 11종 + HyperFrames `OM_GSAP_HELPERS` 8종)**:
+       - `set_style(theme_name="kkuldanji", ...)`로 레퍼런스 색감·바운스(`damping`)·시차(`stagger`)를 동기화
+       - **PIL 함수**: `chart_bignum`(대형 숫자 카운트업+착지 펀치+점 터짐), `chart_rows`(행 카드 스프링 등장+체크 드로잉), `chart_donut`, `chart_bars`, `chart_zone`, `chart_scale`, `chart_checklist`, `chart_bento`, `chart_count`, `chart_kpi_grid`, `chart_line`
+       - **HyperFrames HTML/GSAP**: `INFOGRAPHIC_CSS_PRESETS` + `OM_GSAP_HELPERS` (`omCount`, `omDonut`, `omBars`, `omZone`, `omScale`, `omChecklist`, `omBento`, `omLineDraw`)
+
