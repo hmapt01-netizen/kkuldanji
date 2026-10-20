@@ -1,0 +1,69 @@
+================================================================================
+[공인 1차 출처 원문 덤프 (Official Primary Source Raw Dump)]
+열람일 (Date): 2026-10-20
+작성 폴더: 2026-10-20_단백질보충제_WPC_WPI_섭취량
+================================================================================
+
+[출처 1] 질병관리청 국가건강정보포털 (KDCA) - 이달의 건강정보: 봄을 여는 건강식단, 더 균형 있게! (단백질, 내 몸에 맞게 섭취하세요)
+공식 URL: https://health.kdca.go.kr/healthinfo/biz/health/ntcnInfo/healthSourc/thtimtCntnts/thtimtCntntsView.do?thtimt_cntnts_sn=134
+열람일: 2026-10-20
+[원문 발췌]
+단백질, 내 몸에 맞게 섭취하세요
+1) 내 몸에 맞는 단백질 양과 섭취 방법
+단백질은 근육과 장기, 면역 기능을 유지하는 데 꼭 필요한 영양소입니다. 하지만 많이 먹을수록 좋은 것은 아니며, 자신의 나이와 활동량, 건강 상태에 맞게 적절한 양을 꾸준히 섭취하는 것이 중요합니다. 건강한 성인의 경우 하루에 체중 1 kg 당 약 0.8~1.2 g의 단백질 섭취가 권장됩니다. 예를 들어 체중 60 kg인 성인은 하루 약 48~72 g의 단백질을 섭취하는 것이 적당합니다. 이 양을 음식으로 환산하면, 하루 세 끼 매번 손바닥 크기만 한 살코기나 생선을 한 토막씩 먹거나, 매끼 두부 한 모 정도를 섭취해야 채울 수 있는 분량입니다. 단백질은 한 끼에 몰아 먹기보다 하루 세 끼로 나누어 섭취하는 것이 효과적입니다. 이는 한 번에 과도하게 섭취하면 충분히 활용되지 못해 몸에 부담이 될 수 있기 때문입니다. 이러한 섭취 방법은 젊은 층에서는 과도한 섭취를 줄이고, 고령층에서는 식사량 감소로 인한 단백질 부족을 보완하는 데 유용합니다. 따라서 끼니마다 약 20 g 내외의 단백질(식품 무게로 약 100 g)을 섭취하는 것이 좋습니다.
+[끼니당 단백질 20 g을 채우는 식품 예시]
+• 닭가슴살: 약 100 g(보통 한 덩이)
+• 소고기/돼지고기: 살코기 약 100 g(손바닥 크기의 한 장)
+• 생선: 고등어 등 약 100 g(손바닥 크기의 한 토막)
+• 달걀 큰 것 3개 또는 두부 한 모(약 300 g)
+2) 고단백 식단과 보충제, 현명하게 선택하세요
+단백질 보충제는 식사만으로 섭취가 부족한 경우에 보조 수단으로 활용할 수 있지만, 식사를 대신하는 필수 식품은 아닙니다. 이미 식사를 통해 충분한 단백질을 섭취하고 있다면 추가 섭취가 필요하지 않을 수 있으며, 제품 선택 시에는 단백질 함량뿐 아니라 당류, 나트륨, 지방, 첨가물도 함께 확인하는 것이 중요합니다.
+저당·제로 식품, 현명하게 활용하세요
+• 저당 : 식품 100 g당 당류 5 g 이하
+• 제로(무설탕) : 식품 100 g당 당류 0.5 g 미만
+• 0 kcal : 100 g 또는 100 mL당 열량이 4 kcal 미만일 경우 0 kcal로 표기할 수 있어, 제로 식품에도 소량의 열량이 포함될 수 있습니다.
+• 적정량 섭취 : 일부 대체 감미료는 한꺼번에 너무 많이 섭취할 경우 복부 팽만감이나 설사를 유발할 수 있습니다.
+5) 식단 관리와 함께 신체활동 병행하기
+주 150분 이상의 중강도 유산소 운동과 주 2회 이상의 근력운동을 꾸준히 하는 것이 좋습니다.
+
+--------------------------------------------------------------------------------
+
+[출처 2] 보건복지부·한국영양학회 - 『2025 한국인 영양소 섭취기준』 개정 공표 (국민영양관리법 제14조)
+공식 URL: https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=1488441
+열람일: 2026-10-20
+[원문 발췌]
+보건복지부(장관 정은경)은 국민의 건강증진에 필요한 영양소 41종의 적정 섭취 기준을 담은 ‘2025 한국인 영양소 섭취기준’(이하 ‘영양소 섭취기준’)을 개정하여 배포하였다. 「국민영양관리법」제14조는 보건복지부장관이 한국인 영양소 섭취기준을 매 5년 주기로 제·개정하여 발표 및 보급하도록 규정. 탄수화물, 단백질과 사망률 간의 상관관계 등에 관한 그간의 연구결과를 반영하여 2020년 대비 탄수화물의 적정비율은 55~65%에서 50~65%로 하향조정하였고, 단백질은 7~20%에서 10~20%로 상향조정하였다.
+
+--------------------------------------------------------------------------------
+
+[출처 3] International Society of Sports Nutrition (ISSN) Position Stand: protein and exercise (PMID: 28642676 / PMCID: PMC5477153 / DOI: 10.1186/s12970-017-0177-8)
+공식 URL: https://pubmed.ncbi.nlm.nih.gov/28642676/
+열람일: 2026-10-20
+[원문 발췌]
+For building muscle mass and for maintaining muscle mass through a positive muscle protein balance, an overall daily protein intake in the range of 1.4-2.0 g protein/kg body weight/day (g/kg/d) is sufficient for most exercising individuals, a value that falls in line within the Acceptable Macronutrient Distribution Range published by the Institute of Medicine for protein. Recommendations regarding the optimal protein intake per serving for athletes to maximize MPS are mixed and are dependent upon age and recent resistance exercise stimuli. General recommendations are 0.25 g of a high-quality protein per kg of body weight, or an absolute dose of 20-40 g. Acute protein doses should strive to contain 700-3000 mg of leucine and/or a higher relative leucine content, in addition to a balanced array of the essential amino acids (EAAs). These protein doses should ideally be evenly distributed, every 3-4 h, across the day. Pre-sleep casein protein intake (30-40 g) provides increases in overnight MPS and metabolic rate without influencing lipolysis.
+
+--------------------------------------------------------------------------------
+
+[출처 4] 유당분해효소 결핍증(유당불내증) 병태생리 및 아시아 유병률 / WPC vs WPI 비교 (PMID: 42345379 / PMID: 41843249 / PMID: 32141277 / USDA AMS Technical Report)
+공식 URL: https://pubmed.ncbi.nlm.nih.gov/42345379/
+공식 URL: https://pubmed.ncbi.nlm.nih.gov/41843249/
+공식 URL: https://pubmed.ncbi.nlm.nih.gov/32141277/
+공식 URL: https://www.ams.usda.gov/sites/default/files/media/Whey%20protein%20isolate.pdf
+열람일: 2026-10-20
+[원문 발췌]
+- PMID 42345379 (DOI: 10.1080/27697061.2026.2688511): "About 68% of the world population is affected by lactose intolerance, but that figure has not changed much in the past decade. However, there are vast regional variations (5-28% in Europe and 70-98% in Asia and Africa)... Lactose intolerance results from reduced lactase enzyme activity, leading to lactose malabsorption and gastrointestinal symptoms such as bloating, abdominal pain, flatulence, and diarrhea."
+- PMID 41843249 (PMCID: PMC12995986, DOI: 10.1007/s10482-026-02278-x): "Digestion of lactose relies on the intestinal enzyme lactase, or lactase-phlorizin hydrolase, located on the brush border of the small bowel mucosa. This enzyme splits lactose into two absorbable monosaccharides: glucose and galactose. When lactase activity is insufficient, undigested lactose proceeds to the colon where it is fermented by the gut flora, generating gas that trigger the uncomfortable symptoms associated with lactose intolerance. Lactase non-persistence is extremely common, affecting approximately 70% of the adult population world-wide."
+- PMID 32141277 (DOI: 10.23736/S0022-4707.20.10314-1): "Thirty-one participants were randomly assigned to supplement with a placebo (PLA; N.=10), whey protein isolate (WPI; N.=10), or whey protein concentrate (WPC; N.=11)... Whey protein supplementation did not differentially influence performance, cardiorespiratory fitness, upper and lower body strength, immune or hormonal adaptations following 6 weeks of concurrent training."
+- 식품의약품안전처 「식품의 기준 및 규격」 및 USDA AMS 기준: 농축유청단백(WPC, Whey Protein Concentrate)은 유청을 농축하여 단백질 함량이 34~89%(보충제 상용 원료 기준 약 70~80%) 수준이며 유당과 유지방이 일정량 잔류함. 반면 분리유청단백(WPI, Whey Protein Isolate)은 미세 여과(Microfiltration) 또는 이온교환 공정을 거쳐 유당과 지방을 추가 제거하고 단백질 순도를 90% 이상으로 높인 원료임.
+
+--------------------------------------------------------------------------------
+
+[출처 5] Trommelen J, et al. The anabolic response to protein ingestion during recovery from exercise has no upper limit in magnitude and duration in vivo in humans. Cell Rep Med. 2023;4(12):101324. (PMID: 38118410 / PMCID: PMC10772463 / DOI: 10.1016/j.xcrm.2023.101324) & 식품의약품안전처 「식품등의 표시기준」 및 미국 FDA 당알코올 안내
+공식 URL: https://pubmed.ncbi.nlm.nih.gov/38118410/
+공식 URL: https://www.law.go.kr/LSW/flDownload.do?flSeq=156388173
+공식 URL: https://www.accessdata.fda.gov/scripts/InteractiveNutritionFactsLabel/assets/InteractiveNFL_SugarAlcohols_October2021.pdf
+열람일: 2026-10-20
+[원문 발췌]
+- PMID 38118410: "The belief that the anabolic response to feeding during postexercise recovery is transient and has an upper limit and that excess amino acids are being oxidized lacks scientific proof. Using a comprehensive quadruple isotope tracer feeding-infusion approach, we show that the ingestion of 100 g protein results in a greater and more prolonged (>12 h) anabolic response when compared to the ingestion of 25 g protein."
+- 식품의약품안전처 「식품등의 표시기준」 영양강조표시 기준: '저당'은 식품 100g당 당류 5g 미만 또는 식품 100mL당 당류 2.5g 미만일 때 표시 가능하며, '무당(제로 슈거)'은 식품 100g당 또는 100mL당 당류 0.5g 미만일 때 표시 가능.
+- FDA Sugar Alcohols Fact Sheet: 당알코올(소르비톨, 말티톨, 자일리톨 등)은 소장에서 느리고 불완전하게 흡수되므로 개인 민감도와 섭취량에 따라 과량 섭취 시 가스, 복부 팽만, 설사를 유발할 수 있음.

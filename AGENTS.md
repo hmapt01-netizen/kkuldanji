@@ -67,7 +67,7 @@
      7) 국립암센터 (`ncc.re.kr`)
    - 해외 학술 기관(NIH, PubMed, WHO 등)은 국내 지침이 없는 세포·분자 기전이나 국제 기준 비교 시 보조 근거로 활용한다. 일반 블로그·카페·단순 언론 요약본 인용은 100% 금지한다.
 2. **[1차 출처 원문 덤프 (`official_source_raw.txt`) 및 실시간 DNS 검증 의무]**:
-   - `read_url_content`로 열람한 공인 1차 출처의 실제 원문 텍스트(최소 200바이트 이상)와 공식 직행 URL(`https://...`), 열람일을 작업 폴더 내 `official_source_raw.txt`에 의무 저장한다.
+   - `read_url_content`(봇 차단·동적 렌더링 사이트는 로컬 전용 크롬 CDP `python tools/fetch_via_cdp.py "<URL>"`)로 열람한 공인 1차 출처의 실제 원문 텍스트(최소 200바이트 이상)와 공식 직행 URL(`https://...`), 열람일을 작업 폴더 내 `official_source_raw.txt`에 의무 저장한다.
    - `리서치.md`와 `evidence_manifest.json`에는 해당 원문에서 발췌한 실제 인용문(`evidence_quote`)과 고유 학술/법령 식별자(PMID/PMC/DOI/고시번호 등)를 1:1로 매핑한다.
 3. **[본문 작성 중 실시간 추가 리서치 동기화 (`supplement_research.py`)]**:
    - 본문 작성 중 리서치에 없는 새로운 수치·기전·주의사항이 필요하면 즉시 작성을 멈추고 웹 검색으로 공인 근거를 확인한 뒤, `python tools/supplement_research.py add ...`로 `리서치.md`와 `evidence_manifest.json`에 먼저 등록하고 서술한다.
