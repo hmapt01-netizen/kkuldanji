@@ -89,10 +89,14 @@ def validate_naver_html(file_path):
     elif no_space_len > 2600:
         warnings.append(f"네이버 본문 분량이 다소 깁니다 (공백 제외 {no_space_len}자 / 1,200~1,800자 권장).")
 
-    # 7. 해시태그 '#' 포함 여부 검사
+    # 7. 해시태그 '#' 포함 여부 및 공식 브랜드 태그(#혀니의꿀단지) 검사
     hashtags = re.findall(r'#[가-힣a-zA-Z0-9_]+', clean_text)
     if len(hashtags) < 5:
         errors.append(f"네이버 '#' 해시태그가 부족합니다 (감지된 태그 {len(hashtags)}개 / 최소 10개 이상 권장).")
+    if "#꿀단지" in hashtags:
+        errors.append("네이버 해시태그에 단독 '#꿀단지'가 포함되어 있습니다. 공식 블로그명인 '#혀니의꿀단지'로 변경하세요.")
+    if "#혀니의꿀단지" not in hashtags:
+        errors.append("네이버 해시태그에 공식 블로그명 '#혀니의꿀단지'가 누락되었습니다.")
 
     if errors:
         print(f"\n🚨 [네이버 레이아웃 검수 실패] '{os.path.basename(file_path)}'에서 {len(errors)}건의 위반 사항이 발견되었습니다:")
