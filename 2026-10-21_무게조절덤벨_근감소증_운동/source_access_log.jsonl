@@ -1,0 +1,10 @@
+{"at": "2026-10-20T23:47:03.594055+00:00", "action": "transition", "previous": "topic", "phase": "titles", "note": "기존 완성 글 검증 요청: 저장된 확정 제목을 보존하며 검증 단계 초기화. 신규 선택이나 승인 기록 아님."}
+{"at": "2026-10-20T23:47:03.596561+00:00", "action": "transition", "previous": "titles", "phase": "research", "note": "2026-10-21 사용자 오늘 글 검증 요청에 따른 추가 근거 확인"}
+{"at": "2026-10-20T23:47:03.597716+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=6722", "allowed": true}
+{"at": "2026-10-20T23:47:03.598749+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=5293", "allowed": true}
+{"at": "2026-10-20T23:47:03.598749+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=6251", "allowed": true}
+{"at": "2026-10-20T23:47:03.600254+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=3348", "allowed": true}
+{"at": "2026-10-20T23:47:03.600763+00:00", "action": "source_access", "phase": "research", "resource": "https://pubmed.ncbi.nlm.nih.gov/32033882/", "allowed": true}
+{"at": "2026-10-20T23:47:03.601270+00:00", "action": "source_access", "phase": "research", "resource": "https://pubmed.ncbi.nlm.nih.gov/39191151/", "allowed": true}
+{"at": "2026-10-20T23:47:03.602312+00:00", "action": "source_access", "phase": "research", "resource": "https://pubmed.ncbi.nlm.nih.gov/35459114/", "allowed": true}
+{"at": "2026-10-21T02:32:08.767905+00:00", "action": "source_access", "phase": "research", "resource": "https://www.acefitness.org/continuing-education/certified/may-2025/8865/the-ace-do-it-better-series-the-romanian-deadlift/", "allowed": true}

@@ -1,0 +1,70 @@
+================================================================================
+[공인 1차 출처 원문 덤프 (Official Primary Source Raw Dump)]
+열람일: 2026-10-21
+수집 도구: 질병관리청 국가건강정보포털(health.kdca.go.kr) 및 NCBI PubMed E-utilities 원문 열람
+================================================================================
+
+[출처 1] 질병관리청 국가건강정보포털 (KDCA) — 근 손실 (근감소증)
+URL: https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=6722
+열람일: 2026-10-21
+원문 발췌:
+• 근 손실은 근육량과 근력이 감소하는 상태로, 신체 기능 저하를 유발합니다.
+• 50대 이후 근육량 감소 시작, 80세에 최대 30~40% 감소합니다. 침상 안정 시 1주 내 근력이 10~20% 감소 가능합니다.
+• 일생에 걸친 근육량의 변화를 보면, 대개 20대 중후반에 최정점에 이르고, 그 이후로는 지속적으로 감소합니다. 40대까지는 근육량이 대체적으로 잘 유지되지만, 본격적인 감소는 보통 50대 이후부터 나타납니다. 이후 감소 속도가 점차 빨라져 70세 이후에는 상당히 빨라집니다. 80세에 이르면 청년기 최정점에 비해 전체 근육량이 30~40%까지 감소합니다. 노년기에는 특히 하체 근육의 손실이 두드러집니다. 이는 낙상 위험 증가와 직접적으로 연결됩니다.
+• 2024년 국민건강영양조사 자료에 따르면, 65세 이상의 근감소증 유병률은 9.4%이며, 남성 9.5%, 여성 9.3%로 나타났습니다. 연령이 증가할수록 유병률도 증가하는데, 70~74세는 7.5%, 75~79세는 9.4%, 80세 이상에서는 26.9%에 달했습니다. 근감소증의 위험 또는 가능 단계를 판단하는 악력 저하율은 65세 이상에서 17.5%로, 남성 16.0%, 여성 18.7% 였습니다.
+• 종아리 둘레를 측정하여 가늘어졌을 때 근감소증을 의심할 수 있습니다. 남자는 종아리 둘레가 34 cm 미만일 때, 여자는 33 cm 미만일 때 근감소증을 의심합니다. 손가락 링 테스트를 통해 스스로 알아볼 수도 있습니다. 엄지와 검지로 종아리의 가장 두꺼운 부분을 감쌀 때 종아리가 손가락 링보다 얇은 경우 근감소증이 의심됩니다.
+• 근감소증은 근육량 감소와 함께 근력 저하 또는 신체 기능 저하가 동반될 때 진단됩니다. 악력이 남성 28 kg 미만, 여성 18 kg 미만이거나, 의자에서 5회 일어서기 검사에서 12초 이상 소요되거나, 보행 속도가 초당 1.0 m 미만일 때 근력 또는 신체 기능 저하로 간주됩니다. 이와 함께 근육량이 이중에너지 X선 흡수계측법(DXA)으로 측정한 사지근육량지수(ASM/height²)가 남성 7.0 kg/m² 미만, 여성 5.4 kg/m² 미만이거나, 생체전기임피던스분석(BIA)으로 측정한 값이 남성 7.0 kg/m² 미만, 여성 5.7 kg/m² 미만일 때 근육량 감소로 진단합니다.
+• 근 손실을 치료하고 관리하기 위해서는 무엇보다 운동 요법이 중요합니다. 근력 강화 운동, 유산소 운동, 균형 운동, 스트레칭 등 여러 종류의 운동들이 근 손실 치료와 관리에 필요하기 때문에 각 요소를 조합하여 시행하는 다요소 운동(multicomponent exercise) 프로그램을 권고합니다. 그 중에서 핵심은 저항성 운동을 통한 근력 강화 운동입니다. 덤벨, 탄력밴드, 맨몸 운동(스쿼트, 런지 등)을 주 2~3회 꾸준히 실시하면 근육 합성과 유지에 도움이 됩니다.
+• 〈그림 근감소증 치료를 위한 저항성 운동〉 [표] 항목별 내용:
+  - 훈련 빈도: 주 2~3회 세션
+  - 운동 선택: 하체 — 스쿼트/레그프레스, 무릎 펴기, 레그 컬, 발뒤꿈치 들기 / 상체 — 팔 앞으로 밀기, 딥스, 시티드 로우, 풀 다운
+  - 운동 강도: 1RM(1회 최대 반복 무게: 아령들기, 벤치프레스 등을 단 1회 수행할 수 있는 최대 무게) 기반 — 1RM의 40~60% → 70~85%로 진행 / RPE(운동자각척도, 1~10 척도) 기반 처방 — RPE 3~4에서 시작
+  - 운동량: 6~12회 반복으로 1~3세트
+  - 휴식 시간: 세션 내 — 세트 간 60~120초, 운동 간 3~5분 / 세션 간 — 최소 48시간
+• 영양 요법으로는 체중 1 kg당 1.2 g의 단백질을 섭취합니다. 근감소증 위험이 높은 고령자에서는, 근육 단백질 합성을 촉진하고 분해를 억제하는 필수아미노산인 류신(leucine)이 풍부한 단백질 섭취 및 뼈와 근육 건강에 중요한 비타민 D와 칼슘 보충이 권장됩니다.
+• 운동을 중단하면 1~2주부터 근육 기능이 저하되고, 3주 이상이 되면 실제 근 손실이 시작됩니다. 하지만, 3개월 이상 근육을 사용하지 않으면, 근육 변성이 진행하여 회복되기 어려운 상태가 됩니다.
+
+--------------------------------------------------------------------------------
+[출처 2] 질병관리청 국가건강정보포털 (KDCA) — 운동 & 신체활동 지침
+URL 1: https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=5293
+URL 2: https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=6251
+열람일: 2026-10-21
+원문 발췌:
+• 근력 강화 운동: 올바른 자세로 전신의 근육을 골고루 발달시켜야 합니다. 8~12회를 겨우 들 수 있는 무게 정도의 강도가 적당합니다. 대근육 운동을 먼저 한 후 소근육 운동을 하며, 같은 근육을 연이어 운동하는 것은 피합니다. 안전을 위해 피라미드세트로 시행하며 어려운 운동 후 쉬운 운동을 하고, 다중 관절 운동 후 단순 관절 운동을 합니다(예: 2개 이상의 관절을 사용하는 운동 후 1개의 관절을 사용하는 운동을 시행).
+• 근력 강화 운동은 1주일에 2일 이상 신체 각 부위를 모두 포함해 시행하며, 운동을 한 신체 부위는 하루 이상 휴식을 취해 근육이 회복한 후 다시 하는 것이 좋습니다. 운동이 수월해지면 무게를 더하거나 세트 수를 2~3회까지 늘리도록 합니다.
+• 근력 강화 운동은 한 번에 8~12회 반복하고 1~2분 정도 휴식을 취한 후 다시 8~12회 반복하는 형태가 도움이 됩니다. 10~18주간 저항성 운동을 하면 근력이 약 20% 증가하지만, 12주간 운동을 하지 않으면 늘어난 근력의 70% 정도가 소실됩니다.
+• 고혈압 환자 주의사항: 수축기 혈압이 200 mmHg 초과, 또는 이완기 혈압이 115 mmHg를 초과하는 경우 운동을 금합니다. 혈압이 180/110 mmHg 이상인 사람은 약물치료를 시작한 후 근력 강화 운동을 추가합니다. 숨을 참는 운동이나 발살바 호흡법도 피해야 합니다.
+• 골다공증 환자 주의사항: 몸을 앞으로 구부리거나 숙이는 등 척추의 굴곡운동을 피해야 하며, 몸을 뒤트는 격렬한 운동이나 무리하게 역기를 드는 운동 역시 척추의 압박골절을 일으킬 수 있으므로 피해야 합니다.
+
+--------------------------------------------------------------------------------
+[출처 3] 질병관리청 국가건강정보포털 (KDCA) — 추간판탈출증(디스크)
+URL: https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=3348
+열람일: 2026-10-21
+원문 발췌:
+• 나이가 어릴 때는 수핵이 강한 물 결합 능력을 가지고 있어서 수분 함량이 88%에 이릅니다. 그러나 나이가 들어 50세 경에 이르면 수분이 70~75% 정도로 줄고, 그 결과 콜라겐만 늘어 추간판이 탄력을 잃게 되며, 충격 흡수 능력도 떨어집니다. 이런 상태에서 과도한 힘을 받으면 섬유륜(섬유테)이 찢어지거나 파열되고, 파열된 사이로 수핵이 흘러나와 추간판탈출증이 발생합니다.
+• 상당수의 환자가 허리를 구부리거나 튼 자세에서 무거운 물건을 들다가 허리를 다친 병력이 있습니다. 요추 추간판탈출증을 예방하려면 적절한 요추전만을 유지하는 올바른 자세를 갖도록 합니다. 물건을 들 때는 몸에 붙여서 들고, 구부정한 자세로 무거운 물건을 들어 올리는 동작을 피해야 합니다.
+• 요추 추간판탈출증의 대표적인 증상은 요통과 하지 방사통(엉덩이, 허벅지, 종아리, 발등·발바닥으로 찌릿찌릿하거나 당기는 듯 아픈 통증)입니다. 다리 근력이 감퇴되어 발목이나 엄지발가락을 들어 올리기 힘들어지거나 감각 이상, 배뇨나 배변 기능 장애(말총증후군/마미증후군)가 나타나면 조기 진단과 치료가 필요합니다. 보존적 치료에도 4~6주가 지나 호전되지 않거나 신경학적 결손이 진행되면 정밀 검사 및 치료를 고려합니다.
+
+--------------------------------------------------------------------------------
+[출처 4] Asian Working Group for Sarcopenia (AWGS) 2019 Consensus Update (PMID: 32033882)
+URL: https://pubmed.ncbi.nlm.nih.gov/32033882/
+열람일: 2026-10-21
+원문 발췌:
+Chen LK, Woo J, Assantachai P, et al. Asian Working Group for Sarcopenia: 2019 Consensus Update on Sarcopenia Diagnosis and Treatment. J Am Med Dir Assoc. 2020 Mar;21(3):300-307.e2. doi: 10.1016/j.jamda.2019.12.012. PMID: 32033882.
+"AWGS 2019 retains the previous definition of sarcopenia but revises the diagnostic algorithm, protocols, and some criteria: low muscle strength is defined as handgrip strength <28 kg for men and <18 kg for women; criteria for low physical performance are 6-m walk <1.0 m/s, Short Physical Performance Battery score ≤9, or 5-time chair stand test ≥12 seconds. AWGS 2019 retains the original cutoffs for height-adjusted muscle mass: dual-energy X-ray absorptiometry, <7.0 kg/m2 in men and <5.4 kg/m2 in women; and bioimpedance, <7.0 kg/m2 in men and <5.7 kg/m2 in women. In addition, the AWGS 2019 update proposes separate algorithms for community vs hospital settings, which both begin by screening either calf circumference (<34 cm in men, <33 cm in women), SARC-F (≥4), or SARC-CalF (≥11), to facilitate earlier identification of people at risk for sarcopenia."
+
+--------------------------------------------------------------------------------
+[출처 5] 근감소증 고령자 저항성 운동 강도·세트·수축 속도 메타분석 (PMID: 39191151)
+URL: https://pubmed.ncbi.nlm.nih.gov/39191151/
+열람일: 2026-10-21
+원문 발췌:
+Sun R, Wan J, Tang J, et al. Effectiveness of resistance training on body composition, muscle strength, and biomarker in sarcopenic older adults: A meta-analysis of randomized controlled trials. Arch Gerontol Geriatr. 2025 Jan;128:105595. doi: 10.1016/j.archger.2024.105595. PMID: 39191151.
+"This study analyzed 22 randomized controlled trials involving 959 participants to determine the impact of resistance training (RT) on body composition, muscle strength, and biomarkers in sarcopenic older adults. Regarding body composition, RT had a small effect size on relative muscle mass (RMM, SMD = 0.25[0.06,0.45]) and absolute muscle mass (AMM, SMD = 0.28[0.06,0.50]) but no effect on reducing body fat percentage (BF%). Subgroup analysis revealed that 3 sets over an 8-12 weeks training period, with slower muscle contraction speed at a 60-70 % 1-repetition maximum (1RM) training intensity, produced the most significant effects on reducing BF% and increasing RMM, respectively. Regarding muscle strength, RT had a large effect size on handgrip strength (HS, SMD = 0.83[0.43,1.23]), knee extension strength (KES, SMD = 0.90[0.50,1.30]), but no effect on chair stand test. Subgroup analysis revealed that the number of sets ≥ 3 and training intensity >70 % 1RM produced the most significant effect of RT on HS."
+
+--------------------------------------------------------------------------------
+[출처 6] 활동 부족 고령자 대상 케틀벨·프리웨이트 저항성 훈련(BELL Trial) 임상 연구 (PMID: 35459114 / PMCID: PMC9026020)
+URL: https://pubmed.ncbi.nlm.nih.gov/35459114/
+열람일: 2026-10-21
+원문 발췌:
+Meigh NJ, Keogh JWL, Schram B, Hing W, Rathbone EN. Effects of supervised high-intensity hardstyle kettlebell training on grip strength and health-related physical fitness in insufficiently active older adults: the BELL pragmatic controlled trial. BMC Geriatr. 2022 Apr 22;22(1):354. doi: 10.1186/s12877-022-02958-z. PMID: 35459114; PMCID: PMC9026020.
+"Insufficiently active men and women aged 59-79 years, were recruited to a 6-month repeated measures study, involving 3-months usual activity and 3-months progressive hardstyle kettlebell training. Sixteen males and sixteen females (total 32 participants) were recruited. Compliance with the supervised exercise program was very high (91.5%). Kettlebell training increased GS [grip strength] (R: MD = 7.1 kg 95% CI [4.9, 9.3], L: MD = 6.3 kg 95% CI [4.1, 8.4]), 6MWD (41.7 m, 95% CI [17.9, 65.5]), 1RM [deadlift] (16.2 kg, 95% CI [2.4, 30.0]), 30 s STS [Sit-To-Stand] (3.3 reps, 95% CI [0.9, 5.7]), LES (R: MD = 61.6 N), HES (L: MD = 21.0 N), appendicular skeletal lean mass (MD = 0.65 kg, 95% CI [0.08, 1.22])."
