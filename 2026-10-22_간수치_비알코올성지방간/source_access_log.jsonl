@@ -1,0 +1,10 @@
+{"at": "2026-10-22T07:46:10.988657+00:00", "action": "transition", "previous": "topic", "phase": "titles", "note": "신규 선택 아님: 사용자가 검증 요청한 기존 등록 글의 titles.json 선택 제목 확인"}
+{"at": "2026-10-22T07:46:10.989694+00:00", "action": "transition", "previous": "titles", "phase": "research", "note": "사용자 신규글 검증 요청에 따른 기존 글 의학 근거 재검증"}
+{"at": "2026-10-22T07:46:10.990725+00:00", "action": "source_access", "phase": "research", "resource": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11925433/", "allowed": true}
+{"at": "2026-10-22T07:46:10.991730+00:00", "action": "source_access", "phase": "research", "resource": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8273632/", "allowed": true}
+{"at": "2026-10-22T07:46:10.992761+00:00", "action": "source_access", "phase": "research", "resource": "https://www.niddk.nih.gov/health-information/liver-disease/nafld-nash/treatment", "allowed": true}
+{"at": "2026-10-22T07:46:10.992761+00:00", "action": "source_access", "phase": "research", "resource": "https://medlineplus.gov/lab-tests/liver-function-tests/", "allowed": true}
+{"at": "2026-10-22T07:46:40.813392+00:00", "action": "source_access", "phase": "research", "resource": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11925433/", "allowed": true}
+{"at": "2026-10-22T07:47:03.907977+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=6673", "allowed": true}
+{"at": "2026-10-22T07:47:03.909024+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=6585", "allowed": true}
+{"at": "2026-10-22T07:48:10.350397+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "추가 검수 근거 확인 종료. 결과만 보고하며 본문 수정·발행 없음."}
