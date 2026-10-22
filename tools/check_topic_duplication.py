@@ -33,15 +33,21 @@ GENERIC_STOPWORDS = {
 def extract_core_tokens(text):
     clean = re.sub(r'[^가-힣a-zA-Z0-9\s]', ' ', text)
     words = [w.strip() for w in clean.split() if len(w.strip()) >= 2]
-    particles = ('은', '는', '이', '가', '을', '를', '의', '에', '로', '으로', '과', '와', '도', '만', '까지', '부터')
+    particles = ('에서', '으로', '에게', '부터', '까지', '은', '는', '이', '가', '을', '를', '의', '에', '로', '과', '와', '도', '만')
+    suffixes = ('수치', '증상', '효과', '효능', '추천', '음식', '운동', '원인', '방법', '시간', '복용법', '먹는법', '스트레칭')
     normalized = set()
     for w in words:
         for p in particles:
-            if len(w) > 2 and w.endswith(p):
+            if len(w) > len(p) + 1 and w.endswith(p):
                 w = w[:-len(p)]
                 break
         if len(w) >= 2 and w not in GENERIC_STOPWORDS:
             normalized.add(w)
+            for suf in suffixes:
+                if len(w) > len(suf) + 1 and w.endswith(suf):
+                    stem = w[:-len(suf)]
+                    if len(stem) >= 2 and stem not in GENERIC_STOPWORDS:
+                        normalized.add(stem)
     return normalized
 
 

@@ -38,9 +38,12 @@ CATEGORY_CIDS = {
 }
 
 
-def fetch_datalab_ranks(cid, days=7, limit=15):
-    """지정된 CID의 최근 days일간 네이버 쇼핑인사이트 인기 검색어 TOP 리스트를 가져옵니다."""
-    end_d = datetime.now() - timedelta(days=1)
+def fetch_datalab_ranks(cid, days=7, limit=15, months_ago=0):
+    """지정된 CID의 최근 days일간(또는 months_ago개월 전 동기간) 네이버 쇼핑인사이트 인기 검색어 TOP 리스트를 가져옵니다."""
+    base_d = datetime.now() - timedelta(days=1)
+    if months_ago and months_ago > 0:
+        base_d = base_d - timedelta(days=int(months_ago * 30.4))
+    end_d = base_d
     start_d = end_d - timedelta(days=days)
     end_str = end_d.strftime('%Y-%m-%d')
     start_str = start_d.strftime('%Y-%m-%d')
@@ -56,12 +59,12 @@ def fetch_datalab_ranks(cid, days=7, limit=15):
         return []
 
 
-def get_datalab_trending_keywords(category_key, days=7, limit_per_cid=10):
-    """꿀단지 카테고리 키(hometraining, diet_nutrition, life_wellness)에 해당하는 실시간 인기 검색어를 반환합니다."""
+def get_datalab_trending_keywords(category_key, days=7, limit_per_cid=10, months_ago=0):
+    """꿀단지 카테고리 키(hometraining, diet_nutrition, life_wellness)에 해당하는 인기 검색어를 반환합니다."""
     cids_info = CATEGORY_CIDS.get(category_key, [])
     results = []
     for info in cids_info:
-        kws = fetch_datalab_ranks(info["cid"], days=days, limit=limit_per_cid)
+        kws = fetch_datalab_ranks(info["cid"], days=days, limit=limit_per_cid, months_ago=months_ago)
         results.extend(kws)
     return list(dict.fromkeys(results))
 

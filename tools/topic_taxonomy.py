@@ -1,217 +1,72 @@
 # -*- coding: utf-8 -*-
 """
-꿀단지 (KKULDANJI) - 토픽 분류 체계 및 하이브리드 발굴 모듈 (topic_taxonomy.py)
+꿀단지 (KKULDANJI) - 무예시(Zero-Example) 실시간 트렌드·뉴스·데이터랩 발굴 모듈 (topic_taxonomy.py)
 
-1. 꿀단지 공식 3대 카테고리(홈트레이닝, 식단 & 영양, 라이프 웰니스) 체계를 확립합니다.
-2. 하이브리드 융합 엔진:
-   - 스트림 A: 네이버 데이터랩 쇼핑인사이트 실시간 핫 아이템 (쇼핑 커넥트 연계)
-   - 스트림 B: 당월 캘린더 엔진(10월 환절기/독감/검진) + 부위별 해부학/질환 루트 (E-E-A-T 검색 유입)
-3. 네이버 쇼핑 커넥트 제휴 적합도(detect_shopping_connect) 자동 태깅.
-4. 비의료/광고/지역병원/일반잡화 네거티브 필터 완비.
-5. 기존 38편 글(data/posts_db.json)과의 중복 차단 및 내부링크 토픽 클러스터(시너지) 자동 계산.
+1. 정적 예시 단어장(고정 질병명·식품명·운동명·제외어 리스트)을 100% 폐기합니다.
+2. 실시간 구글 뉴스 건강/의료 토픽 피드 및 카테고리별 최신 뉴스 헤드라인에서 명사구·키워드를 동적으로 직접 추출합니다.
+3. 네이버 데이터랩 쇼핑인사이트(Shopping Insight) 실시간 순위 및 급상승(Rising) 키워드를 결합합니다.
+4. 기발행 글(data/posts_db.json)은 고정 단어 매핑이 아닌 제목·슬러그·요약문 동적 형태소/토큰 추출로만 대조합니다.
 """
 import sys
 import json
 import random
-from datetime import datetime
+import re
+import urllib.request
+import xml.etree.ElementTree as ET
+from datetime import datetime, timedelta
 from pathlib import Path
+from urllib.parse import quote
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT_DIR / "tools"))
 
 from datalab_popular import get_datalab_trending_keywords
 
-# 12개월 계절성 시의성 사전 (Monthly Seasonal Focus)
-# 당월(datetime.now().month)에 맞춰 라이프 웰니스 카테고리에 자동 우선 합류
-MONTHLY_SEASONAL_FOCUS = {
-    1: ["새해다이어트", "체온유지", "수족냉증", "빙판길낙상", "독감증상"],
-    2: ["면역력높이는법", "피부건조", "안구건조증", "봄철환절기"],
-    3: ["춘곤증", "꽃가루알레르기", "미세먼지목통증", "야외러닝"],
-    4: ["알레르기비염", "봄철피로", "자외선차단", "봄나물효능"],
-    5: ["야외활동근육통", "족저근막염", "일교차감기", "여름준비식단"],
-    6: ["식중독예방", "탈수예방", "여름철장염", "에어컨냉방병"],
-    7: ["냉방병증상", "열사병일사병", "여름철수분섭취", "장마철관절통"],
-    8: ["만성피로증후군", "햇빛알레르기", "찬음식배탈", "체력회복식단"],
-    9: ["초가을환절기", "쯔쯔가무시", "진드기물림", "가을알레르기"],
-    10: ["환절기일교차", "가을비염", "알레르기비염", "피부건조증", "독감초기증상", "독감예방접종", "마른기침", "편도염", "기립성저혈압", "건강검진수치"],
-    11: ["연말건강검진", "위내시경주의사항", "대장내시경약", "안구건조증", "손발저림", "혈관수축혈압"],
-    12: ["겨울철혈압관리", "심뇌혈관전조증상", "비타민d결핍", "빙판길관절염"]
-}
+SEED_HISTORY_PATH = ROOT_DIR / "data/seed_rotation_history.json"
 
-# 꿀단지 3대 공식 카테고리 (Honeyjar 3 Official Categories)
-# 사이트 실발행 카테고리(data/posts_db.json)와 100% 일치
+# 꿀단지 3대 공식 카테고리 메타 정의 (정적 예시 단어 리스트 0개)
 HONEYJAR_CATEGORIES = {
     "hometraining": {
         "name": "홈트레이닝",
-        "desc": "집에서 하는 3분 루틴, 관절 안전 각도, 척추/골반 정렬, 초보자 코어, 소도구 안전 사용법",
-        "roots": [
-            "거북목", "일자목", "라운드숄더", "굽은등", "골반교정", "골반틀어짐",
-            "척추기립근", "장요근", "이상근", "둔근", "중둔근", "대퇴사두근",
-            "햄스트링", "흉쇄유돌근", "견갑골", "날개뼈", "승모근스트레칭", "폼롤러",
-            "척추측만", "오다리", "발목가동성", "아킬레스건", "플랭크", "코어운동",
-            "브릿지운동", "고관절스트레칭", "턱관절교정", "능형근", "전거근", "흉추가동성",
-            "종아리스트레칭", "어깨회전근개", "3분홈트", "허리스트레칭", "무릎스트레칭"
+        "desc": "실내 운동, 스트레칭, 체형 교정, 근력·유산소 루틴, 운동 소도구 안전 사용법",
+        "news_queries": [
+            "운동 스트레칭 근육 관절 건강",
+            "홈트레이닝 근력 유산소 재활 자세"
         ]
     },
     "diet_nutrition": {
         "name": "식단 & 영양",
-        "desc": "단백질 식단, 저속노화, 영양제 복용 골든타임, 공복 vs 식후, 안전한 보관/세척",
-        "roots": [
-            "단백질식단", "간헐적단식", "저속노화식단", "지중해식단", "공복유산균",
-            "마그네슘복용법", "비타민b복용시간", "비타민c메가도스", "오메가3복용법", "코엔자임q10",
-            "비타민d복용시간", "아르기닌공복", "루테인지아잔틴", "밀크씨슬효능", "영양제복용시간",
-            "식후영양제", "유산균먹는시간", "글루타치온효능", "콜라겐흡수율", "철분제복용법",
-            "아연복용법", "칼슘마그네슘비율", "식이섬유많은음식", "혈당스파이크음식", "저염식단",
-            "칼륨많은음식", "통풍식단", "지방간식단"
+        "desc": "식단 관리, 영양소 섭취 기준, 식약처 식품 안전, 건강기능식품 복용법, 조리·보관법",
+        "news_queries": [
+            "식단 영양소 식약처 식품 건강기능식품",
+            "영양제 복용법 식습관 혈당 대사"
         ]
     },
     "life_wellness": {
         "name": "라이프 웰니스",
-        "desc": "신체 부위별 통증 자가감별, 건강검진 수치 판독, 당월 환절기/계절성 질환, 보조기구 선택 기준",
-        "roots": [
-            # 건강검진 & 수치 판독
-            "공복혈당", "당화혈색소", "간수치", "감마지티피", "ast수치", "alt수치",
-            "총콜레스테롤", "ldl콜레스테롤", "중성지방", "hdl콜레스테롤", "단백뇨", "혈뇨",
-            "요산수치", "갑상선수치", "tsh수치", "신장수치", "크레아티닌", "사구체여과율", "혈압정상수치",
-            # 신체 통증 & 자가 감별
-            "고관절통증", "족저근막염", "어깨결림", "무릎통증", "허리통증", "손목터널증후군",
-            "방사통", "좌골신경통", "늑간신경통", "석회화건염", "오십견", "회전근개파열",
-            "목디스크증상", "허리디스크증상", "담결림", "등통증", "꼬리뼈통증", "손발저림", "갈비뼈통증"
+        "desc": "질병관리청 보건 이슈, 계절성 증상 감별, 국가건강검진 수치 판독, 수면·위생·생활 관리",
+        "news_queries": [
+            "질병관리청 건강검진 증상 질환 예방",
+            "환절기 수면 면역력 통증 건강관리"
         ]
     }
 }
 
-# 하위 호환 별칭 (Aliases)
 CORE_PILLARS = HONEYJAR_CATEGORIES
 
-# 네이버 쇼핑 커넥트 연계 타깃 사전 (Shopping Connect Monetization Targets)
-SHOPPING_CONNECT_TARGETS = {
-    "hometraining": [
-        "폼롤러", "요가매트", "스트레칭밴드", "루프밴드", "튜빙밴드", "짐볼", "스텝퍼", "실내자전거",
-        "푸쉬업바", "아령", "덤벨", "케틀벨", "악력기", "마사지볼", "요가링", "문틀철봉", "마사지스틱"
-    ],
-    "diet_nutrition": [
-        "마그네슘", "젖산마그네슘", "킬레이트마그네슘", "오메가3", "rTG오메가3", "유산균", "프로바이오틱스",
-        "비타민c", "비타민d", "비타민b", "단백질보충제", "단백질쉐이크", "단백질음료", "프로틴",
-        "콜라겐", "글루타치온", "밀크씨슬", "루테인", "차전자피", "크레아틴", "아르기닌", "코엔자임q10"
-    ],
-    "life_wellness": [
-        "목견인기", "거북목교정기", "자세교정기", "허리보호대", "무릎보호대", "손목보호대", "발목보호대",
-        "압박스타킹", "의료용압박스타킹", "코세척기", "온열안대", "찜질팩", "경추베개", "혈압계", "혈당측정기"
-    ]
+# 문법적 불용어 (조사·어미·일반 형식명사만 포함하며 특정 질환·식품·상업 예시 단어 일체 없음)
+GRAMMAR_STOPWORDS = {
+    "기자", "뉴스", "보도", "발표", "이번", "오늘", "내일", "최근", "올해", "작년",
+    "대한", "위한", "통해", "따라", "관련", "경우", "정도", "이상", "이하", "미만",
+    "방법", "이유", "원인", "증상", "효과", "효능", "부작용", "차이", "비교", "기준",
+    "가이드", "정리", "시간", "하루", "아침", "저녁", "공복", "식후", "전후", "때문",
+    "사람", "환자", "교수", "병원", "의사", "전문가", "연구", "결과", "분석", "확인",
+    "예방", "관리", "치료", "진단", "검사", "주의", "권장", "도움", "필요", "중요",
+    "건강", "생활", "습관", "모습", "사진", "제공", "무단", "전재", "배포", "금지"
 }
 
-
-def detect_shopping_connect(keyword):
-    """키워드가 네이버 쇼핑 커넥트와 연계 가능한 건강/운동/영양 제품군인지 판별합니다."""
-    kw_lower = keyword.lower().replace(" ", "")
-    for cat, targets in SHOPPING_CONNECT_TARGETS.items():
-        for t in targets:
-            t_lower = t.lower().replace(" ", "")
-            if t_lower in kw_lower:
-                return {
-                    "eligible": True,
-                    "category": cat,
-                    "product_type": t,
-                    "monetization_note": f"네이버 쇼핑 커넥트 [{t}] 연계 가능"
-                }
-    return {
-        "eligible": False,
-        "category": None,
-        "product_type": None,
-        "monetization_note": "정보성 콘텐츠 중심 (순수 검색 트래픽 유입형)"
-    }
-
-
-def get_category_roots(cat_key, count=4, shuffle=True):
-    """지정 카테고리에서 시작 루트 단어를 추출하며, 라이프 웰니스는 당월 시의성을 자동 주입합니다."""
-    if cat_key not in HONEYJAR_CATEGORIES:
-        return []
-    
-    roots = list(HONEYJAR_CATEGORIES[cat_key]["roots"])
-    
-    # 라이프 웰니스인 경우 현재 월의 계절성 이슈를 최우선 주입
-    if cat_key == "life_wellness":
-        curr_month = datetime.now().month
-        seasonal = MONTHLY_SEASONAL_FOCUS.get(curr_month, [])
-        if seasonal:
-            sampled_seasonal = random.sample(seasonal, min(2, len(seasonal))) if shuffle else seasonal[:2]
-            sampled_general = random.sample(roots, min(count - len(sampled_seasonal), len(roots))) if shuffle else roots[:count - len(sampled_seasonal)]
-            return sampled_seasonal + sampled_general
-
-    if shuffle:
-        return random.sample(roots, min(count, len(roots)))
-    return roots[:count]
-
-
-def get_hybrid_seeds(cat_key, count_roots=2, count_datalab=3, shuffle=True):
-    """
-    하이브리드 시드 생성기:
-    1) 당월 시의성 및 해부학/질환 루트 (질환/통증/식단 E-E-A-T 트래픽용)
-    2) 네이버 데이터랩 실시간 쇼핑인사이트 랭킹 (실시간 소비 & 쇼핑 커넥트용)
-    두 스트림을 유기적으로 결합하여 최적의 융합 시드 리스트를 반환합니다.
-    """
-    # 1. 시의성 & 해부학 루트
-    roots = get_category_roots(cat_key, count=count_roots, shuffle=shuffle)
-    
-    # 2. 데이터랩 실시간 쇼핑 인기 키워드
-    datalab_kws = get_datalab_trending_keywords(cat_key, days=7, limit_per_cid=count_datalab)
-    # 잡음 키워드 제거
-    filtered_datalab = [k for k in datalab_kws if not any(neg in k for neg in NEGATIVE_WORDS)]
-    
-    if shuffle:
-        random.shuffle(filtered_datalab)
-    sampled_datalab = filtered_datalab[:count_datalab]
-    
-    # 두 스트림의 하이브리드 결합 (중복 제거)
-    combined = list(dict.fromkeys(sampled_datalab + roots))
-    return combined
-
-
-def get_pillar_seeds(pillar_key, count=4, shuffle=True):
-    return get_category_roots(pillar_key, count=count, shuffle=shuffle)
-
-
-# 잡음 키워드 (Negative Filter) - 광고, 비의료 상업, 병원, 일반 잡화 전면 컷
-NEGATIVE_WORDS = [
-    # 비의료 / 일상 무관
-    "자동차", "운전", "차량", "정기검사", "면허", "토익", "토플", "한국사", "공무원",
-    # 자격증 / 취업 / 교육
-    "자격증", "취업", "학원", "구인", "강의", "시험", "학과", "공부", "채용", "연수", "합격", "기출", "교재",
-    # 상업 / 패션 / 일반 의류 / 잡화
-    "가방", "옷", "원피스", "청바지", "코트", "패딩", "신발", "구두", "운동화", "가죽", "패션", "선물", "매장", "렌탈",
-    "도시락", "고기", "쇼핑몰", "키트", "양말", "레깅스", "요가복", "운동복", "팬츠", "바지", "티셔츠", "속옷", "브라", "탑",
-    # 화장품 / 미용
-    "화장품", "크림", "로션", "세럼", "앰플", "비누", "샴푸", "린스", "바디워시", "향수", "립스틱",
-    # 대형 가구 / 가전 / 전자기기
-    "의자", "소파", "침대", "매트리스", "가구", "인테리어", "조명", "청소기", "세탁기", "냉장고", "마사지기", "안마기", "마사지건", "슬링백", "저주파기",
-    # 치과 시술 / 식당 / 외식
-    "임플란트", "치아교정", "틀니", "라식", "라섹", "필러", "보톡스", "지방흡입", "맛집", "식당", "카페", "술집",
-    # 병원 전문 시술 / 수술 / 물리치료 (홈트나 자가관리가 아닌 병원 내원 치료)
-    "도수치료", "체외충격파", "물리치료", "신경차단술", "시술", "수술", "입원", "퇴원", "마취", "주사치료",
-    # 지역 한정 병원/장소 마케팅
-    "대구", "부산", "인천", "광주", "대전", "울산", "창원", "수원", "제주", "강남", "서초", "송파",
-    "노원", "일산", "분당", "부평역", "동성로", "남위례역", "한의원", "치과", "성형외과", "안과", "클리닉",
-    "요양병원", "한방병원", "치과의원", "내과의원",
-    # 금융 / 부동산
-    "보험", "대출", "청약", "부동산", "카드", "실비", "환급", "보조금", "지원금"
-]
-
-POSITIVE_PATTERNS = [
-    # 질문 / 증상 / 원인
-    "증상", "원인", "이유", "통증", "초기", "구별", "차이", "단계", "신호", "자가진단",
-    # 식단 / 영양 / 관리
-    "효능", "부작용", "먹는법", "식단", "음식", "섭취", "영양", "보관", "세척", "주의사항",
-    # 검진 / 수치 / 해석
-    "정상수치", "수치", "검사", "재검", "판독", "기준", "결과", "수치표",
-    # 대처 / 운동 / 자세 / 소도구
-    "스트레칭", "운동", "자세", "대처", "완화", "치료법", "관리법", "골든타임", "응급처치",
-    "사용법", "효과", "고르는법", "폼롤러", "마그네슘", "오메가", "견인기", "교정기",
-    # 주요 건강 / 질환 개념
-    "지방간", "역류성", "위염", "장염", "담석", "비염", "두통", "이명", "어지럼증",
-    "근막동통", "디스크", "관절염", "당뇨", "콜레스테롤", "골다공증", "갑상선", "대상포진",
-    "통풍", "결석", "수면", "불면증", "만성피로", "족저근막염", "이상지질혈증", "척추", "고관절"
-]
+NEGATIVE_WORDS = []
+POSITIVE_PATTERNS = []
 
 
 def load_existing_posts():
@@ -223,30 +78,33 @@ def load_existing_posts():
 
 
 def _extract_core_tokens(text):
-    import re
-    stopwords = {
-        "방법", "이유", "원인", "증상", "효과", "효능", "부작용", "차이", "비교", "기준",
-        "가이드", "정리", "시간", "운동", "식단", "음식", "영양제", "복용법", "먹는법",
-        "섭취", "관리", "예방", "완화", "루틴", "습관", "자세", "동작", "추천", "주의사항",
-        "체크리스트", "골든타임", "하루", "아침", "저녁", "공복", "식후", "전후"
-    }
-    clean = re.sub(r'[^가-힣a-zA-Z0-9\s]', ' ', str(text))
+    """고정 단어 사전 없이 문장에서 순수 핵심 명사·어근 토큰을 동적으로 추출합니다."""
+    clean = re.sub(r"[^가-힣a-zA-Z0-9\s]", " ", str(text))
     words = [w.strip() for w in clean.split() if len(w.strip()) >= 2]
-    particles = ('은', '는', '이', '가', '을', '를', '의', '에', '로', '으로', '과', '와', '도', '만', '까지', '부터')
+    particles = (
+        "에서", "으로", "에게", "부터", "까지", "보다", "처럼", "마저", "조차",
+        "은", "는", "이", "가", "을", "를", "의", "에", "로", "과", "와", "도", "만"
+    )
+    suffixes = ("수치", "증상", "효과", "효능", "추천", "음식", "운동", "원인", "방법", "시간", "복용법", "먹는법", "스트레칭")
     normalized = set()
     for w in words:
         for p in particles:
-            if len(w) > 2 and w.endswith(p):
+            if len(w) > len(p) + 1 and w.endswith(p):
                 w = w[:-len(p)]
                 break
-        if len(w) >= 2 and w not in stopwords:
+        if len(w) >= 2 and w not in GRAMMAR_STOPWORDS and not w.isdigit():
             normalized.add(w)
+            # 복합어인 경우 앞쪽 핵심 어근도 함께 토큰으로 분리해 기발행 글 대조 정밀도 향상
+            for suf in suffixes:
+                if len(w) > len(suf) + 1 and w.endswith(suf):
+                    stem = w[:-len(suf)]
+                    if len(stem) >= 2 and stem not in GRAMMAR_STOPWORDS:
+                        normalized.add(stem)
     return normalized
 
 
 def _days_since_post(date_str):
-    import re
-    m = re.search(r'(\d{4})[.\-/년\s]+(\d{1,2})[.\-/월\s]+(\d{1,2})', str(date_str))
+    m = re.search(r"(\d{4})[.\-/년\s]+(\d{1,2})[.\-/월\s]+(\d{1,2})", str(date_str))
     if m:
         try:
             p_date = datetime(int(m.group(1)), int(m.group(2)), int(m.group(3)))
@@ -257,75 +115,235 @@ def _days_since_post(date_str):
 
 
 def check_existing(kw, posts, cooldown_days=14):
-    """기존 글 중복 및 최근 14일 이내 발행 소재 쿨타임(Cooldown) 차단"""
-    kw_c = kw.replace(" ", "")
+    """기발행 글(posts_db.json) 전체와 동적 어근 토큰을 대조하여 이미 다룬 주제를 감지합니다."""
+    kw_c = re.sub(r"\s+", "", str(kw)).lower()
     kw_tokens = _extract_core_tokens(kw)
 
     for p in posts:
-        t_c = p.get("title", "").replace(" ", "")
-        s_c = p.get("slug", "").replace("-", "")
-        d_c = p.get("desc", "").replace(" ", "")
-        if len(kw_c) >= 3 and (kw_c in t_c or kw_c in s_c or kw_c in d_c):
+        t_c = re.sub(r"\s+", "", str(p.get("title", ""))).lower()
+        s_c = str(p.get("slug", "")).replace("-", "").lower()
+        p_tokens = _extract_core_tokens(p.get("title", ""))
+
+        if len(kw_c) >= 3 and (kw_c in t_c or kw_c in s_c):
             return p
 
-        # 최근 14일 이내 발행된 글과 핵심 소재 토큰이 겹치면 쿨타임 차단
-        if cooldown_days and _days_since_post(p.get("date", "")) <= cooldown_days:
-            p_tokens = _extract_core_tokens(p.get("title", ""))
-            if kw_tokens and p_tokens and kw_tokens.intersection(p_tokens):
+        # 복합어에서 추출된 핵심 어근이 기존 글 제목의 핵심 토큰과 일치하는지 동적 검사
+        common = kw_tokens.intersection(p_tokens)
+        if common:
+            # 최근 14일 이내 글은 핵심 토큰 1개라도 겹치면 쿨타임으로 안내
+            if cooldown_days and _days_since_post(p.get("date", "")) <= cooldown_days:
                 return p
-            for tok in kw_tokens:
-                if len(tok) >= 2 and tok in t_c:
+            # 전체 기발행 글에서도 후보 키워드의 핵심 어근이 기존 글 제목에 그대로 포함되어 있으면 중복으로 안내
+            for tok in common:
+                if len(tok) >= 3 and tok in t_c:
                     return p
-
-    tokens = [t for t in ["손가락", "마디", "통증", "류마티스", "퇴행성", "관절염", "족저근막염", "비염", "독감", "백신", "위내시경", "수면내시경", "공복혈당", "중성지방", "단백뇨"] if t in kw_c]
-    if len(tokens) >= 2:
-        for p in posts:
-            t = p.get("title", "")
-            if all(tok in t for tok in tokens):
-                return p
     return None
 
 
+def detect_shopping_connect(keyword, datalab_pool=None):
+    """고정 상품 사전 없이 네이버 데이터랩 쇼핑인사이트 실시간 랭킹 풀과의 매칭 여부로 쇼핑 커넥트 적합도를 동적 판별합니다."""
+    kw_clean = re.sub(r"\s+", "", str(keyword)).lower()
+    if datalab_pool:
+        for dl_kw in datalab_pool:
+            dl_clean = re.sub(r"\s+", "", str(dl_kw)).lower()
+            if len(dl_clean) >= 2 and (dl_clean in kw_clean or kw_clean in dl_clean):
+                return {
+                    "eligible": True,
+                    "category": "datalab_live",
+                    "product_type": dl_kw,
+                    "monetization_note": f"네이버 데이터랩 쇼핑 트렌드 [{dl_kw}] 연계"
+                }
+    return {
+        "eligible": False,
+        "category": None,
+        "product_type": None,
+        "monetization_note": "실시간 검색 정보형"
+    }
+
+
+def load_seed_history():
+    if not SEED_HISTORY_PATH.exists():
+        return {"seeds": {}, "top_keywords": {}}
+    try:
+        with open(SEED_HISTORY_PATH, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception:
+        return {"seeds": {}, "top_keywords": {}}
+
+
+def record_seed_history(cat_key, used_seeds, shown_keywords=None):
+    hist = load_seed_history()
+    seeds_map = hist.setdefault("seeds", {})
+    kw_map = hist.setdefault("top_keywords", {})
+
+    cur_seeds = seeds_map.get(cat_key, [])
+    for s in used_seeds:
+        if s in cur_seeds:
+            cur_seeds.remove(s)
+        cur_seeds.append(s)
+    seeds_map[cat_key] = cur_seeds[-20:]
+
+    if shown_keywords:
+        cur_kws = kw_map.get(cat_key, [])
+        for k in shown_keywords:
+            if k in cur_kws:
+                cur_kws.remove(k)
+            cur_kws.append(k)
+        kw_map[cat_key] = cur_kws[-30:]
+
+    try:
+        SEED_HISTORY_PATH.parent.mkdir(parents=True, exist_ok=True)
+        with open(SEED_HISTORY_PATH, "w", encoding="utf-8") as f:
+            json.dump(hist, f, ensure_ascii=False, indent=2)
+    except Exception:
+        pass
+
+
+def _extract_dynamic_seed_from_headline(headline, posts):
+    """
+    고정 단어 사전(NEWS_ISSUE_KEYWORDS) 없이 뉴스 헤드라인 문장에서 직접 핵심 명사/어근을 추출합니다.
+    1순위: 작은따옴표/큰따옴표('...', “...”)로 강조된 핵심 건강 키워드
+    2순위: 헤드라인 내 2~6글자 핵심 한글 명사 토큰 (기발행 중복 제외)
+    """
+    # 1. 따옴표 강조 키워드 우선 추출
+    quoted = re.findall(r"['‘“\"]([^'’”\"]{2,10})['’”\"]", headline)
+    for q in quoted:
+        q_clean = re.sub(r"[^가-힣a-zA-Z0-9]", "", q)
+        if 2 <= len(q_clean) <= 8 and q_clean not in GRAMMAR_STOPWORDS and not q_clean.isdigit():
+            if not check_existing(q_clean, posts):
+                return q_clean
+
+    # 2. 일반 명사 토큰 동적 추출
+    tokens = list(_extract_core_tokens(headline))
+    for tok in tokens:
+        if 2 <= len(tok) <= 7 and not check_existing(tok, posts):
+            return tok
+    return None
+
+
+def fetch_live_news_issues(cat_key, posts=None, limit_headlines=4, limit_seeds=3, months_ago=0):
+    """
+    [스트림 C] 고정 단어 사전 없이 최근 7일(또는 months_ago개월 전 동기간) 구글 뉴스 RSS에서
+    실시간 건강·식약·운동·질환 헤드라인을 가져오고, 헤드라인 텍스트 자체에서 시드를 직접 추출합니다.
+    """
+    if posts is None:
+        posts = load_existing_posts()
+    hist = load_seed_history()
+    recent_seeds = set(hist.get("seeds", {}).get(cat_key, []))
+
+    target_dt = datetime.now()
+    date_filter = "when:7d"
+    if months_ago and months_ago > 0:
+        target_dt = datetime.now() - timedelta(days=int(months_ago * 30.4))
+        s_str = (target_dt - timedelta(days=7)).strftime("%Y-%m-%d")
+        e_str = (target_dt + timedelta(days=7)).strftime("%Y-%m-%d")
+        date_filter = f"after:{s_str} before:{e_str}"
+
+    base_queries = HONEYJAR_CATEGORIES.get(cat_key, {}).get("news_queries", ["건강"])
+    headlines = []
+    seen_titles = set()
+
+    for q in base_queries:
+        q_actual = f"{q} {date_filter}"
+        url = f"https://news.google.com/rss/search?q={quote(q_actual)}&hl=ko&gl=KR&ceid=KR:ko"
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        try:
+            with urllib.request.urlopen(req, timeout=6) as resp:
+                root = ET.fromstring(resp.read())
+            for it in root.findall(".//item")[:20]:
+                raw_title = (it.find("title").text or "").strip()
+                clean_title = raw_title.rsplit(" - ", 1)[0].strip()
+                if not clean_title or clean_title in seen_titles:
+                    continue
+                seen_titles.add(clean_title)
+                headlines.append(clean_title)
+        except Exception:
+            continue
+
+    extracted_seeds = []
+    matched_headlines = []
+
+    for hl in headlines:
+        dyn_seed = _extract_dynamic_seed_from_headline(hl, posts)
+        matched_headlines.append({"headline": hl, "seed": dyn_seed})
+        if dyn_seed and dyn_seed not in extracted_seeds:
+            extracted_seeds.append(dyn_seed)
+
+    matched_headlines.sort(key=lambda x: 0 if x.get("seed") else 1)
+    fresh_seeds = [s for s in extracted_seeds if s not in recent_seeds]
+    rotated_seeds = fresh_seeds + [s for s in extracted_seeds if s in recent_seeds]
+
+    return {
+        "headlines": matched_headlines[:limit_headlines],
+        "issue_seeds": rotated_seeds[:limit_seeds],
+        "target_period": date_filter
+    }
+
+
+def get_category_roots(cat_key, count=4, shuffle=True, posts=None, months_ago=0):
+    """고정 루트 단어장 대신 실시간 뉴스 추출 시드와 데이터랩 쇼핑 트렌드를 결합하여 반환합니다."""
+    return get_hybrid_seeds(cat_key, count_roots=0, count_datalab=2, count_news=count, shuffle=shuffle, posts=posts, months_ago=months_ago)
+
+
+def get_hybrid_seeds(cat_key, count_roots=1, count_datalab=3, count_news=3, shuffle=True, posts=None, months_ago=0):
+    """
+    고정 사전 없는 순수 실시간 하이브리드 시드 생성기:
+    1) 실시간 뉴스 헤드라인에서 직접 추출한 동적 이슈 시드
+    2) 네이버 데이터랩 쇼핑인사이트 실시간 인기/급상승 키워드 (기발행 중복 제외)
+    """
+    if posts is None:
+        posts = load_existing_posts()
+    hist = load_seed_history()
+    recent_seeds = set(hist.get("seeds", {}).get(cat_key, []))
+
+    # 1. 실시간 뉴스 헤드라인 동적 추출 시드
+    news_info = fetch_live_news_issues(cat_key, posts=posts, limit_headlines=6, limit_seeds=max(count_news, 3), months_ago=months_ago)
+    news_seeds = news_info.get("issue_seeds", [])
+
+    # 2. 네이버 데이터랩 쇼핑인사이트 실시간 랭킹 (최근 3일 vs 30일 전 비교로 신규/상승 키워드 우선)
+    recent_dl = get_datalab_trending_keywords(cat_key, days=3, limit_per_cid=20, months_ago=months_ago)
+    past_dl = set(get_datalab_trending_keywords(cat_key, days=7, limit_per_cid=10, months_ago=(months_ago + 1 if months_ago else 1)))
+
+    valid_dl = [k for k in recent_dl if not check_existing(k, posts)]
+    # 지난달 상위권에 없던 신규/급상승 키워드를 최우선 배치
+    rising_dl = [k for k in valid_dl if k not in past_dl and k not in recent_seeds]
+    other_dl = [k for k in valid_dl if k not in rising_dl]
+
+    if shuffle:
+        random.shuffle(rising_dl)
+        random.shuffle(other_dl)
+
+    dl_picks = (rising_dl + other_dl)[:max(count_datalab, 3)]
+    combined = list(dict.fromkeys(news_seeds + dl_picks))
+    return combined[:5]
+
+
+def get_pillar_seeds(pillar_key, count=4, shuffle=True):
+    return get_hybrid_seeds(pillar_key, count_datalab=2, count_news=count, shuffle=shuffle)
+
+
 def calculate_synergy(kw, posts):
-    """키워드와 기존 기발행 글의 토픽 클러스터(내부 링크 시너지 + 기존 글 수치 요약 desc)를 계산합니다."""
-    synergy_rules = [
-        (["손가락", "관절", "류마티스", "마디", "손목", "방아쇠"], ["finger-joint-pain-rheumatoid-arthritis-morning-stiffness"]),
-        (["허리", "디스크", "척추", "협착증", "요추", "골반", "기립근", "폼롤러"], ["pelvic-stretching-back-pain-relief", "core-exercise-home"]),
-        (["목", "경추", "거북목", "일자목", "어깨", "라운드숄더", "승모근", "견갑골", "견인기", "교정기"], ["posture-stretching-office", "posture-wall-stretching", "frozen-shoulder-stretching-rotator-cuff-differentiation"]),
-        (["무릎", "고관절", "하체", "스쿼트", "발목", "발등", "족저", "아킬레스", "종아리", "압박스타킹"], ["knee-safe-squat-workout", "pelvic-stretching-back-pain-relief", "plantar-fasciitis-morning-heel-pain-stretching"]),
-        (["혈당", "당뇨", "인슐린", "식후", "당화혈색소"], ["fasting-blood-sugar-prediabetes-guide", "post-meal-walk-blood-sugar", "intermittent-fasting-guide"]),
-        (["콜레스테롤", "이상지질혈증", "지방간", "중성지방", "간수치", "ldl", "오메가"], ["triglycerides-retest-alcohol-preparation", "fasting-blood-sugar-prediabetes-guide"]),
-        (["소변", "단백뇨", "거품뇨", "요산", "통풍", "신장", "크레아티닌"], ["urinalysis-proteinuria-foamy-urine-retest-guide", "autumn-shrimp-crab-big-toe-pain-gout-care"]),
-        (["대상포진", "독감", "백신", "면역", "진드기", "비염", "감기", "환절기", "인후통", "코세척"], ["tick-bite-scab-scrub-typhus-symptoms-guide", "flu-vaccine-domestic-imported-comparison-free-target", "nasal-spray-rebound-rhinitis-5day-rule", "salt-water-gargle-concentration-ratio"]),
-        (["식단", "단백질", "위염", "속쓰림", "소화", "커피", "유산균", "영양제", "마그네슘", "비타민"], ["morning-apple-heartburn-gastritis-egg", "coffee-after-meal-golden-time", "greek-yogurt-diet-trap", "slow-aging-rice-recipe"])
-    ]
-
-    matched_slugs = []
-    for triggers, target_slugs in synergy_rules:
-        if any(trig in kw for trig in triggers):
-            matched_slugs.extend(target_slugs)
-
-    # 동적 토큰 매칭 보강
+    """고정 매핑 사전 없이 후보 키워드와 기발행 글(posts_db.json)의 제목·요약문 토큰 유사도로 시너지 내부링크 대상을 동적 계산합니다."""
     kw_tokens = _extract_core_tokens(kw)
-    if kw_tokens:
-        for p in posts:
-            p_tokens = _extract_core_tokens(p.get("title", ""))
-            if kw_tokens.intersection(p_tokens):
-                matched_slugs.append(p.get("slug", "").replace(".html", ""))
+    scored = []
 
-    matched_slugs = list(dict.fromkeys(matched_slugs))
-    synergy_posts = []
     for p in posts:
-        slug_base = p.get("slug", "").replace(".html", "")
-        if slug_base in matched_slugs:
-            clean_slug = p.get("slug") if str(p.get("slug", "")).endswith(".html") else f"{slug_base}.html"
-            synergy_posts.append({
-                "slug": p.get("slug"),
-                "title": p.get("title", "")[:35],
-                "date": p.get("date"),
-                "desc": p.get("desc", p.get("summary", "")),
-                "pill_html": f'<a href="{clean_slug}" class="inline-pill-link">🔗 {p.get("title", "")[:28]}...</a>'
-            })
+        p_tokens = _extract_core_tokens(p.get("title", "") + " " + p.get("desc", ""))
+        common = kw_tokens.intersection(p_tokens)
+        if common:
+            scored.append((len(common), p))
 
-    return synergy_posts[:3]
+    scored.sort(key=lambda x: x[0], reverse=True)
+    synergy_posts = []
+    for _, p in scored[:3]:
+        slug_base = str(p.get("slug", "")).replace(".html", "")
+        clean_slug = p.get("slug") if str(p.get("slug", "")).endswith(".html") else f"{slug_base}.html"
+        synergy_posts.append({
+            "slug": p.get("slug"),
+            "title": p.get("title", "")[:35],
+            "date": p.get("date"),
+            "desc": p.get("desc", p.get("summary", "")),
+            "pill_html": f'<a href="{clean_slug}" class="inline-pill-link">🔗 {p.get("title", "")[:28]}...</a>'
+        })
 
+    return synergy_posts

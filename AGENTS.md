@@ -26,7 +26,7 @@
 
 | 단계 | 명칭 및 핵심 산출물 | 호출 스킬 및 필수 검증 명령 |
 | :--- | :--- | :--- |
-| **주제 선정** | 하이브리드 주제 발굴 (3대 카테고리 후보 3선 & 잠정 추천 1개) ➔ **HARD STOP** | `skills/topic-opportunity/SKILL.md`<br>`python tools/view_top_keywords.py --cat all`<br>`python tools/check_topic_duplication.py "후보1" "후보2"` |
+| **주제 선정** | 하이브리드 주제 발굴 (현재 3대 카테고리 후보 3선 + 딱 11개월 전 시즌 선점 5선 & 잠정 추천 1개) ➔ **HARD STOP** | `skills/topic-opportunity/SKILL.md`<br>`python tools/view_top_keywords.py --cat all`<br>`python tools/check_topic_duplication.py "후보1" "후보2"` |
 | **Step 0-A** | **1차 광범위 사전 팩트 탐색 (Pre-Fact & Baseline Check)**<br>공인 1차 기준선(Baseline) + 주의사항(Delta) + `official_source_raw.txt` 원문 덤프 + `리서치.md` 1차 작성 (제목 확정 전 세부 FAQ 조기 작성 금지) | `read_url_content`로 공인 1차 원문 열람 후 `official_source_raw.txt`(200바이트 이상, URL·열람일 포함) 저장<br>`python tools/step_guard.py 1` |
 | **Step 1** | **네이버 제목 10선 보고 및 승인 ([트랙 A 홈판형 5선] + [트랙 B 하이브리드형 5선])** ➔ **HARD STOP 1** | `skills/kkuldanji-naver-title/SKILL.md`<br>`titles.json` 저장 후 `python tools/validate_titles.py` |
 | **Step 2/3** | **구글 SEO 듀얼 트랙 제목 10선 보고 및 최종 제목 확정 ([트랙 A 검색·진료 가이드형 5선] + [트랙 B 디스커버·착각 반전형 5선], `titles.json` 잠금)** ➔ **HARD STOP 2/3** | `skills/kkuldanji-google-article/SKILL.md`<br>`titles.json`에 `selected_naver`, `selected_google` 확정 저장 후 `python tools/validate_titles.py google` |
@@ -41,13 +41,13 @@
 
 주제 발굴·추천 시 반드시 `skills/topic-opportunity/SKILL.md`를 먼저 읽고 실행한다.
 
-1. **[2대 모드 분리 실행]**:
-   - **모드 A (초고속 주제 추천)**: 일반 주제 추천 요청 시 `tools/topic_opportunity.py`, `tools/datalab_popular.py`, `tools/view_top_keywords.py`, `tools/check_topic_duplication.py`를 사용하여 **3대 공식 카테고리(`홈트레이닝` 1개, `식단 & 영양` 1개, `라이프 웰니스` 1개) 후보 3선과 오늘의 잠정 추천 1개**를 즉시 브리핑한다.
-   - **모드 B (최신 보건·식약 동향 브리핑)**: 사용자가 최신 뉴스·이슈를 명시적으로 요청할 때만 최근 7일 이내 공인 기관 발표 동향을 검색하여 브리핑한다.
-2. **[4대 필수 검증 데이터]**:
-   - **스트림 A (네이버 쇼핑 커넥트 수익화 태깅)** + **스트림 B (당월 계절/증상/해부학 질문형 검색어)** 결합.
-   - **최근 14일 이내 발행 소재 쿨타임 차단**: 최근 14일 내 발행된 기존 글과 핵심 소재가 겹치는 후보는 원천 배제한다.
-   - **기존 글 시너지(`synergy_posts`) & 핵심 수치(`desc`) 메모**: 내부 링크(`inline-pill-link`)로 연결할 기존 글의 `slug`, `title`, `desc`(핵심 수치 요약)를 `리서치.md`에 기록하여 글 간 수치 충돌을 차단한다.
+1. **[3대 라이브 스트림 & 11개월 전 시즌 선점 통합 실행]**:
+   - **모드 A (주제 추천 기본 실행)**: 일반 주제 추천 요청 시 `tools/view_top_keywords.py`, `tools/check_topic_duplication.py`를 사용하여 **① 현재 실시간 3대 공식 카테고리(`홈트레이닝` 1개, `식단 & 영양` 1개, `라이프 웰니스` 1개) 후보 3선**, **② 딱 11개월 전 동기간(다음 달 시즌 선점) 실제 이슈·트렌드 후보 5선**, 그리고 **③ 오늘의 잠정 추천 1개**를 즉시 브리핑한다.
+   - **모드 B (최신 보건·식약 동향 단독 브리핑)**: 사용자가 최신 뉴스·이슈 단독 브리핑을 명시적으로 요청할 때 최근 7일 이내 공인 기관 발표 동향을 심층 브리핑한다.
+2. **[4대 필수 검증 데이터 & 시드 로테이션]**:
+   - **스트림 C (최근 7일 실시간 뉴스 이슈 & 딱 11개월 전 시즌 선점 이슈)** + **스트림 A (네이버 데이터랩 TOP 15 로테이션 & 쇼핑 커넥트 태깅)** + **스트림 B (당월 계절/증상/해부학 질문형 검색어 & 시드별 쿼터 밸런싱)** 결합.
+   - **최근 14일 이내 발행 소재 쿨타임 및 기발행 전체 목록 에이전트 직접 전수 대조 의무**: 스크립트 출력에만 의존하지 않고, 주제 후보 제안 전에 에이전트가 직접 `data/posts_db.json`의 최근 14일(2주) 이내 발행 글 및 전체 기발행 목록(`date`, `title`, `slug`, `desc`)을 눈으로 먼저 확인하여 중복 주제를 100% 배제한다.
+   - **기존 글 시너지(`synergy_posts`) & 핵심 수치(`desc`) `리서치.md` 의무 등록**: 에이전트가 직접 확인한 기존 글(최근 2주 이내 및 연관 클러스터 글)의 `slug`, `title`, `desc`(핵심 수치 요약)를 Step 0-A `리서치.md`에 의무 등록하여, 본문 작성 시 내부 링크(`inline-pill-link`)를 정확히 걸고 글 간 수치 충돌을 원천 차단한다.
    - **네이버 검색광고 API 스윗스팟(월 300~15,000회) 세부 연관검색어 TOP 5 추출**: 후보별 실측 세부 연관검색어 TOP 5와 자동완성 5개를 추출하여 Step 1 네이버 제목과 본문 H2 소제목에 1:1로 반영한다.
 3. **[구형 가짜 SERP 점수·배지 영구 폐기]**:
    - 구형 정적 경쟁도 배지(`🔴/🟡/🟢/💎`), 단어 가점, 블로그 0건=블루오션 단정, `last_serp_audit.json` 강제 락은 영구 폐기한다.

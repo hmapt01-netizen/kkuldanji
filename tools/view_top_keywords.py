@@ -24,7 +24,10 @@ from topic_taxonomy import (
     NEGATIVE_WORDS,
     check_existing,
     get_hybrid_seeds,
-    detect_shopping_connect
+    detect_shopping_connect,
+    fetch_live_news_issues,
+    load_seed_history,
+    record_seed_history
 )
 
 if sys.platform == "win32":
@@ -79,36 +82,45 @@ def main():
     parser.add_argument("--limit", type=int, default=10, help="카테고리당 출력 개수 (기본 10개)")
     parser.add_argument("--min-vol", type=int, default=1000, help="최소 월간 검색량 (기본 1,000회)")
     parser.add_argument("--max-vol", type=int, default=30000, help="최대 월간 검색량 (기본 30,000회, 0이면 무제한)")
+    parser.add_argument("--months-ago", type=int, default=0, help="N개월 전 동기간 이슈·쇼핑 데이터 조회 (예: 11 = 딱 11개월 전 시즌 선점)")
     parser.add_argument("--fixed", action="store_true", help="셔플 없이 고정 시드 사용")
     args = parser.parse_args()
 
     posts = load_existing_posts()
     selected_pillars = CAT_ALIASES[args.cat]
-    curr_month = datetime.now().month
+    from datetime import timedelta
+    target_dt = datetime.now() - timedelta(days=int(args.months_ago * 30.4)) if args.months_ago > 0 else datetime.now()
+    curr_month = target_dt.month
+    period_label = f"딱 {args.months_ago}개월 전 ({target_dt.strftime('%Y년 %m월')} 시즌 선점)" if args.months_ago > 0 else "최근 7일 실시간"
 
     print("=" * 102)
-    print(f"  🚀 [꿀단지 하이브리드 실시간 키워드 & 쇼핑 커넥트 엔진]")
+    print(f"  🚀 [꿀단지 3대 라이브 스트림 하이브리드 키워드 & 이슈 엔진 — {period_label}]")
     print(f"  - 3대 카테고리: 홈트레이닝, 식단 & 영양, 라이프 웰니스 (총 {len(selected_pillars)}개)")
-    print(f"  - 스트림 A (소비/쇼핑): 네이버 데이터랩 쇼핑인사이트 실시간 랭킹 자동 융합")
-    print(f"  - 스트림 B (의학/증상): {curr_month}월 캘린더 환절기 시의성 + 해부학/질환 루트 결합")
-    print(f"  - 실측 검증: 네이버 공식 검색광고 API 월간 검색량 {args.min_vol:,}회 ~ {args.max_vol:,}회 (저지수 공략 구간)")
+    print(f"  - 스트림 C (이슈 탐색): {period_label} 구글 뉴스 RSS 보건·식약·계절·질환 이슈 자동 추출")
+    print(f"  - 스트림 A (소비/쇼핑): {period_label} 네이버 데이터랩 쇼핑인사이트 TOP 15 + 쇼핑 커넥트 태깅")
+    print(f"  - 스트림 B (의학/증상): {curr_month}월 캘린더 시의성 + 해부학/영양학/검진 루트 결합")
+    print(f"  - 다양성 보장: 기발행 소재 사전 차단 + 시드별 쿼터 밸런싱(승자독식 방지) + 직전 추천 자동 로테이션")
     print("=" * 102)
+
+    hist = load_seed_history()
 
     for p_key in selected_pillars:
         p_info = HONEYJAR_CATEGORIES[p_key]
-        hybrid_seeds = get_hybrid_seeds(p_key, count_roots=2, count_datalab=3, shuffle=not args.fixed)
+        news_info = fetch_live_news_issues(p_key, posts=posts, limit_headlines=4, limit_seeds=2, months_ago=args.months_ago)
+        hybrid_seeds = get_hybrid_seeds(
+            p_key, count_roots=2, count_datalab=2, count_news=2, shuffle=not args.fixed, posts=posts, months_ago=args.months_ago
+        )
         raw_items = fetch_keyword_stats(hybrid_seeds)
+        recent_kws = set(hist.get("top_keywords", {}).get(p_key, []))
 
         valid_items = []
         for it in raw_items:
             kw = it["keyword"]
-            # 0. 과도하게 짧거나 포괄적인 단어 필터
-            if len(kw.replace(" ", "")) <= 2:
+            # 0. 과도하게 짧은 단일 글자 필터
+            if len(kw.replace(" ", "")) <= 1:
                 continue
-            if kw in ("운동", "헬스", "건강", "병원", "식품", "의학"):
-                continue
-            # 1. 잡음/광고/비의료 필터
-            if any(neg in kw for neg in NEGATIVE_WORDS):
+            # 1. 기발행 및 최근 14일 쿨타임 소재 동적 제외 (신규 미발행만 선발)
+            if check_existing(kw, posts):
                 continue
             # 2. 검색량 필터
             tot = it["total_volume"]
@@ -118,7 +130,7 @@ def main():
                 continue
             valid_items.append(it)
 
-        # 중복 제거 및 검색량 내림차순 정렬
+        # 중복 제거 및 기본 검색량 내림차순 정렬
         seen = set()
         dedup_items = []
         for it in sorted(valid_items, key=lambda x: x["total_volume"], reverse=True):
@@ -126,9 +138,105 @@ def main():
                 seen.add(it["keyword"])
                 dedup_items.append(it)
 
+        # [핵심] 시드별 쿼터 밸런싱 (Seed Quota Balancing) + 직전 노출 키워드 후순위 배치
+        # 특정 메가 쇼핑 시드 1개가 상위 10위를 독식하는 현상을 막고, 뉴스 이슈/시의성/쇼핑 시드를 고르게 배분
+        fresh_items = [it for it in dedup_items if it["keyword"] not in recent_kws]
+        stale_items = [it for it in dedup_items if it["keyword"] in recent_kws]
+        ordered_pool = fresh_items + stale_items
+
+        balanced_items = []
+        picked_kws = set()
+        # 1차: 각 투입 시드별로 직접 매칭되는 상위 키워드를 최대 2개씩 우선 할당
+        for seed in hybrid_seeds:
+            seed_core = seed.replace(" ", "").lower()
+            probe = seed_core[:3] if len(seed_core) >= 3 else seed_core
+            seed_matches = [
+                it for it in ordered_pool
+                if it["keyword"] not in picked_kws and probe in it["keyword"].replace(" ", "").lower()
+            ]
+            for m in seed_matches[:2]:
+                balanced_items.append(m)
+                picked_kws.add(m["keyword"])
+
+        # 2차: 나머지 유효 키워드 채우기 (직전 미노출 키워드 우선)
+        for it in ordered_pool:
+            if it["keyword"] not in picked_kws:
+                balanced_items.append(it)
+                picked_kws.add(it["keyword"])
+
+        # 실시간 뉴스 헤드라인 브리핑 출력
+        headlines = news_info.get("headlines", [])
+        if headlines:
+            print(f"\n  📰 [{p_info['name']} - 최근 7일 실시간 뉴스·보건 이슈 감지 (스트림 C)]")
+            for h_idx, h_obj in enumerate(headlines[:3], 1):
+                seed_tag = f" ➔ [추출 이슈 시드: {h_obj['seed']}]" if h_obj.get("seed") else ""
+                print(f"     {h_idx}) {h_obj['headline']}{seed_tag}")
+
         extra = f" ({curr_month}월 시의성 반영)" if p_key == "life_wellness" else ""
         title = f"[{p_info['name']}{extra}] (융합 투입 시드: {', '.join(hybrid_seeds)})"
-        print_table(dedup_items, posts, title, limit=args.limit)
+        print_table(balanced_items, posts, title, limit=args.limit)
+
+        # 이번 실행에서 노출된 시드 및 상위 5개 키워드를 로테이션 이력에 기록
+        shown_top = [it["keyword"] for it in balanced_items[:5]]
+        record_seed_history(p_key, hybrid_seeds, shown_keywords=shown_top)
+
+    # 기본 실행(months_ago == 0) 시 딱 11개월 전(다음 달 시즌 선점) 이슈 및 키워드 5선 자동 병행 출력
+    if args.months_ago == 0:
+        dt_11m = datetime.now() - timedelta(days=int(11 * 30.4))
+        label_11m = dt_11m.strftime("%Y년 %m월")
+        seeds_11m = []
+        headlines_11m = []
+        for p_key in selected_pillars:
+            p_name = HONEYJAR_CATEGORIES[p_key]["name"]
+            n_11m = fetch_live_news_issues(p_key, posts=posts, limit_headlines=2, limit_seeds=2, months_ago=11)
+            for h_obj in n_11m.get("headlines", [])[:2]:
+                headlines_11m.append((p_name, h_obj["headline"], h_obj.get("seed")))
+            # 카테고리별로 11개월 전 뉴스 이슈 시드 1개 + 11개월 전 계절/쇼핑 시드 1개씩 균등 배분
+            s_11m = get_hybrid_seeds(p_key, count_roots=1, count_datalab=1, count_news=1, shuffle=not args.fixed, posts=posts, months_ago=11)
+            added = 0
+            for s in s_11m:
+                if s not in seeds_11m:
+                    seeds_11m.append(s)
+                    added += 1
+                    if added >= 2:
+                        break
+
+        seeds_11m = seeds_11m[:5]
+        if seeds_11m:
+            raw_11m = fetch_keyword_stats(seeds_11m)
+            valid_11m = []
+            seen_11m = set()
+            for it in sorted(raw_11m, key=lambda x: x["total_volume"], reverse=True):
+                kw = it["keyword"]
+                if kw in seen_11m or len(kw.replace(" ", "")) <= 2:
+                    continue
+                if any(neg in kw for neg in NEGATIVE_WORDS) or check_existing(kw, posts):
+                    continue
+                if args.min_vol <= it["total_volume"] <= (args.max_vol if args.max_vol > 0 else 9999999):
+                    seen_11m.add(kw)
+                    valid_11m.append(it)
+
+            balanced_11m = []
+            picked_11m = set()
+            for seed in seeds_11m:
+                probe = seed.replace(" ", "").lower()[:3]
+                for it in valid_11m:
+                    if it["keyword"] not in picked_11m and probe in it["keyword"].replace(" ", "").lower():
+                        balanced_11m.append(it)
+                        picked_11m.add(it["keyword"])
+                        break
+            for it in valid_11m:
+                if it["keyword"] not in picked_11m:
+                    balanced_11m.append(it)
+                    picked_11m.add(it["keyword"])
+
+            print("\n" + "=" * 102)
+            print(f"  ⏳ [딱 11개월 전 ({label_11m} 시즌 선점) 실제 뉴스 이슈 & 유망 키워드 TOP 5]")
+            for idx_h, (p_name, hl_text, hl_seed) in enumerate(headlines_11m[:5], 1):
+                s_tag = f" ➔ [시드: {hl_seed}]" if hl_seed else ""
+                print(f"     {idx_h}) [{p_name}] {hl_text}{s_tag}")
+            title_11m = f"[11개월 전 ({label_11m}) 시즌 선점 5선] (투입 시드: {', '.join(seeds_11m)})"
+            print_table(balanced_11m, posts, title_11m, limit=5)
 
 
 if __name__ == "__main__":
