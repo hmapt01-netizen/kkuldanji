@@ -1,0 +1,405 @@
+================================================================================
+[출처 URL]: https://ods.od.nih.gov/factsheets/VitaminD-HealthProfessional/
+[페이지 제목]: Vitamin D - Health Professional Fact Sheet
+[확인 일시]: 2026-10-25 08:31:59 (Real Chrome CDP 127.0.0.1:9222)
+================================================================================
+
+Skip navigation links
+U.S. Department of Health & Human Services
+National Institutes of Health
+Division of Program Coordination, Planning, and Strategic Initiatives
+Información en español
+Strengthening Knowledge and Understanding of Dietary Supplements
+Health Information
+News & Events
+Programs & Activities
+Grants & Funding
+About ODS
+Search the ODS website
+Submit Search
+Search the ODS website
+Submit Search
+
+NIH Websites Are Changing
+
+Get the Latest Updates and FAQs on the transition
+Per Executive Order 14434, federal agencies are now using "Super Intelligence" (SI) in place of "Artificial Intelligence" (AI). You may see both terms across NIH content during this transition.
+Share
+Home > Health Information > Dietary Supplement Fact Sheets > Vitamin D > Vitamin D - Health Professional
+Vitamin D
+Fact Sheet for Health Professionals
+Expand All
+
+Have a question? Ask ODS
+Join the ODS Email List
+
+Consumer Datos en español Health Professional Other Resources
+Table of Contents
+Introduction
+Recommended Intakes
+Sources of Vitamin D
+Vitamin D Intakes and Status
+Vitamin D Deficiency
+Groups at Risk of Vitamin D Inadequacy
+Vitamin D and Health
+Health Risks from Excessive Vitamin D
+Interactions with Medications
+Vitamin D and Healthful Diets
+References
+Disclaimer
+
+This is a fact sheet intended for health professionals. For a general overview, see our consumer fact sheet.
+
+For information on vitamin D and COVID-19, see Dietary Supplements in the Time of COVID-19.
+
+Introduction
+
+Vitamin D (also referred to as calciferol) is a fat-soluble vitamin that is naturally present in a few foods, added to others, and available as a dietary supplement. It is also produced endogenously when ultraviolet (UV) rays from sunlight strike the skin and trigger vitamin D synthesis.
+
+Vitamin D obtained from sun exposure, foods, and supplements is biologically inert and must undergo two hydroxylations in the body for activation. The first hydroxylation, which occurs in the liver, converts vitamin D to 25-hydroxyvitamin D [25(OH)D], also known as calcidiol. The second hydroxylation occurs primarily in the kidney and forms the physiologically active 1,25-dihydroxyvitamin D [1,25(OH)2D], also known as calcitriol [1].
+
+Vitamin D promotes calcium absorption in the gut and maintains adequate serum calcium and phosphate concentrations to enable normal bone mineralization and to prevent hypocalcemic tetany (involuntary contraction of muscles, leading to cramps and spasms). It is also needed for bone growth and bone remodeling by osteoblasts and osteoclasts [1-3]. Without sufficient vitamin D, bones can become thin, brittle, or misshapen. Vitamin D sufficiency prevents rickets in children and osteomalacia in adults. Together with calcium, vitamin D also helps protect older adults from osteoporosis.
+
+Vitamin D has other roles in the body, including reduction of inflammation as well as modulation of such processes as cell growth, neuromuscular and immune function, and glucose metabolism [1-3]. Many genes encoding proteins that regulate cell proliferation, differentiation, and apoptosis are modulated in part by vitamin D. Many tissues have vitamin D receptors, and some convert 25(OH)D to 1,25(OH)2D.
+
+In foods and dietary supplements, vitamin D has two main forms, D2 (ergocalciferol) and D3 (cholecalciferol), that differ chemically only in their side-chain structures. Both forms are well absorbed in the small intestine. Absorption occurs by simple passive diffusion and by a mechanism that involves intestinal membrane carrier proteins [4]. The concurrent presence of fat in the gut enhances vitamin D absorption, but some vitamin D is absorbed even without dietary fat. Neither aging nor obesity alters vitamin D absorption from the gut [4].
+
+Assessing vitamin D status
+
+Serum concentration of 25(OH)D is the main indicator of vitamin D status. However, the serum concentrations of 25(OH)D that are associated with vitamin D deficiency have not been definitively identified. The Food and Nutrition Board at the National Academies of Sciences, Engineering, and Medicine states that levels of 50 nmol/L (20 ng/mL) or more are sufficient for most people, and that the risk of deficiency increases at serum concentrations of less than 30 nmol/L (12 ng/mL).
+
+Recommended Intakes
+
+The Food and Nutrition Board at the National Academies of Sciences, Engineering, and Medicine has established Recommended Dietary Allowances and Adequate Intakes for vitamin D. These values range from 15 to 20 mcg (600–800 IU) for adults and from 10 to 15 mcg (400–600 IU) for infants, children, and adolescents, depending on age.
+
+Sources of Vitamin D
+Food
+
+Vitamin D is found naturally in a few foods, such as the flesh of fatty fish, fish liver oils, beef liver, egg yolks, and cheese. In American diets, fortified foods (e.g., milk, breakfast cereals) provide most of the vitamin D.
+
+Sun exposure
+
+People can get some of their daily vitamin D through exposure to sunlight, although the season, time of day, length of day, cloud cover, melanin content of the skin, and other factors can affect ultraviolet radiation exposure and vitamin D synthesis.
+
+Dietary supplements
+
+Vitamin D is present in dietary supplements as either vitamin D2 or vitamin D3. Both can raise the serum level of 25(OH)D. However, research shows that vitamin D3 increases serum 25(OH)D levels to a greater extent than vitamin D2 and can maintain those higher levels for longer periods of time.
+
+Vitamin D Intakes and Status
+
+According to data from the National Health and Nutrition Examination Survey, most people in the United States consume less than the recommended amounts of vitamin D. However, evidence suggests that the majority of people have sufficient serum concentrations of vitamin D based on the thresholds set by the Food and Nutrition Board. Sun exposure is one of the reasons why serum levels of 25(OH)D are generally higher than would be predicted on the basis of vitamin D dietary intakes alone.
+
+Vitamin D Deficiency
+
+Vitamin D deficiency is more common among people who are lactose intolerant, have a milk allergy, or follow an ovo-vegetarian or vegan diet. Deficiency may also occur in people who have limited exposure to sunlight, those whose kidneys cannot convert 25(OH)D to its active form, or those who cannot absorb vitamin D efficiently in the digestive tract. Vitamin D deficiency can manifest as rickets in children and as osteomalacia in adolescents and adults.
+
+Groups at Risk of Vitamin D Inadequacy
+
+Certain groups of people are more likely than others to have inadequate vitamin D status. These include breastfed infants, older adults, people with limited sun exposure, people with dark skin, people with conditions that limit fat absorption, and people with obesity or those who have undergone gastric bypass surgery.
+
+Vitamin D and Health
+
+The FNB committee that established DRIs for vitamin D found that the evidence was inadequate or too contradictory to conclude that the vitamin had any effect on a long list of potential health outcomes (e.g., on resistance to chronic diseases or functional measures), except for measures related to bone health. Similarly, in a review of data from nearly 250 studies published between 2009 and 2013, the Agency for Healthcare Research and Quality concluded that no relationship could be firmly established between vitamin D and health outcomes other than bone health [69]. However, because research has been conducted on vitamin D and numerous health outcomes, this section focuses on seven diseases, conditions, and interventions in which vitamin D might be involved: bone health and osteoporosis, cancer, cardiovascular disease (CVD), depression, multiple sclerosis (MS), type 2 diabetes, and weight loss.
+
+Most of the studies described in this section measured serum 25(OH)D levels using various methods that were not standardized by comparing them to the best methods. Use of unstandardized 25(OH)D measures can raise questions about the accuracy of the results and about the validity of conclusions drawn from studies that use such measures and, especially, from meta-analyses that pool data from many studies that use different unstandardized measures [5,9,70]. More information about assay standardization is available from the Vitamin D Standardization Program webpage.
+
+Bone health and osteoporosis
+
+Osteoporosis is characterized by low bone mass and the deterioration of bone tissue, which increases bone fragility and the risk of fractures. Clinical trials have shown that vitamin D and calcium supplements may increase bone mineral density in some postmenopausal women and older men, but it is not clear whether they reduce falls and fracture rates. In addition, the results of studies that have evaluated the effects of supplemental vitamin D on muscle strength and the rate of decline in muscle function have been inconsistent.
+
+Cancer
+
+Some evidence suggests that vitamin D might inhibit carcinogenesis and slow tumor progression. However, most research has found no relationship between serum 25(OH)D levels and risk of cancer. The results of clinical trials have generally failed to show that vitamin D supplementation with or without calcium supplementation reduces the incidence of cancer. Adequate or higher 25(OH)D levels might reduce cancer mortality rates, but more research is needed to determine the effects of vitamin D supplementation in people with cancer.
+
+Cardiovascular disease
+
+Vitamin D has been linked to heart health and the risk of cardiovascular disease and vitamin D deficiency is associated with vascular dysfunction, arterial stiffening, left ventricular hypertrophy, and hyperlipidemia. While data from observational studies support an association between higher serum levels of 25(OH)D and a lower risk of cardiovascular disease incidence and mortality, clinical trials have not confirmed these results; several trials have reported that vitamin D supplementation did not reduce the risk of cardiovascular disease, even among people with low 25(OH)D status.
+
+Depression
+
+Vitamin D may be involved in the pathophysiology of depression, and low levels of 25(OH)D have been associated with a higher risk of depression. However, vitamin D supplementation has not been shown to prevent depression or treat depressive symptoms in clinical trials.
+
+Multiple sclerosis
+
+Epidemiological and genetic studies have found an association between multiple sclerosis and low 25(OH)D levels. Observational studies suggest that adequate vitamin D concentrations might reduce the risk of contracting multiple sclerosis, slow the disease’s progression, and decrease the risk of relapse. Clinical trial evidence is limited, so experts cannot draw conclusions about whether vitamin D can help prevent multiple sclerosis, but vitamin D supplementation does not appear to help mitigate the signs and symptoms of the disease or reduce relapse rates.
+
+Type 2 diabetes
+
+Observational studies have found an inverse association between vitamin D status and blood glucose levels. However, vitamin D supplementation does not appear to help maintain glucose homeostasis, reduce the risk of progression from prediabetes to type 2 diabetes, or help manage the disease, particularly in vitamin D-replete individuals.
+
+Weight loss
+
+Although there is some evidence that higher body weights are associated with lower vitamin D status, the available research does not support the use of vitamin D supplements to promote weight loss.
+
+Health Risks from Excessive Vitamin D
+
+Vitamin D toxicity can cause hypercalcemia, hypercalciuria, and high serum 25(OH)D concentrations; in extreme cases, it may lead to renal failure, calcification of soft tissues, cardiac arrhythmias, and death. Vitamin D toxicity is almost always a result of excessive intakes of vitamin D through supplements. Taking calcium supplements in combination with vitamin D supplements may increase the risk of certain adverse effects. The Tolerable Upper Intake Level for vitamin D ranges from 25 to 100 mcg (1,000–4,000 IU), depending on age.
+
+Interactions with Medications
+
+Vitamin D supplements may interact with medications, and some medications may affect vitamin D levels. These medications include orlistat, statins, steroids, and thiazide diuretics.
+
+Vitamin D and Healthful Diets
+
+In general, a person’s nutritional needs should be met primarily through foods. Fortified foods and dietary supplements may be useful in cases where it is not possible to meet the needs for specific nutrients through food alone, especially during certain life stages. The Dietary Guidelines for Americans offers a general description of healthy dietary patterns.
+
+References
+Institute of Medicine, Food and Nutrition Board. Dietary Reference Intakes for Calcium and Vitamin D. Washington, DC: National Academy Press, 2010.
+Norman AW, Henry HH. Vitamin D. In: Erdman JW, Macdonald IA, Zeisel SH, eds. Present Knowledge in Nutrition, 10th ed. Washington DC: Wiley-Blackwell, 2012.
+Jones G. Vitamin D. In: Ross AC, Caballero B, Cousins RJ, Tucker KL, Ziegler TR, eds. Modern Nutrition in Health and Disease, 11th ed. Philadelphia: Lippincott Williams & Wilkins, 2014.
+Silva MC, Furlanetto TW. Intestinal absorption of vitamin D: A systematic review. Nutr Rev 2018;76:60-76. [PubMed abstract]
+Sempos CT, Heijboer AC, Bikle DD, Bollerslev J, Bouillon R, Brannon PM, et al. Vitamin D assays and the definition of hypovitaminosis D. Results from the First International Conference on Controversies in Vitamin D. Br J Clin Pharmacol 2018;84:2194-207. [PubMed abstract]
+LeFevre ML. Screening for vitamin deficiency in adults: U.S. Preventive Services Task Force recommendation statement. Ann Intern Med 2015;162:133-40. [PubMed abstract]
+Brooks SPJ, Sempos CT. The importance of 25-hydroxyvitamin D assay standardization and the Vitamin D Standardization Program. Journal of AOAC International 2017;100:1223-4.
+Taylor CL, Sempos CT, Davis CD, Brannon PM. Vitamin D: moving forward to address emerging science. Nutrients 2017, 9, 1308; doi:10.3390/mu9121308. [PubMed abstract]
+Sempos CT, Binkley N. 25-hydroxyvitamin D assay standardisation and vitamin D guidelines paralysis. Public Health Nutrition 2020;23:1153-64. [PubMed abstract]
+Office of Dietary Supplements, National Institutes of Health. Vitamin D Standardization Program (VDSP).
+Demay MB, Pittas AG, Bikle DD, Diab DL, Kiely ME, et al. Vitamin D for the Prevention of Disease: An Endocrine Society Clinical Practice Guideline. J Clin Endocrinol Metab. 2024 Jul 12;109(8):1907-1947. [PubMed abstract]
+Shah VP, Nayfeh T, Alsawaf Y, Saadi S, Farah M, et al. A Systematic Review Supporting the Endocrine Society Clinical Practice Guidelines on Vitamin D. J Clin Endocrinol Metab. 2024 Jul 12;109(8):1961-1974. [PubMed abstract]
+Holick MF. Vitamin D deficiency. N Engl J Med 2007;357:266-81. [PubMed abstract]
+Brown LL, Cohen B, Tabor D, Zappala G, Maruvada P, Coates PM. The vitamin D paradox in Black Americans: A systems-based approach to investigating clinical practice, research, and public health—expert panel meeting report. BMC Proceedings, 2018;12(Suppl 6):6. [PubMed abstract]
+Bouillon R. Comparative analysis of nutritional guidelines for vitamin D. Nat Rev Endocrinol 2017;13:466-79. [PubMed abstract]
+Scientific Advisory Committee on Nutrition. Vitamin D and Health. 2016.
+Roseland JM, Phillips KM, Patterson KY, Pehrsson PR, Taylor CL. Vitamin D in foods: An evolution of knowledge. Pages 41-78 in Feldman D, Pike JW, Bouillon R, Giovannucci E, Goltzman D, Hewison M, eds. Vitamin D, Volume 2: Health, Disease and Therapeutics, Fourth Edition. Elsevier, 2018.
+U.S. Food and Drug Administration. Food additives permitted for direct addition to food for human consumption; vitamin D2 mushroom powder. Federal Register 2020;85:41916-20.
+Borel P, Caillaud D, Cano NJ. Vitamin D bioavailability: State of the art. Crit Rev Food Sci Nutr 2015;55:1193-205. [PubMed abstract]
+Taylor CL, Patterson KY, Roseland JM, Wise SA, Merkel JM, Pehrsson PR, Yetley EA. Including food 25-hydroxyvitamin D in intake estimates may reduce the discrepancy between dietary and serum measures of vitamin D status. J Nutr 2014;144:654-9. [PubMed abstract]
+Cashman KD, Seamans KM, Lucey AJ, Stocklin E, Weber P, Kiely M, Hill TR. Relative effectiveness of oral 25-hydroxyvitamin D3 and vitamin D3 in raising wintertime serum 25-hydroxyvitamin D in older adults. Am J Clin Nutr 2012;95:1350-6. [PubMed abstract]
+Calvo MS, Whiting SJ, Barton CN. Vitamin D fortification in the United States and Canada: Current status and data needs. Am J Clin Nutr 2004;80:1710S-6S. [PubMed abstract]
+Yetley EA. Assessing the vitamin D status of the US population. Am J Clin Nutr 2008;88:558S-64S. [PubMed abstract]
+U.S. Food and Drug Administration. Vitamin D for milk and milk alternatives. January 4, 2018.
+U.S. Department of Agriculture, Agricultural Research Service. FoodData Central.
+U.S. Food and Drug Administration. Food labeling: Revision of the Nutrition and Supplement Facts labels. Federal Register 81(103):33742-33999. 2016.
+Hossein-nezhad A, Holick MF. Vitamin D for health: A global perspective. Mayo Clin Proc 2013;88:720-55. [PubMed abstract]
+U.S. Department of Health and Human Services. The Surgeon General’s Call to Action to Prevent Skin Cancer. Washington, DC: U.S. Dept of Health and Human Services, Office of the Surgeon General; 2014.
+Holick MF. Vitamin D: the underappreciated D-lightful hormone that is important for skeletal and cellular health. Curr Opin Endocrinol Diabetes 2002;9:87-98.
+Weisberg P, Scanlon KS, Li R, Cogswell ME. Nutritional rickets among children in the United States: review of cases reported between 1986 and 2003. Am J Clin Nutr 2004;80:1697S-705S. [PubMed abstract]
+Hirsch AL. Industrial Aspects of Vitamin D. In: Feldman D, Pike JW, Adams JS, eds. Vitamin D. 3rd ed. Academic Press; 2011:73-93.
+National Institutes of Health. Dietary Supplement Label Database. 2020.
+Tripkovic L, Lambert H, Hart K, Smith CP, Bucca G, Penson S, et al. Comparison of vitamin D2 and vitamin D3 supplementation in raising serum 25-hydroxyvitamin D status: A systematic review and meta-analysis. Am J Clin Nutr 2012;95:1357-64. [PubMed abstract]
+Lehmann U, Hirche F, Stangl GI, Hinz K, Westphal S, Dierkes J. Bioavailability of vitamin D2 and D3 in healthy volunteers, a randomised placebo-controlled trial. J Clin Endocrin Metab 2013;98:4339-45. [PubMed abstract]
+Logan VF, Gray AR, Peddie MC, Harper MJ, Houghton LA. Long-term vitamin D3 supplementation is more effective than vitamin D2 in maintaining serum 25-hydroxyvitamin D status over the winter months. Br J Nutr 2013;109:1082-8. [PubMed abstract]
+Tripkovic L, Wilson LR, Hart K, Johnsen S, de Lusignan S, Smith CP, et al. Daily supplementation with 15 µg vitamin D2 compared with vitamin D3 to increase wintertime 25-hydroxyvitamin D status in healthy South Asian and white European women: A 12-wk randomized, placebo-controlled food-fortification trial. Am J Clin Nutr 2017;106:481-90. [PubMed abstract]
+Graeff-Armas LA, Bendik I, Kunz I, Schoop R, Hull S, Beck M. Supplemental 25-hydroxycholecalciferol is more effective than cholecalciferol in raising serum 25-hydroxyvitamin D concentrations in older adults. J Nutr 2020;150:73-81. [PubMed abstract]
+Quesada-Gomez JM, Bouillon R. Is calcifediol better than cholecalciferol for vitamin D supplementation? Osteoporos Int 2018;29:1697-1711. [PubMed abstract]
+Percent reporting and mean amounts of selected vitamins and minerals food and beverages and dietary supplements by gender and age, in the United States, 2015-2016. What We Eat in America, NHANES 2015-2016. 2019.
+Usual nutrient intake from foods and beverages, by gender and age. What We Eat in America, NHANES 2013-2016. 2019.
+Rooney MR, Harnack L, Michos ED, Ogilvie RP, Sempos CT, Lutsey PL. Trends in use of high-dose vitamin D supplements exceeding 1000 or 4000 International Units daily, 1999-2014. JAMA 2017;317:2448-50. [PubMed abstract]
+Taylor CL, Roseland JM, Coates PM, Pehrsson PR. The emerging issue of 25-hydroxyvitamin D in foods. J Nutr 2016;146:855-6. [PubMed abstract]
+Herrick KA, Storandt RJ, Afful J, Pfeiffer CM, Schleicher RL, Gahche JJ, Potischman N. Vitamin D status in the United States, 2011-2014. Am J Clin Nutr 2019;110:150-7. [PubMed abstract]
+Elder CJ, Bishop NJ. Rickets. Lancet 2014;383:1665-76. [PubMed abstract]
+Munns CF, Shaw N, Kiely M, Specker BL, Thacher TD, Ozono K, et al. Global consensus recommendations on prevention and management of nutritional rickets. J Clin Endocrinol Metab 2016;101:394-415. [PubMed abstract]
+Uday S, Hogler W. Nutritional rickets and osteomalacia in the twenty-first century: Revised concepts, public health, and prevention strategies. Curr Osteoporos Rep 2017;15:293-302. [PubMed abstract]
+Weisberg P, Scanlon KS, Li R, Cogswell ME. Nutritional rickets among children in the United States: Review of cases reported between 1986 and 2003. Am J Clin Nutr 2004;80:1697S-705S. [PubMed abstract]
+Thacher TM, Fischer PR, Tebben PJ, Singh RJ, Cha SS, Maxson JA, Yawn BP. Increasing incidence of nutritional rickets: A population-based study in Olmsted County, Minnesota. Mayo Clin Proc 2013;88:176-83. [PubMed abstract]
+Ward LM, Gaboury I, Ladhani M, Zlotkin S. Vitamin D-deficiency rickets among children in Canada. CMAJ 2007;177:161-6. [PubMed abstract]
+Rajakumar K. Vitamin D, cod-liver oil, sunlight, and rickets: A historical perspective. Pediatrics 2003;112:e132-5. [PubMed abstract]
+Creo AL, Thacher TD, Pettifor JM, Strand MA, Ficsher PR. Nutritional rickets around the world: An update. Paediatr Int Child Health 2017;37:84-98. [PubMed abstract]
+Rockwell M, Kraak V, Hulver M, Epling J. Clinical management of low vitamin D: A scoping review of physicians’ practices. Nutrients 2018 Apr 16;10(4). pii: E493. doi: 10.3390/nu10040493. [PubMed abstract]
+Taylor CL, Thomas PR, Aloia JF, Millard PS. Questions about vitamin D for primary care practice: Input from an NIH conference. Am J Med 2015;128:1167-70. [PubMed abstract]
+Taylor CL, Rosen CJ, Dwyer JT. Considerations in dietetic counseling for vitamin D. J Acad Nutr Diet 2019;119:901-9. [PubMed abstract]
+Agency for Healthcare Research and Quality. Screening for vitamin D deficiency: Systematic review for the U.S. Preventive Services Task Force recommendation. Evidence Synthesis Number 118. AHRQ-Pub No. 13-05183-EF-1. June 2014.
+Picciano MF. Nutrient composition of human milk. Pediatr Clin North Am 2001;48:53-67. [PubMed abstract]
+Wagner CL, Greer FR, American Academy of Pediatrics Section on Breastfeeding, American Academy of Pediatrics Committee on Nutrition. Prevention of rickets and vitamin D deficiency in infants, children, and adolescents. Pediatrics 2008;122:1142-52. [PubMed abstract]
+Dawodu A, Tsang RC. Maternal vitamin D status: Effect on milk vitamin D content and vitamin D status of breastfeeding infants. Adv Nutr 2012;3:353-61. [PubMed abstract]
+Davis CD, Dwyer JT. The ‘sunshine vitamin’: benefits beyond bone? J Natl Cancer Inst 2007;99:1563-5. [PubMed abstract]
+Simon AE, Ahrens KA. Adherence to vitamin D intake guidelines in the United States. Pediatrics 2020;145:e20193574. [PubMed abstract]
+Chalcraft JR, Cardinal LM, Wechsler PJ, Hollis BW, Gerow KG, Alexander BM, et al. Vitamin D synthesis following a single bout of sun exposure in older and younger men and women. Nutrients 2020; 12, 2237; doi:10.3390/nu12082237. [PubMed abstract]
+Sowah D, Fan X, Dennett L, Hagtvedt R, Straube S. Vitamin D levels and deficiency with different occupations: A systematic review. BMC Public Health 2017;17:519. [PubMed abstract]
+Pappa HM, Bern E, Kamin D, Grand RJ. Vitamin D status in gastrointestinal and liver disease. Curr Opin Gastroenterol 2008;24:176-83. [PubMed abstract]
+Drincic A, Fuller E, Heaney RP, Armas LAG. 25-hydroxyvitamin D response to graded vitamin D3 supplementation among obese adults. J Clin Endocrinol Metab 2013;98:4845-51. [PubMed abstract]
+Ekwaru JP, Zwicker JD, Holick MF, Giovannucci E, Veugelers PJ. The importance of body weight for the dose response relationship of oral vitamin D supplementation and serum 25-hydroxyvitamin D in healthy volunteers. PLOS ONE 2014;9:e111265. [PubMed abstract]
+Chakhtoura M, Rahme M, Fuleihan E-H. Vitamin D metabolism in bariatric surgery. Endocrinol Metab Clin North Am 2017;46:947-82. [PubMed abstract]
+Peterson L, Zeng X, Caufield-Noll CP, Schweitzer MA, Magnuson TH, Steele KE. Vitamin D status and supplementation before and after bariatric surgery: A comprehensive literature review. Surg Obes Relat Dis 2016;12:693-702. [PubMed abstract]
+Chakhtoura MT, Nakhoul N, Akl EA, Mantzoros CS, El Hajj Guleihan GA. Guidelines on vitamin D replacement in bariatric surgery? Identification and systematic appraisal. Metabolism 2016;65:586-97. [PubMed abstract]
+Newberry SJ, Chung M, Shekelle PG, Booth MS, Liu JL, Maher AR, et al. Vitamin D and calcium: A systematic review of health outcomes (update). Evidence Report/Technology Assessment No. 217. (Prepared by the Southern California Evidence-based Practice Center under Contract No. 290- 2012-00006-I.) AHRQ Publication No. 14-E004-EF. Rockville, MD: Agency for Healthcare Research and Quality. September 2014.
+Sempos CT, Carter GD, Binkley NC. 25-hydroxyvitamin D assays: Standardization, guidelines, problems, and interpretation. Pages 939-57 in Feldman D, Pike JW, Bouillon R, Giovannucci E, Goltzman D, Hewison M, eds. Vitamin D, Volume 1: Biochemistry, Physiology and Diagnostics, Fourth Edition. Elsevier, 2018.
+Jin, J. Vitamin D and calcium supplements for preventing fractures. JAMA 2018;319:1630. [PubMed abstract]
+National Institutes of Health Osteoporosis and Related Bone Diseases National Resource Center. Osteoporosis Overview.
+Hansen D, Bazell C, Pelizzari P, Pyenson B. Medicare cost of osteoporotic fractures. Milliman research report, August 2019.
+Chung M, Balk EM, Brendel M, Ip S, Lau J, Lee J, et al. Vitamin D and calcium: A systematic review of health outcomes. Evidence Report/Technology Assessment No. 183 prepared by the Tufts Evidence-based Practice Center under Contract No. 290-2007-10055-I. AHRQ Publication No. 09-E015. Rockville, MD: Agency for Healthcare Research and Quality, 2009.
+U.S. Preventive Services Task Force. Vitamin D, calcium, or combined supplementation for the primary prevention of fractures in community-dwelling adults. US Preventive Services Task Force recommendation statement. JAMA 2018;319:1592-9. [PubMed abstract]
+Kahwati LC, Weber RP, Pan H, Gourlay M, LeBlanc E, Coker-Schwimmer M, Viswanathan M. Vitamin D, calcium, or combined supplementation for the primary prevention of fractures in community-dwelling adults: Evidence report and systematic review for the US Preventive Services Task Force. JAMA 2018;319:1600-12. [PubMed abstract]
+Guirguis-Blake JM, Michael YL, Perdue LA, Coppola EL, Beil TL. Interventions to prevent falls in older adults: Updated evidence report and systematic review for the US Preventive Services Task Force. JAMA 2018;319:1705-16. [PubMed abstract]
+U.S. Preventive Services Task Force. Interventions to prevent falls in community-dwelling older adults. US Preventive Services Task Force recommendation statement. JAMA 2018;319:1696-1704. [PubMed abstract]
+Bolland MJ, Grey A, Avenell A. Effects of vitamin D supplementation on musculoskeletal health: A systematic review, meta-analysis, and trial sequential analysis. Lancet Diabetes Endocrinol 2018;6:847-58. [PubMed abstract]
+Gallagher JC. Vitamin D and bone density, fractures, and falls: The end of the story? Lancet Diabetes Endocrinol 2018;6:834-5. [PubMed abstract]
+Yao P, Bennett D, Mafham M, Lin X, Chen Z, Armitage J, Clarke R. Vitamin D and calcium for the prevention of fracture: A systematic review and meta-analysis. JAMA Network Open 2019;2(12):e1917789. doi: 10.1001/jamanetworkopen.2019.17789.
+LeBoff MS, Chou SH, Ratliff KA, Cook NR, Khurana B, Kim E, et al. Supplemental vitamin D and incident fractures in midlife and older adults. N Eng J Med 2022;387:299-309. [PubMed abstract]
+Aloia JF, Talwar SA, Pollack S, Yeh J. A randomized controlled trial of vitamin D3 supplementation in African American women. Arch Intern Med 2005;165:1618-23. [PubMed abstract]
+Aloia JF, Rubinova R, Fazzari M, Islam S, Mikhail M, Ragolia L. Vitamin D and falls in older African American women: The PODA randomized clinical trial. J Am Geriatr Soc 2019;67:1043-49. [PubMed abstract]
+Vaes AMM, Tieland M, Toussaint N, Nilwik R, Verdijk LB, van Loon LJC, de Groot CPGM. Cholecalciferol or 25-hydroxycholecalciferol supplementation does not affect muscle strength and physical performance in prefrail and frail older adults. J Nutr 2018;148:712-20. [PubMed abstract]
+Shea MK, Fielding RA, Dawson-Hughes B. The effect of vitamin D supplementation on lower-extremity power and function in older adults: a randomized controlled trial. Am J Clin Nutr 2019;109:369-79. [PubMed abstract]
+Manson JE, Bassuk SS, Buring JE. Vitamin D, calcium, and cancer: Approaching daylight? JAMA 2017;317:1217-8. [PubMed abstract]
+Yin L, Ordonez-Mena JM, Chen T, Schottker B, Arndt V, Brenner H. Circulating 25-hydroxyvitamin D serum concentration and total cancer incidence and mortality: A systematic review and meta-analysis. Preventive Medicine 2013;57:753-64. [PubMed abstract]
+Han J, Guo X, Yu X, Liu S, Cui X, Zhang B, Liang H. 25-hydroxyvitamin D and total cancer incidence and mortality: A meta-analysis of prospective cohort studies. Nutrients 2019;11,2295; doi:10.3390/nu11102295. [PubMed abstract]
+Keum N, Giovannucci E. Vitamin D supplements and cancer incidence and mortality: A meta-analysis. British Journal of Cancer 2014;111:976-80. [PubMed abstract]
+Keum N, Lee DH, Greenwood DC, Manson JE, Giovannucci E. Vitamin D supplementation and total cancer incidence and mortality: A meta-analysis of randomized controlled trials. Ann Oncol 2019;30:733-43. [PubMed abstract]
+Bjelakovic G, Gluud LL, Nikolova D, Whitfield K, Krstic G, Wetterslev J, Gluud C. Vitamin D supplementation for prevention of cancer in adults. Cochrane Database Syst Rev 2014; 23(6):CD007469. doi: 10.1002/14651858.CD007469.pub2. [PubMed abstract]
+Manson JE, Cook NR, Lee I-M, Christen W, Bassuk S, Mora S, et al. Vitamin D supplements and prevention of cancer and cardiovascular disease. N Engl J Med 2019:380:33-44. [PubMed abstract]
+Brunner RL, Wactawski-Wende J, Caan BJ, Cochrane BB, Chlebowski RT, et al. The effect of calcium plus vitamin D on risk for invasive cancer: results of the Women’s Health Initiative (WHI) calcium plus vitamin D randomized clinical trial. Nutr Cancer. 2011;63(6):827-41.  [PubMed abstract]
+Thomson CA, Aragaki AK, Prentice RL, Stefanick ML, Manson JE, et al. Long-Term Effect of Randomization to Calcium and Vitamin D Supplementation on Health in Older Women : Postintervention Follow-up of a Randomized Clinical Trial. Ann Intern Med. 2024 Apr;177(4):428-438.  [PubMed abstract]
+McNamara M, Rosenberger KD. The significance of vitamin D status in breast cancer: A state of the science review. J Midwifery Womens Health 2019;64:276-88. [PubMed abstract]
+O’Brien KM, Sandler DP, Taylor JA, Weinberg CR. Serum vitamin D and risk of breast cancer within five years. Environ Health Perspect 2017;125(7):077004. [PubMed abstract]
+Skaaby T, Husemoen LLN, Thuesen BH, Pisinger C, Jorgensen T, Roswall N, et al. Prospective population-based study of the association between serum 25-hydroxyvitamin-D levels and the incidence of specific types of cancer. Cancer Epidemiol Biomarkers Prev 2014;23:1220-9. [PubMed abstract]
+Yao S, Kwan ML, Ergas IJ, Roh JM, Cheng T-YD, Hong C-C, et al. Association of serum level of vitamin D at diagnosis with breast cancer survival: A case-cohort analysis in the Pathways Study. JAMA Oncol 2017;3:351-7. [PubMed abstract]
+Chlebowski RT, Johnson KC, Kooperberg C, Pettinger M, Wactawski-Wende J, Rohan T, et al. Calcium plus vitamin D supplementation and the risk of breast cancer. J Natl Cancer Inst 2007;100:1581-91. [PubMed abstract]
+Cauley JA, Chlebowski RT, Wactawski-Wende J, Robbins JA, Rodabough RJ, Chen Z, et al. Calcium plus vitamin D supplementation and health outcomes five years after active intervention ended: The Women’s Health Initiative. J Womens Health 2013:22,915-29. [PubMed abstract]
+McCullough ML, Zoltick ES, Weinstein SJ, Fedirko V, Wang M, Cook NR, et al. Circulating vitamin D and colorectal cancer risk: An international pooling project of 17 cohorts. J Natl Cancer Inst 2019;111:158-69. [PubMed abstract]
+Wactawski-Wende J, Kotchen JM, Anderson GL, Assaf AR, Brunner RL, O’Sullivan MJ, et al. Calcium plus vitamin D supplementation and the risk of colorectal cancer. N Engl J Med 2006;354:684-96. [PubMed abstract]
+Crockett SD, Barry EL, Mott LA, Ahnen DJ, Robertson DJ, Anderson JC, et al. Calcium and vitamin D supplementation and increased risk of serrated polyps: Results from a randomised clinical trial. Gut. 2019 Mar;68(3):475-486. [PubMed abstract]
+Song M, Lee IM, Manson JE, Buring JE, Dushkes R, Gordon D, et al. No association between vitamin D supplementation and risk of colorectal adenomas or serrated polyps in a randomized trial. Clin Gastroeterol Hepatol 2020. [PubMed abstract]
+Muller DC, Hodge AM, Fanidi A, Albanes D, Mai XM, Shu XO, et al. No association between circulating concentrations of vitamin D and risk of lung cancer: An analysis in 20 prospective studies in the Lung Cancer Cohort Consortium (LC3). Ann Oncol 2018;29:1468-75. [PubMed abstract]
+van Duijnhoven FJB, Jenab M, Hveem K, Siersema PD, Fedirko V, Duell EJ, et al. Circulating concentrations of vitamin D in relation to pancreatic cancer risk in European populations. Int J Cancer 2018;142:1189-201. [PubMed abstract]
+Stolzenberg-Solomon RZ, Vieth R, Azad A, Pietinen P, Taylor PR, Virtamo J, et al. A prospective nested case-control study of vitamin D status and pancreatic cancer risk in male smokers. Cancer Res 2006;66:10213-9. [PubMed abstract]
+Helzlsouer KJ for the VDPP Steering Committee. Overview of the Cohort Consortium Vitamin D Pooling Project of Rarer Cancers. Am J Epidemiol 2010;172:4-9. [PubMed abstract]
+Xu Y, Shao X, Yao Y, Xu L, Chang L, Jiang Z, Lin Z. Positive association between circulating 25-hydroxyvitamin D levels and prostate cancer risk: New findings from an updated meta-analysis. J Cancer Res Clin Oncol 2014;140:1465-77. [PubMed abstract]
+Kristal AR, Till C, Song X, Tangen CM, Goodman PJ, Neuhauser ML, et al. Plasma vitamin D and prostate cancer risk: Results from the Selenium and Vitamin E Cancer Prevention Trial. Cancer Epidemiol Biomarkers Prev 2014;23:1494-504. [PubMed abstract]
+Schenk JM, Till CA, Tangen CM, Goodman PJ, Song X, Torkko KC, et al. Serum 25-hydroxyvitamin D concentrations and risk of prostate cancer: Results from the Prostate Cancer Prevention Trial. Cancer Epidemiol Biomarkers Prev 2014;23:1484-93. [PubMed abstract]
+Heath AK, Hodge AM, Ebeling PR, Eyles DW, Kvaskoff D, Buchanan DD, et al. Circulating 25-hydroxyvitamin D concentration and risk of breast, prostate, and colorectal cancers: The Melbourne Collaborative Cohort Study. Cancer Epidemiol Biomarkers Prev 2019;28:900-8. [PubMed abstract]
+Jiang X, Dimou NL, Al-Dabhani K, Lewis SJ, Martin RM, Haycock PC, et al. Circulating vitamin D concentrations and risk of breast and prostate cancer: A Mendelian randomization study. International Journal of Epidemiology 2019;48:1416-24. [PubMed abstract]
+Travis RC, Perez-Cornago A, Appleby PN, Albanes D, Joshu CE, Lutsey PL, et al. A collaborative analysis of individual participant data from 19 prospective studies assesses circulating vitamin D and prostate cancer risk. Cancer Res 2019;79:274-85. [PubMed abstract]
+Nair-Shalliker V, Bang A, Egger S, Clements M, Gardiner RA, Kricker A, et al. Post-treatment levels of plasma 25- and 1,25-dihydroxy vitamin D and mortality in men with aggressive prostate cancer. Scientific Reports 2020;10:7736. [PubMed abstract]
+Song Z-y, Yao Q, Zhuo Z, Ma Z, Chen G. Circulating vitamin D level and mortality in prostate cancer patients: A dose-response meta-analysis. Endocrine Connections 2018;7:R294-303. [PubMed abstract]
+Shahvazi S, Soltani S, Ahmadi SM, de Souza RJ, Salehi-Abargouei A. The effect of vitamin D supplementation on prostate cancer: A systematic review and meta-analysis of clinical trials. Horm Metab Res 2019;51:11-21. [PubMed abstract]
+US Preventive Services Task Force; Mangione CM, Barry MJ, Nicholson WK, Cabana M, et al. Vitamin, Mineral, and Multivitamin Supplementation to Prevent Cardiovascular Disease and Cancer: US Preventive Services Task Force Recommendation Statement. JAMA. 2022 Jun 21;327(23):2326-2333. [PubMed abstract]
+Kassi E, Adamopoulos C, Basdra EK, Papavassiliou AG. Role of vitamin D in atherosclerosis. Circulation 2013;128:2517-31. [PubMed abstract]
+Mheid IA, Quyyumi AA. Vitamin D and cardiovascular disease: Controversy unresolved. J Am Coll Cardiol 2017;70:89-100. [PubMed abstract]
+Zhang R, Li B, Gao X, Tian R, Pan Y, Jiang Y, et al. Serum 25-hydroxyvitamin D and the risk of cardiovascular disease: Dose-response meta-analysis of prospective studies. Am J Clin Nutr 2017;105:810-9. [PubMed abstract]
+Durup D, Jorgensen HL, Christensen J, Tjonnland A, Olsen A, Halkjaer J, et al. A reverse J-shaped association between serum 25-hydroxyvitamin D and cardiovascular disease mortality: The CopD study. J Clin Endorcinol Metab 2015;100:2339-46. [PubMed abstract]
+Brondum-Jacobsen P, Benn M, Jensen GB, Nordestgaard BG. 25-hydroxyvitamin D levels and risk of ischemic heart disease, myocardial infarction, and early death: Population-based study and meta-analyses of 18 and 17 studies. Arterioscler Thromb Vasc Biol 2012;32:2794-802. [PubMed abstract]
+Zhou R, Wang M, Huang H, Li W, Hu Y, Wu T. Lower vitamin D status is associated with an increased risk of ischemic stroke: A systematic review and meta-analysis. Nutrients 2018; 10, 277;doi:10.3390/nu10030277. [PubMed abstract]
+Scragg R, Stewart AW, Waayer D, Lawes CMM, Toop L, Sluyter J, et al. Effect of monthly high-dose vitamin D supplementation on cardiovascular disease in the Vitamin D Assessment Study: A randomized clinical trial. JAMA Cardiol 2017;2:608-16. [PubMed abstract]
+Ford JA, MacLennan GS, Avenell A, Bolland M, Grey A, Witham M. Cardiovascular disease and vitamin D supplementation: Trial analysis, systematic review, and meta-analysis. Am J Clin Nutr 2014;100:746-55. [PubMed abstract]
+Hsia J, Heiss G, Ren H, Allison M, Dolan NC, et al. Calcium/vitamin D supplementation and cardiovascular events. Circulation. 2007 Feb 20;115(7):846-54.  [PubMed abstract]
+Dibaba DT. Effect of vitamin D supplementation on serum lipid profiles: A systematic review and meta-analysis. Nutr Rev 2019;77:890-902. [PubMed abstract]
+Beveridge LA, Struthers AD, Khan F, Jorde R, Scragg R, Macdonald HM, et al. Effect of vitamin D supplementation on blood pressure: A systematic review and meta-analysis incorporating individual patient data. JAMA Intern Med 2015;175:745-54. [PubMed abstract]
+Golzarand M, Shab-Bidar S, Koochakpoor G, Speakman JR, Djafarian K. Effect of vitamin D3 supplementation on blood pressure in adults: An updated meta-analysis. Nutr Metab Cardiovasc Dis 2016;26:663-73. [PubMed abstract]
+Vimaleswaran KS, Cavadino A, Berry DJ, Jorde R, Dieffenbach AK, Lu C, et al. Association of vitamin D status with arterial blood pressure and hypertension risk: A mendelian randomisation study. Lancet Diabetes-Endocrinol 2014;2:719-29. [PubMed abstract]
+Anglin RES, Samaan Z, Walter SD, McDonald SD. Vitamin D deficiency and depression in adults: Systematic review and meta-analysis. The British Journal of Psychiatry 2013;202:100-7. [PubMed abstract]
+Gowda U, Mutowo MP, Smith BJ, Wluka AE, Renzaho AMN. Vitamin D supplementation to reduce depression in adults: Meta-analysis of randomized controlled trials. Nutrition 2015;31:421-9. [PubMed abstract]
+Jorde R, Kubiak J. No improvement in depressive symptoms by vitamin D supplementation: Results from a randomised controlled trial. Journal of Nutrition Science 2018;7:1-7. [PubMed abstract]
+de Koning EJ, Lips P, Penninx BWJH, Elders PJM, Heijboer AC, den Heijer M, et al. Vitamin D supplementation for the prevention of depression and poor physical function in older persons: The D-Vitaal study, a randomized clinical trial. Am J Clin Nutr 2019;110:1119-30. [PubMed abstract]
+Jorde R, Grimnes G. Vitamin D: No cure for depression. Am J Clin Nutr 2019;110:1043-4. PMID: 31504098 [PubMed abstract]
+Okereke OI, Reynolds III CF, Mischoulon D, Chang G, Vyas CM, Cook NR, et al. Effect of long-term vitamin D3 supplementation vs placebo on risk of depression or clinically relevant depressive symptoms and on change in mood scores: A randomized clinical trial. JAMA 2020;324:471-80. [PubMed abstract]
+MedLinePlus. Multiple sclerosis. 2020.
+Jagannath VA, Filippini G, Di Pietrantonj C, Asokan GV, Robak EW, Whamond L, Robinson SA. Vitamin D for the management of multiple sclerosis (review). Cochrane Database of Systematic Reviews 2018, issue 9, Art. No.: CD008422. DOI: 10.1002/14651858.CD008422.pub3. [PubMed abstract]
+Sintzel MB, Rametta M, Reder AT. Vitamin D and multiple sclerosis: A comprehensive review. Neurol Ther 2018;7:59-85. [PubMed abstract]
+Munger K, Hongell K, Aivo J, Soilu-Hanninen M, Surcel H-M, Ascherio A. 25-hydroxyvitamin D deficiency and risk of MS among women in the Finnish Maternity Cohort. Neurology 2017;89: 1578-83. [PubMed abstract]
+Munger KL, Levin LI, Hollis BW, Howard NS, Ascherio A. Serum 25-hydroxyvitamin D levels and risk of multiple sclerosis. JAMA 2006;296:2832-8. [PubMed abstract]
+Salzer J, Hallmans G, Nystrom M, Stenlund H. Wadell G, Sundstrom P. Vitamin D as a protective factor in multiple sclerosis. Neurology 2012;79:2140-5. [PubMed abstract]
+Marrie RA, Beck CA. Preventing multiple sclerosis: To (take) vitamin D or not to (take) vitamin D? Neurology 2017;89:1538-9. [PubMed abstract]
+Li X, Liu Y, Zheng Y, Wang P, Zhang Y. The effect of vitamin D supplementation on glycemic control in type 2 diabetes patients: A systematic review and meta-analysis. Nutrients 2018; 10, 375; doi:10.3390/nu10030375 [PubMed abstract]
+Mousa A, Naderpoor N, Teede H, Scragg R, de Courten, B. Vitamin D supplementation for improvement of chronic low-grade inflammation in patients with type 2 diabetes: A systematic review and meta-analysis of randomized controlled trials. Nutr Rev 2018;76:380-94. [PubMed abstract]
+Pittas A, Dawson-Hughes B, Sheehan P, Ware JH, Knowler WC, Aroda VR, et al. Vitamin D supplementation and prevention of type 2 diabetes. N Engl J Med 2019;381:520-30. [PubMed abstract]
+Rafiq S, Jeppesen PB. Is hypovitaminosis D related to incidence of type 2 diabetes and high fasting glucose level in healthy subjects: A systematic review and meta-analysis of observational studies. Nutrients 2018, 10, 59; doi:10.3390/nu10010059. [PubMed abstract]
+Mousa A, Naderpoor N, de Courten MPJ, Teede H, Kellow N, Walker K, et al. Vitamin D supplementation has no effect on insulin sensitivity or secretion in vitamin D-deficient, overweight or obese adults: A randomized placebo-controlled trial. Am J Clin Nutr 2017;105:1372-81. [PubMed abstract]
+Seida JC, Mitri J, Colmers IN, Majumdar SR, Davidson MB, Edwards AL, et al. Effect of vitamin D3 supplementation on improving glucose homeostasis and preventing diabetes: A systematic review and meta-analysis. J Clin Endocrinol Metab 2014;99:3551-60. [PubMed abstract]
+Jorde R, Sollid ST, Svartberg J, Schirmer H, Joakimsen RM, Njolstad I, et al. Vitamin D 20 000 IU per week for five years does not prevent progression from prediabetes to diabetes. J Clin Endocrinol Metab 2016;101:1647-55. [PubMed abstract]
+Pittas A, Dawson-Hughes B, Staten M. The authors reply: Vitamin D supplementation and prevention of type 2 diabetes. N Engl J Med 2019;381:1785-6. [PubMed abstract]
+Earthman CP, Beckman LM, Masodkar K, Sibley SD. The link between obesity and low circulating 25-hydroxyvitamin D concentrations: considerations and implications. Int J Obes (Lond) 2012;36:387-96. [PubMed abstract]
+Mallard SR, Howe AS, Houghton LA. Vitamin D status and weight loss: A systematic review and meta-analysis of randomized and nonrandomized controlled weight-loss trials. Am J Clin Nutr 2016;104:1151-9. [PubMed abstract]
+Caan B, Neuhouser M, Aragaki A, Lewis CB, Jackson R, LeBoff MS, et al. Calcium plus vitamin D supplementation and the risk of postmenopausal weight gain. Arch Intern Med 2007;167:893-902. [PubMed abstract]
+Pathak K, Soares MJ, Calton EK, Zhao Y, Hallett J. Vitamin D supplementation and body weight status: A systematic review and meta-analysis of randomized controlled trials. Obes Rev 2014;15:528-37. [PubMed abstract]
+Galior K, Grebe S, Singh R. Development of vitamin D toxicity from overcorrection of vitamin D deficiency: A review of case reports. Nutrients 2018, 10, 953. [PubMed abstract]
+Auguste BL, Avila-Casado C, Bargman JM. Use of vitamin D drops leading to kidney failure in a 54-year-old man. CMAJ 2019;191:E390-4. [PubMed abstract]
+Vogiatzi MG, Jacobson-Dickman E, DeBoer MD. Vitamin D supplementation and risk of toxicity in pediatrics: A review of current literature. J Clin Endocrinol Metab 2014;99:1132-41. [PubMed abstract]
+Singh P, Trivedi N. Tanning beds and hypervitaminosis D: A case report. Ann Intern Med 2014;160:810-1. [PubMed abstract]
+Laurent MR, Gielen E, Pauwels S, Vanderschueren D, Bouillon R. Hypervitaminosis D associated with tanning bed use: A case report. Ann Intern Med 2017;166:155-6. [PubMed abstract]
+Perez-Castrillon JL, Vega G, Abad L, Sanz A, Chaves J, Hernandez G, Duenas A. Effects of atorvastatin on vitamin D levels in patients with acute ischemic heart disease. Am J Cardiol 2007;99:903-5. [PubMed abstract]
+Jackson RD, LaCroix AZ, Gass M, Wallace RB, Robbins J, Lewis CE, et al. Calcium plus vitamin D supplementation and the risk of fractures. N Engl J Med 2006;354:669-82. [PubMed abstract]
+Malihi Z, Lawes CMM, Wu Z, Huang Y, Waayer D, Toop L, et al. Monthly high-dose vitamin D supplementation does not increase kidney stone risk or serum calcium: Results from a randomized controlled trial. Am J Clin Nutr 2019;109:1578-87. [PubMed abstract]
+Malihi Z, Wu Z, Stewart AW, Lawes CMM, Scragg R. Hypercalcemia, hypercalciuria, and kidney stones in long-term studies of vitamin D supplementation: A systematic review and meta-analysis. Am J Clin Nutr 2016;104:1039-51. [PubMed abstract]
+Gotfredsen A, Westergren Hendel H, Andersen T. Influence of orlistat on bone turnover and body composition. Int J Obes Relat Metab Disord 2001;25:1154-60. [PubMed abstract]
+James WP, Avenell A, Broom J, Whitehead J. A one-year trial to assess the value of orlistat in the management of obesity. Int J Obes Relat Metab Disord 1997;21:S24-30. [PubMed abstract]
+McDuffie JR, Calis KA, Booth SL, Uwaifo GI, Yanovski JA. Effects of orlistat on fat-soluble vitamins in obese adolescents. Pharmacotherapy 2002;22:814-22. [PubMed abstract]
+Robien K, Oppeneer SJ, Kelly JA, Hamilton-Reeves JM. Drug-vitamin D interactions: A systematic review of the literature. Nutr Clin Pract 2013;28:194-208. [PubMed abstract]
+Schwartz JB. Effects of vitamin D supplementation in atorvastatin-treated patients: A new drug interaction with an unexpected consequence. Clin Pharmacol Ther 2009;85:198-203. [PubMed abstract]
+Perez-Castrillon JL, Vega G, Abad L, Sanz A, Chaves J, Hernandez G, Duenas A. Effects of atorvastatin on vitamin D levels in patients with acute ischemic heart disease. Am J Cardiol 2007;99:903-5. [PubMed abstract]
+Aloia JF, Li-Ng M, Pollack S. Statins and vitamin D. Am J Cardiol 2007;100:1329. [PubMed abstract]
+Buckley LM, Leib ES, Cartularo KS, Vacek PM, Cooper SM. Calcium and vitamin D3 supplementation prevents bone loss in the spine secondary to low-dose corticosteroids in patients with rheumatoid arthritis. A randomized, double-blind, placebo-controlled trial. Ann Intern Med 1996;125:961-8. [PubMed abstract]
+de Sevaux RGL, Hoitsma AJ, Corstens FHM, Wetzels JFM. Treatment with vitamin D and calcium reduces bone loss after renal transplantation: a randomized study. J Am Soc Nephrol 2002;13:1608-14. [PubMed abstract]
+Lukert BP, Raisz LG. Glucocorticoid-induced osteoporosis: pathogenesis and management. Ann Intern Med 1990;112:352-64. [PubMed abstract]
+Skversky AL, Kumar J, Abramowitz MK, Kaskel FJ, Melamed ML. Association of glucocorticoid use and low 25-hydroxyvitamin D levels: Results from the National Health and Nutrition Examination Survey (NHANES): 2001-2006. J Clin Endocrinol Metab 2011;96:3838-45. [PubMed abstract]
+Drinka PJ, Nolten WE. Hazards of treating osteoporosis and hypertension concurrently with calcium, vitamin D, and distal diuretics. J Am Geriatr Soc 1984;32:405-7. [PubMed abstract]
+Crowe M, Wollner L, Griffiths RA. Hypercalcaemia following vitamin D and thiazide therapy in the elderly. Practitioner 1984;228:312-3. [PubMed abstract]
+Disclaimer
+
+This fact sheet by the National Institutes of Health (NIH) Office of Dietary Supplements (ODS) provides information that should not take the place of medical advice. We encourage you to talk to your health care providers (doctor, registered dietitian, pharmacist, etc.) about your interest in, questions about, or use of dietary supplements and what may be best for your overall health. Any mention in this publication of a specific product or service, or recommendation from an organization or professional society, does not represent an endorsement by ODS of that product, service, or expert advice.
+
+Updated: June 27, 2025 History of changes to this fact sheet
+
+Follow NIH on:     
+Contact Us
+Accessibility
+Site Policies
+ODS Event Guidelines
+Disclaimer
+FOIA
+Site Map
+Vulnerability Disclosure
+NIH Virtual Tour
+COVID-19: NIH
+Download free Acrobat Reader 
+Health Information
+Supplement Fact Sheets
+Supplement Frequently Asked Questions (FAQ)
+What You Need To Know About Supplements
+Videos
+Información en español
+Dictionary of Terms
+Nutrient Recommendations
+For Health Professionals
+Consumer Awareness & Protection
+My Dietary Supplement and Medicine Record
+News & Events
+Headlines
+Media Contacts
+Newsletters
+News Releases and Announcements
+Seminars, Conferences & Workshops
+Programs & Activities
+Analytical Methods and Reference Materials (AMRM)
+Botanical Research Centers (CARBON)
+Population Studies
+Resilience & Health Studies
+Dietary Supplement Research Database (CARDS)
+Dietary Supplement Label Database (DSLD)
+Dietary Supplement Research Practicum
+Scholars Program
+Other Databases
+Evidence-based Reviews
+Grants & Funding
+Co-funding Program
+Co-funded Research Portfolio
+ODS Funding Opportunities
+Grants & Co-funding FAQ
+Product Integrity Guidance
+About ODS
+Mission, Origin, and Mandate
+Strategic Plan 2025-2029
+ODS Leadership
+NIH Dietary Supplement Research Coordinating Committee
+Staff Publications
+Staff Presentations
+Budget
+Timeline
+
+ 
+
+Top
+
+----------------------------------------
+[주요 카탈로그·가격표·PDF 링크]
+----------------------------------------
+- My Dietary Supplement and Medicine Record: https://ods.od.nih.gov/pubs/DietarySupplementandMedicineRecord.pdf
+- (링크): https://ods.od.nih.gov/pubs/usdandb/VitaminD-Content.pdf
+- (링크): https://ods.od.nih.gov/pubs/usdandb/VitaminD-Food.pdf
+- (링크): https://www.surgeongeneral.gov/library/calls/prevent-skin-cancer/call-to-action-prevent-skin-cancer.pdf
+- (링크): https://www.ars.usda.gov/ARSUserFiles/80400530/pdf/1516/Table_37_SUP_GEN_15.pdf
+- (링크): https://www.ars.usda.gov/ARSUserFiles/80400530/pdf/usual/Usual_Intake_gender_WWEIA_2013_2016.pdf
+- (링크): https://static1.squarespace.com/static/5c0860aff793924efe2230f3/t/5d76b949deb7e9086ee3d7dd/1568061771769/Medicare+Cost+of+Osteoporotic+Fractures+20190827.pdf
+- Industrial Aspects of Vitamin D: https://www.sciencedirect.com/science/article/pii/B978012381978910006X
+- Download free Acrobat Reader: https://get.adobe.com/reader/
+
+

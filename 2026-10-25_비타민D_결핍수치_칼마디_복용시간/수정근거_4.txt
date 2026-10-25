@@ -1,0 +1,198 @@
+================================================================================
+[출처 URL]: https://pubmed.ncbi.nlm.nih.gov/25441954/
+[페이지 제목]: Dietary fat increases vitamin D-3 absorption - PubMed
+[확인 일시]: 2026-10-25 08:32:03 (Real Chrome CDP 127.0.0.1:9222)
+================================================================================
+
+Skip to main page content
+NIH Websites Are Changing
+Get the Latest Updates and FAQs on the transition
+Per Executive Order 14434, federal agencies are now using "Super Intelligence" (SI) in place of "Artificial Intelligence" (AI). You may see both terms across NIH content during this transition.
+ 
+
+An official website of the United States government
+
+ Here's how you know 
+Log in
+Access keys
+NCBI Homepage
+MyNCBI Homepage
+Main Content
+Main Navigation
+Search:
+Search
+Advanced
+User Guide
+SaveEmailSend to
+Display options
+full text links
+actions
+Cite
+Collections
+Permalink
+experimental resource
+Linked Discoveries
+page navigation
+Title & authors
+Abstract
+Similar articles
+Cited by
+Publication types
+MeSH terms
+Substances
+Related information
+LinkOut - more resources
+Randomized Controlled Trial 
+J Acad Nutr Diet
+. 2015 Feb;115(2):225-230. doi: 10.1016/j.jand.2014.09.014. Epub 2014 Nov 17.
+Dietary fat increases vitamin D-3 absorption
+Bess Dawson-Hughes, Susan S Harris, Alice H Lichtenstein, Gregory Dolnikowski, Nancy J Palermo, Helen Rasmussen
+PMID: 25441954 DOI: 10.1016/j.jand.2014.09.014
+Abstract
+
+Background: The plasma 25-hydroxyvitamin D response to supplementation with vitamin D varies widely, but vitamin D absorption differences based on diet composition is poorly understood.
+
+Objectives: We tested the hypotheses that absorption of vitamin D-3 is greater when the supplement is taken with a meal containing fat than with a fat-free meal and that absorption is greater when the fat in the meal has a higher monounsaturated-to-polyunsaturated fatty acid ratio (MUFA:PUFA).
+
+Design: Open, three-group, single-dose vitamin D-3 comparative absorption experiment.
+
+Participants/setting: Our 1-day study was conducted in 50 healthy older men and women who were randomly assigned to one of three meal groups: fat-free meal, and a meal with 30% of calories as fat with a low (1:4) and one with a high (4:1) MUFA:PUFA. After a 12-hour fast, all subjects took a single 50,000 IU vitamin D-3 supplement with their test breakfast meal.
+
+Main outcome measures: Plasma vitamin D-3 was measured by liquid chromatography-mass spectrometry before and 10, 12 (the expected peak), and 14 hours after the dose.
+
+Statistical analyses performed: Means were compared with two-tailed t tests for independent samples. Group differences in vitamin D-3 absorption across the measurement time points were examined by analysis of variance with the repeated measures subcommand of the general linear models procedure.
+
+Results: The mean peak (12-hour) plasma vitamin D-3 level after the dose was 32% (95% CI 11% to 52%) greater in subjects consuming fat-containing compared with fat-free meals (P=0.003). Absorption did not differ significantly at any time point in the high and low MUFA and PUFA groups.
+
+Conclusions: The presence of fat in a meal with which a vitamin D-3 supplement is taken significantly enhances absorption of the supplement, but the MUFA:PUFA of the fat in that meal does not influence its absorption.
+
+Keywords: Absorption; Healthy adults; Meal conditions; Vitamin D-3; Vitamin D-3 supplementation.
+
+Copyright © 2015 Academy of Nutrition and Dietetics. Published by Elsevier Inc. All rights reserved.
+
+PubMed Disclaimer
+
+Similar articles
+Metabolic responses to high-fat diets rich in MUFA v. PUFA.
+Polley KR, Miller MK, Johnson M, Vaughan R, Paton CM, Cooper JA.
+Br J Nutr. 2018 Jul;120(1):13-22. doi: 10.1017/S0007114518001332.
+PMID: 29936922Clinical Trial.
+Acute effect of dietary fatty acid composition on postprandial metabolism in women.
+Clevenger HC, Kozimor AL, Paton CM, Cooper JA.
+Exp Physiol. 2014 Sep;99(9):1182-90. doi: 10.1113/expphysiol.2013.077222. Epub 2014 Feb 14.
+PMID: 24532599Clinical Trial.
+Type of dietary fat is associated with the 25-hydroxyvitamin D3 increment in response to vitamin D supplementation.
+Niramitmahapanya S, Harris SS, Dawson-Hughes B.
+J Clin Endocrinol Metab. 2011 Oct;96(10):3170-4. doi: 10.1210/jc.2011-1518. Epub 2011 Aug 3.
+PMID: 21816779Free PMC article.Clinical Trial.
+Nutrition imbalance and angiotoxins as dietary risk factors in coronary heart disease.
+Kummerow FA.
+Am J Clin Nutr. 1979 Jan;32(1):58-83. doi: 10.1093/ajcn/32.1.58.
+PMID: 216261Review.
+Impact of meal fatty acid composition on postprandial lipaemia, vascular function and blood pressure in postmenopausal women.
+Rathnayake KM, Weech M, Jackson KG, Lovegrove JA.
+Nutr Res Rev. 2018 Dec;31(2):193-203. doi: 10.1017/S0954422418000033. Epub 2018 Mar 16.
+PMID: 29547370Review.
+See all similar articles
+Cited by
+Response to: Obesity and Vitamin D Metabolism Modifications.
+Roizen JD, Levine MA.
+J Bone Miner Res. 2019 Jul;34(7):1384. doi: 10.1002/jbmr.3743. Epub 2019 May 29.
+PMID: 31141223Free PMC article.No abstract available.
+Effect of Consuming Salmon Products on Vitamin D Status of Young Caucasian Women in Autumn-A Randomized 8-Week Dietary VISA 2 (Vitamin D in Salmon Part 2) Intervention Study.
+Utri-Khodadady Z, Głąbska D, Guzek D.
+Nutrients. 2024 Oct 21;16(20):3565. doi: 10.3390/nu16203565.
+PMID: 39458558Free PMC article.Clinical Trial.
+Prospective, Randomized, Double-Blind, Parallel-Group, Comparative Effectiveness Clinical Trial Comparing a Powder Vehicle Compound of Vitamin D With an Oil Vehicle Compound in Adults With Cystic Fibrosis.
+Hermes WA, Alvarez JA, Lee MJ, Chesdachai S, Lodin D, Horst R, Tangpricha V.
+JPEN J Parenter Enteral Nutr. 2017 Aug;41(6):952-958. doi: 10.1177/0148607116629673. Epub 2016 Feb 22.
+PMID: 26903303Free PMC article.Clinical Trial.
+Exploring the anti-inflammatory potential of vitamin D in cardiometabolic diseases.
+Mokgalaboni K.
+Metabol Open. 2025 Jan 9;25:100348. doi: 10.1016/j.metop.2025.100348. eCollection 2025 Mar.
+PMID: 39876902Free PMC article.
+Vitamin D Supplementation for Prevention of Type 2 Diabetes Mellitus: To D or Not to D?
+Pittas AG, Jorde R, Kawahara T, Dawson-Hughes B.
+J Clin Endocrinol Metab. 2020 Dec 1;105(12):3721-33. doi: 10.1210/clinem/dgaa594.
+PMID: 32844212Free PMC article.Review.
+See all "Cited by" articles
+Publication types
+Randomized Controlled Trial
+Research Support, Non-U.S. Gov't
+Research Support, U.S. Gov't, Non-P.H.S.
+MeSH terms
+Aged
+Cholecalciferol / administration & dosage
+Cholecalciferol / blood*
+Cholecalciferol / pharmacokinetics*
+Dietary Fats / administration & dosage*
+Dietary Proteins / administration & dosage
+Dietary Supplements*
+Fatty Acids, Monounsaturated / administration & dosage
+Fatty Acids, Unsaturated / administration & dosage
+Female
+Humans
+Male
+Meals
+Middle Aged
+Nutrition Assessment
+Single-Blind Method
+Substances
+Dietary Fats
+Dietary Proteins
+Fatty Acids, Monounsaturated
+Fatty Acids, Unsaturated
+Cholecalciferol
+Related information
+Cited in Books
+PubChem Compound (MeSH Keyword)
+LinkOut - more resources
+Full Text Sources
+ClinicalKey
+ClinicalKey Nursing
+Elsevier Science
+Other Literature Sources
+The Lens - Patent Citations Database
+Medical
+MedlinePlus Health Information
+
+NCBI Literature Resources
+
+ 
+
+MeSH PMC Bookshelf Disclaimer
+
+ 
+
+The PubMed wordmark and PubMed logo are registered trademarks of the U.S. Department of Health and Human Services (HHS). Unauthorized use of these marks is strictly prohibited.
+
+FOLLOW NCBI
+
+Connect with NLM
+
+  
+
+National Library of Medicine
+8600 Rockville Pike
+Bethesda, MD 20894
+
+Web Policies
+FOIA
+HHS Vulnerability Disclosure
+
+Help
+Accessibility
+Careers
+
+NLM
+NIH
+HHS
+USA.gov
+
+----------------------------------------
+[주요 카탈로그·가격표·PDF 링크]
+----------------------------------------
+- (링크): https://www.ncbi.nlm.nih.gov/nlmcatalog?term=%22J+Acad+Nutr+Diet%22%5BTitle+Abbreviation%5D
+- Prospective, Randomized, Double-Blind, Parallel-Group, Comparative Effectiveness Clinical Trial Comparing a Powder Vehicle Compound of Vitamin D With an Oil Vehicle Compound in Adults With Cystic Fibrosis.: https://pubmed.ncbi.nlm.nih.gov/26903303/
+
+

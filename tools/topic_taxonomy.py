@@ -30,31 +30,43 @@ HONEYJAR_CATEGORIES = {
         "name": "홈트레이닝",
         "desc": "실내 운동, 스트레칭, 체형 교정, 근력·유산소 루틴, 운동 소도구 안전 사용법",
         "news_queries": [
-            "운동 스트레칭 근육 관절 건강",
-            "홈트레이닝 근력 유산소 재활 자세"
-        ]
+            "스트레칭 운동",
+            "근력 운동 통증",
+            "관절 재활 운동"
+        ],
+        "domain_markers": ("근육", "관절", "스트레칭", "운동", "통증", "자세", "재활", "체형", "척추", "어깨", "무릎", "허리", "골반", "하체", "코어", "발목", "손목", "팔꿈치", "힘줄", "인대", "근력", "산행", "등산", "걷기", "달리기")
     },
     "diet_nutrition": {
         "name": "식단 & 영양",
         "desc": "식단 관리, 영양소 섭취 기준, 식약처 식품 안전, 건강기능식품 복용법, 조리·보관법",
         "news_queries": [
-            "식단 영양소 식약처 식품 건강기능식품",
-            "영양제 복용법 식습관 혈당 대사"
-        ]
+            "식약처 식품 섭취",
+            "영양소 식단 관리",
+            "영양제 복용법"
+        ],
+        "domain_markers": ("식단", "영양", "식약처", "섭취", "복용", "혈당", "콜레스테롤", "단백질", "식이섬유", "비타민", "칼슘", "철분", "나트륨", "당류", "소화", "위장", "보관", "조리", "식중독", "지방", "탄수화물")
     },
     "life_wellness": {
         "name": "라이프 웰니스",
         "desc": "질병관리청 보건 이슈, 계절성 증상 감별, 국가건강검진 수치 판독, 수면·위생·생활 관리",
         "news_queries": [
-            "질병관리청 건강검진 증상 질환 예방",
-            "환절기 수면 면역력 통증 건강관리"
-        ]
+            "건강검진 수치 질환",
+            "질병관리청 예방 증상",
+            "환절기 통증 수면"
+        ],
+        "domain_markers": ("질병", "검진", "수치", "증상", "질환", "예방", "환절기", "수면", "면역", "통증", "혈압", "혈액", "초음파", "내시경", "백신", "감염", "골절", "골밀도", "염증", "진료", "골다공증", "관절염")
     }
 }
 
 CORE_PILLARS = HONEYJAR_CATEGORIES
 
-# 문법적 불용어 (조사·어미·일반 형식명사만 포함하며 특정 질환·식품·상업 예시 단어 일체 없음)
+# 스팸/비건강 기사 차단용 필터
+SPAM_HEADLINE_MARKERS = (
+    "카지노", "도박", "잭팟", "포커", "슬롯", "배팅", "베팅", "토토", "바카라",
+    "블록체인", "블록 체인", "코인", "가상화폐", "윈도우 포커싱", "게임 목록", "프로모션 정보"
+)
+
+# 문법적 불용어 (조사·어미·지시어·일반 형식명사만 포함하며 특정 질환·식품·상업 예시 단어 일체 없음)
 GRAMMAR_STOPWORDS = {
     "기자", "뉴스", "보도", "발표", "이번", "오늘", "내일", "최근", "올해", "작년",
     "대한", "위한", "통해", "따라", "관련", "경우", "정도", "이상", "이하", "미만",
@@ -62,10 +74,20 @@ GRAMMAR_STOPWORDS = {
     "가이드", "정리", "시간", "하루", "아침", "저녁", "공복", "식후", "전후", "때문",
     "사람", "환자", "교수", "병원", "의사", "전문가", "연구", "결과", "분석", "확인",
     "예방", "관리", "치료", "진단", "검사", "주의", "권장", "도움", "필요", "중요",
-    "건강", "생활", "습관", "모습", "사진", "제공", "무단", "전재", "배포", "금지"
+    "건강", "생활", "습관", "모습", "사진", "제공", "무단", "전재", "배포", "금지",
+    "이렇게", "이것", "이곳", "이때", "이런", "이운동", "이음식", "이질환", "이습관",
+    "그냥", "무조건", "꾸준한", "꾸준히", "먼저", "바로", "다시", "함께", "가장",
+    "경로", "블록", "체인", "카카오", "화면", "기본", "돌아가", "라디오", "방송",
+    "발견한", "착각", "위험한", "침묵", "핵심", "칼럼", "손해", "품은", "앞서", "기록하",
+    "이름", "용어", "조건", "기능성", "케어", "신체", "찬바람", "무리한", "찾는",
+    "게임", "윈도우", "포커싱", "적으면", "쉬었는데", "소비자교육", "실시", "음식", "식품",
+    "강화", "영역", "이해하", "청소년", "시대", "열렸다", "과학", "몸짱", "눈물"
 }
 
-NEGATIVE_WORDS = []
+NEGATIVE_WORDS = [
+    "맛집", "산악회", "영어이름", "영문이름", "골프웨어", "백팩", "조거팬츠", "등산복", "등산바지",
+    "요가복", "요가바지", "레깅스", "브라탑", "슬리퍼", "양말", "에블린", "뮬라웨어", "알로요가", "젝시믹스", "안다르"
+]
 POSITIVE_PATTERNS = []
 
 
@@ -199,24 +221,66 @@ def record_seed_history(cat_key, used_seeds, shown_keywords=None):
         pass
 
 
-def _extract_dynamic_seed_from_headline(headline, posts):
+def _is_stem_in_history(kw, history_set):
+    """히스토리 집합에 동일 어근(2글자 이상 공통 부분문자열)이 이미 있으면 True를 반환합니다."""
+    kw_c = re.sub(r"\s+", "", str(kw)).lower()
+    if kw_c in history_set:
+        return True
+    for h in history_set:
+        h_c = re.sub(r"\s+", "", str(h)).lower()
+        if len(h_c) >= 2 and len(kw_c) >= 2:
+            if h_c in kw_c or kw_c in h_c:
+                return True
+            # 2글자 이상 공통 접두/접미 어근(예: 문틀철봉 <-> 실내철봉 -> '철봉') 감지
+            for length in range(min(len(kw_c), len(h_c)), 1, -1):
+                if kw_c[-length:] == h_c[-length:] or kw_c[:length] == h_c[:length]:
+                    return True
+    return False
+
+
+def _extract_dynamic_seed_from_headline(headline, posts, domain_markers=()):
     """
     고정 단어 사전(NEWS_ISSUE_KEYWORDS) 없이 뉴스 헤드라인 문장에서 직접 핵심 명사/어근을 추출합니다.
-    1순위: 작은따옴표/큰따옴표('...', “...”)로 강조된 핵심 건강 키워드
-    2순위: 헤드라인 내 2~6글자 핵심 한글 명사 토큰 (기발행 중복 제외)
+    1순위: 도메인 마커(해부학·영양·검진·질환 핵심어)가 포함된 복합 명사 토큰
+    2순위: 작은따옴표/큰따옴표('...', “...”)로 강조된 핵심 건강 명사
+    3순위: 헤드라인 내 2~6글자 핵심 한글 명사 토큰
     """
-    # 1. 따옴표 강조 키워드 우선 추출
+    verb_endings = (
+        "하다", "되다", "있다", "없다", "않다", "같다", "보다", "주다", "오다", "가다",
+        "나오", "늘어", "줄어", "높아", "낮아", "커져", "작아", "하세", "할까", "될까",
+        "일까", "인가", "막아", "아줘", "늘리", "줄이", "먹었", "갔더", "더니", "는데"
+    )
+    tokens = list(_extract_core_tokens(headline))
+
+    # 1. 도메인 마커가 포함된 실제 건강·운동·영양 복합 명사 최우선 추출
+    if domain_markers:
+        for tok in tokens:
+            if any(tok.endswith(ve) for ve in verb_endings):
+                continue
+            if 2 <= len(tok) <= 7 and tok not in GRAMMAR_STOPWORDS and any(dm in tok for dm in domain_markers):
+                if not check_existing(tok, posts):
+                    return tok
+
+    # 2. 따옴표 강조 키워드 추출 (단, 공백이 없는 순수 단일/복합 명사만 허용하여 서술형 구절 배제)
     quoted = re.findall(r"['‘“\"]([^'’”\"]{2,10})['’”\"]", headline)
     for q in quoted:
-        q_clean = re.sub(r"[^가-힣a-zA-Z0-9]", "", q)
-        if 2 <= len(q_clean) <= 8 and q_clean not in GRAMMAR_STOPWORDS and not q_clean.isdigit():
+        q_str = q.strip()
+        if " " in q_str:
+            continue
+        q_clean = re.sub(r"[^가-힣a-zA-Z0-9]", "", q_str)
+        if q_clean.startswith("이") and len(q_clean) <= 4:
+            continue
+        if any(q_clean.endswith(ve) for ve in verb_endings):
+            continue
+        if 2 <= len(q_clean) <= 6 and q_clean not in GRAMMAR_STOPWORDS and not q_clean.isdigit():
             if not check_existing(q_clean, posts):
                 return q_clean
 
-    # 2. 일반 명사 토큰 동적 추출
-    tokens = list(_extract_core_tokens(headline))
+    # 3. 일반 명사 토큰 동적 추출
     for tok in tokens:
-        if 2 <= len(tok) <= 7 and not check_existing(tok, posts):
+        if any(tok.endswith(ve) for ve in verb_endings):
+            continue
+        if 2 <= len(tok) <= 6 and tok not in GRAMMAR_STOPWORDS and not check_existing(tok, posts):
             return tok
     return None
 
@@ -240,6 +304,7 @@ def fetch_live_news_issues(cat_key, posts=None, limit_headlines=4, limit_seeds=3
         date_filter = f"after:{s_str} before:{e_str}"
 
     base_queries = HONEYJAR_CATEGORIES.get(cat_key, {}).get("news_queries", ["건강"])
+    domain_markers = HONEYJAR_CATEGORIES.get(cat_key, {}).get("domain_markers", ())
     headlines = []
     seen_titles = set()
 
@@ -250,10 +315,14 @@ def fetch_live_news_issues(cat_key, posts=None, limit_headlines=4, limit_seeds=3
         try:
             with urllib.request.urlopen(req, timeout=6) as resp:
                 root = ET.fromstring(resp.read())
-            for it in root.findall(".//item")[:20]:
+            for it in root.findall(".//item")[:25]:
                 raw_title = (it.find("title").text or "").strip()
                 clean_title = raw_title.rsplit(" - ", 1)[0].strip()
                 if not clean_title or clean_title in seen_titles:
+                    continue
+                if any(sm in clean_title for sm in SPAM_HEADLINE_MARKERS):
+                    continue
+                if domain_markers and not any(dm in clean_title for dm in domain_markers):
                     continue
                 seen_titles.add(clean_title)
                 headlines.append(clean_title)
@@ -264,14 +333,14 @@ def fetch_live_news_issues(cat_key, posts=None, limit_headlines=4, limit_seeds=3
     matched_headlines = []
 
     for hl in headlines:
-        dyn_seed = _extract_dynamic_seed_from_headline(hl, posts)
+        dyn_seed = _extract_dynamic_seed_from_headline(hl, posts, domain_markers=domain_markers)
         matched_headlines.append({"headline": hl, "seed": dyn_seed})
         if dyn_seed and dyn_seed not in extracted_seeds:
             extracted_seeds.append(dyn_seed)
 
     matched_headlines.sort(key=lambda x: 0 if x.get("seed") else 1)
-    fresh_seeds = [s for s in extracted_seeds if s not in recent_seeds]
-    rotated_seeds = fresh_seeds + [s for s in extracted_seeds if s in recent_seeds]
+    fresh_seeds = [s for s in extracted_seeds if not _is_stem_in_history(s, recent_seeds)]
+    rotated_seeds = fresh_seeds + [s for s in extracted_seeds if s not in fresh_seeds]
 
     return {
         "headlines": matched_headlines[:limit_headlines],
@@ -281,40 +350,44 @@ def fetch_live_news_issues(cat_key, posts=None, limit_headlines=4, limit_seeds=3
 
 
 def get_category_roots(cat_key, count=4, shuffle=True, posts=None, months_ago=0):
-    """고정 루트 단어장 대신 실시간 뉴스 추출 시드와 데이터랩 쇼핑 트렌드를 결합하여 반환합니다."""
-    return get_hybrid_seeds(cat_key, count_roots=0, count_datalab=2, count_news=count, shuffle=shuffle, posts=posts, months_ago=months_ago)
+    """고정 루트 단어장 대신 실시간 뉴스 추출 시드와 보조 트렌드를 결합하여 반환합니다."""
+    return get_hybrid_seeds(cat_key, count_roots=0, count_datalab=1, count_news=count, shuffle=shuffle, posts=posts, months_ago=months_ago)
 
 
-def get_hybrid_seeds(cat_key, count_roots=1, count_datalab=3, count_news=3, shuffle=True, posts=None, months_ago=0):
+def get_hybrid_seeds(cat_key, count_roots=1, count_datalab=1, count_news=4, shuffle=True, posts=None, months_ago=0):
     """
     고정 사전 없는 순수 실시간 하이브리드 시드 생성기:
-    1) 실시간 뉴스 헤드라인에서 직접 추출한 동적 이슈 시드
-    2) 네이버 데이터랩 쇼핑인사이트 실시간 인기/급상승 키워드 (기발행 중복 제외)
+    1) 실시간 뉴스 헤드라인에서 직접 추출한 동적 이슈 시드 (최우선 4개 배정)
+    2) 네이버 데이터랩 쇼핑인사이트는 공산품 도배를 막기 위해 어근 중복을 제거하고 최대 1개만 보조 반영
     """
     if posts is None:
         posts = load_existing_posts()
     hist = load_seed_history()
-    recent_seeds = set(hist.get("seeds", {}).get(cat_key, []))
+    recent_seeds = set(hist.get("seeds", {}).get(cat_key, [])) | set(hist.get("top_keywords", {}).get(cat_key, []))
 
-    # 1. 실시간 뉴스 헤드라인 동적 추출 시드
-    news_info = fetch_live_news_issues(cat_key, posts=posts, limit_headlines=6, limit_seeds=max(count_news, 3), months_ago=months_ago)
+    # 1. 실시간 뉴스 헤드라인 동적 추출 시드 (최우선)
+    news_info = fetch_live_news_issues(cat_key, posts=posts, limit_headlines=8, limit_seeds=max(count_news, 4), months_ago=months_ago)
     news_seeds = news_info.get("issue_seeds", [])
 
-    # 2. 네이버 데이터랩 쇼핑인사이트 실시간 랭킹 (최근 3일 vs 30일 전 비교로 신규/상승 키워드 우선)
+    # 2. 네이버 데이터랩 쇼핑인사이트 실시간 랭킹 (비건강 의류/브랜드 제거 및 어근 쿨타임 제어: 최대 1개만 보조 선발)
     recent_dl = get_datalab_trending_keywords(cat_key, days=3, limit_per_cid=20, months_ago=months_ago)
     past_dl = set(get_datalab_trending_keywords(cat_key, days=7, limit_per_cid=10, months_ago=(months_ago + 1 if months_ago else 1)))
 
-    valid_dl = [k for k in recent_dl if not check_existing(k, posts)]
-    # 지난달 상위권에 없던 신규/급상승 키워드를 최우선 배치
-    rising_dl = [k for k in valid_dl if k not in past_dl and k not in recent_seeds]
-    other_dl = [k for k in valid_dl if k not in rising_dl]
+    valid_dl = [
+        k for k in recent_dl
+        if not check_existing(k, posts) and not any(neg in k.lower() for neg in NEGATIVE_WORDS)
+    ]
+    # 직전 추천 히스토리와 어근(2글자 이상 공통 부분)이 겹치지 않는 키워드만 우선 선발
+    rising_dl = [k for k in valid_dl if k not in past_dl and not _is_stem_in_history(k, recent_seeds)]
+    fresh_dl = [k for k in valid_dl if k not in rising_dl and not _is_stem_in_history(k, recent_seeds)]
+    stale_dl = [k for k in valid_dl if k not in rising_dl and k not in fresh_dl]
 
     if shuffle:
         random.shuffle(rising_dl)
-        random.shuffle(other_dl)
+        random.shuffle(fresh_dl)
 
-    dl_picks = (rising_dl + other_dl)[:max(count_datalab, 3)]
-    combined = list(dict.fromkeys(news_seeds + dl_picks))
+    dl_picks = (rising_dl + fresh_dl + stale_dl)[:1]
+    combined = list(dict.fromkeys(news_seeds[:4] + dl_picks))
     return combined[:5]
 
 

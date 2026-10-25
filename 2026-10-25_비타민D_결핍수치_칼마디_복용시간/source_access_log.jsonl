@@ -1,0 +1,25 @@
+{"at": "2026-10-24T23:22:47.707401+00:00", "action": "transition", "previous": "topic", "phase": "titles", "note": "사용자 요청: 꿀단지 최신글 검증. 기존 등록글을 검증 대상으로 식별함. 신규 제목 선택이나 승인 기록이 아님."}
+{"at": "2026-10-24T23:22:47.709542+00:00", "action": "transition", "previous": "titles", "phase": "research", "note": "사용자가 최신글 검증을 요청하여 기존 글의 의학적 주장과 인용 출처를 재검증함. 기존 제목 유지, 새 작성 승인 아님."}
+{"at": "2026-10-24T23:22:47.711616+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=5833", "allowed": true}
+{"at": "2026-10-24T23:22:47.728326+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/gnrlzHealthInfo/gnrlzHealthInfo/gnrlzHealthInfoView.do?cntnts_sn=6548", "allowed": true}
+{"at": "2026-10-24T23:22:47.729328+00:00", "action": "source_access", "phase": "research", "resource": "https://www.mohw.go.kr/board.es?mid=a10503010100&bid=0027&act=view&list_no=362385", "allowed": true}
+{"at": "2026-10-24T23:22:47.730329+00:00", "action": "source_access", "phase": "research", "resource": "https://pubmed.ncbi.nlm.nih.gov/36529863/", "allowed": true}
+{"at": "2026-10-24T23:22:47.730329+00:00", "action": "source_access", "phase": "research", "resource": "https://pubmed.ncbi.nlm.nih.gov/28680879/", "allowed": true}
+{"at": "2026-10-24T23:22:47.731357+00:00", "action": "source_access", "phase": "research", "resource": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5490740/", "allowed": true}
+{"at": "2026-10-24T23:22:47.731357+00:00", "action": "source_access", "phase": "research", "resource": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9760769/", "allowed": true}
+{"at": "2026-10-24T23:22:47.732540+00:00", "action": "source_access", "phase": "research", "resource": "https://ods.od.nih.gov/factsheets/VitaminD-HealthProfessional/", "allowed": true}
+{"at": "2026-10-24T23:23:35.487416+00:00", "action": "source_access", "phase": "research", "resource": "https://pubmed.ncbi.nlm.nih.gov/25441954/", "allowed": true}
+{"at": "2026-10-24T23:23:35.487416+00:00", "action": "source_access", "phase": "research", "resource": "https://pubmed.ncbi.nlm.nih.gov/20200983/?dopt=Abstract", "allowed": true}
+{"at": "2026-10-24T23:23:35.488413+00:00", "action": "source_access", "phase": "research", "resource": "https://www.kns.or.kr/fileroom/fileroom_view.asp?BoardID=Kdr&idx=168", "allowed": true}
+{"at": "2026-10-24T23:25:04.209892+00:00", "action": "source_access", "phase": "research", "resource": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5613018/", "allowed": true}
+{"at": "2026-10-24T23:25:56.021975+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "기존 최신글의 요청된 검증과 근거 요약 완료. 검증 결과만 저장했으며 원고 수정 및 발행하지 않음."}
+{"at": "2026-10-24T23:31:43.158753+00:00", "action": "transition", "previous": "writing", "phase": "research", "note": "사용자가 검증 내용 수정을 요청함. 잘못 저장된 근거 원문을 실제 본문으로 교체하기 위한 재열람."}
+{"at": "2026-10-24T23:31:43.179692+00:00", "action": "source_access", "phase": "research", "resource": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5613018/", "allowed": true}
+{"at": "2026-10-24T23:31:47.935513+00:00", "action": "source_access", "phase": "research", "resource": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9760769/", "allowed": true}
+{"at": "2026-10-24T23:31:52.967394+00:00", "action": "source_access", "phase": "research", "resource": "https://ods.od.nih.gov/factsheets/VitaminD-HealthProfessional/", "allowed": true}
+{"at": "2026-10-24T23:31:59.244814+00:00", "action": "source_access", "phase": "research", "resource": "https://pubmed.ncbi.nlm.nih.gov/25441954/", "allowed": true}
+{"at": "2026-10-24T23:34:09.625727+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "오류 근거 원문을 정상 열람 자료로 교체하고 출처별 주장·적용 한계 및 FAQ를 교정함. 신규 승인 기록은 만들지 않음."}
+{"at": "2026-10-24T23:36:43.874834+00:00", "action": "transition", "previous": "writing", "phase": "research", "note": "사용자가 본문 재검증과 이미지 재생성을 요청함. 적용 대상 및 재생성 이미지의 설명을 대조함."}
+{"at": "2026-10-24T23:36:43.876265+00:00", "action": "source_access", "phase": "research", "resource": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9760769/", "allowed": true}
+{"at": "2026-10-24T23:36:43.876265+00:00", "action": "source_access", "phase": "research", "resource": "https://ods.od.nih.gov/factsheets/VitaminD-HealthProfessional/", "allowed": true}
+{"at": "2026-10-24T23:40:35.984660+00:00", "action": "transition", "previous": "research", "phase": "writing", "note": "본문 재검증과 연구 대상·증상 표현 보완 완료. 이미지 6장 새 생성 및 실제 파일 저장."}

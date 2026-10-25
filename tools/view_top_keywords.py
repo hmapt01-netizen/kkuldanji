@@ -27,7 +27,8 @@ from topic_taxonomy import (
     detect_shopping_connect,
     fetch_live_news_issues,
     load_seed_history,
-    record_seed_history
+    record_seed_history,
+    _is_stem_in_history
 )
 
 if sys.platform == "win32":
@@ -106,18 +107,20 @@ def main():
 
     for p_key in selected_pillars:
         p_info = HONEYJAR_CATEGORIES[p_key]
-        news_info = fetch_live_news_issues(p_key, posts=posts, limit_headlines=4, limit_seeds=2, months_ago=args.months_ago)
+        news_info = fetch_live_news_issues(p_key, posts=posts, limit_headlines=4, limit_seeds=4, months_ago=args.months_ago)
         hybrid_seeds = get_hybrid_seeds(
-            p_key, count_roots=2, count_datalab=2, count_news=2, shuffle=not args.fixed, posts=posts, months_ago=args.months_ago
+            p_key, count_roots=1, count_datalab=1, count_news=4, shuffle=not args.fixed, posts=posts, months_ago=args.months_ago
         )
         raw_items = fetch_keyword_stats(hybrid_seeds)
-        recent_kws = set(hist.get("top_keywords", {}).get(p_key, []))
+        recent_kws = set(hist.get("top_keywords", {}).get(p_key, [])) | set(hist.get("seeds", {}).get(p_key, []))
 
         valid_items = []
         for it in raw_items:
             kw = it["keyword"]
-            # 0. 과도하게 짧은 단일 글자 필터
+            # 0. 과도하게 짧은 단일 글자 및 비건강/의류/맛집 노이즈 필터
             if len(kw.replace(" ", "")) <= 1:
+                continue
+            if any(neg in kw.lower() for neg in NEGATIVE_WORDS):
                 continue
             # 1. 기발행 및 최근 14일 쿨타임 소재 동적 제외 (신규 미발행만 선발)
             if check_existing(kw, posts):
@@ -138,10 +141,9 @@ def main():
                 seen.add(it["keyword"])
                 dedup_items.append(it)
 
-        # [핵심] 시드별 쿼터 밸런싱 (Seed Quota Balancing) + 직전 노출 키워드 후순위 배치
-        # 특정 메가 쇼핑 시드 1개가 상위 10위를 독식하는 현상을 막고, 뉴스 이슈/시의성/쇼핑 시드를 고르게 배분
-        fresh_items = [it for it in dedup_items if it["keyword"] not in recent_kws]
-        stale_items = [it for it in dedup_items if it["keyword"] in recent_kws]
+        # [핵심] 시드별 쿼터 밸런싱 (Seed Quota Balancing) + 직전 노출 어근 키워드 후순위 배치
+        fresh_items = [it for it in dedup_items if not _is_stem_in_history(it["keyword"], recent_kws)]
+        stale_items = [it for it in dedup_items if it not in fresh_items]
         ordered_pool = fresh_items + stale_items
 
         balanced_items = []

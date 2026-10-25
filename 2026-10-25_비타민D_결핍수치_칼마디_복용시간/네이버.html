@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>“주사 한 방이면 몇 달 편하겠지?” 비타민D 고용량 주사 후 오히려 넘어지기 쉬운 역설의 이유</title>
+  <style>
+    body {
+      font-family: 'Pretendard', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.85;
+    }
+    .toolbar-box {
+      max-width: 680px;
+      margin: 0 auto 20px auto;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+      text-align: center;
+    }
+    .btn-copy {
+      background: #0284c7;
+      color: #ffffff;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-size: 0.96rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin: 4px;
+    }
+    .btn-tag {
+      background: #0f172a;
+      color: #ffffff;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-size: 0.96rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin: 4px;
+    }
+    #naver-content {
+      max-width: 680px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 36px 28px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+      text-align: center;
+    }
+    .naver-text {
+      font-size: 1.05rem;
+      color: #334155;
+      margin: 18px 0;
+      word-break: keep-all;
+      text-align: center;
+    }
+    .naver-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.45;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .naver-h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0369a1;
+      margin: 32px 0 16px 0;
+      text-align: center;
+    }
+    .naver-sticker {
+      width: 180px;
+      height: auto;
+      display: block;
+      margin: 24px auto;
+    }
+    .naver-photo {
+      max-width: 100%;
+      border-radius: 12px;
+      margin: 20px 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+  </style>
+  <script>
+    function copyForNaver() {
+      const container = document.getElementById('naver-content');
+      const range = document.createRange();
+      range.selectNode(container);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      try {
+        document.execCommand('copy');
+        alert('네이버 블로그 본문이 복사되었습니다! 스마트에디터에 붙여넣기(Ctrl+V)하세요.');
+      } catch (err) {
+        alert('복사에 실패했습니다. 수동으로 복사해 주세요.');
+      }
+      selection.removeAllRanges();
+    }
+    function copyTags() {
+      const tags = "#혀니의꿀단지 #비타민D #비타민D결핍 #비타민D수치 #칼마디 #비타민D복용시간 #골절관리 #영양제복용시간 #골다공증관리 #에디터혀니";
+      navigator.clipboard.writeText(tags).then(() => {
+        alert('해시태그가 복사되었습니다!');
+      }).catch(() => {
+        alert('해시태그 복사 실패');
+      });
+    }
+  </script>
+</head>
+<body>
+
+  <div class="toolbar-box">
+    <div style="font-weight: 700; font-size: 1.05rem; margin-bottom: 10px; color: #0f172a;">
+      🍯 꿀단지 네이버 스마트에디터 원클릭 도구
+    </div>
+    <button type="button" class="btn-copy" onclick="copyForNaver()">📋 네이버 본문 원클릭 복사</button>
+    <button type="button" class="btn-tag" onclick="copyTags()">🏷️ 해시태그 원클릭 복사</button>
+  </div>
+
+  <div id="naver-content">
+    <div class="naver-title">
+      “주사 한 방이면 몇 달 편하겠지?”<br>
+      비타민D 고용량 주사 후 오히려<br>
+      넘어지기 쉬운 역설의 이유
+    </div>
+
+    <img src="images/stickers/sticker01_shocked.jpg" class="naver-sticker" alt="깜짝 놀란 꿀벌 스티커">
+
+    <p class="naver-text">
+      “매일 알약 챙겨 삼키기도 귀찮은데,<br>
+      석 달에 한 번 주사 맞고 끝내면 안 될까?”<br>
+      건강검진 수치를 보고 이렇게 생각하셨나요?
+    </p>
+
+    <p class="naver-text">
+      바쁜 일상 속에서 한 번에 해결하고픈 마음은<br>
+      누구나 똑같지만, 우리 몸의 영양 대사는<br>
+      단숨에 몰아치는 충격을 반기지 않습니다.
+    </p>
+
+    <p class="naver-text">
+      한 번에 수십만 단위를 몰아넣었을 때<br>
+      오히려 넘어짐과 골절 빈도가 늘어났다는<br>
+      대규모 임상 연구 결과, 알고 계셨나요?
+    </p>
+
+    <img src="images/thumb.jpg" class="naver-photo" alt="비타민D 영양제 확인 장면">
+
+    <div class="naver-h2">
+      | 주사 한 방의 착각, 왜 넘어짐이 늘어날까요
+    </div>
+
+    <img src="images/stickers/sticker04_confused.jpg" class="naver-sticker" alt="의아해하는 꿀벌 스티커">
+
+    <p class="naver-text">
+      대규모 임상시험들을 분석해보면<br>
+      75세 이상 어르신에게 연간 300,000 IU를 주사하거나<br>
+      연간 500,000 IU를 단번에 투여했을 때,<br>
+      투여 초기 몇 달간 넘어짐과 골절이 늘어났습니다.
+    </p>
+
+    <p class="naver-text">
+      체내 농도가 단숨에 치솟았다가 급락하는<br>
+      급격한 농도 변화가 신체에 부담을 주기 때문입니다.
+    </p>
+
+    <p class="naver-text">
+      결국 번거롭더라도 매일 800~1,000 IU를 꾸준히 삼켜<br>
+      혈중 농도를 일정하게 유지해 주는 방식이<br>
+      뼈와 근력을 지키는 훨씬 현명한 길입니다.
+    </p>
+
+    <img src="images/post01.jpg" class="naver-photo" alt="검사표 확인 장면">
+
+    <div class="naver-h2">
+      | 겨울철 햇빛의 한계와 진짜 필요한 기준선
+    </div>
+
+    <img src="images/stickers/sticker03_detective.jpg" class="naver-sticker" alt="탐정 꿀벌 스티커">
+
+    <p class="naver-text">
+      “난 낮마다 산책하는데 왜 부족할까?”<br>
+      억울해하실 필요가 전혀 없습니다.<br>
+      11월부터 이듬해 3월까지는 햇살 고도가 낮아져<br>
+      비타민을 만드는 자외선 B가 지표면에 닿지 못합니다.
+    </p>
+
+    <p class="naver-text">
+      실내 창문 역시 자외선을 대부분 차단하므로<br>
+      겨울철에는 식단과 보충제로 채워주는 게 맞습니다.
+    </p>
+
+    <p class="naver-text">
+      혈청 검사 수치는 20 ng/mL 미만이면 결핍이며,<br>
+      뼈 건강을 위한 적정 구간은 30~50 ng/mL입니다.<br>
+      50 ng/mL를 넘기면 추가 이득이 없으니<br>
+      무리하게 욕심을 낼 필요도 없답니다.
+    </p>
+
+    <img src="images/post02.jpg" class="naver-photo" alt="겨울 창가 정물 장면">
+
+    <div class="naver-h2">
+      | 칼마디 흡수를 돕는 식후 섭취 골든타임
+    </div>
+
+    <img src="images/stickers/sticker02_excited.jpg" class="naver-sticker" alt="신난 꿀벌 스티커">
+
+    <p class="naver-text">
+      영양제를 드실 때 피해야 할 대표적인 습관은<br>
+      아침에 눈뜨자마자 빈속에 찬물로 삼키는 일입니다.<br>
+      비타민 D는 기름에 녹는 지용성 성분이기 때문입니다.
+    </p>
+
+    <p class="naver-text">
+      지방질이 포함된 식사를 마쳐 담즙산이 분비되어야<br>
+      장 속에서 비타민 D가 쏙쏙 흡수됩니다.<br>
+      탄산칼슘 역시 위산이 풍부한 식후에 잘 녹으므로<br>
+      점심이나 저녁 식사 직후가 이상적인 타이밍입니다.
+    </p>
+
+    <img src="images/post03.jpg" class="naver-photo" alt="복용 기록 장면">
+
+    <div class="naver-h2">
+      | 똑똑한 복용을 위한 3가지 체크리스트
+    </div>
+
+    <img src="images/stickers/sticker07_thumbsup.jpg" class="naver-sticker" alt="엄지척 꿀벌 스티커">
+
+    <p class="naver-text">
+      첫째, 칼슘과 철분제는 최소 2~3시간 시간 차를 두세요.<br>
+      서로 흡수 통로가 겹쳐 둘 다 헛돌게 됩니다.<br>
+      둘째, 성인 기준 하루 4,000 IU(100 μg) 상한선을 확인하세요.<br>
+      종합비타민 속 함량과 겹치지 않는지 살피는 것이 지혜입니다.
+    </p>
+
+    <p class="naver-text">
+      셋째, 지속적인 메스꺼움, 심한 갈증, 잦은 소변이 느껴진다면<br>
+      몸속 칼슘이 과해진 신호일 수 있으니 섭취를 멈추셔야 합니다.
+    </p>
+
+    <img src="images/post04.jpg" class="naver-photo" alt="건강한 식단과 영양제 장면">
+
+    <div class="naver-h2">
+      | 탄탄하게 꾸준히 채우는 건강 루틴
+    </div>
+
+    <img src="images/stickers/sticker05_exhausted.jpg" class="naver-sticker" alt="지친 꿀벌 스티커">
+
+    <p class="naver-text">
+      단번에 끝내려는 주사 한 방의 유혹 대신,<br>
+      매일 점심 든든히 드신 뒤 미온수와 함께 챙기는 한 알이<br>
+      찬바람 부는 계절 우리 몸을 지키는 참 든든한 방패입니다.
+    </p>
+
+    <p class="naver-text">
+      오늘부터 식후 칼마디 습관, 함께 시작해 볼까요?
+    </p>
+
+    <img src="images/post05.jpg" class="naver-photo" alt="전문가 설명 확인 장면">
+
+    <img src="images/stickers/sticker06_emergency.jpg" class="naver-sticker" alt="긴급 꿀벌 스티커">
+
+    <p class="naver-text" style="color: #0284c7; font-weight: 700;">
+      여러분은 영양제를 식후에 잘 챙기고 계셨나요?<br>
+      평소 복용 습관이나 궁금한 점을 댓글로 편하게 남겨주세요 😊
+    </p>
+
+    <img src="images/stickers/sticker08_honeypot.jpg" class="naver-sticker" alt="꿀단지 마스코트 스티커">
+
+    <div style="margin-top: 32px; padding: 20px; background-color: #f1f5f9; border-radius: 12px; font-size: 0.88rem; color: #64748b; text-align: left;">
+      <p style="font-weight: 700; margin-bottom: 8px; color: #334155;">📚 참고 자료</p>
+      <p style="margin: 4px 0;">• 대한골대사학회 — 성인 골다공증 및 골절 관리를 위한 비타민 D 입장문 (2022)</p>
+      <p style="margin: 4px 0;">• 대한골대사학회 — 간헐적 고용량 비타민 D 투여에 관한 보고서 (2017)</p>
+      <p style="margin: 4px 0;">• 미국임상영양학회지 (AJCN) — 식사 지방과 비타민 D 흡수 연구 (2015)</p>
+      <p style="margin: 4px 0;">• 미국립보건원 (NIH) 영양보충제국 — 비타민 D 전문가 팩트시트</p>
+    </div>
+
+    <p style="margin-top: 24px; font-size: 0.95rem; color: #0284c7; font-weight: 700;">
+      #혀니의꿀단지 #비타민D #비타민D결핍 #비타민D수치 #칼마디 #비타민D복용시간 #골절관리 #영양제복용시간 #골다공증관리 #에디터혀니
+    </p>
+  </div>
+
+</body>
+</html>

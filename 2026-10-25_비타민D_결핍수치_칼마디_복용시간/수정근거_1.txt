@@ -1,0 +1,150 @@
+================================================================================
+[출처 URL]: https://pmc.ncbi.nlm.nih.gov/articles/PMC5613018/
+[페이지 제목]: Korean Society for Bone and Mineral Research Task Force Report: Perspectives on Intermittent High-dose Vitamin D Supplementation - PMC
+[확인 일시]: 2026-10-25 08:31:47 (Real Chrome CDP 127.0.0.1:9222)
+================================================================================
+
+Skip to main content
+
+An official website of the United States government
+
+Here's how you know
+NIH Websites Are Changing
+Get the Latest Updates and FAQs on the transition
+Per Executive Order 14434, federal agencies are now using "Super Intelligence" (SI) in place of "Artificial Intelligence" (AI). You may see both terms across NIH content during this transition.
+ 
+Search
+Log in
+
+Primary site navigation
+
+Search PMC Full-Text Archive
+Search in PMC
+Journal List 
+User Guide
+As a library, NLM provides access to scientific literature. Inclusion in an NLM database does not imply endorsement of, or agreement with, the contents by NLM or the National Institutes of Health.
+Learn more: PMC Disclaimer | PMC Copyright Notice
+J Bone Metab. 2017 Aug 31;24(3):141–145. doi: 10.11005/jbm.2017.24.3.141
+Korean Society for Bone and Mineral Research Task Force Report: Perspectives on Intermittent High-dose Vitamin D Supplementation
+Han Seok Choi 1, Yong-Ki Min 2, Dong Won Byun 3, Myung Hoon Hahn 4, Kyoung Min Kim 5, Beom Jun Kim 6, Ki-Won Oh 7,✉
+Author information
+Article notes
+Copyright and License information
+PMCID: PMC5613018  PMID: 28955689
+Abstract
+
+An adequate supply of vitamin D is considered necessary for osteoporosis management and fracture prevention. Intermittent high-dose vitamin D supplementation is an effective and convenient way to achieve and maintain sufficient vitamin D status. However, the long-term effectiveness of supplementation for preventing falls and fractures is unclear, and some deleterious effects of such treatments have been reported. Concerning these issues, the Korean Society for Bone and Mineral Research task force team reviewed previous clinical trials and provided the following perspectives based on current evidence: 1) An adequate supply of vitamin D is necessary for preventing falls and fractures in postmenopausal women and men older than 50 years. An oral intake of 800 to 1,000 IU/day of vitamin D is generally recommended. 2) Care should be taken concerning the routine use of intermittent high-dose vitamin D, as large-scale clinical trials showed increased risk of falls or fractures after high-dose vitamin D administration. Intermittent high-dose vitamin D supplementation is recommendable only in cases of malabsorption or when oral administration is not suitable. 3) Monitoring of the serum level of 25-hydroxy-vitamin D (25[OH]D) is advisable, especially when intermittent high-dose vitamin D is used for supplementation. The task force team suggests that a serum 25(OH)D level of >20 ng/mL is generally appropriate for the prevention of osteoporosis, and that a serum 25(OH)D level of >30 ng/mL is probably helpful both for the management of osteoporosis and the prevention of fractures and falls. However, serum 25(OH)D level >50 ng/mL (this value can vary depending on the measurement method used) is unnecessary and may be undesirable. These perspectives are relevant for the management of osteoporosis, falls, or fractures. Other metabolic bone diseases or non-skeletal disorders are not within the scope of these perspectives.
+
+Keywords: Vitamin D, Osteoporosis, Fracture, Fall
+
+INTRODUCTION
+
+Vitamin D is a crucial factor regulating bone and mineral metabolism.[1] Vitamin D facilitates the intestinal absorption of calcium and phosphate, thereby maintaining adequate circulating concentrations of these minerals, which in turn enables normal mineralization of the bone. The significance of vitamin D was discovered through studies of the causes and treatment of rickets.[2] Vitamin D deficiency is recognized as the main cause of rickets, and vitamin D supplementation can cure the disease. Since this discovery, western countries have supplied vitamin D in the forms of fortified foods to prevent rickets. For example, a milk fortification program was implemented in the United States in the 1930s.[3] Currently, various vitamin D-fortified food products are available, such as breakfast cereals, orange juice, and yogurt. Nevertheless, vitamin D levels remain insufficient in most populations, as more people lead indoor lifestyles in modern societies. Recent epidemiological studies indicate high prevalence of vitamin D deficiency and insufficiency worldwide.[4,5,6,7] In Korea, the prevalence of vitamin D insufficiency in the general population is 86.8% in men and 93.3% in women, if a serum 25-hydroxy-vitamin D (25[OH]D) level of 30 ng/mL is adopted as the cut-off value.[7]
+
+Recently, osteoporosis and related fractures have become important public health issues in many countries with aging populations. Adequate vitamin D is necessary for osteoporosis management and fracture prevention. International academic societies now recommend 800 to 1,000 IU of vitamin D intake per day.[8,9,10] Higher doses of vitamin D are often recommended in the case of vitamin D deficiency. Vitamin D can be administered through either oral or intramuscular routes, and can be taken according to various dosing schedules, including daily, weekly, monthly, or even yearly. Intermittent high-dose vitamin D supplementation is effective for achieving and maintaining sufficient vitamin D status.[11] However, it is unclear whether intermittent high-dose vitamin D can reduce the risk of falls or fractures. In addition, the upper limit of serum 25(OH)D levels in terms of long term efficacy and safety remains uncertain. The Korean Society for Bone and Mineral Research (KSBMR) task force team reviewed previous clinical trials regarding these questions. Here, we present the KSBMR perspectives based on the current evidence.
+
+FALLS
+
+Although the results of studies are mixed, a number of studies have demonstrated that daily supplementation with vitamin D, especially with calcium, can reduce falls.[12] Contrary to our expectations, however, no studies have shown significant reductions of falling risk with intermittent high-dose vitamin D supplementation. A recent meta-analysis also concluded that supplementation with intermittent high-dose vitamin D may not be effective for preventing falls among older adults.[13] More disappointing is that some studies even showed increased risk of falls after high-dose vitamin D supplementation.[14,15,16] In a randomized controlled trial of community-dwelling women aged 70 years or older, annual oral administration of 500,000 IU vitamin D3 for 3 to 5 years was associated with an increased risk of falls (incidence rate ratio [RR], 1.15; 95% confidence interval [CI], 1.02-1.30; P=0.03).[14] The incidence RR of falls was higher during the first 3 months following dosing than during the remaining 9 months of the year. In the vitamin D group, 25(OH)D levels increased at 1 month after dosing to approximately 48 ng/mL, were approximately 36 ng/mL at 3 months, and remained higher than the placebo group 12 months after dosing. These results suggest that excessive serum 25(OH)D levels might be deleterious for fall prevention. In a 9-month randomized controlled trial in older postmenopausal women, thrice-monthly oral 150,000 IU vitamin D3 supplementation also seemed to have a deleterious effect on falls.[15] The odds ratio for the vitamin D group compared with the placebo group was 1.58 (95% CI, 0.83-2.99) for multiple falls, although the difference was not statistically significant. In a recent randomized clinical trial conducted in community-dwelling men and women 70 years and older who had experienced prior falls, participants were divided into three groups, including a low-dose control group receiving 24,000 IU of vitamin D3 monthly, a group receiving 60,000 IU of vitamin D3 monthly, and a group receiving 24,000 IU of vitamin D3 plus 300 µg of calcifediol monthly.[16] The results showed that higher monthly doses of vitamin D were associated with an increased risk of falls compared with 24,000 IU over a 12-month follow-up.
+
+FRACTURES
+
+Most clinical trials that tested intermittent high-dose vitamin D supplementation showed no beneficial effect on fracture risk. The meta-analysis mentioned above showed no significant effects of treatment on hip or non-vertebral fracture risk among older adults.[13] As far as we know, only one study has demonstrated a beneficial effect of intermittent high-dose vitamin D on fracture risk.[17] In this randomized controlled trial, four monthly supplementation with 100,000 IU oral vitamin D3 over 5 years reduced fractures in elderly individuals living in the general community with relative risks of 0.78 (95% CI, 0.61-0.99; P=0.04) for any first fracture and 0.67 (95% CI, 0.48-0.93, P=0.02) for first hip, wrist or forearm, or vertebral fracture in the vitamin D group compared with the placebo group. In contrast, other randomized clinical trials reported increased risk of fractures after intermittent high-dose vitamin D administration.[14,18] Annual intramuscular injections of 300,000 IU vitamin D2 repeated over 3 years increased hip fracture risk in people aged 75 years and over who were recruited from general practice registers in England with a hazard ratio (HR) of 1.49 (95% CI, 1.02–2.18; P=0.04) in the vitamin D group.[18] According to subgroup analyses by gender, the tendency for increased fracture risk was particularly observed among women, among whom the HRs were 1.21 (95% CI, 1.00-1.47; P=0.05) for any non-vertebral fractures and 1.59 (95% CI, 1.17-2.16; P=0.003) for hip, femur, or wrist fractures. An aforementioned clinical trial of annual oral supplementation of 500,000 IU vitamin D3 for 3 to 5 years also increased fractures in community-dwelling elderly women.[14] The incidence RR for fracture in the vitamin D group was 1.26 (95% CI, 1.00-1.59; P=0.047). Although the difference was not statistically significant, this temporal pattern was also observed with higher fracture incidence (RR 1.53; 95% CI, 0.95-2.46) during the first 3 months after dosing compared with the following 9 months (RR 1.18; 95% CI, 0.91-1.54), which suggests that 25(OH)D levels that are too high during the first 3 months may not be beneficial for fracture risk reduction.
+
+CONCLUSION
+
+Although intermittent administration of high-dose vitamin D seems to be an effective and convenient way of achieving optimal vitamin D levels, its long-term effectiveness on fall and fracture prevention is uncertain. Studies have yielded results that were not significant or that even suggested deleterious effects of vitamin D treatment on falls or fractures, although the exact cause of such effects is unclear. Increased mobility and improved physical performance after high-dose vitamin D supplementation is a plausible cause without clear supporting evidence.[19] A biological possibility that has been suggested cites altered enzymatic activity related to vitamin D metabolism. To be specific, high-dose vitamin D may decrease 1,25(OH)2D levels by triggering short-term up-regulation of CYP24, the enzyme that catabolizes 1,25(OH)2D.[19] Another possibility includes direct effects of vitamin D on bone cells, which may not always be beneficial for bone health. Depending on the experimental conditions or genetically modified animal models used, vitamin D metabolites may show beneficial or deleterious direct effects on the bone.[20] Vitamin D can release calcium from the skeleton by increasing bone resorption and suppressing bone matrix mineralization, and can stimulate osteoclast formation by inducing the expression of receptor activator of nuclear factor-κB ligand (RANKL) by osteoblastic cells.[21] Therefore, under conditions of calcium deficiency, vitamin D may sacrifice bone to maintain normal serum calcium homeostasis. Increased bone resorption after a high-dose vitamin D administration was also suggested in a previous clinical trial, in which a single oral bolus of 600,000 IU vitamin D3 was associated with increases in bone resorption markers in elderly subjects.[22]
+
+In conclusion, more studies are necessary to clarify the effects of high-dose vitamin D on falls and fractures. However, in the meantime, clinicians should be careful regarding the routine use of high-dose vitamin D. Based on the current evidence, we present the following Perspectives of the KSBMR task force team on intermittent high-dose vitamin D supplementation, described below.
+
+Adequate supply of vitamin D is necessary for the prevention of falls and fractures in postmenopausal women and men older than 50 years. We generally recommend an oral intake of 800 to 1,000 IU of vitamin D per day.
+
+Clinicians should be careful regarding the routine use of intermittent high-dose vitamin D, considering the results of large-scale clinical trials that showed increased risk of falls or fractures after high-dose vitamin D administration. We recommend intermittent high-dose vitamin D supplementation only in cases of malabsorption or when oral administration is not suitable.
+
+We suggest that monitoring serum 25(OH)D levels is advisable, especially when intermittent high-dose vitamin D is used for supplementation. We also recommend that serum 25(OH)D levels greater than 20 ng/mL are generally appropriate for the prevention of osteoporosis and serum 25(OH)D levels greater than 30 ng/mL are likely helpful for the management of osteoporosis and prevention of fractures and falls. However, serum 25(OH)D levels greater than 50 ng/mL (this value can vary depending on the measurement method used) is unnecessary and may be undesirable.
+
+The present Perspectives are relevant when it comes to the management of osteoporosis, falls, or fractures. Other metabolic bone diseases or non-skeletal disorders are not within the scope of the present Perspectives.
+
+Footnotes
+
+No potential conflict of interest relevant to this article was reported.
+
+References
+1.Holick MF, Binkley NC, Bischoff-Ferrari HA, et al. Evaluation, treatment, and prevention of vitamin D deficiency: an Endocrine Society clinical practice guideline. J Clin Endocrinol Metab. 2011;96:1911–1930. doi: 10.1210/jc.2011-0385. [DOI] [PubMed] [Google Scholar]
+2.Deluca HF. History of the discovery of vitamin D and its active metabolites. Bonekey Rep. 2014;3:479. doi: 10.1038/bonekey.2013.213. [DOI] [PMC free article] [PubMed] [Google Scholar]
+3.Institute of Medicine, Food and Nutrition Board. Dietary reference intakes for calcium and vitamin D. Washington, DC: National Academy Press; 2010. [Google Scholar]
+4.Lips P, Hosking D, Lippuner K, et al. The prevalence of vitamin D inadequacy amongst women with osteoporosis: an international epidemiological investigation. J Intern Med. 2006;260:245–254. doi: 10.1111/j.1365-2796.2006.01685.x. [DOI] [PubMed] [Google Scholar]
+5.Yoshimura N, Muraki S, Oka H, et al. Profiles of vitamin D insufficiency and deficiency in Japanese men and women: association with biological, environmental, and nutritional factors and coexisting disorders: the ROAD study. Osteoporos Int. 2013;24:2775–2787. doi: 10.1007/s00198-013-2372-z. [DOI] [PubMed] [Google Scholar]
+6.Yu S, Fang H, Han J, et al. The high prevalence of hypovitaminosis D in China: a multicenter vitamin D status survey. Medicine (Baltimore) 2015;94:e585. doi: 10.1097/MD.0000000000000585. [DOI] [PMC free article] [PubMed] [Google Scholar]
+7.Choi HS, Oh HJ, Choi H, et al. Vitamin D insufficiency in Korea-a greater threat to younger generation: the Korea national health and nutrition examination survey (KNHANES) 2008. J Clin Endocrinol Metab. 2011;96:643–651. doi: 10.1210/jc.2010-2133. [DOI] [PubMed] [Google Scholar]
+8.Holick MF. Vitamin D: a D-lightful vitamin for health. Endocrinol Metab. 2012;27:255–267. [Google Scholar]
+9.Cosman F, de Beur SJ, LeBoff MS, et al. Clinician's guide to prevention and treatment of osteoporosis. Osteoporos Int. 2014;25:2359–2381. doi: 10.1007/s00198-014-2794-2. [DOI] [PMC free article] [PubMed] [Google Scholar]
+10.Kim KM, Choi HS, Choi MJ, et al. Calcium and vitamin D supplementations: 2015 position statement of the Korean society for bone and mineral research. J Bone Metab. 2015;22:143–149. doi: 10.11005/jbm.2015.22.4.143. [DOI] [PMC free article] [PubMed] [Google Scholar]
+11.Choi HS, Chung YS, Choi YJ, et al. Efficacy and safety of vitamin D3 B.O.N intramuscular injection in Korean adults with vitamin D deficiency. Osteoporos Sarcopenia. 2016;2:228–237. doi: 10.1016/j.afos.2016.09.004. [DOI] [PMC free article] [PubMed] [Google Scholar]
+12.Bischoff-Ferrari HA, Dawson-Hughes B, Willett WC, et al. Effect of vitamin D on falls: a meta-analysis. JAMA. 2004;291:1999–2006. doi: 10.1001/jama.291.16.1999. [DOI] [PubMed] [Google Scholar]
+13.Zheng YT, Cui QQ, Hong YM, et al. A meta-analysis of high dose, intermittent vitamin D supplementation among older adults. PLoS One. 2015;10:e0115850. doi: 10.1371/journal.pone.0115850. [DOI] [PMC free article] [PubMed] [Google Scholar]
+14.Sanders KM, Stuart AL, Williamson EJ, et al. Annual high-dose oral vitamin D and falls and fractures in older women: a randomized controlled trial. JAMA. 2010;303:1815–1822. doi: 10.1001/jama.2010.594. [DOI] [PubMed] [Google Scholar]
+15.Glendenning P, Zhu K, Inderjeeth C, et al. Effects of three-monthly oral 150,000 IU cholecalciferol supplementation on falls, mobility, and muscle strength in older postmenopausal women: a randomized controlled trial. J Bone Miner Res. 2012;27:170–176. doi: 10.1002/jbmr.524. [DOI] [PubMed] [Google Scholar]
+16.Bischoff-Ferrari HA, Dawson-Hughes B, Orav EJ, et al. Monthly high-dose vitamin D treatment for the prevention of functional decline: a randomized clinical trial. JAMA Intern Med. 2016;176:175–183. doi: 10.1001/jamainternmed.2015.7148. [DOI] [PubMed] [Google Scholar]
+17.Trivedi DP, Doll R, Khaw KT. Effect of four monthly oral vitamin D3 (cholecalciferol) supplementation on fractures and mortality in men and women living in the community: randomised double blind controlled trial. BMJ. 2003;326:469. doi: 10.1136/bmj.326.7387.469. [DOI] [PMC free article] [PubMed] [Google Scholar]
+18.Smith H, Anderson F, Raphael H, et al. Effect of annual intramuscular vitamin D on fracture risk in elderly men and women--a population-based, randomized, double-blind, placebo-controlled trial. Rheumatology (Oxford) 2007;46:1852–1857. doi: 10.1093/rheumatology/kem240. [DOI] [PubMed] [Google Scholar]
+19.Dawson-Hughes B, Harris SS. High-dose vitamin D supplementation: too much of a good thing. JAMA. 2010;303:1861–1862. doi: 10.1001/jama.2010.598. [DOI] [PubMed] [Google Scholar]
+20.Eisman JA, Bouillon R. Vitamin D: direct effects of vitamin D metabolites on bone: lessons from genetically modified mice. Bonekey Rep. 2014;3:499. doi: 10.1038/bonekey.2013.233. [DOI] [PMC free article] [PubMed] [Google Scholar]
+21.Takahashi N, Udagawa N, Suda T. Vitamin D endocrine system and osteoclasts. Bonekey Rep. 2014;3:495. doi: 10.1038/bonekey.2013.229. [DOI] [PMC free article] [PubMed] [Google Scholar]
+22.Rossini M, Gatti D, Viapiana O, et al. Short-term effects on bone turnover markers of a single high dose of oral vitamin D(3) J Clin Endocrinol Metab. 2012;97:E622–E626. doi: 10.1210/jc.2011-2448. [DOI] [PubMed] [Google Scholar]
+
+Articles from Journal of Bone Metabolism are provided here courtesy of Korean Society for Bone and Mineral Research
+
+ACTIONS
+View on publisher site
+PDF (192.0 KB)
+Cite
+Collections
+Permalink
+RESOURCES
+Similar articles
+Cited by other articles
+Links to NCBI Databases
+ON THIS PAGE
+Abstract
+INTRODUCTION
+FALLS
+FRACTURES
+CONCLUSION
+Footnotes
+References
+FOLLOW NCBI
+NCBI on X (formerly known as Twitter)
+NCBI on Facebook
+NCBI on LinkedIn
+NCBI on GitHub
+NCBI RSS feed
+
+Connect with NLM
+
+NLM on X (formerly known as Twitter)
+NLM on Facebook
+NLM on YouTube
+
+National Library of Medicine
+8600 Rockville Pike
+Bethesda, MD 20894
+
+Web Policies
+FOIA
+HHS Vulnerability Disclosure
+Help
+Accessibility
+Careers
+NLM
+NIH
+HHS
+USA.gov
+
+----------------------------------------
+[주요 카탈로그·가격표·PDF 링크]
+----------------------------------------
+- (링크): https://pmc.ncbi.nlm.nih.gov/articles/PMC5613018/pdf/jbm-24-141.pdf
+- View in NLM Catalog: https://www.ncbi.nlm.nih.gov/nlmcatalog?term=%22J%20Bone%20Metab%22[Title%20Abbreviation]
+
+

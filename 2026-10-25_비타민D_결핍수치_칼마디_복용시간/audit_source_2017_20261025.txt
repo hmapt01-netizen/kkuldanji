@@ -1,0 +1,286 @@
+================================================================================
+[출처 URL]: https://pmc.ncbi.nlm.nih.gov/articles/PMC5490740/
+[페이지 제목]: Clonal expansion of genome-intact HIV-1 in functionally polarized Th1 CD4+ T cells - PMC
+[확인 일시]: 2026-10-25 08:23:34 (Real Chrome CDP 127.0.0.1:9222)
+================================================================================
+
+Skip to main content
+
+An official website of the United States government
+
+Here's how you know
+NIH Websites Are Changing
+Get the Latest Updates and FAQs on the transition
+Per Executive Order 14434, federal agencies are now using "Super Intelligence" (SI) in place of "Artificial Intelligence" (AI). You may see both terms across NIH content during this transition.
+ 
+Search
+Log in
+
+Primary site navigation
+
+Search PMC Full-Text Archive
+Search in PMC
+Journal List 
+User Guide
+As a library, NLM provides access to scientific literature. Inclusion in an NLM database does not imply endorsement of, or agreement with, the contents by NLM or the National Institutes of Health.
+Learn more: PMC Disclaimer | PMC Copyright Notice
+J Clin Invest. 2017 Jun 19;127(7):2689–2696. doi: 10.1172/JCI93289
+Clonal expansion of genome-intact HIV-1 in functionally polarized Th1 CD4+ T cells
+Guinevere Q Lee 1,2, Nina Orlova-Fink 2, Kevin Einkauf 2, Fatema Z Chowdhury 2, Xiaoming Sun 2, Sean Harrington 2, Hsiao-Hsuan Kuo 1,2, Stephane Hua 2, Hsiao-Rong Chen 2, Zhengyu Ouyang 2, Kavidha Reddy 3, Krista Dong 3, Thumbi Ndung’u 2,3,4,5, Bruce D Walker 2,6, Eric S Rosenberg 7, Xu G Yu 1,2, Mathias Lichterfeld 1,2,✉
+Author information
+Article notes
+Copyright and License information
+PMCID: PMC5490740  PMID: 28628034
+See commentary "HIV persistence: clonal expansion of cells in the latent reservoir" on page 2536.
+Abstract
+
+HIV-1 causes a chronic, incurable disease due to its persistence in CD4+ T cells that contain replication-competent provirus, but exhibit little or no active viral gene expression and effectively resist combination antiretroviral therapy (cART). These latently infected T cells represent an extremely small proportion of all circulating CD4+ T cells but possess a remarkable long-term stability and typically persist throughout life, for reasons that are not fully understood. Here we performed massive single-genome, near-full-length next-generation sequencing of HIV-1 DNA derived from unfractionated peripheral blood mononuclear cells, ex vivo-isolated CD4+ T cells, and subsets of functionally polarized memory CD4+ T cells. This approach identified multiple sets of independent, near-full-length proviral sequences from cART-treated individuals that were completely identical, consistent with clonal expansion of CD4+ T cells harboring intact HIV-1. Intact, near-full-genome HIV-1 DNA sequences that were derived from such clonally expanded CD4+ T cells constituted 62% of all analyzed genome-intact sequences in memory CD4 T cells, were preferentially observed in Th1-polarized cells, were longitudinally detected over a duration of up to 5 years, and were fully replication- and infection-competent. Together, these data suggest that clonal proliferation of Th1-polarized CD4+ T cells encoding for intact HIV-1 represents a driving force for stabilizing the pool of latently infected CD4+ T cells.
+
+Keywords: AIDS/HIV
+
+Introduction
+
+A distinct characteristic of HIV-1 infection is the establishment of a long-lived reservoir of virally infected CD4+ T cells that encode for, but do not actively express, replication-competent HIV-1 and can rapidly fuel rebound viremia in the case of interruption of combination antiretroviral therapy (cART), even after decades of fully suppressive antiviral therapy (1). The remarkable stability and longevity of these reservoir cells likely reflects the ability of HIV-1 to take advantage of the dynamic mechanisms and processes that maintain long-term cellular immune memory within the CD4+ T cell compartment.
+
+Resting central memory CD4+ T cells and CD4+ T memory stem cells, which are constitutively long-lived (2, 3), with an in vivo half life that may reach up to 277 months (4), arguably represent the most durable component of all viral reservoir cells. In addition, there is evidence that more committed, functionally polarized CD4+ T cells can also support viral persistence, likely through discrete mechanisms associated with their individual functional profiles. For instance, CD4+ T cells with a follicular Th cell polarization, known for their ability to support humoral immunity, harbor high levels of replication-competent HIV-1 in cART-treated individuals, most likely due to an anatomical location in immunologically privileged lymph node germinal centers (5). Less is known about the possible role that CD4+ T cells with alternative polarizations may play as viral reservoir sites. Th1-polarized cells, typically identified by secretion of the signature cytokine IFN-γ, predominantly include CD4+ T cells directed against viral pathogens, as opposed to helper cells with a Th17 (6), Th2 (7), or Th9 (8) profile, which mainly specialize in antifungal, antihelminthic, and antitumor immune defense, respectively. Notably, Th1 cells seem to include both short- and more long-lived cell populations and are frequently characterized by higher levels of proliferative turnover (9–11). This functional profile might be conducive to stabilizing the pool of latently HIV-1–infected cells, as it may allow for amplifying the viral reservoir through clonal expansion of HIV-1–infected cells. Indeed, clonal expansion of HIV-1–infected cells has previously been noted in several studies (12, 13), and there is increasing evidence that clonal proliferation may also occur in cells encoding for replication-competent HIV-1 (14–17). Here, we used massive near-full-length single-genome viral sequencing to profile HIV-1 reservoirs in CD4+ T cells with distinct functional polarizations.
+
+Results
+Detection of HIV-1 DNA in CD4+ T cells with distinct functional polarization.
+
+To investigate viral reservoirs in CD4+ Th cells with discrete functional lineage commitment, we purified CD4+ T cells with distinct functional polarizations from HIV-1–infected patients receiving suppressive cART, based on secretion of signature cytokines. This functional purification according to cytokine secretion patterns allows isolation of highly purified populations of cells with a shared functional profile and a defined expression of master transcription factors (18). For this purpose, PBMCs were stimulated in vitro, followed by intracellular cytokine staining with antibodies directed against IFN-γ, IL-4, IL-9, and IL-17 (the signature cytokines for Th1-, Th2-, Th9-, and Th17-polarized CD4+ T cells, respectively). Simultaneously, we sorted CD4+ T cells secreting none of these cytokines (termed Thneg in this article) (Supplemental Figure 1; supplemental material available online with this article; https://doi.org/10.1172/JCI93289DS1).
+
+We noted that memory cells with these functional profiles were readily detectable in all cART-treated patients, with highest frequencies being detected for Th1 cells, followed by Th17 cells and, as the least sizeable cell populations, Th2 and Th9 cells (Figure 1A). Relative frequencies of these functionally polarized CD4+ T cells in cART-treated patients did not significantly differ from those of HIV-1–negative individuals or HIV-1 controllers (Supplemental Table 1A), but relative proportions of Th1- and Th2-polarized CD4+ T cells tended to be smaller in individuals with untreated progressive HIV-1 infection. Importantly, CD4+ T memory cells secreting multiple different combinations of these cytokines — indicative of incomplete or mixed functional profiles — were also observed, most notably as IFN-γ/IL-4 co-secreting cells, IFN-γ/IL-17 co-secreting cells, and IL-4/IL-9 co-secreting cells (Figure 1B and Supplemental Figure 1B). However, only highly purified cells secreting a single signature cytokine without co-secretion of other cytokines were considered for downstream analysis in this study. Using a digital droplet PCR (ddPCR) protocol for quantifying cell-associated segments of HIV-1 gag DNA in these highly purified Th cell populations, we found roughly equal levels of viral DNA in all cell populations on a per-cell level (Figure 1C), with a tendency for highest levels in Th9 cells; HIV-1 DNA levels in Thneg cells appeared more limited. Moreover, using this assay, we identified no major discrepancies between the relative contributions of each Th subset to the total CD4+ T cell pool and to the corresponding viral reservoir in CD4+ T cells (Supplemental Figure 1C). Together, these results show that a wide spectrum of differentially polarized CD4+ T cells are susceptible to HIV-1 infection in vivo.
+
+Figure 1. HIV-1 DNA levels in highly purified populations of functionally polarized memory CD4+ T cells.
+
+Open in a new tab
+
+(A) Relative proportions of memory CD4+ T cells with the indicated functional polarization in HIV-1–infected individuals with acute infection, chronic untreated progressive infection, and cART-treated infection; in HIV-1 controllers; and in uninfected individuals (HIV neg). Significance was tested using a Kruskal-Wallis test with Dunn’s multiple comparisons test. (B) SPICE diagrams reflecting proportions of polarized memory CD4+ T cells with indicated cytokine secretion profiles in the different study cohorts. (C) Per-cell levels of HIV-1 gag DNA in sorted memory CD4+ T cells from cART-treated individuals with the indicated functional polarization. Empty symbols reflect data points at calculated limits of detection. Significance was tested using a Friedman test with Dunn’s multiple comparisons test. (A and C) *P < 0.05, **P < 0.01, ***P < 0.001.
+
+Enrichment of Th1 cells with genome-intact proviral HIV-1 DNA.
+
+To serve as a functionally active viral reservoir able to give rise to new, replication-competent viral progeny, polarized CD4+ T cells must harbor an intact version of the HIV-1 genome (19). To profile the spectrum of HIV-1 sequences present in a given CD4+ Th cell population, we subjected purified DNA from all 4 polarized CD4+ T cell subsets, and from autologous Thneg CD4+ T cells, from 3 different cART-treated HIV-1 patients (Supplemental Table 1B) to a single-template, near-full-genome HIV-1 amplification assay, followed by deep sequencing of individual PCR products. Autologous unstimulated PBMCs and unfractionated, ex vivo isolated CD4+ T cells were simultaneously analyzed (Figure 2A). Within each analyzed cell population, this approach generated a wide spectrum of different viral PCR products of different lengths, corresponding to a diverse array of viral species integrated in chromosomal DNA. Based on a detailed sequence analysis, we observed that a large proportion of all analyzed viral PCR products (1,307 of a total of 1,377; 95%) contained gross deletions, G-to-A hypermutations, or other lethal sequence variations. Approximately 8% (26 of 322) of sequences in unfractionated PBMCs, 5% (7 of 148) of sequences in ex vivo isolated CD4+ T cells, and 4% of sequences in memory CD4+ T cells (26 of 621) from cross-sectionally analyzed samples were classified as genome-intact, corresponding to frequencies of 4, 11, and 40 intact, near-full-length viral sequences per million PBMCs, CD4+ T cells, and CD45RO+ memory CD4+ T cells, respectively (Figure 2, A and B). This is slightly higher than previously reported (20), possibly reflecting differences in amplification and sequencing techniques. Interestingly, among polarized memory CD4+ T cells, the highest frequencies of near-full-length intact viral sequences were noticed in Th1 cells (11%, 17 of 159 sequences) (Supplemental Table 2), while not a single intact, near-full-length viral sequence was detected in Th9 cells; small yet noticeable numbers of intact, near-full-length sequences were observed in Th17 cells, Th2 cells, and Thneg cells (Figure 2B). Indeed, 65% (17 of 26) of all intact viruses isolated from memory CD4+ T cells derived from Th1 cells, while these cells only contributed 26% (159 of 621) of all sequences analyzed within memory CD4+ T cells, indicating a disproportionate enrichment of Th1 cells with intact, near-full-length viral sequences (Figure 2C).
+
+Figure 2. Near-full-length single-template amplification of HIV-1 DNA in CD4+ Th cell populations with distinct functional polarization.
+
+Open in a new tab
+
+(A) Diagrams reflecting the spectrum of HIV-1 DNA products amplified from memory CD4+ Th cell populations with indicated functional polarizations, and from unstimulated PBMCs and in ex vivo isolated unfractionated CD4+ T cells. Y axis reflects analyzed cell samples and years of cell sampling. Numbers in parentheses indicate absolute frequency of analyzed sequences in each cell population. PCR products with major deletions that were not sequenced were omitted from these diagrams. (B) Pie charts reflecting the relative proportions of the indicated HIV-1 amplification products in cell populations analyzed cross-sectionally. Pooled data from all 3 analyzed patients are shown. (C) Pie charts reflecting contribution of differentially polarized CD4+ T cell populations to total number of indicated HIV-1 sequences. Significance was calculated using a Fisher’s exact test; nominal P values are indicated. In B and C, the numbers above the individual pie charts reflect total number of sequences included in each diagram. Hypermut, hypermutations.
+
+Clonal expansion of Th1 cells harboring genome-intact, replication-competent HIV-1.
+
+We subsequently analyzed phylogenetic relationships between the different viral sequences. In each of the patients, we observed a considerable proportion of defective but completely identical viral sequences; this occurred most frequently in Th9 cells and is compatible with clonal expansion of CD4+ T cells harboring replication-incompetent HIV-1 proviruses (21) (Figure 3A). Such clonally expanded, defective viral sequences were also frequently observed in PBMC samples collected years earlier, indicating long-term persistence of cell clones harboring functionally impaired HIV-1 (Supplemental Figure 2 and Supplemental Table 3). Interestingly, in each of the study individuals, we also noted several sets of completely identical, near-full-length intact viral sequences, suggesting that clonal expansion of cells containing fully functional HIV-1 sequences may also occur (Figure 3A). Notably, intact HIV-1 sequences that were detected more than once, consistent with in vivo clonal expansion, represented 62% (16 of 26) of all intact sequences detected in memory CD4+ T cell subsets and derived preferentially from the Th1-polarized memory CD4+ T cell population (Figure 3B). In study subjects 1 and 2, we noted clusters of identical intact sequences that were isolated from Th1 cells, from unfractionated PBMCs, and from ex vivo isolated CD4+ T cells. These sequences were phylogenetically intermingled with a broad spectrum of alternative intact HIV-1 sequences isolated from contemporaneous and longitudinally collected autologous PBMC samples, strongly suggesting that they do not derive from infection of different CD4+ T cells by a single, dominating plasma HIV-1 strain, but instead reflect in vivo expansion of cells that pass on identical viral sequences to daughter cells during clonal proliferation (Figure 4A). Notably, an intact proviral sequence identical to the cluster of clonally expanded viruses detected in patient 1 was also observed in PBMC samples collected 5 years earlier, suggesting that these sequences derive from a highly durable CD4+ T cell clone (Figure 4A). In study subject 3, the total number and phylogenetic diversity of intact proviruses was more limited, likely as a result of more rapid treatment initiation (about 12 months after HIV-1 acquisition) (22). Here, we observed a total of 4 sets of identical, near-full-length sequences, one of which included a sequence obtained from a PBMC sample collected 1 year earlier (Figure 4A). While the genetic distance between these 4 sets of identical intact viruses was small, we again noted that these sequences were embedded in a spectrum of alternative intact HIV-1 sequences that were phylogenetically distinct.
+
+Figure 3. Clusters of identical intact HIV-1 proviruses in CD4+ T cell populations from cART-treated patients.
+
+Open in a new tab
+
+(A) Pie charts reflecting relative proportions of defective or intact proviral sequences detected once or multiple times in the indicated cell populations. Pooled data from all 3 study subjects are shown. (B) Pie charts reflecting relative contribution of indicated polarized CD4+ T cell populations to total number of clonal and non-clonal sequences within intact and defective proviruses. Significance was calculated using a Fisher’s exact test; nominal P values are indicated. In A and B, numbers above the individual pie charts reflect total number of sequences included in each diagram.
+
+Figure 4. Phylogenetic analysis of near-full-length HIV-1 sequences derived from individuals in chronic and acute HIV-1 infection.
+
+Open in a new tab
+
+(A) Vertical phylogenetic trees of intact, near-full-length proviral sequences from individual study subjects with chronic HIV-1 infection. Sequences retrieved from PBMCs collected at longitudinal time points are marked with the year of sampling. Sequences without an indicated year of sampling were collected in 2016. Shaded areas indicate clusters of intact proviruses that are completely identical. Viral sequences retrieved from MOLT-4 cells cocultured in Transwells of viral outgrowth assays (VOA) are indicated for subject 1. (B) Vertical phylogenetic tree of intact, near-full-length HIV-1 sequences derived from PBMCs from 2 individuals identified in acute HIV-1 infection.
+
+Although we used conservative criteria for categorizing HIV-1 sequences as genome-intact, we further investigated the replication competence for clonally expanded virus in patient 1, from whom large samples of PBMCs were available. For this purpose, isolated CD4+ T cells from this patient were subjected to a viral outgrowth assay; cocultured MOLT-4 cells from from wells in which active viral replication was detected were then analyzed by near-full-length HIV-1 sequencing, as described above. Interestingly, a viral sequence retrieved from MOLT-4 cells was completely identical to the cluster of clonally expanded sequences previously observed in our ex vivo analysis of isolated CD4+ T cells subsets (Figure 4A), indicating that viral sequences in this cluster were fully replication- and infection-competent. Replication-competent viruses retrieved from additional functional outgrowth assays from this and other patients also displayed sequences classified as genome-intact by computational analysis of near-full-length sequencing data, supporting the integrity of this sequence-based inference of HIV-1 replication competence (Supplemental Table 4).
+
+Absence of identical full-length HIV-1 proviruses in acute HIV-1 infection.
+
+To better define the time when clonal expansion of cells harboring intact HIV-1 sequences occurs, we focused on analysis of two study subjects with acute HIV-1 infection identified through longitudinal screening of a cohort of high-risk uninfected women (23) (Supplemental Table 1B). PBMC samples from study subject 4 were collected during the onset of plasma viremia (3,800 copies/ml; 2 days after first detection of HIV-1 RNA, 5 days after the most recent negative HIV-1 PCR), when one of 9 Western blot bands was positive; this subject started antiretroviral treatment that day and was longitudinally followed afterward, with additional PBMC sample collection on days 42 and 164. Study subject 5 donated PBMCs on day 7 after treatment initiation (day 10 after first detection of HIV-1, day 52 after most recent negative HIV-1 PCR); her viral load was undetectable at this time, and two of 9 Western blot bands were positive. Longitudinal samples for patient 5 were collected on day 46 and day 165.
+
+Near-full-genome amplification of HIV-1 DNA from these subjects retrieved a total of 48 HIV-1 DNA products (19 for patient 4 and 29 for patient 5), of which 13 (patient 4, 68%) and 5 (patient 5, 17%) were classified as genome-intact; defective proviral DNA from these patients included sequences with 5′ long terminal repeat (LTR) defects, premature stop codons in gag/pol/env, G-to-A hypermutations, and large deletions (Supplemental Table 5). Interestingly, our analysis indicated that in each of the two patients, these full-genome sequences were phylogenetically extremely similar but, in striking contrast to sequences from patients 1–3, none of these sequences were completely identical, due to small numbers of base substitutions or mutation events that were randomly distributed over the entire HIV-1 genome (Figure 4, B and Supplemental Figure 3). These data are consistent with viral reservoir seeding by a highly homogeneous population of founder viruses, but do not provide positive evidence for clonal expansion of cells encoding for intact virus during acute stages of disease. In addition, these data suggest that simultaneous infection of CD4+ T cells with a phylogenetically highly homogeneous virus during acute HIV-1 infection is insufficient to seed a pool of reservoir cells harboring identical near-full-length proviruses.
+
+Discussion
+
+Functional lineage commitment of CD4+ Th cells determines their antimicrobial effector cell profile but may also influence CD4+ T cell longevity, developmental fate, and the ability to serve as a long-term viral reservoir for HIV-1. Th1 cells represent a considerable proportion of all CD4+ T cells and contain most virus-specific cells, including HIV-1–specific and CMV-specific CD4+ T cells, the latter of which are expanded in individuals with prolonged antiretroviral therapy and account for a substantial component of the entire Th1 cell pool (24). While Th17 and Th9 cells seem to represent more primitive, long-lived CD4+ T cells (6, 25, 26), Th1 cells are frequently characterized as cells with increased proliferative activity that include both short-lived and more durable cell components. Indeed, at least when expressing high levels of the Th1 signature transcription factor T-bet (9, 10, 26), Th1 cells appear to have a more limited in vivo half-life; however, a population of long-lived Th1 cells with low expression of T-bet that displayed greater longevity and stronger proliferative responses to secondary infection has also been described in animals models (10). Moreover, studies with human cells suggested that functional commitment toward a Th1 profile is possible during all stages of memory CD4+ T cell development and that Th1-polarizing culture conditions effectively supported proliferation of all developmental subsets of memory CD4+ T cells, including the most immature and most durable subpopulations (11). Here, we show that physiological proliferation of HIV-1–infected Th1 cells can play a critical role in supporting HIV-1 persistence by amplifying the number of cells encoding for genome-intact, replication-competent HIV-1. This mechanism may represent a highly effective strategy for propagating the stability of the functionally active pool of viral reservoir cells, as it exploits existing immune pathways for regulating, regenerating, and expanding antiviral immune responses to disseminate and amplify the number of virally infected cells.
+
+Notably, at least when occurring in response to antigen-specific stimuli, clonal expansion of virally infected cells may be associated with viral reactivation, which exposes cells to immune recognition and antiviral immune defense, factors that may in part limit expansion of viral reservoirs driven by proliferation. However, viral reactivation in response to TCR-induced signals follows a stochastic pattern (16, 27), implying that clonal expansion can at least sometimes occur in the absence of viral reactivation. Whether the efficacy of viral reactivation in functionally polarized cells is influenced by signature transcription factors of polarized T cells is currently unknown; however, it is noteworthy that GATA-3 and c-Maf, two transcription factors involved in regulating Th2-polarization, can stimulate HIV-1 expression through direct interactions with the HIV-1 promoter (28, 29); this may facilitate immune-mediated clearance of HIV-1–infected Th2 cells and correspond to the very low frequency of clonally-expanded Th2 cells encoding intact HIV-1 in our study. Interestingly, TCR-independent homeostatic proliferation can drive HIV-1–infected cell proliferation in the absence of viral reactivation (30), at least in in vitro experiments, but this mechanism may possibly account for a smaller proportion of clonal turnover in T cells, relative to antigen-driven T cell proliferation.
+
+The data presented here are limited by the fact that only circulating CD4+ T cells were analyzed, and the identification of Th1 cells as a major site for clonal expansion of HIV-1–infected CD4+ T cells may be restricted to the anatomical compartment of peripheral blood CD4+ T lymphocytes. Notably, CD4+ T cells with discrete polarizations are frequently located in distinct immunological tissue niches, consistent with their respective functional profile. For instance, clonal expansion of HIV-1–infected T follicular helper cells may be detectable in lymph node samples, and clonal proliferation in Th17 cells harboring genome-intact HIV-1 could be most prevalent in mucosal tissues. Clearly, a more detailed analysis of viral reservoir dynamics in distinct anatomical tissue compartments will be necessary in future studies.
+
+An important aspect of our observations is the absence of completely identical proviral DNA sequences in acute infection, at a time when cells are infected with phylogenetically highly homogeneous populations of founder viruses (31). Given that the small sequence variations that we observed between individual intact proviral sequences from patients with acute infection were randomly distributed over the entire genome, these minor sequence differences are likely to result from the error rate of viral reverse transcriptase occurring during infection of distinct cells. Together, these findings indicate that clusters of identical, genome-intact HIV-1 sequences are very unlikely to derive from infection of separate cells with identical viral strains in acute HIV-1 infection prior to antiretroviral treatment initiation.
+
+The notion of clonal expansion of HIV-1–infected Th1 cells may have implications for efforts to reduce or eliminate viral reservoir cells. Several interventions currently under consideration for this purpose, such as therapeutic vaccines or immune checkpoint inhibitors, may induce or increase clonal expansion of T cells, including those that are infected with genome-intact virus; this could lead to unintentional stabilization of the viral reservoir. In addition, broadly neutralizing HIV-1 antibodies, frequently considered as an effector component in “shock and kill” approaches for viral reservoir elimination (32), might also have a potential to indirectly drive clonal expansion of CD4+ T cells through stimulation of dendritic cells by antigen-antibody immune complexes. At the same time, it is noteworthy that clonal expansion of antigen-specific T cells is a highly vulnerable phase in the cellular life cycle, which may offer a perspective for disrupting viral reservoir stability through inhibiting clonal expansion of cells encoding for genome-intact virus. Indeed, pharmaceutical agents designed to block clonal proliferation, such as JAK/STAT inhibitors, are currently being evaluated in cART-treated HIV-1 patients in a prospective clinical trial (NCT02475655); this may offer an opportunity to determine whether pharmacological interruption of clonal proliferation in T cells translates into measurable decreases in viral reservoir size in HIV-1–infected humans.
+
+Methods
+Patients.
+
+HIV-1–infected study participants were recruited from the Massachusetts General Hospital, Brigham and Women’s Hospital, or from clinical sites affiliated with the University of KwaZulu-Natal, South Africa. Clinical and demographical characteristics of study subjects are summarized in Supplemental Table 1.
+
+Cell sorting and flow cytometry.
+
+PBMCs were stained with monoclonal antibodies to CD4, CD3, and CD45RO and stimulated with CD3/CD28 beads (12 hours) and PMA/ionomycin (3 hours). GolgiStop and Brefeldin A (both at 10 μg/ml) were added at the time of stimulation to inhibit cytokine release, block in vitro cell proliferation, and inhibit viral protein maturation, according to standard procedures. Cells were then fixed and permeabilized using commercial kits (Caltag), followed by intracellular cytokine staining with antibodies directed against IFN-γ, IL-4, IL-9, and IL-17. Afterward, cells were washed, and the indicated cell populations were sorted in a specifically designated biosafety cabinet (Baker Hood), using a FACSAria cell sorter (BD Biosciences) at 70 pounds per square inch. Cell sorting was performed by the Ragon Institute Imaging Core Facility at Massachusetts General Hospital and resulted in isolation of lymphocytes with the defined phenotypic characteristic of >95% purity. Data were analyzed using FlowJo software (Tree Star) and SPICE (version 5.3033; https://niaid.github.io/spice/).
+
+Assessment of cell-associated HIV-1 DNA.
+
+Sorted CD4+ T cell populations were digested with lysis buffer to extract cell lysates, or subjected to DNA extraction using commercial kits. We amplified total HIV-1 DNA using ddPCR (Bio-Rad), using primers and probes described previously (3) (127-bp 5′ LTR-gag amplicon; HXB2 coordinates 684-810). PCR was performed using the following program: 95°C for 10 minutes, 45 cycles of 94°C for 30 seconds and 60°C for 1 minute, 72°C for 1 minute. The droplets were subsequently read with a QX100 droplet reader, and data were analyzed using QuantaSoft software (Bio-Rad).
+
+Full-length HIV-1 sequencing assay.
+
+Genomic DNA was extracted from the indicated cell populations using a QIAGEN DNeasy Blood & Tissue or FFPE Tissue kit. DNA diluted to single genome levels based on Poisson distribution statistics and droplet digital PCR (ddPCR) results was subjected to single-genome amplification using Invitrogen Platinum Taq and nested primers spanning near-full-length HIV-1 (HXB2 coordinates 638-9632). Primers were previously published (33) except for a modified nested forward primer: 5′-GCGCCCGAACAGGGACYTGAAARCGAAAG-3′. PCR products were visualized by agarose gel electrophoresis. All near-full-length sequences, and 40%–100% of sequences with major deletions (<8,000 bp in gel size), from each patient were subjected to Illumina MiSeq sequencing, with a median of 2,439 reads (interquartile range [IQR] 1,689–5,351) per base. Resulting short reads were de novo assembled and aligned to HXB2 to identify large deleterious deletions, out-of-frame indels, premature/lethal stop codons, internal inversions, or packaging signal deletions, using an automated in-house pipeline written in R scripting language (34). Presence/absence of APOBEC-3G/3F–associated hypermutations was determined using the Los Alamos HIV Sequence Database Hypermut 2.0 (35) program. Viral sequences that lacked all mutations listed above were classified as “genome-intact.” Multiple sequence alignments were performed using MUSCLE (36). Phylogenetic distances between sequences were examined using Clustal X–generated neighbor-joining algorithms (37).
+
+Viral outgrowth assays.
+
+Isolated CD4+ T cells were seeded in round-bottom 96-well plates, at cell concentrations per well that resulted in viral outgrowth in approximately 10% of wells. Cells were stimulated with PHA (2 μg/ml), rhIL-2 (100 U/ml), and 100,000 irradiated allogeneic PBMCs from HIV-negative healthy donors. 100,000 MOLT-4 cells were added to each well on day 3 and again on days 7 and 14 of culture, using Transwell culture systems when indicated. The cultures were subjected to removal of 33% of the cell suspension every 7 days and replenished with fresh rhIL-2–containing media. After 14 days, cell supernatant from each well was harvested, and the number of wells containing infectious HIV-1 was assessed by incubation of the supernatant with TZM-bl cells (obtained from NIH AIDS Reagent Program), a permissive HeLa cell clone that contains HIV-1 Tat–responsive reporter genes for firefly luciferase under the control of the HIV-1 LTR. MOLT-4 cell pellets from wells with detectable viral replication were subjected to near-full-length viral sequencing as described above.
+
+Statistics.
+
+Data are summarized as individual data plots or pie charts. Differences were tested for statistical significance using a 2-tailed Fisher’s exact test, Friedman test, or Kruskal-Wallis test, followed by Dunn’s test for multiple comparison where indicated. P values less than 0.05 were considered significant.
+
+Study approval.
+
+PBMC samples were collected according to protocols approved by the respective Institutional Review Boards. Study subjects gave written informed consent to participate in accordance with the Declaration of Helsinki.
+
+Author contributions
+
+GQL, NO, XGY, and ML developed the concept and design. NO, XS, FC, SH, and GQL performed flow cytometry and cell sorting. GQL, NO, SH, KE, and HK performed PCR. GQL, HC, and ZO performed bioinformatics analysis. ESR, KR, KD, TN, and BDW contributed PBMC samples. GQL, XGY, and ML analyzed and presented data, and prepared the manuscript. ML supervised the study.
+
+Supplementary Material
+Supplemental data
+jci-127-93289-s001.pdf (805.1KB, pdf)
+Acknowledgments
+
+ML is supported by NIH grants AI098487, AI106468, AI114235, AI117841, AI120008, and AI124776. XGY is supported by NIH grants AI116228, AI078799, and HL134539. BDW is supported by NIH grant R3767073. BDW, KD, and TN are supported by the Collaboration for AIDS Vaccine Discovery funded by the Bill and Melinda Gates Foundation and the International AIDS Vaccine Initiative. The authors gratefully acknowledge the support of the MGH sequencing core facility. Support was also provided by NIH-funded Harvard University Center for AIDS Research grant P30 AI060354, which is supported by the following NIH co-funding and participating institutes and centers: National Institute of Allergy and Infectious Diseases (NIAID), National Cancer Institute (NCI), Eunice Kennedy Shriver National Institute of Child Health and Human Development (NICHD), National Heart, Lung, and Blood Institute (NHLBI), National Institute on Drug Abuse (NIDA), National Institute of Mental Health (NIMH), National Institute on Aging (NIA), Fogarty International Center (FIC), and Office of AIDS Research (OAR).
+
+Footnotes
+
+Conflict of interest: The authors have declared that no conflict of interest exists.
+
+Reference information:J Clin Invest. 2017;127(7):2689–2696.https://doi.org/10.1172/JCI93289.
+
+See the related Commentary at HIV persistence: clonal expansion of cells in the latent reservoir.
+
+Contributor Information
+
+Guinevere Q. Lee, Email: KLEE54@mgh.harvard.edu.
+
+Nina Orlova-Fink, Email: niniorlova@gmail.com.
+
+Kevin Einkauf, Email: KEINKAUF@PARTNERS.ORG.
+
+Xiaoming Sun, Email: XSUN16@mgh.harvard.edu.
+
+Sean Harrington, Email: seanharrington368@gmail.com.
+
+Hsiao-Hsuan Kuo, Email: HKUO3@mgh.harvard.edu.
+
+Zhengyu Ouyang, Email: zouyang@partners.org.
+
+Kavidha Reddy, Email: Kavidha.Reddy@ahri.org.
+
+Krista Dong, Email: woodil.iteach@gmail.com.
+
+Bruce D. Walker, Email: BWALKER@mgh.harvard.edu.
+
+Mathias Lichterfeld, Email: mlichterfeld@partners.org.
+
+References
+1.Finzi D, et al. Latent infection of CD4+ T cells provides a mechanism for lifelong persistence of HIV-1, even in patients on effective combination therapy. Nat Med. 1999;5(5):512–517. doi: 10.1038/8394. [DOI] [PubMed] [Google Scholar]
+2.Chomont N, et al. HIV reservoir size and persistence are driven by T cell survival and homeostatic proliferation. Nat Med. 2009;15(8):893–900. doi: 10.1038/nm.1972. [DOI] [PMC free article] [PubMed] [Google Scholar]
+3.Buzon MJ, et al. HIV-1 persistence in CD4+ T cells with stem cell-like properties. Nat Med. 2014;20(2):139–142. doi: 10.1038/nm.3445. [DOI] [PMC free article] [PubMed] [Google Scholar]
+4.Jaafoura S, et al. Progressive contraction of the latent HIV reservoir around a core of less-differentiated CD4+ memory T Cells. Nat Commun. 2014;5:5407. doi: 10.1038/ncomms6407. [DOI] [PMC free article] [PubMed] [Google Scholar]
+5.Banga R, et al. PD-1 (+) and follicular helper T cells are responsible for persistent HIV-1 transcription in treated aviremic individuals. Nat Med. 2016;22(7):754–761. doi: 10.1038/nm.4113. [DOI] [PubMed] [Google Scholar]
+6.Muranski P, Restifo NP. Essentials of Th17 cell commitment and plasticity. Blood. 2013;121(13):2402–2414. doi: 10.1182/blood-2012-09-378653. [DOI] [PMC free article] [PubMed] [Google Scholar]
+7.Bamias G, Cominelli F. Role of type 2 immunity in intestinal inflammation. Curr Opin Gastroenterol. 2015;31(6):471–476. doi: 10.1097/MOG.0000000000000212. [DOI] [PMC free article] [PubMed] [Google Scholar]
+8.Végran F, Apetoh L, Ghiringhelli F. Th9 cells: a novel CD4 T-cell subset in the immune war against cancer. Cancer Res. 2015;75(3):475–479. doi: 10.1158/0008-5472.CAN-14-2748. [DOI] [PubMed] [Google Scholar]
+9.Pepper M, Pagán AJ, Igyártó BZ, Taylor JJ, Jenkins MK. Opposing signals from the Bcl6 transcription factor and the interleukin-2 receptor generate T helper 1 central and effector memory cells. Immunity. 2011;35(4):583–595. doi: 10.1016/j.immuni.2011.09.009. [DOI] [PMC free article] [PubMed] [Google Scholar]
+10.Marshall HD, et al. Differential expression of Ly6C and T-bet distinguish effector and memory Th1 CD4 (+) cell properties during viral infection. Immunity. 2011;35(4):633–646. doi: 10.1016/j.immuni.2011.08.016. [DOI] [PMC free article] [PubMed] [Google Scholar]
+11.Takeshita M, et al. Polarization diversity of human CD4+ stem cell memory T cells. Clin Immunol. 2015;159(1):107–117. doi: 10.1016/j.clim.2015.04.010. [DOI] [PubMed] [Google Scholar]
+12.Wagner TA, et al. HIV latency. Proliferation of cells with HIV integrated into cancer genes contributes to persistent infection. Science. 2014;345(6196):570–573. doi: 10.1126/science.1256304. [DOI] [PMC free article] [PubMed] [Google Scholar]
+13.Maldarelli F, et al. HIV latency. Specific HIV integration sites are linked to clonal expansion and persistence of infected cells. Science. 2014;345(6193):179–183. doi: 10.1126/science.1254194. [DOI] [PMC free article] [PubMed] [Google Scholar]
+14.Simonetti FR, et al. Clonally expanded CD4+ T cells can produce infectious HIV-1 in vivo. Proc Natl Acad Sci U S A. 2016;113(7):1883–1888. doi: 10.1073/pnas.1522675113. [DOI] [PMC free article] [PubMed] [Google Scholar]
+15.Bui JK, et al. Proviruses with identical sequences comprise a large fraction of the replication-competent HIV reservoir. PLoS Pathog. 2017;13(3):e1006283. doi: 10.1371/journal.ppat.1006283. [DOI] [PMC free article] [PubMed] [Google Scholar]
+16.Hosmane NN, et al. Proliferation of latently infected CD4(+) T cells carrying replication-competent HIV-1: Potential role in latent reservoir dynamics. J Exp Med. 2017;214(4):959–972. doi: 10.1084/jem.20170193. [DOI] [PMC free article] [PubMed] [Google Scholar]
+17.Lorenzi JC, et al. Paired quantitative and qualitative assessment of the replication-competent HIV-1 reservoir and comparison with integrated proviral DNA. Proc Natl Acad Sci U S A. 2016;113(49):E7908–E7916. doi: 10.1073/pnas.1617789113. [DOI] [PMC free article] [PubMed] [Google Scholar]
+18.Morita R, et al. Human blood CXCR5 (+)CD4 (+) T cells are counterparts of T follicular cells and contain specific subsets that differentially support antibody secretion. Immunity. 2011;34(1):108–121. doi: 10.1016/j.immuni.2010.12.012. [DOI] [PMC free article] [PubMed] [Google Scholar]
+19.Ho YC, et al. Replication-competent noninduced proviruses in the latent reservoir increase barrier to HIV-1 cure. Cell. 2013;155(3):540–551. doi: 10.1016/j.cell.2013.09.020. [DOI] [PMC free article] [PubMed] [Google Scholar]
+20.Bruner KM, et al. Defective proviruses rapidly accumulate during acute HIV-1 infection. Nat Med. 2016;22(9):1043–1049. doi: 10.1038/nm.4156. [DOI] [PMC free article] [PubMed] [Google Scholar]
+21.Cohn LB, et al. HIV-1 integration landscape during latent and active infection. Cell. 2015;160(3):420–432. doi: 10.1016/j.cell.2015.01.020. [DOI] [PMC free article] [PubMed] [Google Scholar]
+22.Josefsson L, et al. The HIV-1 reservoir in eight patients on long-term suppressive antiretroviral therapy is stable with few genetic changes over time. Proc Natl Acad Sci U S A. 2013;110(51):E4987–E4996. doi: 10.1073/pnas.1308313110. [DOI] [PMC free article] [PubMed] [Google Scholar]
+23.Ndhlovu ZM, et al. Magnitude and kinetics of CD8+ T cell activation during hyperacute HIV infection impact viral set point. Immunity. 2015;43(3):591–604. doi: 10.1016/j.immuni.2015.08.012. [DOI] [PMC free article] [PubMed] [Google Scholar]
+24.Naeger DM, et al. Cytomegalovirus-specific T cells persist at very high levels during long-term antiretroviral treatment of HIV disease. PLoS One. 2010;5(1):e8886. doi: 10.1371/journal.pone.0008886. [DOI] [PMC free article] [PubMed] [Google Scholar]
+25.Zou W, Restifo NP. Nine lives for TH9s? Nat Med. 2012;18(8):1177–1178. doi: 10.1038/nm.2868. [DOI] [PMC free article] [PubMed] [Google Scholar]
+26.Muranski P, et al. Th17 cells are long lived and retain a stem cell-like molecular signature. Immunity. 2011;35(6):972–985. doi: 10.1016/j.immuni.2011.09.019. [DOI] [PMC free article] [PubMed] [Google Scholar]
+27.Rouzine IM, Weinberger AD, Weinberger LS. An evolutionary role for HIV latency in enhancing viral transmission. Cell. 2015;160(5):1002–1012. doi: 10.1016/j.cell.2015.02.017. [DOI] [PMC free article] [PubMed] [Google Scholar]
+28.Yang Z, Engel JD. Human T cell transcription factor GATA-3 stimulates HIV-1 expression. Nucleic Acids Res. 1993;21(12):2831–2836. doi: 10.1093/nar/21.12.2831. [DOI] [PMC free article] [PubMed] [Google Scholar]
+29.Zhang M, et al. Host factor transcriptional regulation contributes to preferential expression of HIV type 1 in IL-4-producing CD4 T cells. J Immunol. 2012;189(6):2746–2757. doi: 10.4049/jimmunol.1103129. [DOI] [PMC free article] [PubMed] [Google Scholar]
+30.Bosque A, Famiglietti M, Weyrich AS, Goulston C, Planelles V. Homeostatic proliferation fails to efficiently reactivate HIV-1 latently infected central memory CD4+ T cells. PLoS Pathog. 2011;7(10):e1002288. doi: 10.1371/journal.ppat.1002288. [DOI] [PMC free article] [PubMed] [Google Scholar]
+31.Joseph SB, Swanstrom R, Kashuba AD, Cohen MS. Bottlenecks in HIV-1 transmission: insights from the study of founder viruses. Nat Rev Microbiol. 2015;13(7):414–425. doi: 10.1038/nrmicro3471. [DOI] [PMC free article] [PubMed] [Google Scholar]
+32.Deeks SG. HIV: shock and kill. Nature. 2012;487(7408):439–440. doi: 10.1038/487439a. [DOI] [PubMed] [Google Scholar]
+33.Li B, et al. Rapid reversion of sequence polymorphisms dominates early human immunodeficiency virus type 1 evolution. J Virol. 2007;81(1):193–201. doi: 10.1128/JVI.01231-06. [DOI] [PMC free article] [PubMed] [Google Scholar]
+34. R Core Team. R: a language and environment for statistical computing. http://www.R-project.org/ Accessed April 18, 2017.
+35.Rose PP, Korber BT. Detecting hypermutations in viral sequences with an emphasis on G --> A hypermutation. Bioinformatics. 2000;16(4):400–401. doi: 10.1093/bioinformatics/16.4.400. [DOI] [PubMed] [Google Scholar]
+36.Edgar RC. MUSCLE: multiple sequence alignment with high accuracy and high throughput. Nucleic Acids Res. 2004;32(5):1792–1797. doi: 10.1093/nar/gkh340. [DOI] [PMC free article] [PubMed] [Google Scholar]
+37.Larkin MA, et al. Clustal W and Clustal X version 2.0. Bioinformatics. 2007;23(21):2947–2948. doi: 10.1093/bioinformatics/btm404. [DOI] [PubMed] [Google Scholar]
+Associated Data
+
+This section collects any data citations, data availability statements, or supplementary materials included in this article.
+
+Supplementary Materials
+Supplemental data
+jci-127-93289-s001.pdf (805.1KB, pdf)
+
+Articles from The Journal of Clinical Investigation are provided here courtesy of American Society for Clinical Investigation
+
+ACTIONS
+View on publisher site
+PDF (604.6 KB)
+Cite
+Collections
+Permalink
+RESOURCES
+Similar articles
+Cited by other articles
+Links to NCBI Databases
+ON THIS PAGE
+Abstract
+Introduction
+Results
+Discussion
+Methods
+Author contributions
+Supplementary Material
+Acknowledgments
+Footnotes
+Contributor Information
+References
+Associated Data
+FOLLOW NCBI
+NCBI on X (formerly known as Twitter)
+NCBI on Facebook
+NCBI on LinkedIn
+NCBI on GitHub
+NCBI RSS feed
+
+Connect with NLM
+
+NLM on X (formerly known as Twitter)
+NLM on Facebook
+NLM on YouTube
+
+National Library of Medicine
+8600 Rockville Pike
+Bethesda, MD 20894
+
+Web Policies
+FOIA
+HHS Vulnerability Disclosure
+Help
+Accessibility
+Careers
+NLM
+NIH
+HHS
+USA.gov
+
+----------------------------------------
+[주요 카탈로그·가격표·PDF 링크]
+----------------------------------------
+- (링크): https://pmc.ncbi.nlm.nih.gov/articles/PMC5490740/pdf/jci-127-93289.pdf
+- View in NLM Catalog: https://www.ncbi.nlm.nih.gov/nlmcatalog?term=%22J%20Clin%20Invest%22[Title%20Abbreviation]
+- jci-127-93289-s001.pdf: https://pmc.ncbi.nlm.nih.gov/articles/instance/5490740/bin/jci-127-93289-s001.pdf
+- Google Scholar: https://scholar.google.com/scholar_lookup?journal=Science&title=HIV%20latency.%20Specific%20HIV%20integration%20sites%20are%20linked%20to%20clonal%20expansion%20and%20persistence%20of%20infected%20cells&author=F%20Maldarelli&volume=345&issue=6193&publication_year=2014&pages=179-183&pmid=24968937&doi=10.1126/science.1254194&
+- Google Scholar: https://scholar.google.com/scholar_lookup?journal=Immunity&title=Human%20blood%20CXCR5%20(+)CD4%20(+)%20T%20cells%20are%20counterparts%20of%20T%20follicular%20cells%20and%20contain%20specific%20subsets%20that%20differentially%20support%20antibody%20secretion&author=R%20Morita&volume=34&issue=1&publication_year=2011&pages=108-121&pmid=21215658&doi=10.1016/j.immuni.2010.12.012&
+- Google Scholar: https://scholar.google.com/scholar_lookup?journal=PLoS%20One&title=Cytomegalovirus-specific%20T%20cells%20persist%20at%20very%20high%20levels%20during%20long-term%20antiretroviral%20treatment%20of%20HIV%20disease&author=DM%20Naeger&volume=5&issue=1&publication_year=2010&pages=e8886&pmid=20126452&doi=10.1371/journal.pone.0008886&
+
