@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>“유산소 운동하려고 실내자전거 샀는데 무릎이 시큰해요” 페달 밟을 때 무릎 앞쪽 쑤시는 진짜 이유</title>
+  <style>
+    body {
+      font-family: 'Pretendard', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
+      margin: 0;
+      padding: 20px;
+      line-height: 1.85;
+    }
+    .toolbar-box {
+      max-width: 680px;
+      margin: 0 auto 20px auto;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 18px 20px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.05);
+      text-align: center;
+    }
+    .btn-copy {
+      background: #0284c7;
+      color: #ffffff;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-size: 0.96rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin: 4px;
+    }
+    .btn-tag {
+      background: #0f172a;
+      color: #ffffff;
+      border: none;
+      padding: 12px 22px;
+      border-radius: 8px;
+      font-size: 0.96rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin: 4px;
+    }
+    #naver-content {
+      max-width: 680px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 36px 28px;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.06);
+      text-align: center;
+    }
+    .naver-text {
+      font-size: 1.05rem;
+      color: #334155;
+      margin: 18px 0;
+      word-break: keep-all;
+      text-align: center;
+    }
+    .naver-title {
+      font-size: 1.42rem;
+      font-weight: 800;
+      color: #0f172a;
+      line-height: 1.45;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .naver-h2 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      color: #0369a1;
+      margin: 32px 0 16px 0;
+      text-align: center;
+    }
+    .naver-sticker {
+      width: 180px;
+      height: auto;
+      display: block;
+      margin: 24px auto;
+    }
+    .naver-photo {
+      max-width: 100%;
+      border-radius: 12px;
+      margin: 20px 0;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    }
+  </style>
+  <script>
+    function copyForNaver() {
+      const container = document.getElementById('naver-content');
+      const range = document.createRange();
+      range.selectNode(container);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+      try {
+        document.execCommand('copy');
+        alert('네이버 블로그 본문이 복사되었습니다! 스마트에디터에 붙여넣기(Ctrl+V)하세요.');
+      } catch (err) {
+        alert('복사에 실패했습니다. 수동으로 복사해 주세요.');
+      }
+      selection.removeAllRanges();
+    }
+    function copyTags() {
+      const tags = "#혀니의꿀단지 #실내자전거 #실내사이클 #헬스자전거 #무릎통증 #안장높이 #실내운동 #하체운동 #관절관리 #에디터혀니";
+      navigator.clipboard.writeText(tags).then(() => {
+        alert('해시태그가 복사되었습니다!');
+      }).catch(() => {
+        alert('해시태그 복사 실패');
+      });
+    }
+  </script>
+</head>
+<body>
+
+  <div class="toolbar-box">
+    <div style="font-weight: 700; font-size: 1.05rem; margin-bottom: 10px; color: #0f172a;">
+      🍯 꿀단지 네이버 스마트에디터 원클릭 도구
+    </div>
+    <button type="button" class="btn-copy" onclick="copyForNaver()">📋 네이버 본문 원클릭 복사</button>
+    <button type="button" class="btn-tag" onclick="copyTags()">🏷️ 해시태그 원클릭 복사</button>
+  </div>
+
+  <div id="naver-content">
+    <div class="naver-title">
+      “유산소 운동하려고 실내자전거 샀는데 무릎이 시큰해요”<br>
+      페달 밟을 때 무릎 앞쪽 쑤시는 진짜 이유
+    </div>
+
+    <img src="images/stickers/sticker01_shocked.jpg" class="naver-sticker" alt="깜짝 놀란 꿀벌 스티커">
+
+    <p class="naver-text">
+      “찬바람 부니까 밖에서 뛰긴 춥고,<br>
+      거실 자전거 타면 다리도 튼튼해지겠지?”<br>
+      가족들과 함께 타려고 실내자전거 꺼내셨나요?
+    </p>
+
+    <p class="naver-text">
+      관절에 충격이 덜하다는 말만 믿고<br>
+      매일 30분씩 부지런히 페달을 굴렸는데,<br>
+      며칠 만에 무릎 뚜껑뼈 주변이 욱신거려 놀라셨을 겁니다.
+    </p>
+
+    <p class="naver-text">
+      자전거가 나빠서가 아니라,<br>
+      <mark style="background:#fef08a; padding:2px 6px; border-radius:4px; font-weight:bold;">안장 높이를 대충 낮춰두고 탄 작은 습관</mark>이<br>
+      무릎 앞쪽에 불필요한 부담을 주고 있었기 때문이더라고요.
+    </p>
+
+    <img src="images/thumb.jpg" class="naver-photo" alt="실내자전거 거실 풍경">
+
+    <div class="naver-h2">
+      | 안장 3cm 낮췄을 뿐인데 관절에 가해지는 부담
+    </div>
+
+    <img src="images/stickers/sticker04_confused.jpg" class="naver-sticker" alt="의아해하는 꿀벌 스티커">
+
+    <p class="naver-text">
+      자전거를 탈 때 바닥에 발이 닿아야 안심된다며<br>
+      안장을 낮게 세팅해 두시는 분들이 참 많습니다.<br>
+      그런데 안장이 낮아지면 페달이 제일 아래로 내려가도<br>
+      무릎이 40도 넘게 꺾인 상태로 힘을 쓰게 됩니다.
+    </p>
+
+    <p class="naver-text">
+      구부러진 다리로 무거운 페달을 억지로 밟으면<br>
+      허벅지 앞 근육이 슬개골을 강하게 끌어당겨<br>
+      <u style="text-underline-offset: 4px;">슬개대퇴 관절에 과도한 접촉 압박</u>이 쏠리게 됩니다.
+    </p>
+
+    <p class="naver-text">
+      실제로 안장 높이가 5%만 변동되어도<br>
+      무릎 관절 각도와 회전 모멘트에 16% 이상의 큰 변화가 생깁니다.<br>
+      무릎 앞쪽이 쑤신다면 안장 높이부터 알맞게 조절해 보세요.
+    </p>
+
+    <img src="images/post01.jpg" class="naver-photo" alt="무릎 살피는 모습">
+
+    <div class="naver-h2">
+      | 무릎 각도 25도 맞추는 1분 뒤꿈치 공식
+    </div>
+
+    <img src="images/stickers/sticker03_detective.jpg" class="naver-sticker" alt="탐정 꿀벌 스티커">
+
+    <p class="naver-text">
+      그렇다면 내 몸에 딱 맞는 안장 높이는 어디일까요?<br>
+      각도기나 줄자 없이도 거실에서 바로 확인하는<br>
+      <mark style="background:#fef08a; padding:2px 6px; border-radius:4px; font-weight:bold;">1분 발뒤꿈치 테스트 공식</mark>을 알려드립니다.
+    </p>
+
+    <p class="naver-text">
+      운동화를 신고 안장에 걸터앉은 상태에서<br>
+      페달을 6시 방향 맨 아래로 내린 뒤,<br>
+      발 앞부분이 아닌 <b>‘발뒤꿈치’</b>를 페달 중심에 얹어보세요.<br>
+      이때 다리가 구부러짐 없이 곧게 펴져야 정답입니다.
+    </p>
+
+    <p class="naver-text">
+      그 상태에서 실제 페달을 밟을 때처럼<br>
+      발가락 뿌리 부분으로 디뎌주면,<br>
+      <u style="text-underline-offset: 4px;">무릎이 25도에서 30도 사이로 편안하게 굽혀집니다.</u><br>
+      관절 부담을 덜어주는 권장 기준 각도입니다.
+    </p>
+
+    <img src="images/post02.jpg" class="naver-photo" alt="안장 눈금 조절">
+
+    <div class="naver-h2">
+      | 오금이 당길 땐 오히려 안장이 높다는 의심 신호
+    </div>
+
+    <img src="images/stickers/sticker02_excited.jpg" class="naver-sticker" alt="솔깃한 꿀벌 스티커">
+
+    <p class="naver-text">
+      반대로 페달을 돌릴 때 무릎 뒤쪽 오금이 찌릿하거나<br>
+      엉덩이가 좌우로 들썩거리며 춤을 추고 있다면,<br>
+      안장을 너무 높게 올려 다리가 과하게 펴진 탓입니다.
+    </p>
+
+    <p class="naver-text">
+      오금 뒤 햄스트링 힘줄이 무리하게 당겨지면<br>
+      골반과 허리까지 결리고 뻐근해질 수 있으니,<br>
+      안장을 1~2cm 살짝 내려 다리 긴장을 풀어주어야 합니다.
+    </p>
+
+    <img src="images/post03.jpg" class="naver-photo" alt="바른 자세 페달링">
+
+    <div class="naver-h2">
+      | 뻑뻑한 저항 대신 가벼운 70 회전수가 보약
+    </div>
+
+    <img src="images/stickers/sticker07_thumbsup.jpg" class="naver-sticker" alt="엄지척 꿀벌 스티커">
+
+    <p class="naver-text">
+      “허벅지 살 빼려면 기어를 무겁게 두고 밟아야지!”<br>
+      이렇게 페달을 꾹꾹 누르며 타는 습관도 위험합니다.<br>
+      뻑뻑한 페달은 관절 연골에 맷돌을 얹는 것과 같습니다.
+    </p>
+
+    <p class="naver-text">
+      기기 저항은 관절에 무리 없는 가벼운 강도로 두고,<br>
+      <mark style="background:#fef08a; padding:2px 6px; border-radius:4px; font-weight:bold;">1분에 페달을 60~80바퀴 부드럽게 돌리는 리듬</mark>으로<br>
+      발목에 힘을 빼고 둥글게 원을 그려보세요.
+    </p>
+
+    <p class="naver-text">
+      5분 동안 천천히 굴려 관절 기름칠을 마친 뒤,<br>
+      숨이 살짝 찰 정도로 20분간 일정한 회전수를 유지하고,<br>
+      마지막 5분은 가볍게 돌리며 숨을 고르는 30분 루틴이면 충분합니다.
+    </p>
+
+    <img src="images/post04.jpg" class="naver-photo" alt="운동 소품과 신발">
+
+    <div class="naver-h2">
+      | 이런 신호가 나타나면 바로 멈추고 쉬세요
+    </div>
+
+    <img src="images/stickers/sticker05_exhausted.jpg" class="naver-sticker" alt="지친 꿀벌 스티커">
+
+    <p class="naver-text">
+      자전거를 탄 다음 날 허벅지가 기분 좋게 뻐근한 것은<br>
+      근육이 튼튼해지는 자연스러운 적응 신호입니다.<br>
+      하지만 페달을 밟는 도중 무릎 안쪽이 콕콕 쑤시거나,<br>
+      운동이 끝난 뒤에도 열감이 식지 않고 붓는다면 즉시 멈추셔야 합니다.
+    </p>
+
+    <p class="naver-text">
+      얼음주머니로 화끈거리는 무릎을 식혀주고 안정을 취하며,<br>
+      걸을 때 무릎 안에서 턱 걸리는 느낌이 든다면<br>
+      혼자 참지 말고 전문의와 관절 상태를 점검해 보는 것이 안전합니다.
+    </p>
+
+    <img src="images/post05.jpg" class="naver-photo" alt="스트레칭 장면">
+
+    <img src="images/stickers/sticker06_emergency.jpg" class="naver-sticker" alt="긴급 꿀벌 스티커">
+
+    <p class="naver-text" style="color: #0284c7; font-weight: 700;">
+      여러분 댁에 있는 실내자전거 안장은 지금 몇 단에 맞춰져 있나요?<br>
+      오늘 타기 전에 뒤꿈치 테스트 꼭 한번 해보시고 댓글로 결과 남겨주세요 😊
+    </p>
+
+    <img src="images/stickers/sticker08_honeypot.jpg" class="naver-sticker" alt="꿀단지 마스코트 스티커">
+
+    <div style="margin-top: 32px; padding: 20px; background-color: #f1f5f9; border-radius: 12px; font-size: 0.88rem; color: #64748b; text-align: left;">
+      <p style="font-weight: 700; margin-bottom: 8px; color: #334155;">📚 공인 보건 지침 및 학술 참고</p>
+      <p style="margin: 4px 0;">• 질병관리청 국가건강정보포털 — 무릎관절염 유산소 운동 지침</p>
+      <p style="margin: 4px 0;">• Sports Medicine 국제학술지 — 안장 높이와 무릎 관절 생체역학 연구 (2011)</p>
+      <p style="margin: 4px 0;">• European Journal of Sport Science — 낮은 안장과 슬개대퇴 압박 분석 (2020)</p>
+      <p style="margin: 4px 0;">• Sports Medicine 체계적 문헌고찰 — 안장 높이와 부상 위험 (2022)</p>
+    </div>
+
+    <p style="margin-top: 24px; font-size: 0.95rem; color: #0284c7; font-weight: 700;">
+      #혀니의꿀단지 #실내자전거 #실내사이클 #헬스자전거 #무릎통증 #안장높이 #실내운동 #하체운동 #관절관리 #에디터혀니
+    </p>
+  </div>
+
+</body>
+</html>

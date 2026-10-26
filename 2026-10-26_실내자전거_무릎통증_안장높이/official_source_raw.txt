@@ -1,0 +1,47 @@
+[공인 1차 출처 원문 덤프 1: 질병관리청 국가건강정보포털]
+URL: https://health.kdca.go.kr/healthinfo/biz/health/ntcnInfo/healthSourc/thtimtCntnts/thtimtCntntsView.do?thtimt_cntnts_sn=54
+문서명: 무릎관절염, 올바로 관리하기: 나에게 맞는 관리 방법은 무엇인가요?
+열람일: 2026-10-26
+
+[원문 발췌 덤프]
+무릎관절염은 무릎 관절 안의 관절 연골이 점차 사라지고, 관절을 이루는 뼈와 관절막, 주변 인대 등에 손상과 염증이 동반되는 질환입니다. 관절 주변에 통증과 변형이 일어나 기능에 장애가 생기고, 적절하게 관리하지 않으면 통증으로 인해 신체활동 감소뿐만 아니라 자신감의 상실이나 우울증과 같은 정신∙심리적인 문제까지도 일으켜 일상생활에 큰 지장을 초래할 수 있습니다.
+관절 연골은 닳아서 손상되면 자연적으로 회복되거나 재생되지 않기 때문에 미리 예방하는 것이 무엇보다 중요합니다.
+무릎관절염 환자들에게 규칙적인 운동은 가장 기본이 되는 치료와 관리 방법입니다. 관절에 무리가 되지 않는 수준에서 꾸준히 규칙적으로 운동하면 근력이 강화되고, 유연성과 균형감이 향상됩니다. 유산소 운동을 통해 심폐 기능을 개선해 통증을 감소시키고 전신의 운동 기능을 유지해 삶의 질을 향상시킬 수 있습니다.
+무릎관절염 환자에게 우선적으로 권장되는 운동은 앉은 자세에서 허벅지 근육에 힘을 주고 유지하는 대퇴사두근 세팅 운동(Q-setting exercise), 관절에 무리가 되지 않는 올바른 자세의 스쿼트 운동, 벽에 등을 기대고 하는 스쿼트 운동, 평지 걷기, 수영 및 아쿠아로빅 등의 수중 운동, 실내 자전거, 게이트볼, 포크 댄스, 필라테스, 요가, 태극권 등이 있습니다.
+피해야 하는 운동에는 과도한 스쿼트와 런지 운동, 험하고 힘든 등산, 경사가 심한 산비탈 걷기, 장거리 조깅, 관절에 충격을 주기 쉬운 구기 종목 운동 등이 있습니다.
+어떠한 운동이든 장기적인 계획을 세우고, 낮은 강도와 빈도로 시작하여 점차 늘려가는 방식으로 진행을 해야 합니다. 환자 개개인의 나이, 근력, 통증, 관절염의 단계 등이 다르기 때문에 운동량이나 시간, 횟수 등에 절대적인 기준을 정하기는 어렵습니다. 그러나 일반적으로, 운동 중이나 운동 후에 통증이 없는 정도까지 운동하고, 서서히 운동량을 늘려가는 것을 권장합니다. 운동 중에는 약간의 불편감을 느낄 수는 있지만, 운동 후 몇 분 내에 사라지고 가뿐해지는 정도로 운동량을 조절하고, 강도는 단계적으로 서서히 늘리는 것이 바람직합니다. 만약 운동 후에 통증이나 열감, 부종 등이 느껴진다면 냉찜질을 해서 증상을 가라앉히는 것이 좋습니다.
+
+--------------------------------------------------------------------------------
+[공인 1차 출처 원문 덤프 2: 미국 국립의학도서관 PubMed / Sports Medicine 국제학술지 리뷰]
+URL: https://pubmed.ncbi.nlm.nih.gov/21615188/
+문서명: Effects of bicycle saddle height on knee injury risk and cycling performance (Sports Med. 2011 Jun 1;41(6):463-76. DOI: 10.2165/11588740-000000000-00000)
+저자: Rodrigo Bini, Patria A Hume, James L Croft
+열람일: 2026-10-26
+
+[원문 발췌 덤프]
+Abstract:
+Incorrect bicycle configuration may predispose athletes to injury and reduce their cycling performance. There is disagreement within scientific and coaching communities regarding optimal configuration of bicycles for athletes. This review summarizes literature on methods for determining bicycle saddle height and the effects of bicycle saddle height on measures of cycling performance and lower limb injury risk. Peer-reviewed journals, books, theses and conference proceedings published since 1960 were searched using MEDLINE, Scopus, ISI Web of Knowledge, EBSCO and Google Scholar databases, resulting in 62 references being reviewed. Keywords searched included 'body positioning', 'saddle', 'posture, 'cycling' and 'injury'.
+The review revealed that methods for determining optimal saddle height are varied and not well established, and have been based on relationships between saddle height and lower limb length (Hamley and Thomas, trochanteric length, length from ischial tuberosity to floor, LeMond, heel methods) or a reference range of knee joint flexion. There is limited information on the effects of saddle height on lower limb injury risk (lower limb kinematics, knee joint forces and moments and muscle mechanics), but more information on the effects of saddle height on cycling performance (performance time, energy expenditure/oxygen uptake, power output, pedal force application). Increasing saddle height can cause increased shortening of the vastii muscle group, but no change in hamstring length. Length and velocity of contraction in the soleus seems to be more affected by saddle height than that in the gastrocnemius.
+The majority of evidence suggested that a 5% change in saddle height affected knee joint kinematics by 35% and moments by 16%. Patellofemoral compressive force seems to be inversely related to saddle height but the effects on tibiofemoral forces are uncertain. Changes of less than 4% in trochanteric length do not seem to affect injury risk or performance. The main limitations from the reported studies are that different methods have been employed for determining saddle height, small sample sizes have been used, cyclists with low levels of expertise have mostly been evaluated and different outcome variables have been measured. Given that the occurrence of overuse knee joint pain is 50% in cyclists, future studies may focus on how saddle height can be optimized to improve cycling performance and reduce knee joint forces to reduce lower limb injury risk. On the basis of the conflicting evidence on the effects of saddle height changes on performance and lower limb injury risk in cycling, we suggest the saddle height may be set using the knee flexion angle method (25-30°) to reduce the risk of knee injuries and to minimize oxygen uptake.
+
+--------------------------------------------------------------------------------
+[공인 1차 출처 원문 덤프 3: European Journal of Sport Science]
+URL: https://pubmed.ncbi.nlm.nih.gov/31269871/
+문서명: Cycling with Low Saddle Height is Related to Increased Knee Adduction Moments in Healthy Recreational Cyclists (Eur J Sport Sci. 2020 May;20(4):461-467. DOI: 10.1080/17461391.2019.1635651)
+저자: Wang Y, Liang L, Wang D, Tang Y, Wu X, Li L, Liu Y.
+열람일: 2026-10-26
+
+[원문 발췌 덤프]
+Abstract:
+Bicycle saddle height configurations have been shown to affect knee joint biomechanics. Research suggests that an excessively low saddle height may lead to Patellofemoral Pain Syndrome, which is thought to be caused by the knee adduction moment during cycling. However, how saddle heights affect frontal plane knee biomechanics was not clear. We aimed to compare different saddle heights on frontal plane knee biomechanics during cycling. Twenty healthy young recreational cyclists (23.4 ± 0.5 years) performed 3 min of cycling at four different saddle heights (Medium [25° knee flexion angle], Preferred [a height chosen by cyclists], Low [Preferred + 15°], High [Preferred - 15°] measured at the bottom-dead-center). Cycling workload and cadence were set at 60 w and 60 RPM, respectively, since our project was focused on rehabilitation. A motion analysis system and a custom instrumented pedal were used to collect three-dimensional kinematics d (200 Hz) and pedal reaction force (1000 Hz). Results showed that, compared with other saddle heights, Low saddle height produced greater adduction knee moments (11.9 ± 1.9 Nm, P < 0.05), a longer duration (0.15 ± 0.01 s, P < 0.05), larger knee flexion (58.5 ± 2.6°, P < 0.05) and larger abduction angles (-4.5 ± 0.8°, P < 0.05). We showed that Low saddle height resulted in increased knee adduction moments with longer duration. In contrast, High saddle height reduced both knee moments and time duration. The results suggest that increased saddle heights may provide a safe and efficient cycling strategy for healthy young recreational cyclists.
+
+--------------------------------------------------------------------------------
+[공인 1차 출처 원문 덤프 4: Journal of Sports Sciences 2022 체계적 문헌고찰]
+URL: https://pubmed.ncbi.nlm.nih.gov/34706617/
+문서명: Methods to determine saddle height in cycling and implications of changes in saddle height in performance and injury risk: A systematic review (J Sports Sci. 2022;40(4):386-400. DOI: 10.1080/02640414.2021.1994727)
+저자: Rodrigo Bini, Fernando Diefenthaeler, Patria A Hume
+열람일: 2026-10-26
+
+[원문 발췌 덤프]
+Abstract:
+The objective of this systematic review was to assess the methods to determine bicycle saddle height and the effects of saddle height on cycling performance and injury risk outcomes. The key motivator of this review was to update and expand the finding reported by a previous narrative review published in 2011. The literature search included all documents from the following databases: Medline, Scopus, CINAHL, OVID and Google Scholar. Studies were screened against the Appraisal tool for Cross-sectional Studies to assess methodological quality and risk of bias. After screening the initial 29,398 articles identified, full-text screening was performed on 66 studies with 41 of these included in the systematic review. Strong evidence suggests that saddle height should be configured using dynamic measurements of the knee angle, and limb kinematics is influenced by changes in saddle height. However, moderate evidence suggests that changes in saddle height less than 4% of the leg length results in trivial to small changes in lower limb loads, and no effect on oxygen uptake and efficiency. It is also possible to state that there is limited evidence on the effects from changes in saddle height on supramaximal cycling performance or injury risk.

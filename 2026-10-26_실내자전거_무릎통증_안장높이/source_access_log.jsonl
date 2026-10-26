@@ -1,0 +1,9 @@
+{"at": "2026-10-26T01:46:45.381883+00:00", "action": "transition", "previous": "topic", "phase": "titles", "note": "사용자 신규 글 검증 요청: 기존 원고의 제목 확인, 신규 제목 선택 기록 아님"}
+{"at": "2026-10-26T01:46:45.590320+00:00", "action": "transition", "previous": "titles", "phase": "research", "note": "기존 원고의 연골 손상 단정 및 학술 식별자 대조를 위한 추가 검증. 기존 제목을 그대로 입력하며 사용자 선택을 새로 기록하지 않음"}
+{"at": "2026-10-26T01:46:45.799423+00:00", "action": "source_access", "phase": "research", "resource": "https://pubmed.ncbi.nlm.nih.gov/21615188/", "allowed": true}
+{"at": "2026-10-26T01:46:46.028762+00:00", "action": "source_access", "phase": "research", "resource": "https://pubmed.ncbi.nlm.nih.gov/31269871/", "allowed": true}
+{"at": "2026-10-26T01:47:28.193011+00:00", "action": "source_access", "phase": "research", "resource": "https://health.kdca.go.kr/healthinfo/biz/health/ntcnInfo/healthSourc/thtimtCntnts/thtimtCntntsView.do?thtimt_cntnts_sn=54", "allowed": true}
+{"at": "2026-10-26T01:47:28.409716+00:00", "action": "source_access", "phase": "research", "resource": "https://pubmed.ncbi.nlm.nih.gov/34706617/", "allowed": true}
+{"at": "2026-10-26T02:29:14.267976+00:00", "action": "source_access", "phase": "research", "resource": "https://pubmed.ncbi.nlm.nih.gov/34706617/", "allowed": true}
+{"at": "2026-10-26T02:29:14.475764+00:00", "action": "source_access", "phase": "research", "resource": "D:\\작업\\꿀단지\\2026-10-26_실내자전거_무릎통증_안장높이\\official_source_raw.txt", "allowed": true}
+{"at": "2026-10-26T02:53:14.767740+00:00", "action": "source_access", "phase": "research", "resource": "D:\\작업\\꿀단지\\2026-10-26_실내자전거_무릎통증_안장높이\\official_source_raw.txt", "allowed": true}
